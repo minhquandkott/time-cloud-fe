@@ -1,0 +1,54 @@
+.form {
+  display: flex;
+  box-shadow: 0 3px 4rem rgba(0, 0, 0, .15) !important;
+
+}
+
+.form__input {
+  outline: none;
+  padding: 5px;
+  border: none;
+  line-height: 60px;
+  font-size: 17px;
+
+
+}
+
+.form__input__description {
+  flex: .6;
+  padding-left: 40px;
+}
+
+.form__input__task {
+  flex: .4;
+  padding-left: 40px;
+}
+
+.form__input::placeholder {
+  color: #C3C3C3;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.form__input__time {
+  text-align: center;
+  font-size: 22px;
+  color: #727272;
+}
+
+.form__input__time::placeholder {
+  font-size: 22px;
+  color: #727272;
+}
+
+.form__button {
+  background: inherit;
+  outline: none;
+  border: none;
+}
+
+.form__button>.MuiSvgIcon-root {
+  color: #0066CC;
+  font-size: 55px;
+  margin-right: 40px;
+}
