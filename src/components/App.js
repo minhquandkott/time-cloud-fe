@@ -1,10 +1,13 @@
 import React from "react";
 import "./App.css";
+import Header from "./header/Header";
+import Time from "./time/Time";
 
 function App() {
   return (
     <div className="App">
-      <h1>Time cloud</h1>
+      <Header />
+      <Time />
     </div>
   );
 }

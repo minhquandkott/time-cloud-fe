@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #192542;
+  color: white;
+  padding: 10px;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+.header__logo>.MuiSvgIcon-root {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.header__feature {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.header__feature>a {
+  text-decoration: none;
+  text-transform: capitalize;
+  color: white;
+  padding: 10px;
+  font-size: 17px;
+}
+
+.header__account {
+  display: flex;
+  align-items: center;
+}
+
+.header__account>img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 999px;
+  margin-right: 10px;
+}
+
+.header__account>p {
+  margin-right: 10px;
+}
+
+.header__account>.MuiSvgIcon-root {}
