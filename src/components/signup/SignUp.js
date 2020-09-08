@@ -23,7 +23,12 @@ class SignUp extends React.Component {
     return (
       <div className="sign_up">
         <div class="sign_up__left">
-          <LeftSign></LeftSign>
+          <LeftSign>
+            <div className="sign_up__slide">
+              <h2>Let's get to Work.</h2>
+              <p>Spend less time tracking and more time doing.</p>
+            </div>
+          </LeftSign>
         </div>
         <div className="sign_up__right">
           <RightSign header={header} title={title}>

@@ -7,13 +7,34 @@
 .sign_up__left {
   flex: .7;
   background-image:
-    linear-gradient(to right bottom,
+    linear-gradient(to left top,
       rgba(205, 73, 60, .8),
-      rgba(151, 124, 220, .8)), url('/login.png');
-  background-size: cover;
-  background-position: top;
-  padding: 30px;
+      rgba(151, 124, 220, .8)), url('/signup_image.png');
 
+  background-size: cover;
+  background-position: left;
+  padding: 30px;
+  position: relative;
+}
+
+.sign_up__slide {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.sign_up__slide>h2 {
+  display: block;
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.sign_up__slide>p {
+  font-size: 20px;
 }
 
 .sign_up__right {

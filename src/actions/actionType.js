@@ -1,0 +1,6 @@
+export const AUTH_START = "AUTH_START";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAIL = "AUTH_FAIL";
+export const AUTH_SET_REDIRECT_PATH = "AUTH_SET_REDIRECT_PATH";
+export const AUTH_LOGOUT = "AUTH_LOGIN";
+export const AUTH_AUTHENTICATION = "AUTH_AUTHENTICATION";
