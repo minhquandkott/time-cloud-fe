@@ -1,13 +1,14 @@
 import React from "react";
 import "./Header.css";
-import CloudQueueIcon from "@material-ui/icons/CloudQueue";
+import Logo from "../logo/Logo";
+
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const Header = () => {
   return (
     <div className="header">
       <div className="header__logo">
-        <CloudQueueIcon />
+        <Logo />
         TimeCloud
       </div>
       <div className="header__feature">

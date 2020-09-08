@@ -4,16 +4,8 @@ import { Field, reduxForm } from "redux-form";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 
 class Time extends React.Component {
-  renderInput = ({ name, type, placeholder, className, readOnly = false }) => {
-    return (
-      <input
-        name={name}
-        placeholder={placeholder}
-        type={type}
-        className={className}
-        readOnly={readOnly}
-      />
-    );
+  renderInput = ({ input, ...attributes }) => {
+    return <input {...attributes} {...input} />;
   };
 
   render() {
@@ -40,7 +32,7 @@ class Time extends React.Component {
           component={this.renderInput}
           placeholder="0:00:00"
           className="form__input form__input__time"
-          readOnly
+          readOnly={true}
         />
 
         <button className="form__button">
