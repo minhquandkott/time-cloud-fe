@@ -1,17 +1,16 @@
 import React from "react";
 import "./App.css";
-import Header from "./header/Header";
-import Time from "./time/Time";
-import Login from "./login/Login";
-import SignUp from "./signup/SignUp";
+
+import { Router as BrowserRouter } from "react-router-dom";
+import history from "../history";
+import Router from "./Router";
 
 function App() {
   return (
     <div className="App">
-      {/* <Header />
-      <Time /> */}
-      <Login />
-      {/* <SignUp /> */}
+      <BrowserRouter history={history}>
+        <Router />
+      </BrowserRouter>
     </div>
   );
 }

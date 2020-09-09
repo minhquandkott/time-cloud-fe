@@ -26,12 +26,14 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         token: payload.token,
         userId: payload.userId,
+        loading: false,
       };
 
     case AUTH_FAIL:
       return {
         ...state,
         error: payload,
+        loading: false,
       };
 
     case AUTH_SET_REDIRECT_PATH:

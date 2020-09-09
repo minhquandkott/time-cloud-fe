@@ -13,7 +13,7 @@
   background-size: cover;
   background-position: top;
   padding: 30px;
-
+  position: relative;
 }
 
 .login__right {
@@ -59,4 +59,10 @@
   color: white;
   border: none;
   font-size: 17px;
+}
+
+.login__spinner {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }

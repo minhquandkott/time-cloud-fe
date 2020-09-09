@@ -7,6 +7,7 @@ import {
   AUTH_SET_REDIRECT_PATH,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
+import history from "../../history";
 export const authStart = () => {
   return {
     type: AUTH_START,
@@ -39,18 +40,20 @@ export const setRedirectPath = (path) => {
 
 export const authentication = (email, password) => {
   return async (dispatch) => {
-    const response = null;
+    dispatch(authStart());
     try {
       const response = await timeCloudAPI.post("login", {
         email,
         password,
       });
-      console.log(response.headers.authorization, response.headers.userid);
-      dispatch(
-        authSuccess(response.headers.authorization, response.headers.userid)
-      );
+
+      const { authorization, userid } = response.headers;
+      console.log(response);
+      dispatch(authSuccess(authorization, userid));
+      history.push("/");
+      localStorage.setItem("token", authorization);
+      localStorage.setItem("userId", userid);
     } catch (error) {
-      console.log(error.response.data.message);
       dispatch(authFail(error.response.data.message));
     }
   };
@@ -59,5 +62,18 @@ export const authentication = (email, password) => {
 export const logout = () => {
   return {
     type: AUTH_LOGOUT,
+  };
+};
+
+export const checkAuth = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      dispatch(logout());
+    } else {
+      console.log(token);
+      dispatch(authSuccess(token, localStorage.getItem("userId")));
+    }
   };
 };

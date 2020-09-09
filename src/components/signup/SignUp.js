@@ -5,8 +5,11 @@ import RightSign from "../sign/rightSign/RightSign";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
+import timeCloudAPI from "../../apis/timeCloudAPI";
+import Spinner from "../spinner/Spinner";
 
 class SignUp extends React.Component {
+  state = { isLoading: false };
   renderInput({ input, meta, label, ...attributes }) {
     return (
       <div className="sign_up__field">
@@ -16,12 +19,28 @@ class SignUp extends React.Component {
     );
   }
 
-  onFormSubmit(formValues) {
-    console.log(formValues);
-  }
+  onFormSubmit = ({ username, email, password }) => {
+    this.setState({ isLoading: true });
+    timeCloudAPI
+      .post("users", {
+        name: username,
+        email: email,
+        password: password,
+      })
+      .then((data) => {
+        this.setState({ isLoading: false });
+      })
+      .catch((error) => {
+        this.setState({ isLoading: false });
+      });
+  };
 
   render() {
-    const header = { p: "Already have an account?", button: "Sign In" };
+    const header = {
+      p: "Already have an account?",
+      button: "Sign In",
+      url: "/login",
+    };
     const title = {
       h3: "Get Start absolutely free",
       p: "Free forever. No credit card needed.",
@@ -35,6 +54,9 @@ class SignUp extends React.Component {
             <div className="sign_up__slide">
               <h2>Let's get to Work.</h2>
               <p>Spend less time tracking and more time doing.</p>
+              <div className="login__spinner">
+                {this.state.isLoading ? <Spinner /> : null}
+              </div>
             </div>
           </LeftSign>
         </div>

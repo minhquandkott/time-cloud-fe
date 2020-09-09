@@ -5,6 +5,7 @@ import LeftSign from "../sign/leftSign/LeftSign";
 import RightSign from "../sign/rightSign/RightSign";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
+import Spinner from "../spinner/Spinner";
 
 class Login extends React.Component {
   renderInput({ input, meta, label, ...attributes }) {
@@ -17,17 +18,26 @@ class Login extends React.Component {
   }
 
   onFormSubmit = ({ email, password }) => {
-    console.log("1");
     this.props.authentication(email, password);
   };
 
+  onHeaderButtonHandler = () => {};
+
   render() {
-    const header = { p: "Don't have account?", button: "Get Started" };
+    const header = {
+      p: "Don't have account?",
+      button: "Get Started",
+      url: "/signup",
+    };
     const title = { h3: "Sign in to TimeCloud", p: "Enter your detail below" };
     return (
       <div className="login">
         <div className="login__left">
-          <LeftSign></LeftSign>
+          <LeftSign>
+            <div className="login__spinner">
+              {this.props.loading ? <Spinner /> : null}
+            </div>
+          </LeftSign>
         </div>
         <div className="login__right">
           <RightSign header={header} title={title}>
@@ -62,6 +72,12 @@ const loginForm = reduxForm({
   form: "loginForm",
 })(Login);
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+  };
+};
+
+export default connect(mapStateToProps, {
   authentication,
 })(loginForm);
