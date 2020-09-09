@@ -3,6 +3,8 @@ import React from "react";
 import LeftSign from "../sign/leftSign/LeftSign";
 import RightSign from "../sign/rightSign/RightSign";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { authentication } from "../../redux/actions";
 
 class SignUp extends React.Component {
   renderInput({ input, meta, label, ...attributes }) {
@@ -14,15 +16,21 @@ class SignUp extends React.Component {
     );
   }
 
+  onFormSubmit(formValues) {
+    console.log(formValues);
+  }
+
   render() {
     const header = { p: "Already have an account?", button: "Sign In" };
     const title = {
       h3: "Get Start absolutely free",
       p: "Free forever. No credit card needed.",
     };
+    //console.log(this.props);
+
     return (
       <div className="sign_up">
-        <div class="sign_up__left">
+        <div className="sign_up__left">
           <LeftSign>
             <div className="sign_up__slide">
               <h2>Let's get to Work.</h2>
@@ -32,7 +40,10 @@ class SignUp extends React.Component {
         </div>
         <div className="sign_up__right">
           <RightSign header={header} title={title}>
-            <form className="sign_up__form">
+            <form
+              className="sign_up__form"
+              onSubmit={this.props.handleSubmit(this.onFormSubmit)}
+            >
               <Field
                 name="username"
                 type="text"
@@ -62,7 +73,8 @@ class SignUp extends React.Component {
     );
   }
 }
-
-export default reduxForm({
+const signUpForm = reduxForm({
   form: "signUpForm",
 })(SignUp);
+
+export default connect(null, { authentication })(signUpForm);

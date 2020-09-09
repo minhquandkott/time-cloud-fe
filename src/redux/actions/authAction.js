@@ -6,6 +6,7 @@ import {
   AUTH_LOGOUT,
   AUTH_SET_REDIRECT_PATH,
 } from "./actionType";
+import timeCloudAPI from "../../apis/timeCloudAPI";
 export const authStart = () => {
   return {
     type: AUTH_START,
@@ -36,7 +37,24 @@ export const setRedirectPath = (path) => {
   };
 };
 
-export const authentication = () => {};
+export const authentication = (email, password) => {
+  return async (dispatch) => {
+    const response = null;
+    try {
+      const response = await timeCloudAPI.post("login", {
+        email,
+        password,
+      });
+      console.log(response.headers.authorization, response.headers.userid);
+      dispatch(
+        authSuccess(response.headers.authorization, response.headers.userid)
+      );
+    } catch (error) {
+      console.log(error.response.data.message);
+      dispatch(authFail(error.response.data.message));
+    }
+  };
+};
 
 export const logout = () => {
   return {

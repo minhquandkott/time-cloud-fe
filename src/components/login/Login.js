@@ -3,6 +3,8 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import LeftSign from "../sign/leftSign/LeftSign";
 import RightSign from "../sign/rightSign/RightSign";
+import { connect } from "react-redux";
+import { authentication } from "../../redux/actions";
 
 class Login extends React.Component {
   renderInput({ input, meta, label, ...attributes }) {
@@ -14,6 +16,11 @@ class Login extends React.Component {
     );
   }
 
+  onFormSubmit = ({ email, password }) => {
+    console.log("1");
+    this.props.authentication(email, password);
+  };
+
   render() {
     const header = { p: "Don't have account?", button: "Get Started" };
     const title = { h3: "Sign in to TimeCloud", p: "Enter your detail below" };
@@ -24,7 +31,10 @@ class Login extends React.Component {
         </div>
         <div className="login__right">
           <RightSign header={header} title={title}>
-            <form className="login__form">
+            <form
+              className="login__form"
+              onSubmit={this.props.handleSubmit(this.onFormSubmit)}
+            >
               <Field
                 name="email"
                 type="text"
@@ -48,6 +58,10 @@ class Login extends React.Component {
   }
 }
 
-export default reduxForm({
+const loginForm = reduxForm({
   form: "loginForm",
 })(Login);
+
+export default connect(null, {
+  authentication,
+})(loginForm);

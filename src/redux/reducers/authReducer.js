@@ -1,5 +1,4 @@
 import {
-  AUTH_AUTHENTICATION,
   AUTH_FAIL,
   AUTH_START,
   AUTH_SUCCESS,
@@ -7,7 +6,7 @@ import {
   AUTH_SET_REDIRECT_PATH,
 } from "../actions/actionType";
 
-const state = {
+const initialState = {
   token: null,
   userId: null,
   loading: false,
@@ -15,7 +14,7 @@ const state = {
   authRedirectPath: "/",
 };
 
-export default (state, { type, payload }) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case AUTH_START:
       return {
