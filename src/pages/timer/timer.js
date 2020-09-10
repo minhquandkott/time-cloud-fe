@@ -1,11 +1,11 @@
 import React from "react";
 import "./timer.css";
-const timer = () => {
-  return (
-    <div>
-      <h1>Timer</h1>
-    </div>
-  );
-};
+
+class timer extends React.Component {
+  componentDidMount() {}
+  render() {
+    return <div></div>;
+  }
+}
 
 export default timer;

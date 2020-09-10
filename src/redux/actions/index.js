@@ -7,3 +7,5 @@ export {
 } from "./authActions";
 
 export { fetchProjects } from "./projectActions";
+
+export { fetchTasks } from "./taskActions";

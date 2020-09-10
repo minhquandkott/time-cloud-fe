@@ -1,7 +1,5 @@
 import React from "react";
 import "./ProjectItem.css";
-import { fetchProjects } from "../../../redux/actions";
-import { connect } from "react-redux";
 
 class ProjectItem extends React.Component {
   componentDidMount() {
@@ -20,12 +18,4 @@ class ProjectItem extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.auth.userId,
-  };
-};
-
-export default connect(null, {
-  fetchProjects,
-})(ProjectItem);
+export default ProjectItem;
