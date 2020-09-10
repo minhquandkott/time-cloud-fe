@@ -1,0 +1,21 @@
+.task_item {
+  display: flex;
+  background-color: transparent;
+  color: white;
+  padding: 5px 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 170px;
+}
+
+.task_item>.MuiSvgIcon-root {
+  color: #ab8340;
+  background-color: white;
+  border-radius: 50%;
+
+}
+
+.task_item>h3 {
+  color: #fff9ee;
+  font-size: 17px;
+}

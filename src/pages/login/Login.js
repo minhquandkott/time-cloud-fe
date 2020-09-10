@@ -1,18 +1,18 @@
 import "./Login.css";
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import LeftSign from "../sign/leftSign/LeftSign";
-import RightSign from "../sign/rightSign/RightSign";
+import LeftSign from "../../components/sign/leftSign/LeftSign";
+import RightSign from "../../components/sign/rightSign/RightSign";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
-import Spinner from "../spinner/Spinner";
+import Spinner from "../../components/spinner/Spinner";
 
 class Login extends React.Component {
   renderInput({ input, meta, label, ...attributes }) {
     return (
       <div className="login__field">
         <label htmlFor={label}>{label}</label>
-        <input {...input} {...attributes} id={label} />
+        <input {...input} {...attributes} id={label} autoComplete="off" />
       </div>
     );
   }

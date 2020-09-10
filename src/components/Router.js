@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import Login from "../components/login/Login";
+import Login from "../pages/login/Login";
 import Time from "../components/time/Time";
-import SignUp from "../components/signup/SignUp";
+import SignUp from "../pages/signup/SignUp";
 import Header from "../components/header/Header";
 import { checkAuth } from "../redux/actions";
 class Router extends React.Component {

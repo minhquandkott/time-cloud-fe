@@ -1,12 +1,12 @@
 import "./SignUp.css";
 import React from "react";
-import LeftSign from "../sign/leftSign/LeftSign";
-import RightSign from "../sign/rightSign/RightSign";
+import LeftSign from "../../components/sign/leftSign/LeftSign";
+import RightSign from "../../components/sign/rightSign/RightSign";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
 import timeCloudAPI from "../../apis/timeCloudAPI";
-import Spinner from "../spinner/Spinner";
+import Spinner from "../../components/spinner/Spinner";
 
 class SignUp extends React.Component {
   state = { isLoading: false };
@@ -14,7 +14,7 @@ class SignUp extends React.Component {
     return (
       <div className="sign_up__field">
         <label htmlFor={label}>{label}</label>
-        <input {...input} {...attributes} id={label} />
+        <input {...input} {...attributes} id={label} autoComplete="off" />
       </div>
     );
   }

@@ -4,4 +4,6 @@ export {
   authentication,
   logout,
   checkAuth,
-} from "../actions/authAction";
+} from "./authActions";
+
+export { fetchProjects } from "./projectActions";

@@ -1,0 +1,25 @@
+.project_item {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 20px;
+  background-color: #FFC054;
+  display: inline-block;
+
+}
+
+.project_item__header {}
+
+.project_item__header>h3 {
+  color: #FFE9C4;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.project_item__header>h2 {
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}

@@ -5,7 +5,7 @@ import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite"
 
 class Time extends React.Component {
   renderInput = ({ input, ...attributes }) => {
-    return <input {...attributes} {...input} />;
+    return <input {...attributes} {...input} autoComplete="off" />;
   };
 
   render() {
