@@ -3,6 +3,7 @@ import "./ProjectList.css";
 import { fetchProjects } from "../../redux/actions";
 import { connect } from "react-redux";
 import ProjectItem from "./projectItem/ProjectItem";
+import TaskList from "../tasks/TaskList";
 
 class ProjectList extends React.Component {
   componentDidMount() {
@@ -11,11 +12,14 @@ class ProjectList extends React.Component {
 
   renderProjectList() {
     return this.props.projects.map((project) => {
-      return <ProjectItem project={project} key={project.id} />;
+      return (
+        <ProjectItem project={project} key={project.id}>
+          <TaskList projectId={project.id} />
+        </ProjectItem>
+      );
     });
   }
   render() {
-    console.log(this.props);
     return <div className="project_list">{this.renderProjectList()}</div>;
   }
 }

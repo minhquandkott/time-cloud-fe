@@ -14,12 +14,14 @@
 .project_item__header>h3 {
   color: #FFE9C4;
   font-size: 13px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  text-transform: capitalize;
 }
 
 .project_item__header>h2 {
   color: white;
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  text-transform: capitalize;
 }

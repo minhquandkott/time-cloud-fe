@@ -15,7 +15,7 @@ function App() {
       {/* <BrowserRouter history={history}>
         <Router />
       </BrowserRouter> */}
-      <ProjectList />
+      <ProjectList></ProjectList>
     </div>
   );
 }

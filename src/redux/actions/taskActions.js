@@ -25,15 +25,15 @@ export const fetchTasksFail = (errorMassage) => {
   };
 };
 
-export const fetchTasks = () => {
+export const fetchTasks = (projectId) => {
   return async (dispatch) => {
-    const response = await timeCloudAPI.get(`projects/1/tasks`, {
+    const response = await timeCloudAPI.get(`projects/${projectId}/tasks`, {
       headers: {
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
       },
     });
     console.log(response);
-    dispatch(fetchTasksSuccess(1));
+    dispatch(fetchTasksSuccess(response.data));
   };
 };

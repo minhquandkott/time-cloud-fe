@@ -3,7 +3,7 @@ import "./ProjectItem.css";
 
 const ProjectItem = (props) => {
   const { project } = props;
-  console.log(project);
+
   return (
     <div className="project_item">
       <div className="project_item__header">
