@@ -1,0 +1,12 @@
+.counter {
+  font-size: 22px;
+  color: #727272;
+  padding: 5px;
+  line-height: 60px;
+  text-transform: capitalize;
+  min-width: 100px;
+}
+
+.element {
+  padding-right: 2px;
+}

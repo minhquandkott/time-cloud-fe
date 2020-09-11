@@ -1,7 +1,7 @@
 .form {
   display: flex;
   box-shadow: 0 3px 4rem rgba(0, 0, 0, .15) !important;
-
+  align-items: center;
 }
 
 .form__input {
@@ -39,17 +39,8 @@
   font-weight: 400;
 }
 
-.form__input__time {
-  text-align: center;
-  font-size: 22px;
-  color: #727272;
-  max-width: 150px;
-}
 
-.form__input__time::placeholder {
-  font-size: 22px;
-  color: #727272;
-}
+
 
 .form__button {
   background: inherit;

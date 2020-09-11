@@ -19,7 +19,8 @@ export const FETCH_TASKS_FAIL = "FETCH_TASKS_FAIL";
 export const SELECT_TASK = "SELECTED_TASK";
 
 // * TASK ACTION TYPE
-export const TIME_START = "SELECTED_TASK";
-export const TIME_END = "SELECTED_TASK";
+export const TIME_START = "TIME_START";
+export const TIME_END = "TIME_END";
 export const TIME_CREATE = "TIME_CREATE";
 export const TIME_EDIT = "TIME_EDIT";
+export const TIME_SET_INTERVAL_ID = "TIME_SET_INTERVAL_ID";

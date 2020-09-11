@@ -9,3 +9,10 @@ export {
 export { fetchProjects } from "./projectActions";
 
 export { fetchTasks, selectTask } from "./taskActions";
+
+export {
+  beginCountingTime,
+  createTime,
+  editTime,
+  setIntervalId,
+} from "./timeActions";
