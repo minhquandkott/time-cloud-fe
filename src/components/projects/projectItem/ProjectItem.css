@@ -1,13 +1,23 @@
 .project_item {
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   padding: 20px;
   background-color: #FFC054;
   display: inline-block;
-
+  min-width: 180px;
+  margin-right: 20px;
+  padding-bottom: 70px;
+  box-shadow: 6px 7px 13px rgba(0, 0, 0, 0.3);
+  transition: all .5s;
 }
+
+.project_item:hover {
+  transform: scale(1.05, 1.05);
+  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.3);
+}
+
 
 .project_item__header {}
 

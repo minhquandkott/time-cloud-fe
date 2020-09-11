@@ -2,6 +2,7 @@ import {
   FETCH_TASKS_FAIL,
   FETCH_TASKS_SUCCESS,
   FETCH_TASKS_START,
+  SELECT_TASK,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 
@@ -33,7 +34,13 @@ export const fetchTasks = (projectId) => {
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
       },
     });
-    console.log(response);
     dispatch(fetchTasksSuccess(response.data));
+  };
+};
+
+export const selectTask = (task) => {
+  return {
+    type: SELECT_TASK,
+    payload: task,
   };
 };

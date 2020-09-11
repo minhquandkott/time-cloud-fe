@@ -7,15 +7,15 @@ import Router from "./Router";
 // import TaskItem from "../components/tasks/taskItem/TaskItem";
 // import Time from "../components/tasks/taskItem/TaskItem";
 // import ProjectItem from "../components/projects/projectItem/ProjectItem";
-import ProjectList from "../components/projects/ProjectList";
+//import ProjectList from "../components/projects/ProjectList";
 
 function App() {
   return (
     <div className="App">
-      {/* <BrowserRouter history={history}>
+      <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter> */}
-      <ProjectList></ProjectList>
+      </BrowserRouter>
+      {/* <ProjectList></ProjectList> */}
     </div>
   );
 }

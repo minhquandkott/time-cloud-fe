@@ -1,10 +1,17 @@
 import React from "react";
-import "./timer.css";
+import "./Timer.css";
+import Time from "../../components/time/Time";
+import ProjectList from "../../components/projects/ProjectList";
 
 class timer extends React.Component {
   componentDidMount() {}
   render() {
-    return <div></div>;
+    return (
+      <div className="timer">
+        <Time />
+        <ProjectList />
+      </div>
+    );
   }
 }
 

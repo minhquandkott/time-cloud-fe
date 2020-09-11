@@ -8,4 +8,4 @@ export {
 
 export { fetchProjects } from "./projectActions";
 
-export { fetchTasks } from "./taskActions";
+export { fetchTasks, selectTask } from "./taskActions";

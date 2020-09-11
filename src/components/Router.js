@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import Login from "../pages/login/Login";
-import Time from "../components/time/Time";
+import Timer from "../pages/timer/Timer";
 import SignUp from "../pages/signup/SignUp";
 import Header from "../components/header/Header";
 import { checkAuth } from "../redux/actions";
@@ -19,7 +19,7 @@ class Router extends React.Component {
           <React.Fragment>
             <Redirect from="/" to="/timer" />
             <Header />
-            <Route path="/timer" component={Time} />
+            <Route path="/timer" component={Timer} />
           </React.Fragment>
         ) : (
           <Redirect from="/" exact to="/login" />

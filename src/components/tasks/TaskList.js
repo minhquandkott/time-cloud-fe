@@ -9,7 +9,6 @@ class TaskList extends React.Component {
   }
 
   renderTaskList() {
-    console.log(this.props.projectId, this.props.tasks);
     return this.props.tasks.map((task) => {
       return <TaskItem task={task} key={task.id} />;
     });

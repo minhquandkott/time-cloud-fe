@@ -5,12 +5,17 @@
 }
 
 .form__input {
+  background-color: white;
+}
+
+.form__input>input {
   outline: none;
   padding: 5px;
   border: none;
   line-height: 60px;
-  font-size: 17px;
-
+  font-size: 18px;
+  text-transform: capitalize;
+  width: 100%;
 
 }
 
@@ -24,6 +29,10 @@
   padding-left: 40px;
 }
 
+.form__input__task>input {
+  width: auto;
+}
+
 .form__input::placeholder {
   color: #C3C3C3;
   font-size: 18px;
@@ -34,6 +43,7 @@
   text-align: center;
   font-size: 22px;
   color: #727272;
+  max-width: 150px;
 }
 
 .form__input__time::placeholder {

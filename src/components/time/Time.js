@@ -2,15 +2,27 @@ import React from "react";
 import "./Time.css";
 import { Field, reduxForm } from "redux-form";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseIcon from "@material-ui/icons/Pause";
+import { connect } from "react-redux";
 
 class Time extends React.Component {
-  renderInput = ({ input, ...attributes }) => {
-    return <input {...attributes} {...input} autoComplete="off" />;
+  renderInput = ({ input, meta, className, ...attributes }) => {
+    return (
+      <div className={className}>
+        <input {...attributes} {...input} autoComplete="off" />
+      </div>
+    );
   };
 
+  onFormSubmit = (values) => {};
   render() {
+    console.log(this.props);
+
     return (
-      <form className="form">
+      <form
+        className="form"
+        onSubmit={this.props.handleSubmit(this.onFormSubmit)}
+      >
         <Field
           name="description"
           type="text"
@@ -19,7 +31,7 @@ class Time extends React.Component {
           className="form__input form__input__description"
         />
         <Field
-          name="task "
+          name="name"
           type="text"
           component={this.renderInput}
           placeholder="Task..."
@@ -42,7 +54,15 @@ class Time extends React.Component {
     );
   }
 }
+const mapStateToProps = (state, props) => {
+  return {
+    initialValues: { name: state.tasks.selectedTask?.name },
+  };
+};
 
-export default reduxForm({
+const trackTimeForm = reduxForm({
   form: "trackTimeForm",
+  enableReinitialize: true,
 })(Time);
+
+export default connect(mapStateToProps)(trackTimeForm);

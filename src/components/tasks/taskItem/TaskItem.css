@@ -5,15 +5,26 @@
   padding: 5px 0;
   justify-content: space-between;
   align-items: center;
-  width: 170px;
+  margin-bottom: 5px;
 }
 
-.task_item>.MuiSvgIcon-root {
+.task_item .MuiSvgIcon-root {
   color: #ab8340;
   background-color: white;
   border-radius: 50%;
-
+  transition: all .5s;
 }
+
+.task_item>button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.task_item .MuiSvgIcon-root:hover {
+  background-color: rgb(202, 187, 187);
+}
+
 
 .task_item>h3 {
   color: #fff9ee;
