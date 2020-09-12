@@ -1,0 +1,24 @@
+.test {
+  background-color: aqua;
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.test::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: blue;
+  display: inline-block;
+  position: absolute;
+
+}
+
+.test>.MuiSvgIcon-root {
+
+  font-size: 40px;
+  color: red;
+
+}

@@ -3,9 +3,9 @@ import "./ProjectItem.css";
 
 const ProjectItem = (props) => {
   const { project } = props;
-
+  const style = { backgroundColor: `#${props.color}` };
   return (
-    <div className="project_item">
+    <div className="project_item" style={style}>
       <div className="project_item__header">
         <h3>{project.company.name}</h3>
         <h2>{project.name}</h2>

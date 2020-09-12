@@ -15,16 +15,18 @@ class Time extends React.Component {
       </div>
     );
   };
+  componentDidMount() {
+    console.log("2");
+  }
 
-  onFormSubmit = (values) => {
+  onFormSubmit = ({ description, name }) => {
     if (!this.props.isCounting) {
-      this.props.createTime(1, 1);
+      this.props.createTime(description, name);
     } else {
       this.props.createTime();
     }
   };
   render() {
-    console.log(this.props);
     return (
       <form
         className="form"
@@ -47,14 +49,17 @@ class Time extends React.Component {
         <Counter />
 
         <button className="form__button">
-          <PlayCircleFilledWhiteIcon />
+          {this.props.isCounting ? (
+            <PauseIcon className="form__icon__pause" />
+          ) : (
+            <PlayCircleFilledWhiteIcon className="form__icon__play" />
+          )}
         </button>
       </form>
     );
   }
 }
 const mapStateToProps = (state, props) => {
-  const { trackTimeForm } = state.form;
   return {
     initialValues: { name: state.tasks.selectedTask?.name },
     isCounting: state.time.isCounting,

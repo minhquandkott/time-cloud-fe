@@ -4,6 +4,7 @@ import { fetchProjects } from "../../redux/actions";
 import { connect } from "react-redux";
 import ProjectItem from "./projectItem/ProjectItem";
 import TaskList from "../tasks/TaskList";
+import { randomNumber, randomColorArray } from "../../utils/Utils";
 
 class ProjectList extends React.Component {
   componentDidMount() {
@@ -13,7 +14,11 @@ class ProjectList extends React.Component {
   renderProjectList() {
     return this.props.projects.map((project) => {
       return (
-        <ProjectItem project={project} key={project.id}>
+        <ProjectItem
+          project={project}
+          key={project.id}
+          color={randomColorArray[randomNumber(randomColorArray.length)]}
+        >
           <TaskList projectId={project.id} />
         </ProjectItem>
       );

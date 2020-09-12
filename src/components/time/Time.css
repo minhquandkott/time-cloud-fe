@@ -43,13 +43,42 @@
 
 
 .form__button {
-  background: inherit;
+  background-color: white;
   outline: none;
   border: none;
 }
 
 .form__button>.MuiSvgIcon-root {
-  color: #0066CC;
-  font-size: 55px;
+
+  font-size: 50px;
   margin-right: 40px;
+  border-radius: 50%;
+  transition: all 1.5s;
+}
+
+@keyframes scale1 {
+  0% {
+    transform: scale(1.15);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.form__button>.MuiSvgIcon-root:hover {
+  animation: scale1 2s;
+}
+
+
+.form__icon__pause {
+  color: white;
+  background-color: #0066CC;
+
+}
+
+.form__icon__play {
+  color: #0066CC;
 }

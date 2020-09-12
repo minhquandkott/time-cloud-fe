@@ -13,6 +13,7 @@ export { fetchTasks, selectTask } from "./taskActions";
 export {
   beginCountingTime,
   createTime,
-  editTime,
   setIntervalId,
+  checkCurrentTime,
+  updateTime,
 } from "./timeActions";

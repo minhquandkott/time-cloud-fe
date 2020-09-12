@@ -5,26 +5,35 @@ import Login from "../pages/login/Login";
 import Timer from "../pages/timer/Timer";
 import SignUp from "../pages/signup/SignUp";
 import Header from "../components/header/Header";
-import { checkAuth } from "../redux/actions";
+import { checkAuth, setRedirectPath } from "../redux/actions";
 class Router extends React.Component {
   componentDidMount() {
     this.props.checkAuth();
   }
+
+  router = () => {
+    return;
+  };
   render() {
     return (
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
+      <React.Fragment>
         {this.props.isLogin ? (
           <React.Fragment>
-            <Redirect from="/" to="/timer" />
             <Header />
-            <Route path="/timer" component={Timer} />
+            <Switch>
+              <Route path="/timer" component={Timer} />
+              <Redirect from="" to="/timer" />
+            </Switch>
           </React.Fragment>
         ) : (
-          <Redirect from="/" exact to="/login" />
+          <Switch>
+            <Route path="/signup" component={SignUp} />
+
+            <Route path="/login" component={Login} />
+            <Redirect from="*" to="/login" />
+          </Switch>
         )}
-      </Switch>
+      </React.Fragment>
     );
   }
 }
@@ -32,8 +41,10 @@ class Router extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isLogin: state.auth.token ? true : false,
+    authRedirectPath: state.auth.authRedirectPath,
   };
 };
 export default connect(mapStateToProps, {
   checkAuth,
+  setRedirectPath,
 })(Router);

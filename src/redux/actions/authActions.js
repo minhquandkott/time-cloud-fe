@@ -7,6 +7,7 @@ import {
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
+import { TOKEN, USER_ID } from "../../utils/localStorageContact";
 export const authStart = () => {
   return {
     type: AUTH_START,
@@ -47,11 +48,10 @@ export const authentication = (email, password) => {
       });
 
       const { authorization, userid } = response.headers;
-      console.log(response);
       dispatch(authSuccess(authorization, userid));
       history.push("/");
-      localStorage.setItem("token", authorization);
-      localStorage.setItem("userId", userid);
+      localStorage.setItem(TOKEN, authorization);
+      localStorage.setItem(USER_ID, userid);
     } catch (error) {
       dispatch(authFail(error.response.data.message));
     }
@@ -65,14 +65,13 @@ export const logout = () => {
 };
 
 export const checkAuth = () => {
-  return (dispatch) => {
-    const token = localStorage.getItem("token");
+  return (dispatch, getState) => {
+    const token = localStorage.getItem(TOKEN);
 
     if (!token) {
       dispatch(logout());
     } else {
-      console.log(token);
-      dispatch(authSuccess(token, localStorage.getItem("userId")));
+      dispatch(authSuccess(token, localStorage.getItem(USER_ID)));
     }
   };
 };

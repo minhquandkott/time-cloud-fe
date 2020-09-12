@@ -10,8 +10,6 @@ function App() {
       <BrowserRouter history={history}>
         <Router />
       </BrowserRouter>
-
-      {/* <Counter /> */}
     </div>
   );
 }

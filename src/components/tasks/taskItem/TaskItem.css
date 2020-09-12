@@ -29,4 +29,6 @@
 .task_item>h3 {
   color: #fff9ee;
   font-size: 17px;
+  text-transform: capitalize;
+  font-weight: 400;
 }
