@@ -23,7 +23,6 @@ export const fetchProjects = (userId) => {
       });
       dispatch(fetchProjectsSuccess(response.data));
     } catch (error) {
-      console.log(error.response);
       dispatch(fetchProjectsFail(2));
     }
   };

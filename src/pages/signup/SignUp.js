@@ -6,7 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
 import timeCloudAPI from "../../apis/timeCloudAPI";
-import Spinner from "../../components/spinner/Spinner";
+import Spinner from "../../components/loading/spinner/Spinner";
 
 class SignUp extends React.Component {
   state = { isLoading: false };

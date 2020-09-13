@@ -5,7 +5,7 @@ import LeftSign from "../../components/sign/leftSign/LeftSign";
 import RightSign from "../../components/sign/rightSign/RightSign";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
-import Spinner from "../../components/spinner/Spinner";
+import Spinner from "../../components/loading/spinner/Spinner";
 
 class Login extends React.Component {
   renderInput({ input, meta, label, ...attributes }) {

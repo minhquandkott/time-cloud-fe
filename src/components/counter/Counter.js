@@ -49,7 +49,6 @@ class Counter extends React.Component {
   }
 
   render() {
-    console.log(this.props.totalSecond);
     const { hour, minute, second } = this.convertSecond(this.props.totalSecond);
     return (
       <div className="counter">

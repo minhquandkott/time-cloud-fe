@@ -7,7 +7,6 @@ export const randomColorArray = [
   "4CDA87",
   "80A1D4",
   "75C9C8",
-  "F7F4EA",
   "0267C1",
   "EFA00B",
   "D65108",

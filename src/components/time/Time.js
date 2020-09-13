@@ -15,9 +15,7 @@ class Time extends React.Component {
       </div>
     );
   };
-  componentDidMount() {
-    console.log("2");
-  }
+  componentDidMount() {}
 
   onFormSubmit = ({ description, name }) => {
     if (!this.props.isCounting) {
