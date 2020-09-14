@@ -4,14 +4,15 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
-import Skeleton from "./loading/skeleton/Skeleton";
+import Point from "./point/Point";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter history={history}>
+      {/* <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter>
-      {/* <Skeleton /> */}
+      </BrowserRouter> */}
+      {/* <Time /> */}
+      <Point />
     </div>
   );
 }

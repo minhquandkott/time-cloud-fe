@@ -1,0 +1,13 @@
+.point {
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  justify-content: space-around;
+
+}
+
+.point>p {
+  color: inherit;
+  font-size: 17px;
+  font-weight: 400;
+}

@@ -35,3 +35,7 @@
   margin-bottom: 10px;
   text-transform: capitalize;
 }
+
+.project_item__info {
+  color: white;
+}

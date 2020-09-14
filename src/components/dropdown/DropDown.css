@@ -1,0 +1,39 @@
+.drop_down {
+  position: absolute;
+
+  background-color: white;
+  width: 100%;
+  overflow-y: auto;
+  opacity: 0;
+  height: 0;
+  box-shadow: 11px 15px 15px rgba(0, 0, 0, .3);
+  padding-left: 40px;
+  transition: all 1s;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+
+
+.drop_down::-webkit-scrollbar {
+  width: 3px;
+
+}
+
+.drop_down::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+.drop_down::-webkit-scrollbar-thumb {
+  background: #0066CC;
+}
+
+.drop_down>.drop_down__title {
+  text-align: left;
+  color: #808080;
+  font-weight: 700;
+  font-size: 17px;
+  text-transform: capitalize;
+  padding-top: 10px;
+}

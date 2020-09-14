@@ -1,7 +1,7 @@
 .task_item {
   display: flex;
   background-color: transparent;
-  color: white;
+  color: inherit;
   padding: 5px 0;
   justify-content: space-between;
   align-items: center;
@@ -9,25 +9,30 @@
 }
 
 .task_item .MuiSvgIcon-root {
-  color: #ab8340;
+  color: #756445;
   background-color: white;
   border-radius: 50%;
-  transition: all .5s;
+  transition: all 1s;
 }
 
 .task_item>button {
   border: none;
   outline: none;
   background-color: transparent;
+
 }
+
+
 
 .task_item .MuiSvgIcon-root:hover {
   background-color: rgb(202, 187, 187);
+  transform: translate(0, -5px);
+  box-shadow: 7px 7px 15px rgba(0, 0, 0, .7);
 }
 
 
 .task_item>h3 {
-  color: #fff9ee;
+  color: inherit;
   font-size: 17px;
   text-transform: capitalize;
   font-weight: 400;

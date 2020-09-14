@@ -2,36 +2,54 @@
   display: flex;
   box-shadow: 0 3px 4rem rgba(0, 0, 0, .15) !important;
   align-items: center;
-  padding-right: 40px;
   position: relative;
+  justify-content: space-between;
 }
 
 .form__input {
   background-color: white;
 }
 
-.form__input>input {
+.form__input {
   outline: none;
   padding: 5px;
   border: none;
   line-height: 60px;
   font-size: 18px;
   text-transform: capitalize;
-  width: 100%;
 
+}
+
+.time__left {
+  flex: .5;
+  position: relative;
+}
+
+.time__middle {
+  flex: .3;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.time__right {
+  display: flex;
+  padding-right: 40px;
 }
 
 .form__input__description {
-  flex: .6;
   padding-left: 40px;
 }
+
+.form__input__description:focus+div {
+  opacity: 1;
+  height: 200px;
+}
+
+
+.form__input__task {}
 
 .form__input__task {
-  flex: .4;
-  padding-left: 40px;
-}
-
-.form__input__task>input {
   width: auto;
 }
 
@@ -88,16 +106,24 @@
 
 .form__icon__save {
   color: white;
-  background-color: rgb(184, 149, 149);
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
 
 }
 
+.form__icon__save>.MuiSvgIcon-root {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(184, 149, 149);
+  border-radius: 50%;
+}
+
 .form__icon__save:hover {
   animation: scale1 1s;
+}
+
+.drop_down__list_task {
+  padding: 10px 0;
 }
