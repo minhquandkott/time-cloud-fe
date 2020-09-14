@@ -37,24 +37,3 @@ export const fetchTasks = (projectId) => {
     dispatch(fetchTasksSuccess(response.data));
   };
 };
-
-export const fetchTask = (taskId) => {
-  return async (dispatch) => {
-    try {
-      const response = await timeCloudAPI.get(`tasks/${taskId}`, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-        },
-      });
-      dispatch(selectTask(response.data));
-    } catch (error) {}
-  };
-};
-
-export const selectTask = (task) => {
-  return {
-    type: SELECT_TASK,
-    payload: task,
-  };
-};

@@ -4,10 +4,13 @@ import {
   TIME_SET_INTERVAL_ID,
   STOP_COUNTING_TIME,
   INCREASE_TIME,
+  START_SAVING_TIME,
+  SAVING_TIME_SUCCESS,
+  SAVING_TIME_FAIL,
+  SELECT_TASK,
 } from "./actionType";
 import { SELECTED_TASK_ID, BEGIN_TIME } from "../../utils/localStorageContact";
-//import timeCloudAPI from "../../apis/timeCloudAPI";
-import { fetchTask } from "./taskActions";
+import timeCloudAPI from "../../apis/timeCloudAPI";
 
 export const beginCountingTime = (beginTime, preCountingTime) => {
   return {
@@ -28,7 +31,7 @@ export const endCountingTime = (endTime) => {
   };
 };
 
-export const createTime = (description, name) => {
+export const createTime = () => {
   return (dispatch, getState) => {
     const { time } = getState();
 
@@ -36,9 +39,6 @@ export const createTime = (description, name) => {
       dispatch(beginCountingTime(new Date().getTime()));
     } else {
       dispatch(endCountingTime(new Date().getTime()));
-      dispatch(setCurrentTime(0));
-      localStorage.removeItem(SELECTED_TASK_ID);
-      localStorage.removeItem(BEGIN_TIME);
       clearInterval(time.intervalId);
     }
   };
@@ -82,5 +82,77 @@ export const updateTime = () => {
   return (dispatch, getState) => {
     const { totalSecond } = getState().time;
     dispatch(setCurrentTime(totalSecond + 1));
+  };
+};
+
+export const startSavingTime = () => {
+  return {
+    type: START_SAVING_TIME,
+  };
+};
+
+export const savingTimeSuccess = () => {
+  return {
+    type: SAVING_TIME_SUCCESS,
+  };
+};
+export const savingTimeFail = (errorMessage) => {
+  return {
+    type: SAVING_TIME_FAIL,
+    payload: errorMessage,
+  };
+};
+
+export const saveTime = (description) => {
+  return async (dispatch, getState) => {
+    const { id } = getState().time.selectedTask;
+    const { beginTime, endTime } = getState().time;
+    const convertedBeginTime = new Date().toISOString(beginTime);
+    const convertedEndTime = new Date().toISOString(endTime);
+    dispatch(startSavingTime());
+    try {
+      const response = await timeCloudAPI.post(
+        `tasks/${id}/times`,
+        {
+          description,
+          endTime: convertedEndTime,
+          startTime: convertedBeginTime,
+        },
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
+            userId: 60,
+          },
+        }
+      );
+      localStorage.removeItem(SELECTED_TASK_ID);
+      localStorage.removeItem(BEGIN_TIME);
+      console.log(response);
+      dispatch(savingTimeSuccess());
+    } catch (error) {
+      dispatch(savingTimeFail(error.response.message));
+    }
+  };
+};
+
+export const fetchTask = (taskId) => {
+  return async (dispatch) => {
+    try {
+      const response = await timeCloudAPI.get(`tasks/${taskId}`, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
+        },
+      });
+      dispatch(selectTask(response.data));
+    } catch (error) {}
+  };
+};
+
+export const selectTask = (task) => {
+  return {
+    type: SELECT_TASK,
+    payload: task,
   };
 };

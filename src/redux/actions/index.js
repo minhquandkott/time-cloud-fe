@@ -8,7 +8,7 @@ export {
 
 export { fetchProjects } from "./projectActions";
 
-export { fetchTasks, selectTask } from "./taskActions";
+export { fetchTasks } from "./taskActions";
 
 export {
   beginCountingTime,
@@ -16,4 +16,7 @@ export {
   setIntervalId,
   checkCurrentTime,
   updateTime,
+  fetchTask,
+  saveTime,
+  selectTask,
 } from "./timeActions";

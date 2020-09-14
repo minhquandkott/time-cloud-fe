@@ -42,7 +42,7 @@ export const authentication = (email, password) => {
   return async (dispatch) => {
     dispatch(authStart());
     try {
-      const response = await timeCloudAPI.post("login", {
+      const response = await timeCloudAPI.post("/login", {
         email,
         password,
       });
@@ -53,7 +53,8 @@ export const authentication = (email, password) => {
       localStorage.setItem(TOKEN, authorization);
       localStorage.setItem(USER_ID, userid);
     } catch (error) {
-      dispatch(authFail(error.response.data.message));
+      console.log(error);
+      // dispatch(authFail(error.response.message));
     }
   };
 };

@@ -4,8 +4,10 @@ import { Field, reduxForm } from "redux-form";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import PauseIcon from "@material-ui/icons/Pause";
 import { connect } from "react-redux";
-import { createTime } from "../../redux/actions";
+import { createTime, saveTime } from "../../redux/actions";
 import Counter from "../counter/Counter";
+import SaveAltIcon from "@material-ui/icons/SaveAlt";
+import Spinner from "../loading/spinner/Spinner";
 
 class Time extends React.Component {
   renderInput = ({ input, meta, className, ...attributes }) => {
@@ -18,12 +20,23 @@ class Time extends React.Component {
   componentDidMount() {}
 
   onFormSubmit = ({ description, name }) => {
-    if (!this.props.isCounting) {
-      this.props.createTime(description, name);
+    console.log(description !== "", name !== "");
+    if (description !== "" && name !== "") {
+      if (!this.props.isCounting) {
+        this.props.createTime();
+      } else {
+        this.props.createTime();
+      }
     } else {
-      this.props.createTime();
     }
   };
+
+  onSaveButtonClick = (event) => {
+    this.props.reset();
+    this.props.saveTime(this.props.description);
+  };
+
+  onSaveButtonClick;
   render() {
     return (
       <form
@@ -53,14 +66,25 @@ class Time extends React.Component {
             <PlayCircleFilledWhiteIcon className="form__icon__play" />
           )}
         </button>
+        {!this.props.isCounting && this.props.beginTime ? (
+          <div className="form__icon__save" onClick={this.onSaveButtonClick}>
+            {this.props.isSaving ? <Spinner /> : <SaveAltIcon />}
+          </div>
+        ) : null}
       </form>
     );
   }
 }
 const mapStateToProps = (state, props) => {
+  const { isCounting, isSaving, beginTime, selectedTask } = state.time;
+  const { tasks } = state;
+
   return {
-    initialValues: { name: state.tasks.selectedTask?.name },
-    isCounting: state.time.isCounting,
+    initialValues: { name: selectedTask?.name, description: "" },
+    isCounting,
+    isSaving,
+    description: state.form.trackTimeForm?.values.description,
+    beginTime,
   };
 };
 
@@ -71,4 +95,5 @@ const trackTimeForm = reduxForm({
 
 export default connect(mapStateToProps, {
   createTime,
+  saveTime,
 })(trackTimeForm);

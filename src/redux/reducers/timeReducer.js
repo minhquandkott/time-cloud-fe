@@ -4,6 +4,10 @@ import {
   TIME_SET_INTERVAL_ID,
   STOP_COUNTING_TIME,
   INCREASE_TIME,
+  START_SAVING_TIME,
+  SAVING_TIME_SUCCESS,
+  SAVING_TIME_FAIL,
+  SELECT_TASK,
 } from "../actions/actionType";
 
 const initialState = {
@@ -12,6 +16,9 @@ const initialState = {
   isCounting: false,
   intervalId: null,
   totalSecond: 0,
+  isSaving: false,
+  errorMessage: null,
+  selectedTask: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -22,6 +29,11 @@ export default (state = initialState, { type, payload }) => {
         isCounting: true,
         beginTime: payload.beginTime,
         preCountingTime: payload.preCountingTime,
+      };
+    case SELECT_TASK:
+      return {
+        ...state,
+        selectedTask: payload,
       };
     case TIME_END:
       return {
@@ -44,6 +56,21 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         totalSecond: payload,
+      };
+    case START_SAVING_TIME:
+      return {
+        ...state,
+        isSaving: true,
+      };
+    case SAVING_TIME_SUCCESS:
+      return {
+        ...initialState,
+      };
+    case SAVING_TIME_FAIL:
+      return {
+        ...state,
+        isSaving: false,
+        errorMessage: payload,
       };
     default:
       return state;

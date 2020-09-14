@@ -9,10 +9,6 @@ import {
 import { SELECTED_TASK_ID, BEGIN_TIME } from "../../utils/localStorageContact";
 
 class Counter extends React.Component {
-  // state = {
-  //   totalSecond: 0,
-  // };
-
   updateTime = () => {
     let { totalSecond } = this.state;
     this.setState({ totalSecond: totalSecond + 1 });
