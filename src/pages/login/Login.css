@@ -28,7 +28,28 @@
 }
 
 
-.login__field {}
+.login__field {
+  position: relative;
+  ;
+}
+
+.login__field>.MuiSvgIcon-root {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #EE5353;
+}
+
+.login__field>.invalid {
+  color: #EE5353;
+
+}
+
+.login__field>.valid {
+  color: #2ecc71
+}
+
+
 
 .login__field>label {
 
@@ -44,9 +65,24 @@
   border: none;
   border-bottom: 1px solid #747474;
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   font-size: 20px;
 }
+
+.login__field>p {
+  margin-bottom: 30px;
+  color: #EE5353;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+  line-height: 15px;
+}
+
+.login__field>p:empty {
+  height: 15px;
+}
+
+
 
 
 

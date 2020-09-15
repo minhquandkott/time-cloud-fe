@@ -4,10 +4,11 @@
   align-items: center;
   position: relative;
   justify-content: space-between;
+  background-color: white;
 }
 
 .form__input {
-  background-color: white;
+  background-color: transparent;
 }
 
 .form__input {
@@ -23,13 +24,33 @@
 .time__left {
   flex: .5;
   position: relative;
+  max-width: 400px;
+}
+
+.time__left>.drop_down {
+  padding-left: 40px;
+  width: 80%;
 }
 
 .time__middle {
   flex: .3;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  position: relative;
+  max-width: 300px;
+}
+
+
+
+.form__input__task {
+  flex: .5;
+  padding-left: 10px;
+}
+
+.time__middle>.point {
+  flex: .5;
 }
 
 .time__right {
@@ -41,16 +62,23 @@
   padding-left: 40px;
 }
 
+
+
 .form__input__description:focus+div {
   opacity: 1;
   height: 200px;
 }
 
+.form__input__task:focus+div {
+  opacity: 1;
+  height: 200px;
 
-.form__input__task {}
+}
 
-.form__input__task {
-  width: auto;
+.form__input__task+div {
+  left: 0;
+  bottom: 0;
+  transform: translate(0, 100%);
 }
 
 .form__input::placeholder {
@@ -63,7 +91,7 @@
 
 
 .form__button {
-  background-color: white;
+  background-color: transparent;
   outline: none;
   border: none;
   border-radius: 50%;
@@ -126,4 +154,16 @@
 
 .drop_down__list_task {
   padding: 10px 0;
+}
+
+.drop_down__recent_task {
+  padding: 10px 0;
+}
+
+.drop_down__list_task>.project__name {
+  padding: 10px;
+}
+
+.drop_down__list_task>.project__task {
+  padding-left: 30px;
 }

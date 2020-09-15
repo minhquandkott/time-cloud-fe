@@ -10,8 +10,7 @@ import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import Spinner from "../loading/spinner/Spinner";
 import Dropdown from "../dropdown/DropDown";
 import TaskItem from "../tasks/taskItem/TaskItem";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-
+import Point from "../point/Point";
 class Time extends React.Component {
   renderInput = ({ input, meta, className, ...attributes }) => {
     return (
@@ -36,10 +35,43 @@ class Time extends React.Component {
     }
   };
 
-  renderListTask = () => {
+  renderRecentTask = () => {
     return this.props.tasks.map((task) => {
-      return <TaskItem task={task} />;
+      return <TaskItem task={task} key={task.id} />;
     });
+  };
+
+  renderListTask = () => {
+    const { projects, tasks } = this.props;
+    let projectMap = new Map();
+    projects.forEach((project) => {
+      const taskList = tasks.filter((task) => task.project.id === project.id);
+      projectMap.set(project.name, taskList);
+    });
+    const sortedProjectMap = new Map(
+      [...projectMap.entries()].sort((preEntries, postEntries) => {
+        return postEntries[1].length - preEntries[1].length;
+      })
+    );
+
+    const returnValue = [];
+    sortedProjectMap.forEach((tasks, projectName) => {
+      if (tasks.length) {
+        returnValue.push(
+          <React.Fragment>
+            <div className="project__name">
+              <Point color="80A1D4" fontSize="20px" title={projectName} />
+            </div>
+            <div className="project__task">
+              {tasks.map((task) => {
+                return <TaskItem task={task} />;
+              })}
+            </div>
+          </React.Fragment>
+        );
+      }
+    });
+    return returnValue;
   };
 
   onSaveButtonClick = (event) => {
@@ -65,12 +97,19 @@ class Time extends React.Component {
             />
 
             <Dropdown title="recent task">
-              <div className="drop_down__list_task">
-                {this.renderListTask()}
+              <div className="drop_down__recent__task">
+                {this.renderRecentTask()}
               </div>
             </Dropdown>
           </div>
           <div className="time__middle">
+            {this.props.selectedTask ? (
+              <Point
+                color="80A1D4"
+                fontSize="30px"
+                title={this.props.selectedTask.project.name}
+              />
+            ) : null}
             <Field
               name="name"
               type="text"
@@ -78,6 +117,11 @@ class Time extends React.Component {
               placeholder="Task..."
               className="form__input form__input__task"
             />
+            <Dropdown>
+              <div className="drop_down__list_task">
+                {this.renderListTask()}
+              </div>
+            </Dropdown>
           </div>
           <div className="time__right">
             <Counter />
@@ -104,8 +148,7 @@ class Time extends React.Component {
 }
 const mapStateToProps = (state, props) => {
   const { isCounting, isSaving, beginTime, selectedTask } = state.time;
-  const { tasks } = state;
-
+  const { tasks, projects } = state;
   return {
     initialValues: { name: selectedTask?.name, description: "" },
     isCounting,
@@ -113,6 +156,8 @@ const mapStateToProps = (state, props) => {
     description: state.form.trackTimeForm?.values.description,
     beginTime,
     tasks: tasks.tasks,
+    selectedTask,
+    projects: projects.projects,
   };
 };
 

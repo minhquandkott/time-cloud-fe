@@ -5,34 +5,27 @@ import RightSign from "../../components/sign/rightSign/RightSign";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
-import timeCloudAPI from "../../apis/timeCloudAPI";
 import Spinner from "../../components/loading/spinner/Spinner";
+import { signUp } from "../../redux/actions";
+import * as validation from "../../utils/validationUtils";
+import ErrorIcon from "@material-ui/icons/Error";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 class SignUp extends React.Component {
-  state = { isLoading: false };
-  renderInput({ input, meta, label, ...attributes }) {
+  renderInput({ input, meta: { error, touched }, label, ...attributes }) {
     return (
       <div className="sign_up__field">
         <label htmlFor={label}>{label}</label>
         <input {...input} {...attributes} id={label} autoComplete="off" />
+        {error && touched ? <ErrorIcon className="invalid" /> : null}
+        {!error ? <CheckCircleIcon className="valid" /> : null}
+        {error && touched ? <p>{error}</p> : <p></p>}
       </div>
     );
   }
 
   onFormSubmit = ({ username, email, password }) => {
-    this.setState({ isLoading: true });
-    timeCloudAPI
-      .post("users", {
-        name: username,
-        email: email,
-        password: password,
-      })
-      .then((data) => {
-        this.setState({ isLoading: false });
-      })
-      .catch((error) => {
-        this.setState({ isLoading: false });
-      });
+    this.props.signUp(username, email, password);
   };
 
   render() {
@@ -45,7 +38,6 @@ class SignUp extends React.Component {
       h3: "Get Start absolutely free",
       p: "Free forever. No credit card needed.",
     };
-    //console.log(this.props);
 
     return (
       <div className="sign_up">
@@ -55,7 +47,7 @@ class SignUp extends React.Component {
               <h2>Let's get to Work.</h2>
               <p>Spend less time tracking and more time doing.</p>
               <div className="login__spinner">
-                {this.state.isLoading ? <Spinner /> : null}
+                {this.props.isLoading ? <Spinner /> : null}
               </div>
             </div>
           </LeftSign>
@@ -72,6 +64,11 @@ class SignUp extends React.Component {
                 placeholder="Juile Morin"
                 component={this.renderInput}
                 label="username"
+                validate={[
+                  validation.require,
+                  validation.minLength6,
+                  validation.maxLength15,
+                ]}
               />
               <Field
                 name="email"
@@ -79,6 +76,7 @@ class SignUp extends React.Component {
                 placeholder="juile@gmail.com"
                 component={this.renderInput}
                 label="email"
+                validate={[validation.require, validation.email]}
               />
               <Field
                 name="password"
@@ -86,6 +84,11 @@ class SignUp extends React.Component {
                 placeholder="6+ character"
                 component={this.renderInput}
                 label="password"
+                validate={[
+                  validation.require,
+                  validation.minLength6,
+                  validation.maxLength15,
+                ]}
               />
               <button className="sign_up__submit">Sign Up</button>
             </form>
@@ -99,4 +102,13 @@ const signUpForm = reduxForm({
   form: "signUpForm",
 })(SignUp);
 
-export default connect(null, { authentication })(signUpForm);
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.auth.loading,
+  };
+};
+
+export default connect(mapStateToProps, {
+  authentication,
+  signUp,
+})(signUpForm);

@@ -4,6 +4,9 @@ import {
   AUTH_SUCCESS,
   AUTH_LOGOUT,
   AUTH_SET_REDIRECT_PATH,
+  AUTH_START_SIGN_UP,
+  AUTH_SIGN_UP_FAIL,
+  AUTH_SIGN_UP_SUCCESS,
 } from "../actions/actionType";
 
 const initialState = {
@@ -46,7 +49,22 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
       };
-
+    case AUTH_START_SIGN_UP:
+      return {
+        ...state,
+        loading: true,
+      };
+    case AUTH_SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case AUTH_SIGN_UP_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
     default:
       return state;
   }

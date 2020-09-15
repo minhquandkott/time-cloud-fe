@@ -49,7 +49,25 @@
 }
 
 
-.sign_up__field {}
+.sign_up__field {
+  position: relative;
+}
+
+.sign_up__field>.MuiSvgIcon-root {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.sign_up__field>.invalid {
+  color: #EE5353;
+
+}
+
+.sign_up__field>.valid {
+  color: #2ecc71
+}
+
 
 .sign_up__field>label {
 
@@ -65,8 +83,21 @@
   border: none;
   border-bottom: 1px solid #747474;
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   font-size: 20px;
+}
+
+.sign_up__field>p {
+  margin-bottom: 30px;
+  color: #EE5353;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+  line-height: 15px;
+}
+
+.sign_up__field>p:empty {
+  height: 15px;
 }
 
 

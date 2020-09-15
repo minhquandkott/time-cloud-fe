@@ -4,6 +4,9 @@ import {
   AUTH_SUCCESS,
   AUTH_LOGOUT,
   AUTH_SET_REDIRECT_PATH,
+  AUTH_SIGN_UP_FAIL,
+  AUTH_SIGN_UP_SUCCESS,
+  AUTH_START_SIGN_UP,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
@@ -53,8 +56,7 @@ export const authentication = (email, password) => {
       localStorage.setItem(TOKEN, authorization);
       localStorage.setItem(USER_ID, userid);
     } catch (error) {
-      console.log(error);
-      // dispatch(authFail(error.response.message));
+      dispatch(authFail(error.response.message));
     }
   };
 };
@@ -73,6 +75,42 @@ export const checkAuth = () => {
       dispatch(logout());
     } else {
       dispatch(authSuccess(token, localStorage.getItem(USER_ID)));
+    }
+  };
+};
+
+export const startSignUp = () => {
+  return {
+    type: AUTH_START_SIGN_UP,
+  };
+};
+
+export const signUpSuccess = () => {
+  return {
+    type: AUTH_SIGN_UP_SUCCESS,
+  };
+};
+
+export const signUpFail = (errorMessage) => {
+  return {
+    type: AUTH_SIGN_UP_FAIL,
+    payload: errorMessage,
+  };
+};
+
+export const signUp = (username, email, password) => {
+  return async (dispatch) => {
+    dispatch(startSignUp());
+    try {
+      await timeCloudAPI.post(`users`, {
+        name: username,
+        email,
+        password,
+      });
+      dispatch(signUpSuccess());
+      history.push("/login");
+    } catch (error) {
+      dispatch(signUpFail(error.response.message));
     }
   };
 };

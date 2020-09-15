@@ -13,6 +13,7 @@ const TaskItem = (props) => {
     <div className="task_item">
       <h3>{props.task.name}</h3>
       <button onClick={onButtonPlayClick}>
+        {props.children}
         <PlayCircleFilledWhiteIcon />
       </button>
     </div>

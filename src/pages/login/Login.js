@@ -5,14 +5,21 @@ import LeftSign from "../../components/sign/leftSign/LeftSign";
 import RightSign from "../../components/sign/rightSign/RightSign";
 import { connect } from "react-redux";
 import { authentication } from "../../redux/actions";
+import * as validation from "../../utils/validationUtils";
+import ErrorIcon from "@material-ui/icons/Error";
 import Spinner from "../../components/loading/spinner/Spinner";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 class Login extends React.Component {
-  renderInput({ input, meta, label, ...attributes }) {
+  renderInput({ input, meta: { error, touched }, label, ...attributes }) {
     return (
       <div className="login__field">
         <label htmlFor={label}>{label}</label>
+
         <input {...input} {...attributes} id={label} autoComplete="off" />
+        {error && touched ? <ErrorIcon className="invalid" /> : null}
+        {!error ? <CheckCircleIcon className="valid" /> : null}
+        {error && touched ? <p>{error}</p> : <p></p>}
       </div>
     );
   }
@@ -51,6 +58,7 @@ class Login extends React.Component {
                 placeholder="juile@gmail.com"
                 component={this.renderInput}
                 label="email"
+                validate={[validation.require, validation.email]}
               />
               <Field
                 name="password"
@@ -58,6 +66,11 @@ class Login extends React.Component {
                 placeholder="6+ character"
                 component={this.renderInput}
                 label="password"
+                validate={[
+                  validation.require,
+                  validation.minLength6,
+                  validation.maxLength15,
+                ]}
               />
               <button className="login__submit">Sign In</button>
             </form>

@@ -1,8 +1,10 @@
 .point {
   display: flex;
-  padding: 5px;
+  padding-right: 10px;
+  padding-top: 2px;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
+  background-color: transparent;
 
 }
 
@@ -10,4 +12,6 @@
   color: inherit;
   font-size: 17px;
   font-weight: 400;
+  white-space: nowrap;
+  text-transform: capitalize;
 }
