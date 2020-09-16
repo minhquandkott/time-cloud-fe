@@ -105,11 +105,12 @@ export const savingTimeFail = (errorMessage) => {
 
 export const saveTime = (description) => {
   return async (dispatch, getState) => {
+    dispatch(startSavingTime());
     const { id } = getState().time.selectedTask;
     const { beginTime, endTime } = getState().time;
     const convertedBeginTime = new Date().toISOString(beginTime);
     const convertedEndTime = new Date().toISOString(endTime);
-    dispatch(startSavingTime());
+
     try {
       const response = await timeCloudAPI.post(
         `tasks/${id}/times`,
@@ -122,7 +123,7 @@ export const saveTime = (description) => {
           headers: {
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-            userId: 60,
+            userId: 67,
           },
         }
       );
@@ -131,6 +132,7 @@ export const saveTime = (description) => {
       console.log(response);
       dispatch(savingTimeSuccess());
     } catch (error) {
+      console.log(error);
       dispatch(savingTimeFail(error.response.message));
     }
   };

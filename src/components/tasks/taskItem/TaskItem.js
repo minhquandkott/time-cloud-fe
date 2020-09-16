@@ -11,9 +11,15 @@ const TaskItem = (props) => {
 
   return (
     <div className="task_item">
-      <h3>{props.task.name}</h3>
-      <button onClick={onButtonPlayClick}>
-        {props.children}
+      <h3>{props.task?.name}</h3>
+      {props.children}
+      <button
+        onClick={
+          props.methodHandlerReplacement
+            ? props.methodHandlerReplacement
+            : onButtonPlayClick
+        }
+      >
         <PlayCircleFilledWhiteIcon />
       </button>
     </div>

@@ -5,6 +5,7 @@ export {
   logout,
   checkAuth,
   signUp,
+  fetchUser,
 } from "./authActions";
 
 export { fetchProjects } from "./projectActions";
@@ -21,3 +22,5 @@ export {
   saveTime,
   selectTask,
 } from "./timeActions";
+
+export { fetchTimes, selectTime } from "./timesActions";

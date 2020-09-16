@@ -3,8 +3,6 @@ import React from "react";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
 const Point = (props) => {
-  console.log(`"${props.fontSize}"`, `"#${props.color}"`);
-
   return (
     <div
       className="point"
@@ -19,6 +17,7 @@ const Point = (props) => {
         }}
       />
       <p className="title">{props.title}</p>
+      {props.children}
     </div>
   );
 };

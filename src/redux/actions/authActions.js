@@ -7,6 +7,7 @@ import {
   AUTH_SIGN_UP_FAIL,
   AUTH_SIGN_UP_SUCCESS,
   AUTH_START_SIGN_UP,
+  AUTH_SET_USER_INFO,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
@@ -17,7 +18,7 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId, username) => {
   return {
     type: AUTH_SUCCESS,
     payload: {
@@ -52,6 +53,7 @@ export const authentication = (email, password) => {
 
       const { authorization, userid } = response.headers;
       dispatch(authSuccess(authorization, userid));
+      dispatch(setUserInfo(response.data));
       history.push("/");
       localStorage.setItem(TOKEN, authorization);
       localStorage.setItem(USER_ID, userid);
@@ -70,11 +72,11 @@ export const logout = () => {
 export const checkAuth = () => {
   return (dispatch, getState) => {
     const token = localStorage.getItem(TOKEN);
-
+    const userId = localStorage.getItem(USER_ID);
     if (!token) {
       dispatch(logout());
     } else {
-      dispatch(authSuccess(token, localStorage.getItem(USER_ID)));
+      dispatch(authSuccess(token, userId));
     }
   };
 };
@@ -112,5 +114,24 @@ export const signUp = (username, email, password) => {
     } catch (error) {
       dispatch(signUpFail(error.response.message));
     }
+  };
+};
+
+const setUserInfo = (user) => {
+  return {
+    type: AUTH_SET_USER_INFO,
+    payload: user,
+  };
+};
+
+export const fetchUser = (id) => {
+  return async (dispatch) => {
+    const response = await timeCloudAPI.get(`users/${id}`, {
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
+      },
+    });
+    dispatch(setUserInfo(response.data));
   };
 };

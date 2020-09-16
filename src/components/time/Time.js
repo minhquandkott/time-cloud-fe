@@ -4,11 +4,17 @@ import { Field, reduxForm } from "redux-form";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import PauseIcon from "@material-ui/icons/Pause";
 import { connect } from "react-redux";
-import { createTime, saveTime } from "../../redux/actions";
+import {
+  createTime,
+  saveTime,
+  fetchTimes,
+  selectTime,
+  selectTask,
+} from "../../redux/actions";
 import Counter from "../counter/Counter";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import Spinner from "../loading/spinner/Spinner";
-import Dropdown from "../dropdown/DropDown";
+import DropDownTime from "../dropdown/DropDownTime";
 import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
 class Time extends React.Component {
@@ -22,8 +28,16 @@ class Time extends React.Component {
       />
     );
   };
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchTimes(67);
+  }
 
+  onClickToSelectTime = (time) => {
+    this.props.selectTime(time);
+    this.props.selectTask(
+      this.props.tasks.find((task) => task.id === time.task.id)
+    );
+  };
   onFormSubmit = ({ description, name }) => {
     if (description !== "" && name !== "") {
       if (!this.props.isCounting) {
@@ -36,8 +50,21 @@ class Time extends React.Component {
   };
 
   renderRecentTask = () => {
-    return this.props.tasks.map((task) => {
-      return <TaskItem task={task} key={task.id} />;
+    return this.props.times.map((time) => {
+      return (
+        <TaskItem
+          task={time.task}
+          key={time.id}
+          methodHandlerReplacement={() => this.onClickToSelectTime(time)}
+        >
+          <Point
+            color="80A1D4"
+            fontSize="20px"
+            title={time.task.project.name}
+          />
+          <p>{time.description}</p>
+        </TaskItem>
+      );
     });
   };
 
@@ -46,7 +73,7 @@ class Time extends React.Component {
     let projectMap = new Map();
     projects.forEach((project) => {
       const taskList = tasks.filter((task) => task.project.id === project.id);
-      projectMap.set(project.name, taskList);
+      projectMap.set(project, taskList);
     });
     const sortedProjectMap = new Map(
       [...projectMap.entries()].sort((preEntries, postEntries) => {
@@ -55,19 +82,28 @@ class Time extends React.Component {
     );
 
     const returnValue = [];
-    sortedProjectMap.forEach((tasks, projectName) => {
+    sortedProjectMap.forEach((tasks, project) => {
       if (tasks.length) {
         returnValue.push(
-          <React.Fragment>
+          <div className="project" key={project.id}>
             <div className="project__name">
-              <Point color="80A1D4" fontSize="20px" title={projectName} />
+              <Point color="80A1D4" fontSize="20px" title={project.name}>
+                <p
+                  className="project__company_name"
+                  style={{
+                    color: "#80A1D4",
+                  }}
+                >
+                  ( {project.company.name} )
+                </p>
+              </Point>
             </div>
             <div className="project__task">
               {tasks.map((task) => {
-                return <TaskItem task={task} />;
+                return <TaskItem task={task} key={task.id} />;
               })}
             </div>
-          </React.Fragment>
+          </div>
         );
       }
     });
@@ -96,11 +132,11 @@ class Time extends React.Component {
               className="form__input form__input__description"
             />
 
-            <Dropdown title="recent task">
-              <div className="drop_down__recent__task">
+            <DropDownTime title="recent task">
+              <div className="drop_down__recent_task">
                 {this.renderRecentTask()}
               </div>
-            </Dropdown>
+            </DropDownTime>
           </div>
           <div className="time__middle">
             {this.props.selectedTask ? (
@@ -117,11 +153,11 @@ class Time extends React.Component {
               placeholder="Task..."
               className="form__input form__input__task"
             />
-            <Dropdown>
+            <DropDownTime>
               <div className="drop_down__list_task">
                 {this.renderListTask()}
               </div>
-            </Dropdown>
+            </DropDownTime>
           </div>
           <div className="time__right">
             <Counter />
@@ -148,9 +184,13 @@ class Time extends React.Component {
 }
 const mapStateToProps = (state, props) => {
   const { isCounting, isSaving, beginTime, selectedTask } = state.time;
-  const { tasks, projects } = state;
+  const { tasks, projects, times } = state;
+  const { selectedTime } = times;
   return {
-    initialValues: { name: selectedTask?.name, description: "" },
+    initialValues: {
+      name: selectedTask?.name,
+      description: selectedTime?.description ? selectedTime.description : "",
+    },
     isCounting,
     isSaving,
     description: state.form.trackTimeForm?.values.description,
@@ -158,6 +198,7 @@ const mapStateToProps = (state, props) => {
     tasks: tasks.tasks,
     selectedTask,
     projects: projects.projects,
+    times: times.times,
   };
 };
 
@@ -169,4 +210,7 @@ const trackTimeForm = reduxForm({
 export default connect(mapStateToProps, {
   createTime,
   saveTime,
+  fetchTimes,
+  selectTime,
+  selectTask,
 })(trackTimeForm);

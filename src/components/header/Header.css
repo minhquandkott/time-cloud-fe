@@ -3,7 +3,7 @@
   justify-content: space-between;
   background-color: #192542;
   color: white;
-  padding: 5px 10px;
+  padding: 5px 20px;
 }
 
 .header__logo {
@@ -50,6 +50,7 @@
 
 .header__account>p {
   margin-right: 10px;
+  text-transform: capitalize;
 }
 
 .header__account>.MuiSvgIcon-root {}

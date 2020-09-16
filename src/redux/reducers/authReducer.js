@@ -7,6 +7,7 @@ import {
   AUTH_START_SIGN_UP,
   AUTH_SIGN_UP_FAIL,
   AUTH_SIGN_UP_SUCCESS,
+  AUTH_SET_USER_INFO,
 } from "../actions/actionType";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   loading: false,
   error: null,
   authRedirectPath: "/",
+  user: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -64,6 +66,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: payload,
+      };
+    case AUTH_SET_USER_INFO:
+      return {
+        ...state,
+        user: payload,
       };
     default:
       return state;

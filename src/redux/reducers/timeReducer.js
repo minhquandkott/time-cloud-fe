@@ -65,6 +65,7 @@ export default (state = initialState, { type, payload }) => {
     case SAVING_TIME_SUCCESS:
       return {
         ...initialState,
+        isSaving: false,
       };
     case SAVING_TIME_FAIL:
       return {
