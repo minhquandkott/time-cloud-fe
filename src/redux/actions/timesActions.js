@@ -45,8 +45,7 @@ export const fetchTimes = (userId) => {
       });
       dispatch(fetchTimesSuccess(response.data));
     } catch (error) {
-      console.log(error);
-      //dispatch(fetchTimesFail(error.response.errorMessage));
+      dispatch(fetchTimesFail(error.response.errorMessage));
     }
   };
 };

@@ -4,7 +4,6 @@ import Time from "../../components/time/Time";
 import ProjectList from "../../components/projects/ProjectList";
 
 class timer extends React.Component {
-  componentDidMount() {}
   render() {
     return (
       <div className="timer">

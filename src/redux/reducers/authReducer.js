@@ -49,7 +49,7 @@ export default (state = initialState, { type, payload }) => {
 
     case AUTH_LOGOUT:
       return {
-        ...state,
+        ...initialState,
       };
     case AUTH_START_SIGN_UP:
       return {

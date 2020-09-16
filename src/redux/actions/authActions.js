@@ -63,9 +63,17 @@ export const authentication = (email, password) => {
   };
 };
 
-export const logout = () => {
+const logoutSuccess = () => {
   return {
     type: AUTH_LOGOUT,
+  };
+};
+
+export const logout = () => {
+  return (dispatch, getState) => {
+    localStorage.clear();
+    dispatch(logoutSuccess());
+    history.push("/");
   };
 };
 
@@ -77,6 +85,7 @@ export const checkAuth = () => {
       dispatch(logout());
     } else {
       dispatch(authSuccess(token, userId));
+      fetchUser(userId);
     }
   };
 };
