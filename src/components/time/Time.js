@@ -32,13 +32,15 @@ class Time extends React.Component {
     this.props.fetchTimes(67);
   }
 
-  onClickToSelectTime = (time) => {
+  onClickToSelectTime = (time, event) => {
+    event.preventDefault();
     this.props.selectTime(time);
     this.props.selectTask(
       this.props.tasks.find((task) => task.id === time.task.id)
     );
   };
   onFormSubmit = ({ description, name }) => {
+    console.log("1");
     if (description !== "" && name !== "") {
       if (!this.props.isCounting) {
         this.props.createTime();
@@ -55,7 +57,9 @@ class Time extends React.Component {
         <TaskItem
           task={time.task}
           key={time.id}
-          methodHandlerReplacement={() => this.onClickToSelectTime(time)}
+          methodHandlerReplacement={(event) =>
+            this.onClickToSelectTime(time, event)
+          }
         >
           <Point
             color="80A1D4"
@@ -115,7 +119,6 @@ class Time extends React.Component {
     this.props.saveTime(this.props.description);
   };
 
-  onSaveButtonClick;
   render() {
     return (
       <div className="time">

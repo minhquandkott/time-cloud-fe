@@ -12,7 +12,6 @@ class Router extends React.Component {
   }
 
   render() {
-    console.log("2");
     return (
       <React.Fragment>
         {this.props.isLogin ? (
