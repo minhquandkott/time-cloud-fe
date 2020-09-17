@@ -3,8 +3,10 @@ import "./Timer.css";
 import Time from "../../components/time/Time";
 import ProjectList from "../../components/projects/ProjectList";
 
-class timer extends React.Component {
+class Timer extends React.Component {
   render() {
+    console.log("1");
+
     return (
       <div className="timer">
         <Time />
@@ -14,4 +16,4 @@ class timer extends React.Component {
   }
 }
 
-export default timer;
+export default Timer;

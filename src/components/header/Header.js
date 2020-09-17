@@ -16,7 +16,7 @@ const Header = (props) => {
     window.addEventListener("mouseup", (event) => {
       if (
         event.target.parentElement !==
-        dropDownRef.current.previousElementSibling
+        dropDownRef.current?.previousElementSibling
       ) {
         setIsOpen(false);
       }

@@ -12,14 +12,15 @@ class Router extends React.Component {
   }
 
   render() {
+    console.log("2");
     return (
       <React.Fragment>
         {this.props.isLogin ? (
           <React.Fragment>
             <Header />
             <Switch>
+              <Route path="/" exact component={Timer} />
               <Route path="/timer" component={Timer} />
-              <Redirect from="" to="/timer" />
             </Switch>
           </React.Fragment>
         ) : (

@@ -16,7 +16,7 @@ class ProjectList extends React.Component {
     if (this.props.isFetching) {
       return <Skeleton />;
     }
-
+    console.log(this.props.projects);
     return this.props.projects.map((project) => {
       return (
         <ProjectItem
