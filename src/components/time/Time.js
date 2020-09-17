@@ -40,7 +40,6 @@ class Time extends React.Component {
     );
   };
   onFormSubmit = ({ description, name }) => {
-    console.log("1");
     if (description !== "" && name !== "") {
       if (!this.props.isCounting) {
         this.props.createTime();

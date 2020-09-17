@@ -7,29 +7,13 @@ import {
   updateTime,
 } from "../../redux/actions";
 import { SELECTED_TASK_ID, BEGIN_TIME } from "../../utils/localStorageContact";
-
+import { convertSecond } from "../../utils/Utils";
 class Counter extends React.Component {
   updateTime = () => {
     let { totalSecond } = this.state;
     this.setState({ totalSecond: totalSecond + 1 });
   };
 
-  convertSecond = (totalSecond) => {
-    let timeRemaining = totalSecond;
-    const convertedHour =
-      totalSecond > 3600 ? Math.floor(totalSecond / 3600) : 0;
-    timeRemaining = timeRemaining - convertedHour * 3600;
-    const convertedMinute =
-      timeRemaining > 60 ? Math.floor(timeRemaining / 60) : 0;
-    timeRemaining = timeRemaining - convertedMinute * 60;
-
-    const convertedSecond = timeRemaining;
-    return {
-      second: convertedSecond < 10 ? `0${convertedSecond}` : convertedSecond,
-      minute: convertedMinute < 10 ? `0${convertedMinute}` : convertedHour,
-      hour: convertedHour + "",
-    };
-  };
   componentDidMount() {
     this.props.checkCurrentTime();
   }
@@ -37,15 +21,17 @@ class Counter extends React.Component {
   componentDidUpdate() {
     if (this.props.isCounting && !this.props.intervalId) {
       const { selectedTaskId, beginTime } = this.props;
-      const id = setInterval(this.props.updateTime, 1000);
+      const id = setInterval(this.props.updateTime, 10);
       this.props.setIntervalId(id);
       localStorage.setItem(SELECTED_TASK_ID, selectedTaskId);
-      localStorage.setItem(BEGIN_TIME, beginTime);
+      if (!localStorage.getItem(BEGIN_TIME)) {
+        localStorage.setItem(BEGIN_TIME, beginTime);
+      }
     }
   }
 
   render() {
-    const { hour, minute, second } = this.convertSecond(this.props.totalSecond);
+    const { hour, minute, second } = convertSecond(this.props.totalSecond);
     return (
       <div className="counter">
         <span className="element counter__hour">{hour}</span>:
@@ -66,7 +52,7 @@ const mapStateToProps = (state) => {
   } = state.time;
   return {
     isCounting: isCounting,
-    selectedTaskId: state.tasks?.selectedTask?.id,
+    selectedTaskId: state.time.selectedTask?.id,
     beginTime: beginTime,
     preCountingTime: preCountingTime,
     intervalId: intervalId,

@@ -33,6 +33,7 @@ export default (state = initialState, { type, payload }) => {
     case SELECT_TASK:
       return {
         ...state,
+        ...initialState,
         selectedTask: payload,
       };
     case TIME_END:

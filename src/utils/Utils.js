@@ -12,3 +12,19 @@ export const randomColorArray = [
   "D65108",
   "591F0A",
 ];
+
+export const convertSecond = (totalSecond) => {
+  let timeRemaining = totalSecond;
+  const convertedHour = totalSecond > 3600 ? Math.floor(totalSecond / 3600) : 0;
+  timeRemaining = timeRemaining - convertedHour * 3600;
+  const convertedMinute =
+    timeRemaining > 60 ? Math.floor(timeRemaining / 60) : 0;
+  timeRemaining = timeRemaining - convertedMinute * 60;
+
+  const convertedSecond = timeRemaining;
+  return {
+    second: convertedSecond < 10 ? `0${convertedSecond}` : convertedSecond,
+    minute: convertedMinute < 10 ? `0${convertedMinute}` : convertedMinute,
+    hour: convertedHour + "",
+  };
+};

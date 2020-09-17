@@ -107,17 +107,16 @@ export const saveTime = (description) => {
   return async (dispatch, getState) => {
     dispatch(startSavingTime());
     const { id } = getState().time.selectedTask;
-    const { beginTime, endTime } = getState().time;
-    const convertedBeginTime = new Date().toISOString(beginTime);
-    const convertedEndTime = new Date().toISOString(endTime);
+    const { endTime, totalSecond } = getState().time;
+    const convertedBeginTime = endTime - totalSecond;
 
     try {
       const response = await timeCloudAPI.post(
         `tasks/${id}/times`,
         {
           description,
-          endTime: convertedEndTime,
-          startTime: convertedBeginTime,
+          mileSecondEndTime: endTime,
+          mileSecondStartTime: convertedBeginTime,
         },
         {
           headers: {
@@ -153,8 +152,12 @@ export const fetchTask = (taskId) => {
 };
 
 export const selectTask = (task) => {
-  return {
-    type: SELECT_TASK,
-    payload: task,
+  return (dispatch, getState) => {
+    const intervalId = getState().time.intervalId;
+    clearInterval(intervalId);
+    dispatch({
+      type: SELECT_TASK,
+      payload: task,
+    });
   };
 };
