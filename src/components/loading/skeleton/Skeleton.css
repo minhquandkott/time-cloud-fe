@@ -1,9 +1,8 @@
 .skeleton {
-  background-color: #fff;
+  background-color: var(--color-light-primary);
   background-image: linear-gradient(to right, #FBFCFF 0%, #e0d8d8 15%, #FBFCFF 30%, #FBFCFF 100%);
   background-repeat: no-repeat;
   animation: skeletonToRight 1s infinite;
-  background-color: #FBFCFF;
   display: flex;
   width: auto;
   flex: 1;
@@ -11,22 +10,22 @@
 
 @keyframes skeletonToRight {
   from {
-    background-position: -500px 0;
+    background-position: -50rem 0;
   }
 
   to {
-    background-position: 1000px 0;
+    background-position: 100rem 0;
   }
 
 }
 
 .skeleton__item {
   flex: 1;
-  height: 100px;
+  height: 10rem;
   background-color: rgb(202, 195, 195);
-  margin: 20px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  margin: 2rem;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }

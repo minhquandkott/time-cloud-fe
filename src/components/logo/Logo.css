@@ -1,9 +1,9 @@
 .logo {
-  font-size: 30px !important;
-  padding: 10px;
-  color: white;
+  font-size: 3rem !important;
+  padding: 1rem;
+  color: var(--color-light-primary);
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 2rem;
+  left: 2rem;
 
 }

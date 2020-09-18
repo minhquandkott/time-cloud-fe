@@ -1,7 +1,7 @@
 .right_sign__header {
   flex: .2;
   text-align: right;
-  color: #747474;
+
   font-size: 18px;
   font-weight: 300;
 }
@@ -9,17 +9,18 @@
 .right_sign__header>p {
   display: inline;
   margin-right: 10px;
+  color: var(--color-dark-tertiary)
 }
 
 .right_sign__header>a {
   text-decoration: none;
-  background-color: white;
+  background-color: var(--color-light-primary);
   outline: none;
-  padding: 6px 12px;
-  border: 1px solid black;
+  padding: .6rem 1.2rem;
+  border: 1px solid var(--color-dark-primary);
   color: inherit;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 1.7rem;
   transition: all .5s;
   text-transform: capitalize;
   white-space: nowrap;
@@ -27,23 +28,22 @@
 
 .right_sign__header>a:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-
+  box-shadow: var(--box-shadow-primary)
 }
 
 .right_sign__title {
   flex: .2;
-  margin-bottom: 50px;
+  margin-bottom: 5rem;
 }
 
 .right_sign__title>h3 {
-  font-size: 25px;
+  font-size: 2.5rem;
   font-weight: 400;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .right_sign__title>p {
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 300;
 }
 

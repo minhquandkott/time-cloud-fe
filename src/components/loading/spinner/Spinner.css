@@ -5,7 +5,7 @@
   height: 100%;
   position: relative;
   border-radius: 50%;
-  background-color: rgb(245, 227, 227);
+  background-color: var(--color-light-secondary);
 }
 
 .spinner>img {

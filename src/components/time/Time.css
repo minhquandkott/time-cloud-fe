@@ -4,7 +4,7 @@
   align-items: center;
   position: relative;
   justify-content: space-between;
-  background-color: white;
+  background-color: var(--color-light-primary);
 }
 
 .form__input {
@@ -13,10 +13,10 @@
 
 .form__input {
   outline: none;
-  padding: 5px;
+  padding: .5rem;
   border: none;
-  line-height: 60px;
-  font-size: 18px;
+  line-height: 6rem;
+  font-size: 1.8rem;
   text-transform: capitalize;
 
 }
@@ -24,11 +24,11 @@
 .time__left {
   flex: .5;
   position: relative;
-  max-width: 400px;
+  max-width: 40rem;
 }
 
 .time__left>.drop_down {
-  padding-left: 40px;
+  padding-left: 4rem;
   width: 80%;
 }
 
@@ -39,14 +39,14 @@
   align-items: center;
   background-color: transparent;
   position: relative;
-  max-width: 300px;
+  max-width: 30rem;
 }
 
 
 
 .form__input__task {
   flex: .5;
-  padding-left: 10px;
+  padding-left: 1rem;
 }
 
 .time__middle>.point {
@@ -56,25 +56,25 @@
 
 .time__right {
   display: flex;
-  padding-right: 40px;
+  padding-right: 4rem;
   justify-content: center;
   align-items: center;
 }
 
 .form__input__description {
-  padding-left: 40px;
+  padding-left: 4rem;
 }
 
 
 
 .form__input__description:focus+div {
   opacity: 1;
-  height: 200px;
+  height: 20rem;
 }
 
 .form__input__task:focus+div {
   opacity: 1;
-  height: 200px;
+  height: 20rem;
 
 }
 
@@ -85,8 +85,8 @@
 }
 
 .form__input::placeholder {
-  color: #C3C3C3;
-  font-size: 18px;
+  color: var(--color-light-tertiary);
+  font-size: 1.8rem;
   font-weight: 400;
 }
 
@@ -103,8 +103,7 @@
 
 .form__button>.MuiSvgIcon-root {
 
-  font-size: 50px;
-
+  font-size: 5rem;
   border-radius: 50%;
   transition: all 1.5s;
 }
@@ -127,28 +126,30 @@
 
 
 .form__icon__pause {
-  color: white;
-  background-color: #0066CC;
+  color: var(--color-light-primary);
+  background-color: var(--color-error);
 }
 
 .form__icon__play {
-  color: #0066CC;
+  color: var(--color-button);
 }
 
 .form__icon__save {
-  color: white;
+  color: var(--color-light-primary);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
+
 }
 
 .form__icon__save>.MuiSvgIcon-root {
 
   background-color: rgb(184, 149, 149);
   border-radius: 50%;
+  font-size: 2.5rem;
 }
 
 .form__icon__save:hover {
@@ -165,14 +166,14 @@
 
 .drop_down__recent_task p {
   text-transform: capitalize;
-  font-size: 17px;
+  font-size: 1.7rem;
   font-weight: 400;
 }
 
 .drop_down__list_task .project__name {
-  padding: 10px;
+  padding: 1rem;
 }
 
 .drop_down__list_task .project__task {
-  padding-left: 30px;
+  padding-left: 3rem;
 }

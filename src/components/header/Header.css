@@ -1,21 +1,23 @@
 .header {
+  --background-color-header: #192542;
   display: flex;
   justify-content: space-between;
-  background-color: #192542;
-  color: white;
-  padding: 5px 20px;
+  background-color: var(--background-color-header);
+
+  color: var(--color-light-primary);
+  padding: .5rem 2rem;
 }
 
 .header__logo {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 2rem;
 }
 
-.header__logo > .MuiSvgIcon-root {
+.header__logo>.MuiSvgIcon-root {
   position: relative !important;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
 
 .header__feature {
@@ -24,12 +26,12 @@
   align-items: center;
 }
 
-.header__feature > a {
+.header__feature>a {
   text-decoration: none;
   text-transform: capitalize;
-  color: white;
-  padding: 10px;
-  font-size: 17px;
+  color: var(--color-light-primary);
+  padding: 1rem;
+  font-size: 1.7rem;
 }
 
 .header__account {
@@ -38,17 +40,18 @@
   position: relative;
 }
 
-.header__account > img {
-  width: 30px;
-  height: 30px;
+.header__account>img {
+  width: 2rem;
+  height: 2rem;
   object-fit: contain;
   border-radius: 999px;
   margin-right: 10px;
 }
 
-.header__account > p {
-  margin-right: 10px;
+.header__account>p {
+  margin-right: 1rem;
   text-transform: capitalize;
+  font-size: 1.6rem;
 }
 
 .header__drop_down {
@@ -56,20 +59,21 @@
   bottom: 0;
   right: 0;
   transform: translate(0, 100%);
-  background-color: #192542;
-  color: white;
+  background-color: var(--background-color-header);
+  color: var(--color-light-primary);
   z-index: 1;
 
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--box-shadow-primary);
   visibility: hidden;
 }
+
 .active {
   visibility: visible;
 }
 
-.header__account > button {
-  width: 20px;
-  height: 20px;
+.header__account>button {
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,29 +82,29 @@
   border: none;
 }
 
-.header__account > button > .MuiSvgIcon-root {
-  color: #192542;
-  background-color: #e6f1fd;
+.header__account>button>.MuiSvgIcon-root {
+  color: var(--background-color-header);
+  background-color: var(--color-light-primary);
   border-radius: 50%;
   transition: all 1s;
 }
 
-.header__account > button > .MuiSvgIcon-root:hover,
-.header__account > button:checked > .MuiSvgIcon-root {
-  background-color: white;
-  color: #0571ed;
+.header__account>button>.MuiSvgIcon-root:hover,
+.header__account>button:checked>.MuiSvgIcon-root {
+  background-color: var(--color-light-primary);
+  color: var(--color-button);
 }
 
-.header__drop_down > p {
-  padding: 15px 30px;
-  font-size: 17px;
+.header__drop_down>p {
+  padding: 1.5rem 3rem;
+  font-size: 1.7rem;
 }
-.header__drop_down > p:hover {
-  background-color: white;
-  color: black;
+
+.header__drop_down>p:hover {
+  background-color: var(--color-light-primary);
+  color: var(--background-color-header);
   cursor: pointer;
   z-index: 1;
 }
 
-.header__account > .MuiSvgIcon-root {
-}
+.header__account>.MuiSvgIcon-root {}

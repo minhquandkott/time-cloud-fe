@@ -13,7 +13,7 @@
 
   background-size: cover;
   background-position: left;
-  padding: 30px;
+  padding: 3rem;
   position: relative;
 }
 
@@ -23,29 +23,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-light-primary);
 }
 
 .sign_up__slide>h2 {
   display: block;
-  font-size: 40px;
+  font-size: 4rem;
   font-weight: 400;
-  margin-bottom: 30px;
+  margin-bottom: 3rem;
 }
 
 .sign_up__slide>p {
-  font-size: 20px;
+  font-size: 2rem;
 }
 
 .sign_up__right {
   flex: .3;
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  padding: 5rem;
 }
 
 .sign_up__form .sign_up__field:last-child {
-  margin-bottom: 50px;
+  margin-bottom: 5rem;
 }
 
 
@@ -57,15 +57,16 @@
   position: absolute;
   top: 0;
   right: 0;
+  font-size: 2rem;
 }
 
 .sign_up__field>.invalid {
-  color: #EE5353;
+  color: var(--color-error);
 
 }
 
 .sign_up__field>.valid {
-  color: #2ecc71
+  color: var(--color-complete)
 }
 
 
@@ -73,31 +74,31 @@
 
   display: block;
   text-transform: capitalize;
-  font-size: 17px;
+  font-size: 1.7rem;
   font-weight: 400;
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 
 .sign_up__field>input {
   outline: none;
   border: none;
-  border-bottom: 1px solid #747474;
+  border-bottom: 1px solid var(--color-dark-tertiary);
   width: 100%;
-  margin-bottom: 10px;
-  font-size: 20px;
+  margin-bottom: 1rem;
+  font-size: 2rem;
 }
 
 .sign_up__field>p {
-  margin-bottom: 30px;
-  color: #EE5353;
-  font-size: 15px;
+  margin-bottom: 3rem;
+  color: var(--color-error);
+  font-size: 1.5rem;
   font-weight: 700;
   text-align: right;
-  line-height: 15px;
+  line-height: 1.5rem;
 }
 
 .sign_up__field>p:empty {
-  height: 15px;
+  height: 1.5rem;
 }
 
 
@@ -105,16 +106,16 @@
 
 .sign_up__submit {
   width: 100%;
-  padding: 10px;
+  padding: 1rem;
   outline: none;
-  background-color: #0066CC;
-  color: white;
+  background-color: var(--color-button);
+  color: var(--color-light-primary);
   border: none;
-  font-size: 17px;
+  font-size: 1.7rem;
 }
 
 .login__spinner {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 2rem;
+  right: 2rem;
 }

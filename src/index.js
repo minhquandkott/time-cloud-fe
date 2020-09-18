@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import reducers from "./redux/reducers";
 import thunk from "redux-thunk";
+import "./assets/css/variable.css";
 
 const composeEnhancers =
   (typeof window !== "undefined" &&

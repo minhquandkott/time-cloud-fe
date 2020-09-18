@@ -1,7 +1,6 @@
 .point {
   display: flex;
-  padding-right: 10px;
-  /* //padding-top: 2px; */
+  padding-right: 1rem;
   align-items: center;
   justify-content: flex-start;
   background-color: transparent;
@@ -10,7 +9,7 @@
 
 .point>p {
   color: inherit;
-  font-size: 17px;
+  font-size: 1.7rem;
   font-weight: 500;
   white-space: nowrap;
   text-transform: capitalize;

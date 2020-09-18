@@ -1,0 +1,23 @@
+:root {
+
+
+  --color-light-primary: #FFFFFF;
+  --color-light-secondary: #FBFCFE;
+  --color-light-tertiary: #EEEEEE;
+
+  --color-dark-primary: #363636;
+  --color-dark-secondary: #525252;
+  --color-dark-tertiary: #7B7B7B;
+
+  --color-button: #0066CC;
+
+  --color-error: #EE5353;
+  --color-complete: #2ECC71;
+
+  --font-size-large: 1.5rem;
+  --font-size-medium: 1.1rem;
+  --font-size-small: .9rem;
+
+  --box-shadow-primary: 5px 5px 10px rgba(0, 0, 0, .5);
+
+}
