@@ -9,12 +9,13 @@
 }
 
 
-.task_item .MuiSvgIcon-root {
+
+.task_item .MuiSvgIcon-root:last-child {
   color: var(--color-button);
   background-color: var(--color-light-primary);
   border-radius: 50%;
-  font-size: 2rem;
-  transition: all 1s;
+  font-size: 2.3rem;
+  transition: all .7s;
 }
 
 .task_item>button {
@@ -26,10 +27,10 @@
 
 
 
-.task_item .MuiSvgIcon-root:hover {
+.task_item .MuiSvgIcon-root:last-child:hover {
   background-color: rgb(202, 187, 187);
-  transform: translate(0, -.5rem);
-  box-shadow: 7px 7px 15px rgba(0, 0, 0, .7);
+  transform: scale(1.2);
+  box-shadow: 5px 5px 1rem rgba(0, 0, 0, .5);
 }
 
 

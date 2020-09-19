@@ -1,0 +1,36 @@
+.popup {
+  position: absolute;
+  left: 50%;
+  bottom: -100%;
+  transform: translateX(-50%);
+  background-color: var(--color-button);
+  color: white;
+  box-shadow: var(--box-shadow-primary);
+
+}
+
+.popup::before {
+  content: "";
+  width: 1rem;
+  border-bottom-color: var(--color-light-primary);
+  top: 0;
+}
+
+.popup__title {
+  padding-bottom: 1rem;
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  color: var(--color-light-tertiary)
+}
+
+.popup__title>p {
+  font-size: 1.6rem;
+}
+
+.popup__content {
+  color: var(--color-light-primary);
+}
+
+.popup__content>p {
+  font-size: 1.6rem;
+}

@@ -1,10 +1,16 @@
 .point {
   display: flex;
-  padding-right: 1rem;
+  padding-right: .7rem;
   align-items: center;
   justify-content: flex-start;
   background-color: transparent;
 
+}
+
+.point>.MuiSvgIcon-root {
+  padding-right: 5px;
+  /* height: fit-content;
+  width: max-content; */
 }
 
 .point>p {

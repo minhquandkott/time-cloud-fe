@@ -17,6 +17,7 @@ import Spinner from "../loading/spinner/Spinner";
 import DropDownTime from "../dropdown/DropDownTime";
 import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
+import ProjectTask from "../projectTask/ProjectTask";
 class Time extends React.Component {
   renderInput = ({ input, meta, className, ...attributes }) => {
     return (
@@ -56,16 +57,15 @@ class Time extends React.Component {
         <TaskItem
           task={time.task}
           key={time.id}
+          title={time.description}
           methodHandlerReplacement={(event) =>
             this.onClickToSelectTime(time, event)
           }
         >
-          <Point
-            color="80A1D4"
-            fontSize="20px"
-            title={time.task.project.name}
+          <ProjectTask
+            projectName={time.task.project.name}
+            taskName={time.task.name}
           />
-          <p>{time.description}</p>
         </TaskItem>
       );
     });
@@ -90,7 +90,7 @@ class Time extends React.Component {
         returnValue.push(
           <div className="project" key={project.id}>
             <div className="project__name">
-              <Point color="80A1D4" fontSize="20px" title={project.name}>
+              <Point color="80A1D4" pointSize="20px" title={project.name}>
                 <p
                   className="project__company_name"
                   style={{
@@ -119,6 +119,7 @@ class Time extends React.Component {
   };
 
   render() {
+    const { selectedTask } = this.props;
     return (
       <div className="time">
         <form
@@ -134,27 +135,24 @@ class Time extends React.Component {
               className="form__input form__input__description"
             />
 
-            <DropDownTime title="recent task">
+            <DropDownTime title="recent_task">
               <div className="drop_down__recent_task">
                 {this.renderRecentTask()}
               </div>
             </DropDownTime>
           </div>
           <div className="time__middle">
-            {this.props.selectedTask ? (
-              <Point
-                color="80A1D4"
-                fontSize="30px"
-                title={this.props.selectedTask.project.name}
-              />
-            ) : null}
-            <Field
-              name="name"
-              type="text"
-              component={this.renderInput}
-              placeholder="Task..."
-              className="form__input form__input__task"
-            />
+            <label htmlFor="task">
+              {selectedTask ? (
+                <ProjectTask
+                  projectName={selectedTask.project.name}
+                  taskName={selectedTask.name}
+                />
+              ) : (
+                <p>Task...</p>
+              )}
+            </label>
+            <input type="checkbox" id="task" />
             <DropDownTime>
               <div className="drop_down__list_task">
                 {this.renderListTask()}

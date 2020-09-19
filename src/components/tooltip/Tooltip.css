@@ -1,0 +1,29 @@
+.tooltip {
+  position: absolute;
+  width: 100%;
+  max-width: 150px;
+  background-color: red;
+}
+
+
+
+.tooltip__arrow {
+  position: absolute;
+  left: 50%;
+
+}
+
+
+.tooltip__arrow__top {
+  bottom: 0;
+  transform: translate(-50%, 100%);
+}
+
+.tooltip__arrow__bottom {
+  transform: translate(-50%, -100%);
+}
+
+
+.tooltip__content {
+  padding: .5rem;
+}

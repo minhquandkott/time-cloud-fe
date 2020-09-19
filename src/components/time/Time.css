@@ -44,10 +44,10 @@
 
 
 
-.form__input__task {
+/* .form__input__task {
   flex: .5;
   padding-left: 1rem;
-}
+} */
 
 .time__middle>.point {
   flex: .5;
@@ -72,13 +72,47 @@
   height: 20rem;
 }
 
-.form__input__task:focus+div {
-  opacity: 1;
-  height: 20rem;
+.time__middle>label {
+  flex: 1;
+  padding-left: 1rem;
+  padding: .5rem;
+  line-height: 6rem;
 
 }
 
-.form__input__task+div {
+
+
+
+
+.time__middle>label>p {
+  text-transform: capitalize;
+  color: var(--color-light-tertiary);
+  font-size: 1.8rem;
+  font-weight: 400;
+
+}
+
+.time__middle>label>.project_task {
+  padding-left: .3rem;
+  justify-content: flex-start !important;
+}
+
+.time__middle>label>.project_task+div {
+  left: 0;
+  bottom: 0;
+  transform: translate(0, 100%);
+}
+
+.time__middle>input {
+  display: none;
+}
+
+.time__middle>input:checked+div {
+  opacity: 1;
+  height: 20rem;
+}
+
+.time__middle>label~div {
   left: 0;
   bottom: 0;
   transform: translate(0, 100%);
@@ -162,7 +196,11 @@
   margin: auto 0 auto auto;
 }
 
-.drop_down__recent_task {}
+.drop_down__recent_task>.task_item>* {
+  flex: 1;
+}
+
+
 
 .drop_down__recent_task p {
   text-transform: capitalize;
