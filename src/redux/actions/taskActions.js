@@ -27,12 +27,7 @@ export const fetchTasksFail = (errorMassage) => {
 
 export const fetchTasks = (projectId) => {
   return async (dispatch) => {
-    const response = await timeCloudAPI.get(`projects/${projectId}/tasks`, {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-      },
-    });
+    const response = await timeCloudAPI().get(`projects/${projectId}/tasks`);
     dispatch(fetchTasksSuccess(response.data));
   };
 };

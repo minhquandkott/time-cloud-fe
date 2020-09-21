@@ -37,12 +37,7 @@ export const fetchTimes = (userId) => {
   return async (dispatch) => {
     dispatch(startFetchTimes());
     try {
-      const response = await timeCloudAPI.get(`users/${userId}/times`, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-        },
-      });
+      const response = await timeCloudAPI().get(`users/${userId}/times`);
       dispatch(fetchTimesSuccess(response.data));
     } catch (error) {
       dispatch(fetchTimesFail(error.response.errorMessage));

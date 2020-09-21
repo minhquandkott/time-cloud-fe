@@ -17,6 +17,7 @@ const initialState = {
   intervalId: null,
   totalSecond: 0,
   isSaving: false,
+  isSavingSuccess: false,
   errorMessage: null,
   selectedTask: null,
 };
@@ -67,12 +68,14 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...initialState,
         isSaving: false,
+        isSavingSuccess: true,
       };
     case SAVING_TIME_FAIL:
       return {
         ...state,
         isSaving: false,
         errorMessage: payload,
+        isSavingSuccess: false,
       };
     default:
       return state;

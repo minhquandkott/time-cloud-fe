@@ -46,7 +46,7 @@ export const authentication = (email, password) => {
   return async (dispatch) => {
     dispatch(authStart());
     try {
-      const response = await timeCloudAPI.post("/login", {
+      const response = await timeCloudAPI().post("/login", {
         email,
         password,
       });
@@ -113,7 +113,7 @@ export const signUp = (username, email, password) => {
   return async (dispatch) => {
     dispatch(startSignUp());
     try {
-      await timeCloudAPI.post(`users`, {
+      await timeCloudAPI().post(`users`, {
         name: username,
         email,
         password,
@@ -135,7 +135,7 @@ const setUserInfo = (user) => {
 
 export const fetchUser = (id) => {
   return async (dispatch) => {
-    const response = await timeCloudAPI.get(`users/${id}`, {
+    const response = await timeCloudAPI().get(`users/${id}`, {
       headers: {
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",

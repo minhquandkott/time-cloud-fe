@@ -29,7 +29,7 @@
 
 .time__left>.drop_down {
   padding-left: 4rem;
-  width: 80%;
+  width: 100%;
 }
 
 .time__middle {
@@ -198,6 +198,10 @@
 
 .drop_down__recent_task>.task_item>* {
   flex: 1;
+}
+
+.drop_down__recent_task>.task_item>h3 {
+  flex-basis: 50%;
 }
 
 

@@ -114,8 +114,10 @@ class Time extends React.Component {
   };
 
   onSaveButtonClick = (event) => {
-    this.props.reset();
     this.props.saveTime(this.props.description);
+    if (this.props.isSavingSuccess) {
+      this.props.reset();
+    }
   };
 
   render() {
@@ -183,7 +185,13 @@ class Time extends React.Component {
   }
 }
 const mapStateToProps = (state, props) => {
-  const { isCounting, isSaving, beginTime, selectedTask } = state.time;
+  const {
+    isCounting,
+    isSaving,
+    beginTime,
+    selectedTask,
+    isSavingSuccess,
+  } = state.time;
   const { tasks, projects, times } = state;
   const { selectedTime } = times;
   return {
@@ -199,6 +207,7 @@ const mapStateToProps = (state, props) => {
     selectedTask,
     projects: projects.projects,
     times: times.times,
+    isSavingSuccess,
   };
 };
 

@@ -12,15 +12,11 @@ export const startFetchProject = () => {
 };
 
 export const fetchProjects = (userId) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const { auth } = getState();
     dispatch(startFetchProject());
     try {
-      const response = await timeCloudAPI.get(`users/60/projects`, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-        },
-      });
+      const response = await timeCloudAPI().get(`users/67/projects`);
       dispatch(fetchProjectsSuccess(response.data));
     } catch (error) {
       dispatch(fetchProjectsFail(2));

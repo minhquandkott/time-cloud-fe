@@ -11,6 +11,7 @@ import {
 } from "./actionType";
 import { SELECTED_TASK_ID, BEGIN_TIME } from "../../utils/localStorageContact";
 import timeCloudAPI from "../../apis/timeCloudAPI";
+import { fetchTimes, selectTime } from "./index";
 
 export const beginCountingTime = (beginTime, preCountingTime) => {
   return {
@@ -107,29 +108,21 @@ export const saveTime = (description) => {
   return async (dispatch, getState) => {
     dispatch(startSavingTime());
     const { id } = getState().time.selectedTask;
+    const { userId } = getState().auth;
     const { endTime, totalSecond } = getState().time;
     const convertedBeginTime = endTime - totalSecond;
 
     try {
-      const response = await timeCloudAPI.post(
-        `tasks/${id}/times`,
-        {
-          description,
-          mileSecondEndTime: endTime,
-          mileSecondStartTime: convertedBeginTime,
-        },
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-            userId: 67,
-          },
-        }
-      );
+      const response = await timeCloudAPI().post(`tasks/${id}/times`, {
+        description,
+        mileSecondEndTime: endTime,
+        mileSecondStartTime: convertedBeginTime,
+      });
       localStorage.removeItem(SELECTED_TASK_ID);
       localStorage.removeItem(BEGIN_TIME);
-      console.log(response);
       dispatch(savingTimeSuccess());
+      dispatch(fetchTimes(userId));
+      dispatch(selectTime(null));
     } catch (error) {
       console.log(error);
       dispatch(savingTimeFail(error.response.message));
@@ -140,12 +133,7 @@ export const saveTime = (description) => {
 export const fetchTask = (taskId) => {
   return async (dispatch) => {
     try {
-      const response = await timeCloudAPI.get(`tasks/${taskId}`, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-        },
-      });
+      const response = await timeCloudAPI().get(`tasks/${taskId}`);
       dispatch(selectTask(response.data));
     } catch (error) {}
   };
