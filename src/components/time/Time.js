@@ -14,7 +14,7 @@ import {
 import Counter from "../counter/Counter";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import Spinner from "../loading/spinner/Spinner";
-import DropDownTime from "../dropdown/DropDownTime";
+import DropDownTime from "../dropdown/DropDown";
 import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
 import ProjectTask from "../projectTask/ProjectTask";
@@ -30,7 +30,7 @@ class Time extends React.Component {
     );
   };
   componentDidMount() {
-    this.props.fetchTimes(67);
+    this.props.fetchTimes(this.props.userId);
   }
 
   onClickToSelectTime = (time, event) => {
@@ -185,14 +185,15 @@ class Time extends React.Component {
   }
 }
 const mapStateToProps = (state, props) => {
+  const { tasks, projects, times, time, auth } = state;
   const {
     isCounting,
     isSaving,
     beginTime,
     selectedTask,
     isSavingSuccess,
-  } = state.time;
-  const { tasks, projects, times } = state;
+  } = time;
+  const { userId } = auth;
   const { selectedTime } = times;
   return {
     initialValues: {
@@ -208,6 +209,7 @@ const mapStateToProps = (state, props) => {
     projects: projects.projects,
     times: times.times,
     isSavingSuccess,
+    userId,
   };
 };
 

@@ -1,0 +1,42 @@
+.table {
+  --font-size-primary: 1.8rem;
+  font-size: var(--font-size-primary);
+
+  width: 100%;
+  font-weight: 400;
+
+}
+
+
+
+
+
+.table tr {
+  display: block;
+  padding: 2rem 0;
+}
+
+.table__body>tr {
+  border-bottom: 1px solid var(--color-light-tertiary);
+}
+
+.table__body>tr:hover {
+  background-color: var(--color-light-tertiary);
+}
+
+
+
+.table th,
+.table td {
+  display: inline-block;
+}
+
+.table__head>tr>th {
+  color: var(--color-dark-tertiary);
+  text-transform: capitalize;
+}
+
+.table__body>tr>td {
+  color: var(--color-dark-primary);
+
+}

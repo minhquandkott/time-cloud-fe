@@ -5,7 +5,7 @@ import { reducer as formReducer } from "redux-form";
 import taskReducer from "./taskReducer";
 import timeReducer from "./timeReducer";
 import timesReducer from "./timesReducer";
-
+import membersReducer from "./membersReducer";
 export default combineReducers({
   form: formReducer,
   auth: authReducer,
@@ -13,4 +13,5 @@ export default combineReducers({
   tasks: taskReducer,
   time: timeReducer,
   times: timesReducer,
+  members: membersReducer,
 });

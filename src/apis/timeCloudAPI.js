@@ -3,7 +3,6 @@ import store from "../redux/store";
 import { TOKEN, USER_ID } from "../utils/localStorageContact";
 
 const getAuthState = () => {
-  console.log(store.getState());
   return store.getState().auth;
 };
 export default () => {

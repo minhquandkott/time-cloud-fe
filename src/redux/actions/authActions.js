@@ -135,12 +135,7 @@ const setUserInfo = (user) => {
 
 export const fetchUser = (id) => {
   return async (dispatch) => {
-    const response = await timeCloudAPI().get(`users/${id}`, {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZhbmhpZXAwMCIsImlhdCI6MTU5OTcyMTI3NSwiZXhwIjoxNjAwNTg1Mjc1fQ.3F9ZfEa3jJ5IV-hex3YXPzjzDOy2UOCHOsfqvxBq05w",
-      },
-    });
+    const response = await timeCloudAPI().get(`users/${id}`);
     dispatch(setUserInfo(response.data));
   };
 };

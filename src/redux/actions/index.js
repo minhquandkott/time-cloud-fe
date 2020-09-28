@@ -24,3 +24,5 @@ export {
 } from "./timeActions";
 
 export { fetchTimes, selectTime } from "./timesActions";
+
+export { fetchMembers, selectMember } from "./membersActions";

@@ -4,7 +4,7 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
-import ProjectTask from "./projectTask/ProjectTask";
+
 function App() {
   return (
     <div className="app">

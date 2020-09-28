@@ -13,10 +13,9 @@ export const startFetchProject = () => {
 
 export const fetchProjects = (userId) => {
   return async (dispatch, getState) => {
-    const { auth } = getState();
     dispatch(startFetchProject());
     try {
-      const response = await timeCloudAPI().get(`users/67/projects`);
+      const response = await timeCloudAPI().get(`users/${userId}/projects`);
       dispatch(fetchProjectsSuccess(response.data));
     } catch (error) {
       dispatch(fetchProjectsFail(2));
