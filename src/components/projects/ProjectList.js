@@ -9,7 +9,7 @@ import Skeleton from "../loading/skeleton/Skeleton";
 
 class ProjectList extends React.Component {
   componentDidMount() {
-    this.props.fetchProjects();
+    this.props.fetchProjects(this.props.userId);
   }
 
   renderProjectList() {
@@ -34,9 +34,13 @@ class ProjectList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const { projects, auth } = state;
+  const { isFetching } = projects;
+  const { userId } = auth;
   return {
-    projects: state.projects["projects"],
-    isFetching: state.projects["isFetching"],
+    projects: projects["projects"],
+    isFetching: isFetching,
+    userId,
   };
 };
 

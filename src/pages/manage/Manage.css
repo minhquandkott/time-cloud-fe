@@ -1,0 +1,58 @@
+.manage {
+  padding: 5rem 10rem;
+  font-family: 'Heebo', sans-serif;
+  --line-height: 4.5rem;
+  --font-size-primary: 4.5rem;
+  --font-size-secondary: 1.8rem
+}
+
+.manage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.manage__header>h2 {
+  font-size: 4.5rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.manage__header>div {
+  flex: 1;
+  display: flex;
+
+}
+
+
+
+.manage__header>div>input {
+  flex: .7;
+  line-height: var(--line-height);
+  font-size: var(--font-size-secondary);
+  outline: none;
+  border: none;
+  margin-right: 1rem;
+  border-bottom: 1px solid var(--color-dark-tertiary);
+}
+
+.manage__header>div>input::placeholder {
+
+  font-size: var(--font-size-secondary);
+  color: var(--color-dark-tertiary);
+}
+
+.manage__header>div>button {
+  flex: .3;
+  font-size: var(--font-size-secondary);
+  color: var(--color-light-primary);
+  line-height: var(--line-height);
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-button);
+
+}
+
+.manager__context {}
