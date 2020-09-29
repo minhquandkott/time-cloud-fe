@@ -1,8 +1,10 @@
 import {
-  FETCH_MEMBERS_START,
+  LOADING,
   FETCH_MEMBERS_SUCCESS,
-  FETCH_MEMBERS_FAIL,
+  MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
+  ADD_ROLE_SUCCESS,
+  ADD_ROLE_FAIL,
 } from "../actions/actionType";
 
 const initialState = {
@@ -14,7 +16,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_MEMBERS_START:
+    case LOADING:
       return {
         ...state,
         isFetching: true,
@@ -53,13 +55,23 @@ export default (state = initialState, { type, payload }) => {
         isFetching: false,
         members: [...userRoles],
       };
-    case FETCH_MEMBERS_FAIL:
+    case MEMBERS_ACTION_FAIL:
       return {
         ...state,
         isFetching: false,
         errorMessage: payload,
       };
     case SELECT_MEMBER:
+      return {
+        ...state,
+        selectedMember: payload,
+      };
+    case ADD_ROLE_SUCCESS:
+      return {
+        ...state,
+        selectedMember: payload,
+      };
+    case ADD_ROLE_FAIL:
       return {
         ...state,
         selectedMember: payload,
