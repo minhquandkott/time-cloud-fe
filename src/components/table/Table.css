@@ -33,9 +33,8 @@
 }
 
 .table__head>tr>th {
-  color: var(--color-dark-primary);
+  color: var(--color-dark-tertiary);
   text-transform: capitalize;
-  font-size: 20px;
 }
 
 .table__body>tr>td {

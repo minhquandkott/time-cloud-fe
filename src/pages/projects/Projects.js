@@ -5,61 +5,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Table from "../../components/table/Table";
-import { fetchProjects } from "../../redux/actions";
+import { fetchProjects, deleteProjects } from "../../redux/actions";
+import Point from "../../components/point/Point";
 
-const cssHeader = {
-    textAlign: "left",
-};
-const columns = {
-    project: {
-        key: "project",
-        label: "project",
-        width: "20%",
-        cssHeader,
-        cssData: {
-        textTransform: "capitalize",
-        },
-        convertData: (project) => project.name,
-    },
-    client: {
-        key: "client",
-        label: "client",
-        width: "20%",
-        cssHeader,
-        convertData: (project) => project.clientName,
-    },
-    tracktime: {
-        key: "tracktime",
-        label: "Tracked Time (h)",
-        width: "20%",
-        cssHeader,
-        convertData: (project) => project.name,
-    },
-    members: {
-        key: "members",
-        label: "Members",
-        width: "20%",
-        cssHeader,
-        convertData: (project) => project.name,
-    },
-    actions: {
-        key: "actions",
-        label: "actions",
-        width: "20%",
-        cssHeader,
-        convertData: () => {
-            const styleCom = {
-                fontSize: "3rem",
-            }
-            return (
-                <React.Fragment>
-                    <EditIcon style={{...styleCom, marginRight: "5px"}}/>
-                    <DeleteIcon style={{...styleCom}}/>
-                </React.Fragment>
-            )    
-        },
-    },
-};
+
+
+
 
 class Projects extends React.Component {
 
@@ -83,8 +34,81 @@ class Projects extends React.Component {
         })
     }
 
+    onDelete = (id) => {
+        console.log(1);
+        var ids = [];
+        ids.push(id);
+        deleteProjects(ids);
+    }
+
+    onDelete = (id) => {
+        var ids = [];
+        ids.push(id);
+        this.props.deleteProjects(ids);
+    }
+
   render() {
-    console.log(columns, this.props.projects);
+
+    const cssHeader = {
+        textAlign: "left",
+    };
+    const columns = {
+        project: {
+            key: "project",
+            label: "project",
+            width: "20%",
+            cssHeader,
+            cssData: {
+            textTransform: "capitalize",
+            },
+            convertData: (project) => <Point
+                                            color="E74C3C"
+                                            pointSize="15"
+                                            title={project.name}
+                                            key={project.id}
+                                        />
+        },
+        client: {
+            key: "client",
+            label: "client",
+            width: "20%",
+            cssHeader,
+            convertData: (project) => project.clientName,
+        },
+        tracktime: {
+            key: "tracktime",
+            label: "Tracked Time (h)",
+            width: "20%",
+            cssHeader,
+            convertData: (project) => project.name,
+        },
+        members: {
+            key: "members",
+            label: "Members",
+            width: "20%",
+            cssHeader,
+            convertData: (project) => project.name,
+        },
+        actions: {
+            key: "actions",
+            label: "actions",
+            width: "20%",
+            cssHeader,
+            convertData: (project) => {
+                const styleCom = {
+                    fontSize: "3rem",
+                }
+                return (
+                    <React.Fragment>
+                        <EditIcon style={{...styleCom, marginRight: "5px"}}/>
+                        <DeleteIcon style={{...styleCom}} onClick = {() => this.onDelete(project.id)}/>
+                    </React.Fragment>
+                )    
+            },
+        },
+    };
+    
+   
     var {projects} = this.props;
     var {txtSearch} = this.state;
     if(txtSearch) {    
@@ -123,7 +147,6 @@ class Projects extends React.Component {
 
 const mapStateToProp = (state) => {
     const { projects } = state.projects;
-    console.log(projects)
     return {
       projects: projects.map((project) => {
         return { ...project, id: project.id };
@@ -131,5 +154,6 @@ const mapStateToProp = (state) => {
     };
   };
   export default connect(mapStateToProp, {
-    fetchProjects
+    fetchProjects,
+    deleteProjects
   })(Projects);

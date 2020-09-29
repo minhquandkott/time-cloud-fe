@@ -2,6 +2,9 @@ import {
   FETCH_PROJECTS_FAIL,
   FETCH_PROJECTS_SUCCESS,
   FETCH_PROJECTS_START,
+  DELETE_PROJECTS_START,
+  DELETE_PROJECTS_SUCCESS,
+  DELETE_PROJECTS_FAIL,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 
@@ -34,5 +37,39 @@ export const fetchProjectsFail = (errorMessage) => {
   return {
     type: FETCH_PROJECTS_FAIL,
     payload: errorMessage,
+  };
+};
+
+export const startDeleteProject = () => {
+  return {
+    type: DELETE_PROJECTS_START,
+  };
+};
+
+export const deleteProjectsSuccess = (projects) => {
+  return {
+    type: DELETE_PROJECTS_SUCCESS,
+    payload: projects,
+  };
+};
+
+export const deleteProjectsFail = (errorMessage) => {
+  return {
+    type: DELETE_PROJECTS_FAIL,
+    payload: errorMessage,
+  };
+};
+
+export const deleteProjects = (projectIds) => {
+  return async (dispatch) => {
+    console.log(projectIds);
+    try {
+    const response = await timeCloudAPI().delete("projects", {
+      data : projectIds
+    });
+      dispatch(deleteProjectsSuccess(projectIds));
+    } catch (error) {
+      dispatch(deleteProjectsFail(2));
+    }
   };
 };
