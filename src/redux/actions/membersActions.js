@@ -35,10 +35,12 @@ export const selectMember = (member) => {
 
 export const fetchMembers = (projectId) => {
   return async (dispatch) => {
+    dispatch(startFetchMembers());
     try {
       const response = await timeCloudAPI().get(`companies/${projectId}/users`);
       dispatch(fetchMembersSuccess(response.data));
     } catch (error) {
+      console.log(error);
       dispatch(fetchMembersFail(error.response.errorMessage));
     }
   };
