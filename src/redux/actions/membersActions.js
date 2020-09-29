@@ -3,6 +3,7 @@ import {
   FETCH_MEMBERS_SUCCESS,
   FETCH_MEMBERS_FAIL,
   SELECT_MEMBER,
+  ADD_ROLE_MEMBER,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 
