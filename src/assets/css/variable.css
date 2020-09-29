@@ -19,5 +19,5 @@
   --font-size-small: .9rem;
 
   --box-shadow-primary: 5px 5px 10px rgba(0, 0, 0, .5);
-
+  --box-shadow-secondary: 3px 3px 4px rgba(0, 0, 0, .4);
 }

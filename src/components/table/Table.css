@@ -1,15 +1,9 @@
 .table {
   --font-size-primary: 1.8rem;
   font-size: var(--font-size-primary);
-
   width: 100%;
   font-weight: 400;
-
 }
-
-
-
-
 
 .table tr {
   display: block;
@@ -24,7 +18,14 @@
   background-color: var(--color-light-tertiary);
 }
 
+.visible_hover {
+  opacity: 0;
+  transition: all .3s;
+}
 
+.table__body>tr:hover .visible_hover {
+  opacity: 1;
+}
 
 .table th,
 .table td {
@@ -38,6 +39,5 @@
 }
 
 .table__body>tr>td {
-  color: var(--color-dark-tertiary);
-
+  color: var(--color-dark-primary);
 }

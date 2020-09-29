@@ -20,10 +20,38 @@ export default (state = initialState, { type, payload }) => {
         isFetching: true,
       };
     case FETCH_MEMBERS_SUCCESS:
+      const userRoles = payload.reduce((preV, curV) => {
+        const {
+          createAt,
+          createdBy,
+          modifyAt,
+          modifiedBy,
+          user,
+          role,
+          company,
+        } = curV;
+        let temp = preV.find((e) => e.user.id === curV.user.id);
+        if (!temp) {
+          temp = {
+            id: user.id,
+            user,
+            company,
+            roles: [role],
+            createAt,
+            createdBy,
+            modifiedBy,
+            modifyAt,
+          };
+          preV.push(temp);
+        } else {
+          temp.roles = [...temp.roles, role];
+        }
+        return preV;
+      }, []);
       return {
         ...state,
         isFetching: false,
-        members: payload,
+        members: [...userRoles],
       };
     case FETCH_MEMBERS_FAIL:
       return {

@@ -60,6 +60,7 @@ Table.propTypes = {
       convertHeader: PropTypes.func,
       cssData: PropTypes.object,
       convertData: PropTypes.func,
+      visible_hover: PropTypes.bool,
     }),
   }),
   data: PropTypes.array,
