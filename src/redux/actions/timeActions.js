@@ -110,7 +110,7 @@ export const saveTime = (description) => {
     const { id } = getState().time.selectedTask;
     const { userId } = getState().auth;
     const { endTime, totalSecond } = getState().time;
-    const convertedBeginTime = endTime - totalSecond;
+    const convertedBeginTime = endTime - totalSecond * 1000;
 
     try {
       const response = await timeCloudAPI().post(`tasks/${id}/times`, {

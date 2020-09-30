@@ -1,7 +1,6 @@
 .tooltip {
   position: absolute;
   width: 100%;
-  max-width: 150px;
   background-color: red;
 }
 
@@ -10,7 +9,6 @@
 .tooltip__arrow {
   position: absolute;
   left: 50%;
-
 }
 
 

@@ -29,7 +29,6 @@ class Router extends React.Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
-            <Redirect to="/login" />
           </Switch>
         )}
       </React.Fragment>

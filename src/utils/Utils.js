@@ -28,3 +28,11 @@ export const convertSecond = (totalSecond) => {
     hour: convertedHour + "",
   };
 };
+
+export const convertSecondToHour = (totalSecond) => {
+  const hour = totalSecond / 3600;
+  const convertedHour = Math.floor(hour);
+  const convertedSuffix = Math.ceil(((totalSecond % 3600) / 3600) * 100) / 100;
+
+  return convertedHour + convertedSuffix;
+};

@@ -3,7 +3,6 @@ import {
   FETCH_MEMBERS_SUCCESS,
   MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
-  ADD_ROLE_MEMBER,
   ADD_ROLE_SUCCESS,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
@@ -21,7 +20,7 @@ const fetchMembersSuccess = (members) => {
   };
 };
 
-const fetchMembersFail = (errorMessage) => {
+const membersActionFail = (errorMessage) => {
   return {
     type: MEMBERS_ACTION_FAIL,
     payload: errorMessage,
@@ -42,7 +41,7 @@ export const fetchMembers = (companyId) => {
       const response = await timeCloudAPI().get(`companies/${companyId}/users`);
       dispatch(fetchMembersSuccess(response.data));
     } catch (error) {
-      dispatch(fetchMembersFail(error.response.errorMessage));
+      dispatch(membersActionFail(error.response.errorMessage));
     }
   };
 };
@@ -54,7 +53,16 @@ export const addRoleForUser = (userId, companyId, roleId) => {
       const response = await timeCloudAPI().post(
         `companies/${companyId}/role/${roleId}/users/${userId}`
       );
-      dispatch(fetchMembersSuccess(response.data));
-    } catch (error) {}
+      dispatch(addRoleMemberSuccess(response.data));
+    } catch (error) {
+      dispatch(membersActionFail(error.response.errorMessage));
+    }
+  };
+};
+
+export const addRoleMemberSuccess = (roleMember) => {
+  return {
+    type: ADD_ROLE_SUCCESS,
+    payload: roleMember,
   };
 };
