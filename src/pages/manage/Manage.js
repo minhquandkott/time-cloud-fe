@@ -95,7 +95,7 @@ const Manage = (props) => {
           >
             {userRole.roles.map((role) => (
               <Point
-                color="E74C3C"
+                color={role.color}
                 pointSize="15"
                 title={role.name}
                 css={{ flex: `${(10 / maxRole) * 0.1}` }}
