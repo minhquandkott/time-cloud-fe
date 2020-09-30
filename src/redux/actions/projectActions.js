@@ -46,10 +46,10 @@ export const startDeleteProject = () => {
   };
 };
 
-export const deleteProjectsSuccess = (projects) => {
+export const deleteProjectsSuccess = (id) => {
   return {
     type: DELETE_PROJECTS_SUCCESS,
-    payload: projects,
+    payload: id,
   };
 };
 
@@ -60,14 +60,13 @@ export const deleteProjectsFail = (errorMessage) => {
   };
 };
 
-export const deleteProjects = (projectIds) => {
+export const deleteProjects = (id) => {
   return async (dispatch) => {
-    console.log(projectIds);
+    console.log(id);
     try {
-    const response = await timeCloudAPI().delete("projects", {
-      data : projectIds
-    });
-      dispatch(deleteProjectsSuccess(projectIds));
+      const response = await timeCloudAPI().delete(`projects/${id}`);
+      //console.log(response);
+      dispatch(deleteProjectsSuccess(id));
     } catch (error) {
       dispatch(deleteProjectsFail(2));
     }

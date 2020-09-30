@@ -8,7 +8,7 @@ import Header from "../components/header/Header";
 import Manage from "./manage/Manage";
 import Projects from "./../pages/projects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
-
+import ProjectDetail from "./projectDetail/ProjectDetail";
 class Router extends React.Component {
   componentDidMount() {
     this.props.checkAuth();
@@ -26,6 +26,7 @@ class Router extends React.Component {
               <Route path="/timer" component={Timer} />
               <Route path="/manage" component={Manage} />
               <Route path="/projects" component={Projects} />
+              <Route path= "/project" component={ProjectDetail} />
             </Switch>
           </React.Fragment>
         ) : (

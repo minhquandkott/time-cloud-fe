@@ -5,12 +5,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Table from "../../components/table/Table";
-import { fetchProjects, deleteProjects } from "../../redux/actions";
+import { fetchProjects, deleteProjects, fetchTasks } from "../../redux/actions";
 import Point from "../../components/point/Point";
-
-
-
-
+import {Link, Route, Redirect} from "react-router-dom";
+import ProjectDetail from "./../projectDetail/ProjectDetail";
+import history from '../../history'
 
 class Projects extends React.Component {
 
@@ -35,16 +34,9 @@ class Projects extends React.Component {
     }
 
     onDelete = (id) => {
-        console.log(1);
-        var ids = [];
-        ids.push(id);
-        deleteProjects(ids);
-    }
-
-    onDelete = (id) => {
-        var ids = [];
-        ids.push(id);
-        this.props.deleteProjects(ids);
+        if(window.confirm("Are you sure ?")) {
+            this.props.deleteProjects(id);
+        }
     }
 
   render() {
@@ -85,14 +77,14 @@ class Projects extends React.Component {
         members: {
             key: "members",
             label: "Members",
-            width: "20%",
+            width: "30%",
             cssHeader,
             convertData: (project) => project.name,
         },
         actions: {
             key: "actions",
             label: "actions",
-            width: "20%",
+            width: "10%",
             cssHeader,
             convertData: (project) => {
                 const styleCom = {
@@ -100,8 +92,8 @@ class Projects extends React.Component {
                 }
                 return (
                     <React.Fragment>
-                        <EditIcon style={{...styleCom, marginRight: "5px"}}/>
-                        <DeleteIcon style={{...styleCom}} onClick = {() => this.onDelete(project.id)}/>
+                        <EditIcon style={{...styleCom, marginRight: "5px"}} className="projects__icon projects__icon__edit"/>
+                        <DeleteIcon style={{...styleCom}} className=" projects__icon projects__icon__delete" onClick = {() => this.onDelete(project.id)}/>
                     </React.Fragment>
                 )    
             },
@@ -110,6 +102,7 @@ class Projects extends React.Component {
     
    
     var {projects} = this.props;
+   
     var {txtSearch} = this.state;
     if(txtSearch) {    
         projects = projects.filter((project) => {
@@ -138,7 +131,11 @@ class Projects extends React.Component {
             <Table
                 columns={columns}
                 data = {projects}
-                onClickHandler={(element) => console.log(element)}
+                onClickHandler={(element) => 
+                    history.push({
+                        pathname: "/project",
+                        state: {project: {element}}
+                })}
             />
         </div>
       );
@@ -155,5 +152,6 @@ const mapStateToProp = (state) => {
   };
   export default connect(mapStateToProp, {
     fetchProjects,
+    fetchTasks,
     deleteProjects
   })(Projects);

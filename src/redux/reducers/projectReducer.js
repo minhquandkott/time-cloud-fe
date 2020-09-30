@@ -38,11 +38,11 @@ export default (state = initialState, { type, payload }) => {
         isFetching: true,
       };
       case DELETE_PROJECTS_SUCCESS:
-        state.projects = state.projects.filter(project => project.id !== payload[0])
+        const temp = state.projects.filter(project => project.id !== payload)
         return {
           ...state,
           isFetching: false,
-          projects: [...state.projects],
+          projects: [...temp],
         };
       case DELETE_PROJECTS_FAIL:
         return {
