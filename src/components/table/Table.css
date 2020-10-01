@@ -30,6 +30,7 @@
 .table th,
 .table td {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .table__head>tr>th {

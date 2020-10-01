@@ -9,7 +9,7 @@ const Point = (props) => {
     <div className="point" style={{ ...css }}>
       <FiberManualRecordIcon
         style={{
-          fontSize: `${pointSize ? pointSize : "10"}px`,
+          fontSize: `${pointSize ? pointSize : "10px"}`,
           color: `#${color}`,
         }}
       />

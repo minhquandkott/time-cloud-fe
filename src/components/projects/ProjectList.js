@@ -14,7 +14,7 @@ class ProjectList extends React.Component {
 
   renderProjectList() {
     if (this.props.isFetching) {
-      return <Skeleton />;
+      return <Skeleton countItem={4} heightItem="15rem" direction="row" />;
     }
     return this.props.projects.map((project) => {
       return (

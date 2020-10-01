@@ -1,6 +1,8 @@
 import "./Table.css";
 import React from "react";
 import PropTypes from "prop-types";
+import Skeleton from "../../components/loading/skeleton/Skeleton";
+import cssProperties from "react-style-proptype/src/css-properties";
 
 const Table = (props) => {
   const { columns, data = [], onClickHandler } = props;
@@ -18,6 +20,7 @@ const Table = (props) => {
       </th>
     );
   });
+
   const cells = data.map((element) => {
     return (
       <tr key={element.id} onClick={() => onClickHandler(element)}>
@@ -44,6 +47,14 @@ const Table = (props) => {
       <thead className="table__head">
         <tr>{heads}</tr>
       </thead>
+      {!data.length ? (
+        <Skeleton
+          countItem={5}
+          heightItem="5rem"
+          direction="column"
+          bgSkeleton="var(--color-light-primary)"
+        />
+      ) : null}
       <tbody className="table__body">{cells}</tbody>
     </table>
   );

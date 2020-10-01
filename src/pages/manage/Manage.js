@@ -4,7 +4,8 @@ import Table from "../../components/table/Table";
 import { connect } from "react-redux";
 import { fetchMembers, selectMember } from "../../redux/actions";
 import Point from "../../components/point/Point";
-import CreateIcon from "@material-ui/icons/Create";
+import classes from "./Manage.module.css";
+import ColumnEmail from "./columEmail/ColumnEmail";
 
 const Manage = (props) => {
   const maxRole = props.members.reduce((preV, curV) => {
@@ -46,38 +47,7 @@ const Manage = (props) => {
       label: "email",
       width: "35%",
       cssHeader,
-      convertData: (userRole) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: ".5rem",
-          }}
-        >
-          <span>{userRole.user.email}</span>
-          <button
-            style={{
-              borderRadius: "50%",
-              outline: "none",
-              border: "none",
-              boxShadow: "var(--box-shadow-secondary)",
-              padding: ".5rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            className="visible_hover"
-          >
-            <CreateIcon
-              style={{
-                fontSize: "2rem",
-                color: "var(--color-dark-tertiary)",
-              }}
-            />
-          </button>
-        </div>
-      ),
+      convertData: (userRole) => <ColumnEmail userRole={userRole} />,
     },
     access: {
       key: "access",
@@ -86,13 +56,7 @@ const Manage = (props) => {
       cssHeader,
       convertData: (userRole) => {
         return (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
+          <div className={`${classes.access} ${classes.flex}`}>
             {userRole.roles.map((role) => (
               <Point
                 color={role.color}
@@ -114,7 +78,7 @@ const Manage = (props) => {
         <h2>Admin</h2>
         <div>
           <input type="text" placeholder="Add new member by email address..." />
-          <button style={{}}>Invite</button>
+          <button>Invite</button>
         </div>
       </div>
       <div className="manage__context"></div>

@@ -7,7 +7,7 @@ const Tooltip = (props) => {
   const arrowRef = useRef(null);
   const contentRef = useRef(null);
 
-  const { direction, backgroundColor, arrowSize } = props;
+  const { direction, backgroundColor, arrowSize, css, maxWidth } = props;
   const setPosition = useCallback(() => {
     const tooltip = tooltipRef.current;
     const arrow = arrowRef.current;
@@ -52,8 +52,9 @@ const Tooltip = (props) => {
       className="tooltip"
       ref={tooltipRef}
       style={{
-        backgroundColor: backgroundColor,
-        maxWidth: `${props.maxWidth}`,
+        backgroundColor,
+        maxWidth,
+        ...css,
       }}
     >
       <p
@@ -77,6 +78,7 @@ Tooltip.propTypes = {
   direction: PropTypes.oneOf(["top", "bottom"]),
   arrowSize: PropTypes.string,
   maxWidth: PropTypes.string,
+  css: PropTypes.object,
 };
 Tooltip.defaultProps = {
   backgroundColor: "white",
