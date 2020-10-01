@@ -1,23 +1,25 @@
 import "./RoleItem.css";
-
 import React from "react";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Point from "../../../../components/point/Point";
+import Checkbox from "../../../../components/checkbox/Checkbox";
 
-const RoleItem = ({ role, onCheckBoxChecked }) => {
-  const roleId = `role${role.id}`;
+const RoleItem = ({ role, onRoleSelected, onRoleUnSelect }) => {
+  const onCheckboxChanged = (e) => {
+    const { checked } = e.target;
+    if (checked) {
+      onRoleSelected(role);
+    } else {
+      onRoleUnSelect(role);
+    }
+  };
   return (
-    <div className="role_item">
-      <input
-        type="checkbox"
-        id={`${roleId}`}
-        onChange={(event) => onCheckBoxChecked(event, role)}
-      />
-      <label htmlFor={`${roleId}`}>
-        <CheckBoxIcon className="checked" />
-        <Point title={role.name} color="EFA00B" pointSize="2rem" />
-      </label>
-    </div>
+    <Checkbox
+      id={role.id}
+      onCheckboxChanged={onCheckboxChanged}
+      showUnCheck={true}
+    >
+      <Point title={role.name} color="EFA00B" pointSize="2rem" />
+    </Checkbox>
   );
 };
 

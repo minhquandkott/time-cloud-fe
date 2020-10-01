@@ -1,11 +1,22 @@
 .skeleton {
-  background-color: var(--color-light-primary);
-  background-image: linear-gradient(to right, #FBFCFF 0%, #e0d8d8 15%, #FBFCFF 30%, #FBFCFF 100%);
-  background-repeat: no-repeat;
-  animation: skeletonToRight 1s infinite;
+  padding: 1rem;
   display: flex;
   width: auto;
+  flex-direction: column;
   flex: 1;
+}
+
+.skeleton__loading {
+  background-color: var(--color-light-primary);
+  background-image: linear-gradient(
+    to right,
+    #fbfcff 0%,
+    #e0d8d8 10%,
+    #fbfcff 20%,
+    #fbfcff 100%
+  );
+  background-repeat: no-repeat;
+  animation: skeletonToRight 0.8s infinite;
 }
 
 @keyframes skeletonToRight {
@@ -16,14 +27,11 @@
   to {
     background-position: 100rem 0;
   }
-
 }
 
 .skeleton__item {
-  flex: 1;
-  height: 10rem;
-  background-color: rgb(202, 195, 195);
-  margin: 2rem;
+  flex-grow: 1;
+  margin: 1rem;
   border-top-right-radius: 1.5rem;
   border-bottom-right-radius: 1.5rem;
   border-top-left-radius: 3px;

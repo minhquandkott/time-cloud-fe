@@ -1,0 +1,17 @@
+.column_email {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 .5rem;
+}
+
+.column_email>button {
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  box-shadow: var(--box-shadow-secondary);
+  padding: .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -5,14 +5,16 @@ import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
 import RoleList from "./manage/roleList/RoleList";
+import Checkbox from "../components/checkbox/Checkbox";
+import Skeleton from "../components/loading/skeleton/Skeleton";
 
 function App() {
   return (
     <div className="app">
-      {/* <BrowserRouter history={history}>
+      <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter> */}
-      <RoleList />
+      </BrowserRouter>
+      {/* <RoleList /> */}
       {/* <div className="wrapper">
         <p>abc</p>
         <Tooltip backgroundColor="white" direction="top" arrowSize="10" />

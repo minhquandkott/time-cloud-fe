@@ -9,14 +9,12 @@ const roleList = [
 ];
 const RoleList = () => {
   const [roles, setRoles] = useState([]);
-  const onCheckBoxChecked = (event, role) => {
-    const { checked } = event.target;
-    if (checked) {
-      setRoles([...roles, role]);
-    } else {
-      setRoles([...roles.filter((roleE) => roleE.id !== role.id)]);
-    }
-  };
+
+  const onRoleSelected = (role) => setRoles([...roles, role]);
+  const onRoleUnSelect = (role) =>
+    setRoles([...roles.filter((roleE) => roleE.id !== role.id)]);
+
+  console.log(roles);
   useEffect(() => {}, []);
   return (
     <div className="role_list">
@@ -24,7 +22,8 @@ const RoleList = () => {
         <RoleItem
           role={ele}
           key={ele.id}
-          onCheckBoxChecked={onCheckBoxChecked}
+          onRoleSelected={onRoleSelected}
+          onRoleUnSelect={onRoleUnSelect}
         />
       ))}
     </div>
