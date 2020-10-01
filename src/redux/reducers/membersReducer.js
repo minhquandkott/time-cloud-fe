@@ -4,6 +4,7 @@ import {
   MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
   ADD_ROLE_SUCCESS,
+  GET_USER_SUCCESS
 } from "../actions/actionType";
 
 const initialState = {
@@ -70,7 +71,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         selectedMember: payload,
       };
-
+    case GET_USER_SUCCESS:
+      return {
+        ...state,
+        selectedMember: payload
+      }
     default:
       return state;
   }

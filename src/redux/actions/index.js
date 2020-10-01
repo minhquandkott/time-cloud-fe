@@ -10,7 +10,7 @@ export {
 
 export { 
   fetchProjects,
-  deleteProjects
+  deleteProjects,
  } from "./projectActions";
 
 export { fetchTasks } from "./taskActions";
@@ -28,4 +28,4 @@ export {
 
 export { fetchTimes, selectTime } from "./timesActions";
 
-export { fetchMembers, selectMember } from "./membersActions";
+export { fetchMembers, selectMember, getUser } from "./membersActions";

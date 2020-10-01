@@ -9,7 +9,9 @@ import { fetchProjects, deleteProjects, fetchTasks } from "../../redux/actions";
 import Point from "../../components/point/Point";
 import {Link, Route, Redirect} from "react-router-dom";
 import ProjectDetail from "./../projectDetail/ProjectDetail";
-import history from '../../history'
+import history from '../../history';
+import TrackTime from './TrackTime/TrackTime';
+import ProjectUser from './ProjectUser/ProjectUser';
 
 class Projects extends React.Component {
 
@@ -22,6 +24,7 @@ class Projects extends React.Component {
 
     componentDidMount = () => {
         this.props.fetchProjects(77);
+        
     }
 
     onChange = (e) => {
@@ -40,7 +43,7 @@ class Projects extends React.Component {
     }
 
   render() {
-
+    console.log(1);
     const cssHeader = {
         textAlign: "left",
     };
@@ -52,6 +55,8 @@ class Projects extends React.Component {
             cssHeader,
             cssData: {
             textTransform: "capitalize",
+            verticalAlign: "middle",
+            cursor: "pointer"
             },
             convertData: (project) => <Point
                                             color="E74C3C"
@@ -65,6 +70,10 @@ class Projects extends React.Component {
             label: "client",
             width: "20%",
             cssHeader,
+            cssData: {
+                verticalAlign: "middle",
+                cursor: "pointer"
+            },
             convertData: (project) => project.clientName,
         },
         tracktime: {
@@ -72,20 +81,32 @@ class Projects extends React.Component {
             label: "Tracked Time (h)",
             width: "20%",
             cssHeader,
-            convertData: (project) => project.name,
+            cssData: {
+                verticalAlign: "middle",
+                cursor: "pointer"
+            },
+            convertData:(project) => <TrackTime projectId = {project.id} />,
         },
         members: {
             key: "members",
             label: "Members",
             width: "30%",
             cssHeader,
-            convertData: (project) => project.name,
+            cssData: {
+                verticalAlign: "middle",
+                cursor: "pointer"
+            },
+            convertData: (project) => <ProjectUser key={project.id} projectId = {project.id} />,
         },
         actions: {
             key: "actions",
             label: "actions",
             width: "10%",
             cssHeader,
+            cssData: {
+                verticalAlign: "middle",
+                cursor: "pointer"
+            },
             convertData: (project) => {
                 const styleCom = {
                     fontSize: "3rem",
@@ -102,7 +123,6 @@ class Projects extends React.Component {
     
    
     var {projects} = this.props;
-   
     var {txtSearch} = this.state;
     if(txtSearch) {    
         projects = projects.filter((project) => {
@@ -135,7 +155,8 @@ class Projects extends React.Component {
                     history.push({
                         pathname: "/project",
                         state: {project: {element}}
-                })}
+                    })
+                }
             />
         </div>
       );
@@ -153,5 +174,5 @@ const mapStateToProp = (state) => {
   export default connect(mapStateToProp, {
     fetchProjects,
     fetchTasks,
-    deleteProjects
+    deleteProjects,
   })(Projects);

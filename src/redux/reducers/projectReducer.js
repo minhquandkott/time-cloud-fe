@@ -4,7 +4,8 @@ import {
   FETCH_PROJECTS_START,
   DELETE_PROJECTS_FAIL,
   DELETE_PROJECTS_SUCCESS,
-  DELETE_PROJECTS_START
+  DELETE_PROJECTS_START,
+
 } from "../actions/actionType";
 
 const initialState = {

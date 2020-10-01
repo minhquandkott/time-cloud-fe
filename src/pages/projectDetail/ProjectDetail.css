@@ -1,7 +1,17 @@
 .project_detail {
     margin: 0 10%;
+    font-family: Heebo;
+    display: flex;
 }
 
 .project_detail__header {
     margin-top: 5rem;
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+.create__info {
+    font-size: 1.5rem;
+    font-weight: 300 !important;
+    color:gray;
 }

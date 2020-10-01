@@ -1,8 +1,8 @@
-h1 {
+.projects__title>h1 {
     text-align: left;
-    font-size: 4.5rem;
+    font-size: 6rem;
     color: var(--color-dark-primary);
-    font-family: Impact, Charcoal, sans-serif;
+    font-weight: 500;
 }
 
 .projects__title {
@@ -12,7 +12,8 @@ h1 {
 .projects {
     margin-left: 10%;
     margin-right: 10%;
-    
+    font-family: Heebo; 
+
 }
 .projects__content{
     margin-top: 5rem;
@@ -43,7 +44,6 @@ h1 {
     color: white;
     border-radius: 3%;
     font-size: 1.7rem;
-    font-family: Georgia, serif;
     display: inline-block;
 }
 

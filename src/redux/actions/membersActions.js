@@ -4,6 +4,7 @@ import {
   MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
   ADD_ROLE_SUCCESS,
+  GET_USER_SUCCESS
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 
@@ -66,3 +67,21 @@ export const addRoleMemberSuccess = (roleMember) => {
     payload: roleMember,
   };
 };
+
+export const getUser = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await timeCloudAPI().get(`users/${userId}`);
+      dispatch(getUserSuccess(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export const getUserSuccess = (user) => {
+  return {
+    type: GET_USER_SUCCESS,
+    payload: user
+  }
+}
