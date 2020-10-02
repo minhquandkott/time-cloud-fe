@@ -2,7 +2,6 @@ import "./Table.css";
 import React from "react";
 import PropTypes from "prop-types";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
-import cssProperties from "react-style-proptype/src/css-properties";
 
 const Table = (props) => {
   const { columns, data = [], onClickHandler } = props;

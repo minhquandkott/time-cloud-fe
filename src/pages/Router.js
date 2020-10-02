@@ -1,14 +1,15 @@
 import React from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import Login from "../pages/login/Login";
 import Timer from "./timer/Timer";
 import SignUp from "./signup/SignUp";
 import Header from "../components/header/Header";
 import Manage from "./manage/Manage";
-import Projects from "./../pages/projects/Projects";
+import Projects from "./../pages/companyProjects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 import ProjectDetail from "./projectDetail/ProjectDetail";
+import ProjectDetailTask from '../components/projectDetailItems/projectDetailTask/ProjectDetailTask';
 class Router extends React.Component {
   componentDidMount() {
     this.props.checkAuth();
@@ -25,8 +26,8 @@ class Router extends React.Component {
               <Route path="/" exact component={Manage} />
               <Route path="/timer" component={Timer} />
               <Route path="/manage" component={Manage} />
-              <Route path="/projects" component={Projects} />
-              <Route path= "/project" component={ProjectDetail} />
+              <Route path="/projects" exact component={Projects} />
+              <Route path= "/projects/:id" exact component={ProjectDetail} />
             </Switch>
           </React.Fragment>
         ) : (

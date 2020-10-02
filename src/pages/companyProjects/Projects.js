@@ -7,8 +7,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Table from "../../components/table/Table";
 import { fetchProjects, deleteProjects, fetchTasks } from "../../redux/actions";
 import Point from "../../components/point/Point";
-import {Link, Route, Redirect} from "react-router-dom";
-import ProjectDetail from "./../projectDetail/ProjectDetail";
 import history from '../../history';
 import TrackTime from './TrackTime/TrackTime';
 import ProjectUser from './ProjectUser/ProjectUser';
@@ -153,7 +151,7 @@ class Projects extends React.Component {
                 data = {projects}
                 onClickHandler={(element) => 
                     history.push({
-                        pathname: "/project",
+                        pathname: `/projects/${element.id}`,
                         state: {project: {element}}
                     })
                 }
