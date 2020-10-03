@@ -6,6 +6,7 @@ import Timer from "./timer/Timer";
 import SignUp from "./signup/SignUp";
 import Header from "../components/header/Header";
 import Manage from "./manage/Manage";
+import Report from "./report/Report";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 
 class Router extends React.Component {
@@ -22,6 +23,7 @@ class Router extends React.Component {
             <Switch>
               <Route path="/" exact component={Manage} />
               <Route path="/timer" component={Timer} />
+              <Route path="/report" component={Report}/>
             </Switch>
           </React.Fragment>
         ) : (

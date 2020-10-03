@@ -9,10 +9,10 @@ import RoleList from "./manage/roleList/RoleList";
 function App() {
   return (
     <div className="app">
-      {/* <BrowserRouter history={history}>
+      <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter> */}
-      <RoleList />
+      </BrowserRouter>
+      {/* <RoleList /> */}
       {/* <div className="wrapper">
         <p>abc</p>
         <Tooltip backgroundColor="white" direction="top" arrowSize="10" />
