@@ -7,12 +7,13 @@ import Point from "../../components/point/Point";
 import classes from "./Manage.module.css";
 import ColumnEmail from "./columEmail/ColumnEmail";
 
-const Manage = (props) => {
-  const maxRole = props.members.reduce((preV, curV) => {
+const Manage = ({ members, fetchMembers, selectMember }) => {
+  const maxRole = members.reduce((preV, curV) => {
     return preV > curV.roles.length ? preV : curV.roles.length;
   }, 0);
+
   useEffect(() => {
-    props.fetchMembers(52);
+    fetchMembers(52);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const cssHeader = {
@@ -45,7 +46,9 @@ const Manage = (props) => {
       label: "email",
       width: "35%",
       cssHeader,
-      convertData: (userRole) => <ColumnEmail userRole={userRole} />,
+      convertData: (userRole) => {
+        return <ColumnEmail userRole={userRole} />;
+      },
     },
     access: {
       key: "access",
@@ -55,15 +58,17 @@ const Manage = (props) => {
       convertData: (userRole) => {
         return (
           <div className={`${classes.access} ${classes.flex}`}>
-            {userRole.roles.map((role) => (
-              <Point
-                color={role.color}
-                pointSize="15"
-                title={role.name}
-                css={{ flex: `${(10 / maxRole) * 0.1}` }}
-                key={role.id}
-              />
-            ))}
+            {userRole.roles
+              .sort((ele1, ele2) => ele1.id - ele2.id)
+              .map((role) => (
+                <Point
+                  color={role.color}
+                  pointSize="15"
+                  title={role.name}
+                  css={{ flex: `${(10 / maxRole) * 0.1}` }}
+                  key={role.id}
+                />
+              ))}
           </div>
         );
       },
@@ -82,8 +87,8 @@ const Manage = (props) => {
       <div className="manage__context"></div>
       <Table
         columns={columns}
-        data={props.members}
-        onClickHandler={(element) => console.log(element)}
+        data={members}
+        onClickHandler={(element) => selectMember(element)}
       />
     </div>
   );

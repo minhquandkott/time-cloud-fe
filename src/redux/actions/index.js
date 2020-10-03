@@ -25,4 +25,9 @@ export {
 
 export { fetchTimes, selectTime } from "./timesActions";
 
-export { fetchMembers, selectMember } from "./membersActions";
+export {
+  fetchMembers,
+  selectMember,
+  addUserRole,
+  deleteUserRole,
+} from "./membersActions";

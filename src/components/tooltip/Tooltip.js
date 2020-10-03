@@ -8,6 +8,7 @@ const Tooltip = (props) => {
   const contentRef = useRef(null);
 
   const { direction, backgroundColor, arrowSize, css, maxWidth } = props;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const setPosition = useCallback(() => {
     const tooltip = tooltipRef.current;
     const arrow = arrowRef.current;
@@ -56,6 +57,7 @@ const Tooltip = (props) => {
         maxWidth,
         ...css,
       }}
+      onClick={(e) => e.stopPropagation()}
     >
       <p
         className={`tooltip__arrow tooltip__arrow__${direction}`}

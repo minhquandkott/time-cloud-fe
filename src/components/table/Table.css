@@ -33,6 +33,10 @@
   vertical-align: middle;
 }
 
+.table>tbody {
+  cursor: pointer;
+}
+
 .table__head>tr>th {
   color: var(--color-dark-tertiary);
   text-transform: capitalize;

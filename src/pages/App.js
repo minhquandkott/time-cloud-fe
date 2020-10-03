@@ -4,9 +4,6 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
-import RoleList from "./manage/roleList/RoleList";
-import Checkbox from "../components/checkbox/Checkbox";
-import Skeleton from "../components/loading/skeleton/Skeleton";
 
 function App() {
   return (

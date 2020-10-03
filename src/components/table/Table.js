@@ -2,7 +2,6 @@ import "./Table.css";
 import React from "react";
 import PropTypes from "prop-types";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
-import cssProperties from "react-style-proptype/src/css-properties";
 
 const Table = (props) => {
   const { columns, data = [], onClickHandler } = props;
@@ -23,7 +22,7 @@ const Table = (props) => {
 
   const cells = data.map((element) => {
     return (
-      <tr key={element.id} onClick={() => onClickHandler(element)}>
+      <tr key={element.id} onClick={(event) => onClickHandler(element)}>
         {Object.keys(columns).map((key) => {
           const { cssData, convertData, width } = columns[key];
           const cellData = element[key];
@@ -42,22 +41,29 @@ const Table = (props) => {
       </tr>
     );
   });
-  return (
+  const table = !data.length ? (
+    <React.Fragment>
+      <Skeleton
+        countItem={Object.keys(columns).length}
+        heightItem="2rem"
+        direction="row"
+      />
+      <Skeleton
+        countItem={6}
+        heightItem="5rem"
+        direction="column"
+        bgSkeleton="var(--color-light-primary)"
+      />
+    </React.Fragment>
+  ) : (
     <table className="table">
       <thead className="table__head">
         <tr>{heads}</tr>
       </thead>
-      {!data.length ? (
-        <Skeleton
-          countItem={5}
-          heightItem="5rem"
-          direction="column"
-          bgSkeleton="var(--color-light-primary)"
-        />
-      ) : null}
       <tbody className="table__body">{cells}</tbody>
     </table>
   );
+  return table;
 };
 
 export default Table;

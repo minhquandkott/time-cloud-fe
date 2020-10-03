@@ -3,7 +3,9 @@ import {
   FETCH_MEMBERS_SUCCESS,
   MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
-  ADD_ROLE_SUCCESS,
+  ADD_ROLE_USER_SUCCESS,
+  DELETE_ROLE_USER_SUCCESS,
+  START_CHANGE_USER_ROLE,
 } from "../actions/actionType";
 
 const initialState = {
@@ -11,6 +13,7 @@ const initialState = {
   isFetching: false,
   errorMessage: null,
   selectedMember: null,
+  changeRoleLoading: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -22,15 +25,7 @@ export default (state = initialState, { type, payload }) => {
       };
     case FETCH_MEMBERS_SUCCESS:
       const userRoles = payload.reduce((preV, curV) => {
-        const {
-          createAt,
-          createdBy,
-          modifyAt,
-          modifiedBy,
-          user,
-          role,
-          company,
-        } = curV;
+        const { user, role, company } = curV;
         let temp = preV.find((e) => e.user.id === curV.user.id);
         if (!temp) {
           temp = {
@@ -38,10 +33,6 @@ export default (state = initialState, { type, payload }) => {
             user,
             company,
             roles: [role],
-            createAt,
-            createdBy,
-            modifiedBy,
-            modifyAt,
           };
           preV.push(temp);
         } else {
@@ -61,14 +52,35 @@ export default (state = initialState, { type, payload }) => {
         errorMessage: payload,
       };
     case SELECT_MEMBER:
+      console.log(payload);
       return {
         ...state,
-        selectedMember: payload,
+        selectedMember: { ...payload },
       };
-    case ADD_ROLE_SUCCESS:
+    case START_CHANGE_USER_ROLE:
       return {
         ...state,
-        selectedMember: payload,
+        changeRoleLoading: true,
+      };
+    case ADD_ROLE_USER_SUCCESS:
+      const addedMember = state.members.find(
+        (ele) => ele.id === payload.userId
+      );
+      addedMember.roles.push(payload.role);
+      return {
+        ...state,
+        changeRoleLoading: false,
+      };
+    case DELETE_ROLE_USER_SUCCESS:
+      const deletedMember = state.members.find(
+        (ele) => ele.id === payload.userId
+      );
+      deletedMember.roles = deletedMember.roles.filter(
+        (role) => role.id !== payload.roleId
+      );
+      return {
+        ...state,
+        changeRoleLoading: false,
       };
 
     default:
