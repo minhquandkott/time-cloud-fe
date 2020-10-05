@@ -1,0 +1,29 @@
+.collapse_item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-bottom: 1rem;
+}
+
+.collapse_item__header {}
+
+.collapse_item__button {
+  outline: none;
+  border: none;
+  background-color: var(--color-light-primary);
+  color: var(--color-dark-tertiary);
+  margin-right: .5rem;
+  padding-top: .7rem;
+
+}
+
+.collapse_item__content {
+  flex: 1;
+  border-bottom: 2px solid var(--color-light-tertiary);
+  padding-bottom: 1rem;
+}
+
+.collapse .toggle_item {
+  transition: all .6s;
+  overflow: hidden;
+}

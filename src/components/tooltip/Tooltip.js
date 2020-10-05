@@ -8,6 +8,7 @@ const Tooltip = (props) => {
   const contentRef = useRef(null);
 
   const { direction, backgroundColor, arrowSize, css, maxWidth } = props;
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setPosition = useCallback(() => {
     const tooltip = tooltipRef.current;
