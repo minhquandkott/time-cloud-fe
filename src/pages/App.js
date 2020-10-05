@@ -6,6 +6,7 @@ import history from "../history";
 import Router from "./Router";
 import CreateProject from "./createProject/CreateProject";
 import SelectItem from "../components/selectItem/SelectItem";
+import Collapse from "../components/collapse/Collapse";
 import UserInfo from "../components/userInfo/UserInfo";
 
 const arr = ["Tasks", "Team"];
@@ -21,6 +22,7 @@ function App() {
       {/* <BrowserRouter history={history}>
         <Router />
       </BrowserRouter> */}
+
     </div>
   );
 }
