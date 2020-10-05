@@ -1,34 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./RoleList.css";
+import { connect } from "react-redux";
 import RoleItem from "./RoleItem/RoleItem";
+import { ROLE_LIST } from "../../../utils/Utils";
 
-const roleList = [
-  { id: 1, name: "Admin" },
-  { id: 2, name: "Bdmin" },
-  { id: 3, name: "Cdmin" },
-];
-const RoleList = () => {
-  const [roles, setRoles] = useState([]);
-  const onCheckBoxChecked = (event, role) => {
-    const { checked } = event.target;
-    if (checked) {
-      setRoles([...roles, role]);
-    } else {
-      setRoles([...roles.filter((roleE) => roleE.id !== role.id)]);
-    }
-  };
-  useEffect(() => {}, []);
+const RoleList = ({ selectedMember }) => {
   return (
     <div className="role_list">
-      {roleList.map((ele) => (
+      {ROLE_LIST.map((ele) => (
         <RoleItem
+          id={selectedMember?.id}
           role={ele}
           key={ele.id}
-          onCheckBoxChecked={onCheckBoxChecked}
+          isSelected={selectedMember?.roles.some((role) => role.id === ele.id)}
         />
       ))}
     </div>
   );
 };
 
-export default RoleList;
+const mapStateToProps = (state) => {
+  const { selectedMember } = state.members;
+  return {
+    selectedMember,
+  };
+};
+
+export default connect(mapStateToProps)(RoleList);

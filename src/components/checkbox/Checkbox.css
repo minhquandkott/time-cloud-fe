@@ -1,0 +1,39 @@
+.checkbox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.6rem;
+
+}
+
+.checkbox>input {
+  display: none;
+}
+
+.checkbox>label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox>label>.MuiSvgIcon-root {
+  font-size: 2rem;
+  color: var(--color-button);
+  margin-right: 1rem;
+}
+
+
+
+.checkbox>input:not(:checked)+label>.checkbox__checked {
+  visibility: hidden;
+}
+
+.checkbox>input:not(:checked)+label>.display_none {
+  display: none;
+}
+
+
+.checkbox>input:checked+label>.checkbox__un_check {
+  visibility: hidden;
+  display: none;
+}

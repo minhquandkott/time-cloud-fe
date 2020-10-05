@@ -1,0 +1,38 @@
+.tab_nav {
+  padding: .5rem;
+}
+
+.tab_nav__nav {
+  border-bottom: 3px solid var(--color-light-tertiary);
+}
+
+.tab_nav__nav>span {
+  display: inline-block;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+  color: var(--color-light-tertiary);
+  cursor: pointer;
+  padding: .5rem;
+  margin-right: 1rem;
+}
+
+.tab_nav__nav>span.nav_active {
+
+  color: var(--color-dark-primary);
+  position: relative;
+}
+
+.tab_nav__nav>span.nav_active::after {
+  content: "";
+  height: 3px;
+  width: 100%;
+  display: inline-block;
+  position: absolute;
+  background-color: var(--color-button);
+  bottom: -3px;
+  left: 0;
+}
+
+.tab_nav__content {
+  padding: 1rem;
+}

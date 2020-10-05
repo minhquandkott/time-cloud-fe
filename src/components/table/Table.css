@@ -30,6 +30,11 @@
 .table th,
 .table td {
   display: inline-block;
+  vertical-align: middle;
+}
+
+.table>tbody {
+  cursor: pointer;
 }
 
 .table__head>tr>th {

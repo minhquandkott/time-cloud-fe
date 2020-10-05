@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import "./ReportItem.css";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import Collapse from "../../../components/collapse/Collapse";
 
 
 const ReportItem = ({member,tasks}) => {
@@ -10,11 +11,6 @@ const ReportItem = ({member,tasks}) => {
     return (
         <div className="report_item">
             <div className="report_item__header">
-                <button  onClick={()=>{setIsDisplay(!isDisplay)}}>
-                    {
-                        isDisplay?<RemoveIcon/>:<AddIcon/>
-                    }
-                </button>
                 <h2 >{member.name}</h2>
                 <h3>{member.time}</h3>
             </div>

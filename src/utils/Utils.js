@@ -36,3 +36,15 @@ export const convertSecondToHour = (totalSecond) => {
 
   return convertedHour + convertedSuffix;
 };
+
+export const ROLE_LIST = [
+  { id: 1, name: "ADMIN", color: "2ECC71" },
+  { id: 2, name: "CEO", color: "FFB332" },
+  { id: 3, name: "PM", color: "E74C3C" },
+  { id: 4, name: "DEV", color: "9B59B6" },
+  { id: 5, name: "DESIGNER", color: "1ABC9C" },
+  { id: 6, name: "TESTER", color: "E67E22" },
+  { id: 7, name: "HR", color: "5962B6" },
+  { id: 8, name: "SEO", color: "361D2E" },
+  { id: 9, name: "MEMBER", color: "86A397" },
+];

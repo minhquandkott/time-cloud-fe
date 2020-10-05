@@ -4,14 +4,16 @@ import Table from "../../components/table/Table";
 import { connect } from "react-redux";
 import { fetchMembers, selectMember } from "../../redux/actions";
 import Point from "../../components/point/Point";
-import CreateIcon from "@material-ui/icons/Create";
+import classes from "./Manage.module.css";
+import ColumnEmail from "./columEmail/ColumnEmail";
 
-const Manage = (props) => {
-  const maxRole = props.members.reduce((preV, curV) => {
+const Manage = ({ members, fetchMembers, selectMember }) => {
+  const maxRole = members.reduce((preV, curV) => {
     return preV > curV.roles.length ? preV : curV.roles.length;
   }, 0);
+
   useEffect(() => {
-    props.fetchMembers(52);
+    fetchMembers(52);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const cssHeader = {
@@ -44,38 +46,9 @@ const Manage = (props) => {
       label: "email",
       width: "35%",
       cssHeader,
-      convertData: (userRole) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: ".5rem",
-          }}
-        >
-          <span>{userRole.user.email}</span>
-          <button
-            style={{
-              borderRadius: "50%",
-              outline: "none",
-              border: "none",
-              boxShadow: "var(--box-shadow-secondary)",
-              padding: ".5rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            className="visible_hover"
-          >
-            <CreateIcon
-              style={{
-                fontSize: "2rem",
-                color: "var(--color-dark-tertiary)",
-              }}
-            />
-          </button>
-        </div>
-      ),
+      convertData: (userRole) => {
+        return <ColumnEmail userRole={userRole} />;
+      },
     },
     access: {
       key: "access",
@@ -84,22 +57,18 @@ const Manage = (props) => {
       cssHeader,
       convertData: (userRole) => {
         return (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
-            {userRole.roles.map((role) => (
-              <Point
-                color={role.color}
-                pointSize="15"
-                title={role.name}
-                css={{ flex: `${(10 / maxRole) * 0.1}` }}
-                key={role.id}
-              />
-            ))}
+          <div className={`${classes.access} ${classes.flex}`}>
+            {userRole.roles
+              .sort((ele1, ele2) => ele1.id - ele2.id)
+              .map((role) => (
+                <Point
+                  color={role.color}
+                  pointSize="15"
+                  title={role.name}
+                  css={{ flex: `${(10 / maxRole) * 0.1}` }}
+                  key={role.id}
+                />
+              ))}
           </div>
         );
       },
@@ -112,14 +81,14 @@ const Manage = (props) => {
         <h2>Admin</h2>
         <div>
           <input type="text" placeholder="Add new member by email address..." />
-          <button style={{}}>Invite</button>
+          <button>Invite</button>
         </div>
       </div>
       <div className="manage__context"></div>
       <Table
         columns={columns}
-        data={props.members}
-        onClickHandler={(element) => console.log(element)}
+        data={members}
+        onClickHandler={(element) => selectMember(element)}
       />
     </div>
   );

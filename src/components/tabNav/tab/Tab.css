@@ -1,0 +1,15 @@
+.tab.animation {
+  animation: scaleTab 1s;
+}
+
+@keyframes scaleTab {
+  0% {
+    transform: translateX(100%) scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}

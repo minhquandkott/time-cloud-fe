@@ -9,7 +9,7 @@ const Report = () => {
   const [tasks, setTasks] = useState([]);
   
   useEffect(() => {
-    timeCloudAPI().get("projects/34/user").then(response => {
+    timeCloudAPI().get("projects/34/users").then(response => {
       console.log(response)
       setUsers(response.data);
     }).catch(error => {})
