@@ -4,14 +4,31 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
+import Collapse from "../components/collapse/Collapse";
+import UserInfo from "../components/userInfo/UserInfo";
 
 const arr = ["Tasks", "Team"];
 function App() {
   return (
     <div className="app">
-      <BrowserRouter history={history}>
+      {/* <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <Collapse selectMultiple={false}>
+        {arr.map((user) => (
+          <div>
+            <div>
+              <UserInfo user={user} />
+              <p className="toggle_item reverse">PMPMPM</p>
+            </div>
+            <div className="content toggle_item">
+              <p>abcbabcb</p>
+              <p>abcbabcb</p>
+              <p>abcbabcb</p>
+            </div>
+          </div>
+        ))}
+      </Collapse>
     </div>
   );
 }
