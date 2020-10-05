@@ -3,8 +3,14 @@ import {
   FETCH_MEMBERS_SUCCESS,
   MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
+<<<<<<< HEAD
   ADD_ROLE_SUCCESS,
   GET_USER_SUCCESS
+=======
+  ADD_ROLE_USER_SUCCESS,
+  DELETE_ROLE_USER_SUCCESS,
+  START_CHANGE_USER_ROLE,
+>>>>>>> develop
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 
@@ -21,7 +27,7 @@ const fetchMembersSuccess = (members) => {
   };
 };
 
-const membersActionFail = (errorMessage) => {
+const actionFail = (errorMessage) => {
   return {
     type: MEMBERS_ACTION_FAIL,
     payload: errorMessage,
@@ -42,29 +48,69 @@ export const fetchMembers = (companyId) => {
       const response = await timeCloudAPI().get(`companies/${companyId}/users`);
       dispatch(fetchMembersSuccess(response.data));
     } catch (error) {
-      dispatch(membersActionFail(error.response.errorMessage));
+      dispatch(actionFail(error.response.errorMessage));
     }
   };
 };
 
-export const addRoleForUser = (userId, companyId, roleId) => {
-  return async (dispatch) => {
-    dispatch(startLoading());
+export const addUserRole = (roleId) => {
+  return async (dispatch, getState) => {
+    const { user, company } = getState().members.selectedMember;
+    dispatch({ type: START_CHANGE_USER_ROLE });
+
     try {
       const response = await timeCloudAPI().post(
-        `companies/${companyId}/role/${roleId}/users/${userId}`
+        `companies/${company.id}/role/${roleId}/users/${user.id}`
       );
-      dispatch(addRoleMemberSuccess(response.data));
+      const {
+        data: { role },
+      } = response;
+      dispatch(addUserRoleSuccess(user.id, role));
+      dispatch(
+        selectMember(
+          getState().members.members.find((ele) => ele.id === user.id)
+        )
+      );
     } catch (error) {
-      dispatch(membersActionFail(error.response.errorMessage));
+      dispatch(actionFail(error.response.errorMessage));
     }
   };
 };
 
-export const addRoleMemberSuccess = (roleMember) => {
+export const deleteUserRole = (roleId) => {
+  return async (dispatch, getState) => {
+    const { id, company } = getState().members.selectedMember;
+    dispatch({ type: START_CHANGE_USER_ROLE });
+    try {
+      await timeCloudAPI().delete(
+        `companies/${company.id}/role/${roleId}/users/${id}`
+      );
+      dispatch(deleteUserRoleSuccess(id, roleId));
+      dispatch(
+        selectMember(getState().members.members.find((ele) => ele.id === id))
+      );
+    } catch (error) {
+      dispatch(actionFail(error.response.errorMessage));
+    }
+  };
+};
+
+const addUserRoleSuccess = (userId, role) => {
   return {
-    type: ADD_ROLE_SUCCESS,
-    payload: roleMember,
+    type: ADD_ROLE_USER_SUCCESS,
+    payload: {
+      userId,
+      role,
+    },
+  };
+};
+const deleteUserRoleSuccess = (userId, roleId) => {
+  return {
+    type: DELETE_ROLE_USER_SUCCESS,
+    payload: {
+      userId,
+      roleId,
+    },
   };
 };
 

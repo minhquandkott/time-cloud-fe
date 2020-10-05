@@ -4,24 +4,59 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
-import RoleList from "./manage/roleList/RoleList";
-import Checkbox from "../components/checkbox/Checkbox";
-import Skeleton from "../components/loading/skeleton/Skeleton";
+import CreateProject from "./createProject/CreateProject";
+import SelectItem from "../components/selectItem/SelectItem";
+import UserInfo from "../components/userInfo/UserInfo";
 
+const arr = ["Tasks", "Team"];
 function App() {
   return (
     <div className="app">
-      <BrowserRouter history={history}>
+      {/* <CreateProject /> */}
+      <UserInfo
+        primaryInfo="Hiep"
+        secondaryInfo="vanhiep99w@gmail.com"
+        flag="pm"
+      />
+      {/* <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter>
-      {/* <RoleList /> */}
-      {/* <div className="wrapper">
-        <p>abc</p>
-        <Tooltip backgroundColor="white" direction="top" arrowSize="10" />
-      </div> */}
-      {/* <ProjectTask projectName="Code Engine" taskName="Design" /> */}
+      </BrowserRouter> */}
     </div>
   );
 }
 
 export default App;
+{
+  /* <Collapse selectMultiple={false}>
+        {arr.map((user) => (
+          <div>
+            <div>
+              <UserInfo user={user} />
+              <p className="toggle_item reverse">PMPMPM</p>
+            </div>
+            <div className="content toggle_item">
+              <p>abcbabcb</p>
+              <p>abcbabcb</p>
+              <p>abcbabcb</p>
+            </div>
+          </div>
+        ))}
+      </Collapse> */
+  // <TabNav tabTitles={arr}>
+  //   <div>
+  //     <p>1111111</p>
+  //     <p>1111111</p>
+  //     <p>1111111</p>
+  //     <p>1111111</p>
+  //     <p>1111111</p>
+  //   </div>
+  //   <div>
+  //     <p>2222222</p>
+  //     <p>2222222</p>
+  //     <p>2222222</p>
+  //     <p>2222222</p>
+  //     <p>2222222</p>
+  //     <p>2222222</p>
+  //   </div>
+  // </TabNav>
+}

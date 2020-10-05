@@ -4,25 +4,27 @@ import PropTypes from "prop-types";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
 
 const Table = (props) => {
-  const { columns, data = [], onClickHandler } = props;
-  const heads = Object.keys(columns).map((key) => {
-    const { label, cssHeader, convertHeader, width } = columns[key];
-    return (
-      <th
-        style={{
-          ...cssHeader,
-          width: width,
-        }}
-        key={key}
-      >
-        {convertHeader ? convertHeader(data, label) : label}
-      </th>
-    );
-  });
+  const { columns, data = [], onClickHandler, skeletonLoading = true } = props;
+  const heads = columns
+    ? Object.keys(columns).map((key) => {
+        const { label, cssHeader, convertHeader, width } = columns[key];
+        return (
+          <th
+            style={{
+              ...cssHeader,
+              width: width,
+            }}
+            key={key}
+          >
+            {convertHeader ? convertHeader(data, label) : label}
+          </th>
+        );
+      })
+    : null;
 
   const cells = data.map((element) => {
     return (
-      <tr key={element.id} onClick={() => onClickHandler(element)}>
+      <tr key={element.id} onClick={(event) => onClickHandler(element)}>
         {Object.keys(columns).map((key) => {
           const { cssData, convertData, width } = columns[key];
           const cellData = element[key];
@@ -41,22 +43,30 @@ const Table = (props) => {
       </tr>
     );
   });
-  return (
-    <table className="table">
-      <thead className="table__head">
-        <tr>{heads}</tr>
-      </thead>
-      {!data.length ? (
+  const table =
+    !data.length && skeletonLoading ? (
+      <React.Fragment>
         <Skeleton
-          countItem={5}
+          countItem={columns ? Object.keys(columns).length : 3}
+          heightItem="2rem"
+          direction="row"
+        />
+        <Skeleton
+          countItem={6}
           heightItem="5rem"
           direction="column"
           bgSkeleton="var(--color-light-primary)"
         />
-      ) : null}
-      <tbody className="table__body">{cells}</tbody>
-    </table>
-  );
+      </React.Fragment>
+    ) : (
+      <table className="table">
+        <thead className="table__head">
+          <tr>{heads}</tr>
+        </thead>
+        <tbody className="table__body">{cells}</tbody>
+      </table>
+    );
+  return table;
 };
 
 export default Table;
@@ -74,4 +84,5 @@ Table.propTypes = {
   }),
   data: PropTypes.array,
   onClickHandler: PropTypes.func,
+  skeletonLoading: PropTypes.bool,
 };

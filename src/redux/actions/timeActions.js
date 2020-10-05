@@ -113,7 +113,7 @@ export const saveTime = (description) => {
     const convertedBeginTime = endTime - totalSecond * 1000;
 
     try {
-      const response = await timeCloudAPI().post(`tasks/${id}/times`, {
+      await timeCloudAPI().post(`tasks/${id}/times`, {
         description,
         mileSecondEndTime: endTime,
         mileSecondStartTime: convertedBeginTime,

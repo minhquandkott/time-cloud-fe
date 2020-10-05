@@ -1,0 +1,14 @@
+.user_info__primary {
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-right: .5rem;
+  color: var(--color-dark-primary);
+  display: inline-block;
+}
+
+
+.user_info__secondary {
+  margin-top: 2px;
+  font-size: 1.5rem;
+  color: var(--color-dark-secondary);
+}

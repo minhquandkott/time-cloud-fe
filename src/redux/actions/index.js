@@ -28,4 +28,10 @@ export {
 
 export { fetchTimes, selectTime } from "./timesActions";
 
-export { fetchMembers, selectMember, getUser } from "./membersActions";
+export {
+  fetchMembers,
+  selectMember,
+  addUserRole,
+  deleteUserRole,
+  getUser,
+} from "./membersActions";

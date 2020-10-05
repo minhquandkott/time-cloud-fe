@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 .5rem;
+  position: relative;
 }
 
 .column_email>button {

@@ -12,14 +12,14 @@
 
 .checkbox>label {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
 .checkbox>label>.MuiSvgIcon-root {
   font-size: 2rem;
   color: var(--color-button);
-  margin-right: 0.3rem;
+  margin-right: 1rem;
 }
 
 
