@@ -1,19 +1,26 @@
 import "./Tooltip.css";
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 
-const Tooltip = (props) => {
+const Tooltip = ({
+  direction,
+  backgroundColor,
+  arrowSize,
+  css,
+  maxWidth,
+  children,
+  isShow,
+}) => {
   const tooltipRef = useRef(null);
   const arrowRef = useRef(null);
   const contentRef = useRef(null);
-
-  const { direction, backgroundColor, arrowSize, css, maxWidth } = props;
-
+  const [show, setShow] = useState(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setPosition = useCallback(() => {
     const tooltip = tooltipRef.current;
     const arrow = arrowRef.current;
     const pin = tooltipRef.current.previousElementSibling;
+    console.log(tooltip, arrow, pin);
     if (pin === null)
       throw new Error(
         "Can't not find sibling to pin Tooltip ! please add sibling element"
@@ -48,6 +55,19 @@ const Tooltip = (props) => {
     setPosition();
     window.addEventListener("resize", setPosition);
   }, [setPosition]);
+  useEffect(() => {
+    window.addEventListener("click", (event) => {
+      if (event.target !== tooltipRef.current.previousElementSibling) {
+        setShow(false);
+      } else {
+        setShow(true);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    setShow(isShow);
+  }, [isShow]);
 
   return (
     <div
@@ -56,6 +76,7 @@ const Tooltip = (props) => {
       style={{
         backgroundColor,
         maxWidth,
+        display: show ? "initial" : "none",
         ...css,
       }}
       onClick={(e) => e.stopPropagation()}
@@ -71,7 +92,7 @@ const Tooltip = (props) => {
         }}
       ></p>
       <div className="tooltip__content" ref={contentRef}>
-        {props.children}
+        {children}
       </div>
     </div>
   );

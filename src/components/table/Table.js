@@ -3,8 +3,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
 
-const Table = (props) => {
-  const { columns, data = [], onClickHandler, skeletonLoading = true } = props;
+const Table = ({
+  columns,
+  data = [],
+  onClickHandler = () => {},
+  skeletonLoading = true,
+}) => {
   const heads = columns
     ? Object.keys(columns).map((key) => {
         const { label, cssHeader, convertHeader, width } = columns[key];
@@ -24,7 +28,7 @@ const Table = (props) => {
 
   const cells = data.map((element) => {
     return (
-      <tr key={element.id} onClick={(event) => onClickHandler(element)}>
+      <tr key={element.id} onClick={(event) => onClickHandler(element, event)}>
         {Object.keys(columns).map((key) => {
           const { cssData, convertData, width } = columns[key];
           const cellData = element[key];

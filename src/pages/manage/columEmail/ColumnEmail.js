@@ -34,12 +34,9 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
         css={{
           boxShadow: "var(--box-shadow-secondary)",
           borderRadius: ".5rem",
-          display:
-            showTooltip && selectedMember?.user.id === userRole.user.id
-              ? "initial"
-              : "none",
           padding: ".5rem 1rem",
         }}
+        isShow={showTooltip && selectedMember?.user.id === userRole.user.id}
       >
         <RoleList />
       </ToolTip>

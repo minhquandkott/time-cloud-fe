@@ -14,6 +14,7 @@
   flex-basis: 25%;
   font-size: 2.2rem;
   font-weight: 500;
+  color: var(--color-dark-secondary);
 
 }
 
@@ -45,6 +46,8 @@
   font-size: 1.7rem;
   font-weight: 500;
   margin-bottom: 1rem;
+  color: var(--color-dark-secondary);
+
 }
 
 .project_form_field__color>div>p {
@@ -84,4 +87,13 @@
   border-bottom-left-radius: .8rem;
   border: none;
 
+}
+
+input.project_form__input {
+  outline: none;
+  border: none;
+  width: auto;
+  padding: 1rem 1rem;
+  border-radius: 2rem;
+  background-color: var(--color-light-tertiary);
 }

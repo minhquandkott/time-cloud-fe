@@ -5,22 +5,14 @@ import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
 import CreateProject from "./createProject/CreateProject";
-import SelectItem from "../components/selectItem/SelectItem";
-import UserInfo from "../components/userInfo/UserInfo";
+import Tooltip from "../components/tooltip/Tooltip";
 
-const arr = ["Tasks", "Team"];
 function App() {
   return (
     <div className="app">
-      {/* <CreateProject /> */}
-      <UserInfo
-        primaryInfo="Hiep"
-        secondaryInfo="vanhiep99w@gmail.com"
-        flag="pm"
-      />
-      {/* <BrowserRouter history={history}>
+      <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }

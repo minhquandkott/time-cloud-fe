@@ -1,9 +1,8 @@
 .tooltip {
   position: absolute;
-  width: 100%;
   background-color: red;
   z-index: 1;
-
+  overflow-x: hidden;
 }
 
 

@@ -1,76 +1,52 @@
 import "./CreateProjectForm.css";
 import { reduxForm, Field } from "redux-form";
-import React from "react";
+import React, { useState } from "react";
 import SectionForm from "./sectionForm/SectionForm";
-import Table from "../../../components/table/Table";
+import TeamMembers from "./teamMembers/TeamMembers";
+import TasksForm from "./tasksForm/TasksForm";
 
-const columns = {
-  action: {
-    key: "action",
-    width: "5%",
-    convertData: (element) => {
-      return <button></button>;
-    },
-    cssData: {
-      textAlign: "center",
-    },
-  },
-  name: {
-    key: "name",
-    label: "name",
-    width: "20%",
-
-    cssData: {
-      textTransform: "capitalize",
-    },
-    convertData: (userRole) => userRole.user.name,
-  },
-  email: {
-    key: "email",
-    label: "email",
-    width: "35%",
-  },
-  access: {
-    key: "access",
-    label: "access",
-    width: "40%",
-  },
+const renderInput = ({ input, meta, label, flexInput, ...attribute }) => {
+  return (
+    <div className="project_form_field">
+      <label htmlFor={attribute.id}>{label}</label>
+      <input {...attribute} {...input} style={{ flex: `${flexInput}` }} />
+    </div>
+  );
 };
 
-const CreateProjectForm = () => {
-  const renderInput = ({ input, meta, label, flexInput, ...attribute }) => {
-    return (
-      <div className="project_form_field">
-        <label htmlFor={attribute.id}>{label}</label>
-        <input {...attribute} {...input} style={{ flex: `${flexInput}` }} />
-      </div>
-    );
-  };
-
-  const renderProjectColor = ({
-    input,
-    meta,
-    label,
-    flexInput,
-    ...attribute
-  }) => {
-    console.log(input, meta, label, attribute);
-    return (
-      <div className="project_form_field project_form_field__color">
-        <label>{label}</label>
-        <div style={{ flex: `${flexInput}` }}>
-          <h4>Choose color ....</h4>
-          <p>
-            Each project will have a specific color that will help you team
-            members recognize supper easily.
-          </p>
-        </div>
-        <input {...attribute} {...input} />
-      </div>
-    );
-  };
+const renderProjectColor = (params) => {
+  const { input, meta, label, flexInput, ...attribute } = params;
   return (
-    <form className="create_project_form">
+    <div className="project_form_field project_form_field__color">
+      <label>{label}</label>
+      <div style={{ flex: `${flexInput}` }}>
+        <h4>Choose color ....</h4>
+        <p>
+          Each project will have a specific color that will help you team
+          members recognize supper easily.
+        </p>
+      </div>
+      <input {...attribute} {...input} />
+    </div>
+  );
+};
+
+const tasks = [
+  { id: 1, name: "task1" },
+  { id: 2, name: "task2" },
+  { id: 3, name: "task3" },
+  { id: 4, name: "task4" },
+  { id: 5, name: "task5" },
+];
+const CreateProjectForm = (props) => {
+  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [selectedManager, setSelectedManager] = useState(null);
+  const [createdTasks, setCreatedTasks] = useState(tasks);
+  return (
+    <form
+      className="create_project_form"
+      onSubmit={(event) => event.preventDefault()}
+    >
       <SectionForm title="General Information">
         <Field
           name="project_name"
@@ -97,7 +73,20 @@ const CreateProjectForm = () => {
         />
       </SectionForm>
       <SectionForm title="Team Members">
-        <Table skeletonLoading={false} />
+        <TeamMembers
+          selectedManager={selectedManager}
+          setSelectedManager={setSelectedManager}
+          selectedMembers={selectedMembers}
+          setSelectedMembers={setSelectedMembers}
+        />
+      </SectionForm>
+
+      <SectionForm title="Tasks">
+        <TasksForm
+          selectedMembers={selectedMembers}
+          selectedTasks={createdTasks}
+          setSelectedTasks={setCreatedTasks}
+        />
       </SectionForm>
     </form>
   );

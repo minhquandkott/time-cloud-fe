@@ -4,6 +4,11 @@
   margin-right: .5rem;
   color: var(--color-dark-primary);
   display: inline-block;
+
+}
+
+.user_info__content {
+  text-align: left;
 }
 
 

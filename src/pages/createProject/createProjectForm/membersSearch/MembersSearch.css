@@ -1,0 +1,13 @@
+.members_search {
+  position: relative;
+}
+
+.members_search__item {
+  cursor: pointer;
+  padding: .5rem 1rem;
+  border-bottom: 1px solid var(--color-light-tertiary);
+}
+
+.members_search__item:hover {
+  background-color: var(--color-light-tertiary);
+}
