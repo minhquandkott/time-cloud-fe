@@ -16,6 +16,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
     fetchMembers(52);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const cssHeader = {
     textAlign: "left",
   };

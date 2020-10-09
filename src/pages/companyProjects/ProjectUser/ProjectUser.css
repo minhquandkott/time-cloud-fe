@@ -1,0 +1,6 @@
+.project_user__avatar img {
+    width: 3rem;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-right: 10px;
+}

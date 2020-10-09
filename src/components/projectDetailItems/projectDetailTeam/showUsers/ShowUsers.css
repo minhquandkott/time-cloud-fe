@@ -1,0 +1,41 @@
+.show_users {
+    width: 100%;
+    border-bottom: 1px solid #efeef3;
+    padding-bottom: 5px;
+}
+
+.show_users__item {
+    display: flex;
+}
+
+.show_users__name {
+    font-size: large;
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+.show_users__name img {
+    width: 3rem;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.show_users__tracked {
+    width: 30%;
+    font-size: large;
+    margin-top: 10px;
+    color: #2f0fbd;
+}
+
+.amount_tasks {
+    margin: 10px 0 10px 45px;
+    font-size: medium;
+    color: darkgrey;
+}
+
+.list_tasks {
+    font-size: large;
+    color: rgb(112, 108, 108);
+    margin: 10px 0 20px 45px;
+}
