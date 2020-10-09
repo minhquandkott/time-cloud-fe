@@ -13,14 +13,16 @@ function App() {
   return (
     <div className="app">
       {/* <CreateProject /> */}
-      <UserInfo
+      {/* <UserInfo
         primaryInfo="Hiep"
         secondaryInfo="vanhiep99w@gmail.com"
         flag="pm"
-      />
-      {/* <BrowserRouter history={history}>
+      /> */}
+      <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter> */}
+      </BrowserRouter>
+      
+
     </div>
   );
 }

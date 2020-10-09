@@ -9,7 +9,6 @@ const Collapse = (props) => {
   const onSelectCollapseItem = (ref) => {
     setSelectedEleRef(ref);
   };
-  console.log(props);
   return (
     <div className="collapse">
       {children.map((ele, index) => {

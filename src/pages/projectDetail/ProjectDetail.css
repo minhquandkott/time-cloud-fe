@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    margin-bottom: 5rem;
 }
 
 .project_detail__header_info {
@@ -22,7 +23,7 @@
     color:gray;
 }
 
-.project_detail p {
+.project_detail>p {
     display: flex;
     font-size: 5rem;
     font-weight: 400;

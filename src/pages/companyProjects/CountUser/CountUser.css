@@ -7,3 +7,14 @@
     align-items: center;
     justify-content: center;
 }
+
+.count_user_item {
+    margin: 5px 0;
+    display: flex;
+    /* justify-content: center; */
+}
+
+.count_user_item__name {
+    margin-top: 8px;
+    font-size: medium;
+}

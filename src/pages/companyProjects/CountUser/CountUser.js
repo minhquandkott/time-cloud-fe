@@ -1,15 +1,29 @@
 import React from 'react';
 import './CountUser.css';
+import male from '../../../assets/images/male.png';
+import female from '../../../assets/images/female.png';
 
 class CountUser extends React.Component {
     
     render() {
-        var {ele, index, amount} = this.props;
-        if(index > 1) {
-            return <div key={index} className = "count_user"> {`+${amount-2}`} </div>
+        var {ele, index, amount, rowStatus} = this.props;
+        if(rowStatus) {
+            if(index > 1) {
+                return <div key={index} className = "count_user"> {`+${amount-2}`} </div>
+            } else {
+                return <div>
+                            <img key={index} alt="" src = {ele.gender ? male : female} />
+                        </div>
+            }
         } else {
-            return <img key={index} alt="" src = {ele.avatar ? ele.avatar : "https://lh3.googleusercontent.com/Z0wGo46-ppzUrcTZzz8VS5kKxIPgJGH74gzpCdLmcKbDbSz2BxaD64EuWADpGpbLGDBN=w720-h310-rw"} />
+            return <div className = "count_user_item">
+                        <img key={index} alt="" src = {ele.gender ? male : female} />
+                        <div className = "count_user_item__name">
+                            {ele.name}
+                        </div>
+                    </div>
         }
+        
     }
 }
 

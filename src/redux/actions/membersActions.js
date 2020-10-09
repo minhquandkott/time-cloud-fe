@@ -3,14 +3,12 @@ import {
   FETCH_MEMBERS_SUCCESS,
   MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
-<<<<<<< HEAD
   ADD_ROLE_SUCCESS,
-  GET_USER_SUCCESS
-=======
+  GET_USER_SUCCESS,
+
   ADD_ROLE_USER_SUCCESS,
   DELETE_ROLE_USER_SUCCESS,
   START_CHANGE_USER_ROLE,
->>>>>>> develop
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 

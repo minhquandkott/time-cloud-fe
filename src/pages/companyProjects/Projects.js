@@ -10,6 +10,8 @@ import Point from "../../components/point/Point";
 import history from '../../history';
 import TrackTime from './TrackTime/TrackTime';
 import ProjectUser from './ProjectUser/ProjectUser';
+import UserColumn from './ProjectUser/UserColumn';
+import timeCloudAPI from "../../apis/timeCloudAPI";
 
 class Projects extends React.Component {
 
@@ -41,7 +43,6 @@ class Projects extends React.Component {
     }
 
   render() {
-    console.log(1);
     const cssHeader = {
         textAlign: "left",
     };
@@ -94,7 +95,7 @@ class Projects extends React.Component {
                 verticalAlign: "middle",
                 cursor: "pointer"
             },
-            convertData: (project) => <ProjectUser key={project.id} projectId = {project.id} />,
+            convertData: (project) => <UserColumn project = {project}/>,
         },
         actions: {
             key: "actions",
