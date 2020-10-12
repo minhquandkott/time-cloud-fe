@@ -34,3 +34,10 @@
     margin-top: 5rem;
     font-size: large;
 }
+
+.tracked_time p {
+    display: flex;
+    font-size: 5rem;
+    font-weight: 400;
+    color: rgba(223, 16, 27, 0.979);
+}
