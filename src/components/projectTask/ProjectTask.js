@@ -6,8 +6,8 @@ const ProjectTask = (props) => {
   const { projectName, taskName } = props;
   return (
     <div className="project_task">
-      <Point color="D65108" pointSize="20" title={projectName} />
-      <Point color="DDDDDD" pointSize="7" title={taskName} />
+      <Point color="#D65108" pointSize="20" title={projectName} />
+      <Point color="#DDDDDD" pointSize="7" title={taskName} />
     </div>
   );
 };

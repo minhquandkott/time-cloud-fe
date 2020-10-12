@@ -63,7 +63,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
               .sort((ele1, ele2) => ele1.id - ele2.id)
               .map((role) => (
                 <Point
-                  color={role.color}
+                  color={`#${role.color}`}
                   pointSize="15"
                   title={role.name}
                   css={{ flex: `${(10 / maxRole) * 0.1}` }}

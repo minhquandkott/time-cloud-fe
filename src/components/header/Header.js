@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { logout } from "../../redux/actions";
 
 const Header = (props) => {
+  console.log(props.user);
   const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef(null);
   function onClickHandler() {
@@ -44,7 +45,7 @@ const Header = (props) => {
           }
         />
 
-        <p>{props.user?.name ? props.user.name : "vanhiep99w"}</p>
+        <p>{props.user?.name ? props.user.name : ""}</p>
         <button onClick={onClickHandler}>
           <ArrowDropDownIcon />
         </button>

@@ -33,7 +33,7 @@ const RoleItem = ({
       }}
       setPointerEvents={changeRoleLoading}
     >
-      <Point title={role.name} color={role.color} pointSize="2rem" />
+      <Point title={role.name} color={`#${role.color}`} pointSize="2rem" />
     </Checkbox>
   );
 };
