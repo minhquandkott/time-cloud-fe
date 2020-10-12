@@ -20,12 +20,12 @@ class ShowUsers extends React.Component {
     
     render() {
         var {tasks} = this.state;
-        var {user, index} = this.props;
+        var {user, index, avatar} = this.props;
         return (
             <div className="show_users">
                 <div className="show_users__item">
                     <div className="show_users__name"  style={{marginBottom: "0"}}>
-                        <UserInfo cssForPrimaryInfo={{fontWeight:"500"}} primaryInfo = {user.name} secondaryInfo = {user.email}/>
+                        <UserInfo avatar = {avatar} cssForPrimaryInfo={{fontWeight:"500"}} primaryInfo = {user.name} secondaryInfo = {user.email}/>
                     </div>
                     <div className="show_users__tracked">
                         <UserTracked user = {user} />

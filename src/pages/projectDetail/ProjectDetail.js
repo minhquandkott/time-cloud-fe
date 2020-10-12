@@ -62,9 +62,7 @@ class Projects extends React.Component {
           <div className="project_detail__header_info">
             <h1
               style={{
-                color: `#${
-                  randomColorArray[randomNumber(randomColorArray.length)]
-                }`,
+                color: project.color
               }}
             >
               {" "}
@@ -77,7 +75,9 @@ class Projects extends React.Component {
             </div>
           </div>
           <div>
-            <p> {<TrackTime projectId={project.id} />} </p>
+            <div className="tracked_time">
+              <p> {<TrackTime projectId={project.id} />} </p>
+            </div>
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>

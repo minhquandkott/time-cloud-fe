@@ -23,8 +23,7 @@ class Projects extends React.Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchProjects(77);
-        
+        this.props.fetchProjects(localStorage.getItem("userId"));
     }
 
     onChange = (e) => {
@@ -34,6 +33,10 @@ class Projects extends React.Component {
         this.setState({
             [name] : value
         })
+    }
+
+    onCreateProject = () => {
+        console.log(11);
     }
 
     onDelete = (id) => {
@@ -58,7 +61,7 @@ class Projects extends React.Component {
             cursor: "pointer"
             },
             convertData: (project) => <Point
-                                            color="E74C3C"
+                                            color= {project.color}
                                             pointSize="15"
                                             title={project.name}
                                             key={project.id}
@@ -143,13 +146,14 @@ class Projects extends React.Component {
                     ></input>
                     <SearchIcon onClick = {this.onSearch}/>
                 </div>
-                <button className = "projects__bt">
+                <button className = "projects__bt" onClick = {this.onCreateProject}>
                     Create new project
                 </button>
             </div>
             <Table
                 columns={columns}
                 data = {projects}
+                skeletonLoading = {projects.length ? false : true}
                 onClickHandler={(element) => 
                     history.push({
                         pathname: `/projects/${element.id}`,
