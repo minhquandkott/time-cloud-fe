@@ -1,0 +1,36 @@
+
+.project_detail {
+    margin: 0 10%;
+    font-family: Heebo;
+}
+
+.project_detail__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5rem;
+}
+
+.project_detail__header_info {
+    margin-top: 5rem;
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+.create__info {
+    font-size: 1.5rem;
+    font-weight: 300 !important;
+    color:gray;
+}
+
+.project_detail>p {
+    display: flex;
+    font-size: 5rem;
+    font-weight: 400;
+    color: rgba(223, 16, 27, 0.979);
+}
+
+.project_detail__menu_link {
+    margin-top: 5rem;
+    font-size: large;
+}

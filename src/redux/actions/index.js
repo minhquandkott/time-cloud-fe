@@ -8,7 +8,7 @@ export {
   fetchUser,
 } from "./authActions";
 
-export { fetchProjects, fetchProjectsSuccess } from "./projectActions";
+export { fetchProjects, deleteProjects } from "./projectActions";
 
 export { fetchTasks } from "./taskActions";
 
@@ -30,4 +30,5 @@ export {
   selectMember,
   addUserRole,
   deleteUserRole,
+  getUser,
 } from "./membersActions";

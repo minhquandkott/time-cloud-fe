@@ -1,0 +1,29 @@
+.menu_project_detail {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    color: black;
+    border-bottom: 1px solid var(--color-light-tertiary);
+    border-style: groove;
+}
+.menu_project_detail>li {
+    display: block;
+    color: black !important;
+}
+
+.menu_project_detail>li a{
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu_project_detail>li a:hover:not(.active) {
+    background-color: rgb(237, 243, 239);
+  }
+
+  .active {
+    background-color: rgb(237, 243, 239);
+  }
+  
