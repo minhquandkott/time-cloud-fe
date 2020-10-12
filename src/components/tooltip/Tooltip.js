@@ -24,7 +24,7 @@ const Tooltip = ({
       throw new Error(
         "Can't not find sibling to pin Tooltip ! please add sibling element"
       );
-    const html = document.firstElementChild;
+    const html = document?.firstElementChild;
 
     if (html.offsetWidth < pin.offsetLeft + tooltip.offsetWidth / 2) {
       const extraLeft =

@@ -57,6 +57,9 @@ const CreateProject = ({ formValues }) => {
       task.users.forEach((user) =>
         timeCloudAPI().post(`tasks/${taskId}/users/${user.id}`)
       );
+      timeCloudAPI().post(
+        `tasks/${taskId}/users/${localStorage.getItem("userId")}`
+      );
     }
   };
 

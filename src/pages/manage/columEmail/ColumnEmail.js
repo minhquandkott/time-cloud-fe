@@ -11,6 +11,7 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
   const onButtonClick = (event) => {
     setShowTooltip(!showTooltip);
   };
+  console.log(showTooltip);
   useEffect(() => {
     if (selectedMember?.user.id !== userRole.user.id) setShowTooltip(false);
   }, [selectedMember, userRole.user.id]);
