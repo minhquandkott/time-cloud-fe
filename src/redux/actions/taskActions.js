@@ -4,6 +4,7 @@ import {
   FETCH_TASKS_START,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
+import { fetchProjectsSuccess } from "../actions";
 
 export const startFetchTasks = () => {
   return {
@@ -26,8 +27,26 @@ export const fetchTasksFail = (errorMassage) => {
 };
 
 export const fetchTasks = (projectId) => {
-  return async (dispatch) => {
-    const response = await timeCloudAPI().get(`projects/${projectId}/tasks`);
-    dispatch(fetchTasksSuccess(response.data));
+  return async (dispatch, getState) => {
+    const { data } = await timeCloudAPI().get(`projects/${projectId}/tasks`);
+    dispatch(fetchTasksSuccess(data));
+    // const { tasks } = getState().tasks;
+    // const { projects } = getState().projects;
+    // const i = projects.findIndex((project, index) => {
+    //   console.log(
+    //     tasks.filter((task) => task.projectId === project.id).length,
+    //     index
+    //   );
+    //   return (
+    //     tasks.filter((task) => task.projectId === project.id).length <
+    //     data.length
+    //   );
+    // });
+    // const projectIndex = projects.findIndex((e) => e.id === projectId);
+    // const project = projects[projectIndex];
+    // projects.splice(projectIndex, 1);
+    // projects.splice(i, 0, project);
+    // console.log(projectId, i, projects);
+    // dispatch(fetchProjectsSuccess([...projects]));
   };
 };

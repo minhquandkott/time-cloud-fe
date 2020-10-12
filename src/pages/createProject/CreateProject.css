@@ -1,4 +1,55 @@
 .create_project {
   font-family: 'Heebo', sans-serif;
-  padding: 2rem 10rem;
+  padding: 2rem 12rem;
+  padding-bottom: 10rem;
+  overflow-x: hidden;
+}
+.create_project__bottom{
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create_project__spinner{
+  width: 5rem;
+  height: 5rem;
+}
+
+.create_project__button{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create_project__button>button{
+  outline: none;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.7rem;
+  border-radius: 5px;
+  transition: all 1s;
+  cursor: pointer;
+}
+
+.create_project__button__create_new{
+  color: var(--color-light-primary);
+  border: none;
+  
+  background-color: var(--color-button);
+  
+}
+
+.create_project__button__create_new:hover{
+  background-color: #005ebd;
+}
+.create_project__button__create_new:disabled{
+  background-color: #3a5d80;
+}
+.create_project__button__cancel{
+  border: none;
+  margin-right: 2rem;
+  background-color: var(--color-light-primary);
+  border: 1px solid var(--color-dark-tertiary);
+  color: var(--color-dark-secondary);
+}
+.create_project__button__cancel:hover{
+  background-color: var(--color-light-tertiary);
 }

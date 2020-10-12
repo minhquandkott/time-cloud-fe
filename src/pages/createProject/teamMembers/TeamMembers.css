@@ -22,9 +22,10 @@
   outline: none;
   border: none;
   background-color: transparent;
+  color: var(--color-button);
   font-size: 1.7rem;
-  color: var(--color-dark-tertiary);
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .team_members__bottom_left>button:hover {
@@ -48,4 +49,6 @@
   color: var(--color-button);
   font-size: 1.7rem;
   border-bottom: 2px solid var(--color-button);
+  cursor: pointer;
 }
+

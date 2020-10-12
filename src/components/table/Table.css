@@ -12,7 +12,8 @@
 
 .table__body>tr {
   border-bottom: 1px solid var(--color-light-tertiary);
-  transition: all .5s;
+  transition: all 1s;
+  
 }
 
 .table__body>tr:hover {

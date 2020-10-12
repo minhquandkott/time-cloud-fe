@@ -19,8 +19,7 @@ const Tooltip = ({
   const setPosition = useCallback(() => {
     const tooltip = tooltipRef.current;
     const arrow = arrowRef.current;
-    const pin = tooltipRef.current.previousElementSibling;
-    console.log(tooltip, arrow, pin);
+    const pin = tooltipRef.current?.previousElementSibling;
     if (pin === null)
       throw new Error(
         "Can't not find sibling to pin Tooltip ! please add sibling element"
@@ -51,13 +50,21 @@ const Tooltip = ({
       pin.offsetLeft - tooltip.offsetLeft + pin.offsetWidth / 2 + "px";
   });
 
+  // useEffect(() => {
+  //   const pin = tooltipRef.current?.previousElementSibling;
+  //   if (show) {
+  //     pin.style.zIndex = 1;
+  //   } else {
+  //     pin.style.zIndex = 1;
+  //   }
+  // }, [show]);
   useEffect(() => {
     setPosition();
     window.addEventListener("resize", setPosition);
   }, [setPosition]);
   useEffect(() => {
     window.addEventListener("click", (event) => {
-      if (event.target !== tooltipRef.current.previousElementSibling) {
+      if (event.target !== tooltipRef.current?.previousElementSibling) {
         setShow(false);
       } else {
         setShow(true);

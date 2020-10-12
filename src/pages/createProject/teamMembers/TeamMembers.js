@@ -1,12 +1,12 @@
 import "./TeamMembers.css";
-import Table from "../../../../components/table/Table";
-import Checkbox from "../../../../components/checkbox/Checkbox";
-import SelectItem from "../../../../components/selectItem/SelectItem";
-import UserInfo from "../../../../components/userInfo/UserInfo";
-import React, { useEffect } from "react";
-import { fetchMembers } from "../../../../redux/actions";
+import Table from "../../../components/table/Table";
+import Checkbox from "../../../components/checkbox/Checkbox";
+import SelectItem from "../../../components/selectItem/SelectItem";
+import UserInfo from "../../../components/userInfo/UserInfo";
+import React, { useState, useEffect } from "react";
+import { fetchMembers } from "../../../redux/actions";
 import { connect } from "react-redux";
-import MembersSearch from "../membersSearch/MembersSearch";
+import MembersSearch from "./membersSearch/MembersSearch";
 
 const TeamMembers = ({
   selectedMembers,
@@ -20,6 +20,7 @@ const TeamMembers = ({
     fetchMembers(52);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const columns = {
     people: {
       key: "action",
@@ -45,7 +46,7 @@ const TeamMembers = ({
           <UserInfo
             primaryInfo={element.user.name}
             secondaryInfo={element.user.email}
-            flag="pm"
+            flag={selectedManager?.id === element.id ? "PM" : null}
           />
         </SelectItem>
       ),
@@ -92,13 +93,21 @@ const TeamMembers = ({
       />
       <div className="team_members__bottom">
         <div className="team_members__bottom_left">
-          <MembersSearch dataList={members} onSelectItem={onAddMember} />
-          <button
-            className="project_form__button"
-            onClick={() => onAddAllPeople()}
-          >
-            Add all people.
-          </button>
+          <MembersSearch
+            dataList={members}
+            onSelectItem={onAddMember}
+            selectedMembers={selectedMembers}
+          />
+          {selectedMembers ? (
+            <button
+              className="project_form__button"
+              onClick={() => {
+                onAddAllPeople();
+              }}
+            >
+              Add all people.
+            </button>
+          ) : null}
         </div>
         <div className="team_members__bottom_right">
           <p>Need to add some one?</p>
@@ -113,7 +122,9 @@ const TeamMembers = ({
 const mapStateToProps = (state) => {
   const { members } = state.members;
   return {
-    members,
+    members: members.filter(
+      (ele) => ele.id !== parseInt(localStorage.getItem("userId"))
+    ),
   };
 };
 

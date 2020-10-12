@@ -1,12 +1,16 @@
 import "./TagItem.css";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { Transition } from "react-transition-group";
 
 const TagItem = ({ data, convertData, onRemoveItem }) => {
-  console.log(data);
   const [isShow, setIsShow] = useState(true);
   const tagItemRef = useRef(null);
+  useEffect(() => {
+    console.log(1);
+    setIsShow(data ? true : false);
+  }, [data]);
+  console.log(isShow, data);
   return (
     <Transition
       in={isShow}
@@ -16,7 +20,6 @@ const TagItem = ({ data, convertData, onRemoveItem }) => {
     >
       {(state) => {
         const tagItemDom = tagItemRef.current;
-
         if (state === "entered" && tagItemDom) {
           const { style, scrollWidth } = tagItemDom;
           style.maxWidth = scrollWidth + "px";
@@ -37,17 +40,7 @@ const TagItem = ({ data, convertData, onRemoveItem }) => {
             //   transitionDelay: `${(index - 1) * 0.1}s`,
             // }}
           >
-            <div className="tag_item__content">
-              {convertData(data)}
-              <button
-                onClick={() => {
-                  setIsShow(!isShow);
-                  onRemoveItem(data.id);
-                }}
-              >
-                <CloseIcon />
-              </button>
-            </div>
+            <div className="tag_item__content"></div>
           </div>
         );
       }}

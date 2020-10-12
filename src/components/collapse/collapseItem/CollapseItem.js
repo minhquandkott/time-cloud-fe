@@ -62,7 +62,7 @@ const CollapseItem = ({
         onClick={(event) => onButtonClick(event)}
         className="collapse_item__button"
       >
-        {showContent ? <AddIcon /> : <RemoveIcon />}
+        {showContent ? <RemoveIcon /> : <AddIcon />}
       </button>
       {/* <div className="collapse_item__content">
         <div>

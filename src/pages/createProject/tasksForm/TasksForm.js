@@ -1,8 +1,9 @@
 import "./TasksForm.css";
 import Table from "../../../components/table/Table";
 import SelectItem from "../../../components/selectItem/SelectItem";
-import MembersTaskSearch from "../createProjectForm/membersTaskSearch/MembersTaskSearch";
+import MembersTaskSearch from "./membersTaskSearch/MembersTaskSearch";
 import React, { useState } from "react";
+import { v4 } from "uuid";
 
 const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -91,6 +92,17 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
     setSelectedTasks([...selectedTasks]);
     setSelectedTask({ ...task });
   };
+
+  const onInputEnter = (event) => {
+    if (event.keyCode === 13 && event.target.value) {
+      const newTask = {
+        id: v4(),
+        name: event.target.value,
+      };
+      setSelectedTasks([...selectedTasks, newTask]);
+      setAddTaskInputValue("");
+    }
+  };
   return (
     <div className="tasks_form">
       <Table
@@ -104,6 +116,7 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
         placeholder="Add more tasks ..."
         value={addTaskInputValue}
         onChange={(event) => setAddTaskInputValue(event.target.value)}
+        onKeyUp={onInputEnter}
       />
     </div>
   );

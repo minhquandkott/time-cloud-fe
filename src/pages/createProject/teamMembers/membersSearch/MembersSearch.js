@@ -4,7 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import UserInfo from "../../../../components/userInfo/UserInfo";
 import Tooltip from "../../../../components/tooltip/Tooltip";
 
-const MembersSearch = ({ dataList, onSelectItem = () => {} }) => {
+const MembersSearch = ({
+  dataList,
+  onSelectItem = () => {},
+  selectedMembers,
+}) => {
   const [selectedData, setSelectedData] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [showTooltip, setShowTooltip] = useState(false);
@@ -20,18 +24,29 @@ const MembersSearch = ({ dataList, onSelectItem = () => {} }) => {
   };
 
   useEffect(() => {
+    let maxResult = 4;
     const arr = dataList.filter((ele) => {
-      return inputValue
-        ? ele.user.name
+      if (inputValue) {
+        return (
+          (ele.user.name
             .toLocaleLowerCase()
             .includes(inputValue.toLocaleLowerCase()) ||
             ele.user.email
               .toLocaleLowerCase()
-              .includes(inputValue.toLocaleLowerCase())
-        : false;
+              .includes(inputValue.toLocaleLowerCase())) &&
+          !selectedMembers.some((e) => e.id === ele.id)
+        );
+      } else {
+        if (maxResult > 0 && !selectedMembers.some((e) => e.id === ele.id)) {
+          maxResult--;
+          return true;
+        } else {
+          return false;
+        }
+      }
     });
     setSelectedData([...arr]);
-  }, [dataList, inputValue]);
+  }, [dataList, inputValue, selectedMembers]);
 
   return (
     <div className="members_search">

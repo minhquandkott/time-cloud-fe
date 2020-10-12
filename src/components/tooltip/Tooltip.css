@@ -5,13 +5,10 @@
   overflow-x: hidden;
 }
 
-
-
 .tooltip__arrow {
   position: absolute;
   left: 50%;
 }
-
 
 .tooltip__arrow__top {
   bottom: 0;

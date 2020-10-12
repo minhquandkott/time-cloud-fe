@@ -23,6 +23,8 @@ class Router extends React.Component {
             <Switch>
               <Route path="/" exact component={CreateProject} />
               <Route path="/timer" component={Timer} />
+              <Route path="/manage" component={Manage} />
+              <Route path="/create" component={CreateProject} />
             </Switch>
           </React.Fragment>
         ) : (

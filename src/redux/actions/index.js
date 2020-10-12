@@ -8,7 +8,7 @@ export {
   fetchUser,
 } from "./authActions";
 
-export { fetchProjects } from "./projectActions";
+export { fetchProjects, fetchProjectsSuccess } from "./projectActions";
 
 export { fetchTasks } from "./taskActions";
 
