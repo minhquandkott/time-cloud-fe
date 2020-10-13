@@ -1,0 +1,23 @@
+.view_user_by_task {
+    width: 100%;
+    border-bottom: 1px solid #efeef3;
+    padding-bottom: 5px;
+}
+
+.view_user_by_task__item {
+    display: flex;
+}
+
+.view_user_by_task__name {
+    font-size: large;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+.view_user_by_task__tracked {
+    width: 30%;
+    font-size: large;
+    margin-top: 10px;
+    color: #2f0fbd;
+}

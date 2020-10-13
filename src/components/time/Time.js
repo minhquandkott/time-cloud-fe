@@ -90,7 +90,7 @@ class Time extends React.Component {
         returnValue.push(
           <div className="project" key={project.id}>
             <div className="project__name">
-              <Point color="80A1D4" pointSize="20px" title={project.name}>
+              <Point color="#80A1D4" pointSize="20px" title={project.name}>
                 <p
                   className="project__company_name"
                   style={{

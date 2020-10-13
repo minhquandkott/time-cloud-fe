@@ -39,6 +39,13 @@ function App() {
   )
   return (
     <div className="app">
+      {/* <CreateProject /> */}
+      {/* <UserInfo
+        primaryInfo="Hiep"
+        secondaryInfo="vanhiep99w@gmail.com"
+        flag="pm"
+      /> */}
+
       <BrowserRouter history={history}>
         <Router />
       </BrowserRouter>

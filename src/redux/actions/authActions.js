@@ -85,7 +85,7 @@ export const checkAuth = () => {
       dispatch(logout());
     } else {
       dispatch(authSuccess(token, userId));
-      fetchUser(userId);
+      dispatch(fetchUser(userId));
     }
   };
 };

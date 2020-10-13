@@ -1,0 +1,20 @@
+.count_user {
+    display: flex;
+    width: 3rem;
+    border-radius: 50%;
+    background-color: #ece7e7;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
+.count_user_item {
+    margin: 5px 0;
+    display: flex;
+    /* justify-content: center; */
+}
+
+.count_user_item__name {
+    margin-top: 8px;
+    font-size: medium;
+}
