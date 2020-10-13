@@ -8,6 +8,7 @@ import {
   AUTH_SIGN_UP_SUCCESS,
   AUTH_START_SIGN_UP,
   AUTH_SET_USER_INFO,
+  AUTH_SET_USER_ROLE,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
@@ -18,7 +19,7 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId, username) => {
+export const authSuccess = (token, userId) => {
   return {
     type: AUTH_SUCCESS,
     payload: {
@@ -46,19 +47,41 @@ export const authentication = (email, password) => {
   return async (dispatch) => {
     dispatch(authStart());
     try {
-      const response = await timeCloudAPI().post("/login", {
+      const response1 = await timeCloudAPI().post("login", {
         email,
         password,
       });
-
-      const { authorization, userid } = response.headers;
+      const { authorization, userid } = response1.headers;
+      console.log(authorization, userid);
       dispatch(authSuccess(authorization, userid));
-      dispatch(setUserInfo(response.data));
+      dispatch(setUserInfo(response1.data));
+      dispatch(fetchUserRole(userid));
       history.push("/");
       localStorage.setItem(TOKEN, authorization);
       localStorage.setItem(USER_ID, userid);
     } catch (error) {
       dispatch(authFail(error.response.message));
+    }
+  };
+};
+
+const setUserRole = (userRole) => {
+  return {
+    type: AUTH_SET_USER_ROLE,
+    payload: userRole,
+  };
+};
+
+const fetchUserRole = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response2 = await timeCloudAPI().get(
+        `companies/52/users/${userId}/role`
+      );
+      const roles = response2.data.map((ele) => ele.role);
+      dispatch(setUserRole(roles));
+    } catch (error) {
+      console.log("error");
     }
   };
 };
@@ -78,7 +101,7 @@ export const logout = () => {
 };
 
 export const checkAuth = () => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     const token = localStorage.getItem(TOKEN);
     const userId = localStorage.getItem(USER_ID);
     if (!token) {
@@ -86,6 +109,7 @@ export const checkAuth = () => {
     } else {
       dispatch(authSuccess(token, userId));
       dispatch(fetchUser(userId));
+      dispatch(fetchUserRole(userId));
     }
   };
 };

@@ -28,7 +28,10 @@ export const fetchTasksFail = (errorMassage) => {
 
 export const fetchTasks = (projectId) => {
   return async (dispatch, getState) => {
-    const { data } = await timeCloudAPI().get(`projects/${projectId}/tasks`);
+    const { userId } = getState().auth;
+    const { data } = await timeCloudAPI().get(
+      `projects/${projectId}/users/${userId}/tasks`
+    );
     dispatch(fetchTasksSuccess(data));
     // const { tasks } = getState().tasks;
     // const { projects } = getState().projects;

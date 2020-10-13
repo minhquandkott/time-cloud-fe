@@ -11,7 +11,6 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
   const onButtonClick = (event) => {
     setShowTooltip(!showTooltip);
   };
-  console.log(showTooltip);
   useEffect(() => {
     if (selectedMember?.user.id !== userRole.user.id) setShowTooltip(false);
   }, [selectedMember, userRole.user.id]);
@@ -20,7 +19,11 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
     <div className="column_email ">
       <span>{userRole?.user?.email}</span>
       <button
-        className={!showTooltip ? "visible_hover" : ""}
+        className={
+          !showTooltip
+            ? `visible_hover column_email__button${userRole.id}`
+            : `column_email__button${userRole.id}`
+        }
         onClick={onButtonClick}
       >
         <CreateIcon

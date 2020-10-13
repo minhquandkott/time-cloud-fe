@@ -26,7 +26,7 @@ const Tooltip = ({
       );
     const html = document?.firstElementChild;
 
-    if (html.offsetWidth < pin.offsetLeft + tooltip.offsetWidth / 2) {
+    if (html.offsetWidth < pin?.offsetLeft + tooltip.offsetWidth / 2) {
       const extraLeft =
         html.offsetWidth - (pin.offsetLeft + tooltip.offsetWidth / 2);
       tooltip.style.left =
@@ -50,27 +50,32 @@ const Tooltip = ({
       pin.offsetLeft - tooltip.offsetLeft + pin.offsetWidth / 2 + "px";
   });
 
-  // useEffect(() => {
-  //   const pin = tooltipRef.current?.previousElementSibling;
-  //   if (show) {
-  //     pin.style.zIndex = 1;
-  //   } else {
-  //     pin.style.zIndex = 1;
-  //   }
-  // }, [show]);
   useEffect(() => {
     setPosition();
     window.addEventListener("resize", setPosition);
   }, [setPosition]);
   useEffect(() => {
     window.addEventListener("click", (event) => {
-      if (event.target !== tooltipRef.current?.previousElementSibling) {
-        setShow(false);
-      } else {
-        setShow(true);
+      let queryClass = "";
+      if (tooltipRef.current) {
+        tooltipRef.current.previousElementSibling.classList.forEach(
+          (element) => {
+            queryClass = queryClass + "." + element;
+          }
+        );
+        const arrChild = document.querySelectorAll(queryClass + " *");
+        if (
+          [...arrChild, tooltipRef.current.previousElementSibling].some(
+            (ele) => ele === event.target
+          )
+        ) {
+          setShow(true);
+        } else {
+          setShow(false);
+        }
       }
     });
-  }, []);
+  }, [show]);
 
   useEffect(() => {
     setShow(isShow);

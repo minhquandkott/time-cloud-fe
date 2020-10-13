@@ -12,7 +12,7 @@ const RoleList = ({ selectedMember }) => {
           id={selectedMember?.id}
           role={ele}
           key={ele.id}
-          isSelected={selectedMember?.roles.some((role) => role.id === ele.id)}
+          isSelected={selectedMember?.roles?.some((role) => role.id === ele.id)}
         />
       ))}
     </div>

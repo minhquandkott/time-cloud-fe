@@ -36,22 +36,28 @@ const Table = ({
         mountOnEnter
         unmountOnExit
         onEnter={(node) => {
+          console.log(1, node);
           node.style.opacity = 0;
           node.style.transform = "translateX(150%)";
         }}
         onEntering={(node) => {
+          console.log(2, node);
           node.style.opacity = 1;
           node.style.transform = "translateX(0)";
         }}
+        onEntered={() => console.log(3)}
         onExit={(node) => {
+          console.log(4, node);
           node.style.maxHeight = node.scrollHeight + "px";
           node.style.transform = "translateX(0)";
         }}
         onExiting={(node) => {
+          console.log(5, node);
           node.style.maxHeight = 0;
           node.style.padding = "0";
           node.style.transform = "translateX(150%)";
         }}
+        onExited={() => console.log(6)}
       >
         <tr
           onClick={(event) => {

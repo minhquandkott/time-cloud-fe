@@ -35,12 +35,10 @@ const CreateProject = ({ formValues }) => {
       history.push("/timer");
     } catch (error) {
       setError(error.response.data.message);
-      console.log(error.response.data.message);
     }
   };
 
   const checkFormEmpty = () => {
-    console.log(formValues);
     if (formValues) {
       const { project_name, client_name, project_color } = formValues;
       return !(project_color && client_name && project_name);
