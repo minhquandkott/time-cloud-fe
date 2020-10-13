@@ -4,23 +4,25 @@ import ReportList from "../../pages/report/reportlist/ReportList";
 import ReportListDes from "../../pages/report/reportlistdes/ReportListDes";
 import TabNav from "../../components/tabNav/TabNav";
 import TimeCloudAPI from "../../apis/timeCloudAPI";
-import UserInfo from "../../components/userInfo/UserInfo";
 import {convertSecondToHour} from "../../utils/Utils";
 import Avatar from "../../components/avatar/Avatar";
+import history from "../../history/"; 
 
 const Report = () => {
 
-  const user = {
-    id:77,
-    name:'Hiep',
-    email:"vanhiep99w@gmail.com"
-  };
   const tabTitles = ["By Projects", "By Tasks"];
   const [time,setTime] = useState([]);
+  const [user,setUser] = useState([]);
 
   useEffect(()=>{
-    TimeCloudAPI().get(`users/${user.id}/total-times`).then(response=>{
+    TimeCloudAPI().get(`users/77/total-times`).then(response=>{
       setTime(response.data);
+    }).catch(error=>{});
+  })
+
+  useEffect(()=>{
+    TimeCloudAPI().get(`users/77`).then(response=>{
+      setUser(response.data);
     }).catch(error=>{});
   })
 
