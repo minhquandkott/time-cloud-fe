@@ -6,7 +6,11 @@ import Timer from "./timer/Timer";
 import SignUp from "./signup/SignUp";
 import Header from "../components/header/Header";
 import Manage from "./manage/Manage";
+<<<<<<< HEAD
 import CreateProject from "./createProject/CreateProject";
+=======
+import Report from "./report/Report";
+>>>>>>> origin/develop
 import Projects from "./../pages/companyProjects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 import ProjectDetail from "./projectDetail/ProjectDetail";
