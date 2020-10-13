@@ -1,21 +1,30 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import "./ReportList.css";
+import Collapse from "../../../components/collapse/Collapse";
+import timeCloudAPI from "../../../apis/timeCloudAPI";
 import ReportItem from "../reportitem/ReportItem";
 
-const ReportList = ({users,tasks}) => {
+const ReportList = ({user}) => {
+
+  const [projects, setProjects] = useState([]);
+  
+  useEffect(() => {
+    timeCloudAPI().get("users/77/projects").then(response => {
+      console.log(response)
+      setProjects(response.data);
+    }).catch(error => {})
+  },[]);
 
     return (
-        <div className="report_list">
-          <ul>
-            {
-              users.map((element)=>(
-                <li style={{paddingTop:"1.5rem"}}>
-                  <ReportItem member={element} tasks={tasks}/>
-                </li>
-              ))
-            }
-          </ul>
-      </div>
+      <div className="reportList">
+      <Collapse selectMultiple={true}>
+      {projects.map(project => {
+        return (
+          <ReportItem project={project} user={user}/>
+        )
+      })}
+     </Collapse>
+     </div>
     )
 }
 

@@ -1,0 +1,27 @@
+.tag_item {
+  border-radius: 2.2rem;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.tag_item__content {
+  padding: 1rem 1rem 1rem 2rem;
+  font-size: 2rem;
+  text-transform: capitalize;
+  background-color: var(--color-light-tertiary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag_item__content>button {
+  border: none;
+  outline: none;
+  margin-left: .5rem;
+}
+
+.tag_item__content>button>.MuiSvgIcon-root {
+  color: var(--color-dark-tertiary);
+  margin-left: .3rem;
+  vertical-align: middle;
+}

@@ -1,0 +1,16 @@
+.section_form__header {
+
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  border-bottom: 1px solid var(--color-light-tertiary);
+}
+
+.section_form__header>h2 {
+  font-size: 3rem;
+  font-weight: 800;
+
+}
+
+.section_form__content {
+  padding: 1rem 0;
+}
