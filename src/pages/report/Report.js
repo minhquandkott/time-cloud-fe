@@ -18,13 +18,13 @@ const Report = () => {
     TimeCloudAPI().get(`users/77/total-times`).then(response=>{
       setTime(response.data);
     }).catch(error=>{});
-  })
+  },[])
 
   useEffect(()=>{
     TimeCloudAPI().get(`users/77`).then(response=>{
       setUser(response.data);
     }).catch(error=>{});
-  })
+  },[])
 
   return (
     <div className="report">
