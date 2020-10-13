@@ -6,11 +6,8 @@ import Timer from "./timer/Timer";
 import SignUp from "./signup/SignUp";
 import Header from "../components/header/Header";
 import Manage from "./manage/Manage";
-<<<<<<< HEAD
 import CreateProject from "./createProject/CreateProject";
-=======
 import Report from "./report/Report";
->>>>>>> origin/develop
 import Projects from "./../pages/companyProjects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 import ProjectDetail from "./projectDetail/ProjectDetail";
@@ -28,8 +25,8 @@ class Router extends React.Component {
         <Switch>
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
-          {/* <Route path="/report" component={<p>Repo</p>} />
-          <Route path="/profile" component={<p>profile</p>} /> */}
+          <Route path="/report" component={Report} />
+          {/* <Route path="/profile" component={<p>profile</p>} />  */}
           <Route path="/manage" component={Manage} />
           <Route path="/createProject" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
@@ -42,9 +39,10 @@ class Router extends React.Component {
         <Switch>
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
+          <Route path="/report" component={Report} />
           <Route component={NotFound} />
-          {/* <Route path="/report" component={<p>Repo</p>} />
-          <Route path="/profile" component={<p>profile</p>} /> */}
+
+          {/* <Route path="/profile" component={<p>profile</p>} />  */}
         </Switch>
       );
     }

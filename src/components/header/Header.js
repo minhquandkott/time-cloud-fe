@@ -32,7 +32,7 @@ const Header = (props) => {
       <Link
         to={{
           pathname: "/report",
-          state: props.user?.id,
+          state: localStorage.getItem("userId"),
         }}
       >
         Report
@@ -46,7 +46,7 @@ const Header = (props) => {
       <Link
         to={{
           pathname: "/report",
-          state: props.user?.id,
+          state: localStorage.getItem("userId"),
         }}
       >
         Report

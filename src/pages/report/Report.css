@@ -4,6 +4,7 @@
     --line-height: 4.5rem;
     --font-size-primary: 4.5rem;
     --font-size-secondary: 1.8rem;
+    overflow-x: hidden;
   }
 
 .report_title {
