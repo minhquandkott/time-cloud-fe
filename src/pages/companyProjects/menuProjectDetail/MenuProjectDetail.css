@@ -18,12 +18,3 @@
     padding: 14px 16px;
     text-decoration: none;
 }
-
-.menu_project_detail>li a:hover:not(.active) {
-    background-color: rgb(237, 243, 239);
-  }
-
-  .active {
-    background-color: rgb(237, 243, 239);
-  }
-  

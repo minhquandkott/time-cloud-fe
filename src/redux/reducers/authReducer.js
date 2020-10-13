@@ -8,6 +8,7 @@ import {
   AUTH_SIGN_UP_FAIL,
   AUTH_SIGN_UP_SUCCESS,
   AUTH_SET_USER_INFO,
+  AUTH_SET_USER_ROLE,
 } from "../actions/actionType";
 
 const initialState = {
@@ -39,6 +40,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         error: payload,
         loading: false,
+      };
+    case AUTH_SET_USER_ROLE:
+      return {
+        ...state,
+        user: { ...state.user, roles: payload },
       };
 
     case AUTH_SET_REDIRECT_PATH:

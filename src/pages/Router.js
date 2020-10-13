@@ -6,38 +6,58 @@ import Timer from "./timer/Timer";
 import SignUp from "./signup/SignUp";
 import Header from "../components/header/Header";
 import Manage from "./manage/Manage";
+import CreateProject from "./createProject/CreateProject";
 import Report from "./report/Report";
 import Projects from "./../pages/companyProjects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 import ProjectDetail from "./projectDetail/ProjectDetail";
-import ProjectDetailTask from '../components/projectDetailItems/projectDetailTask/ProjectDetailTask';
+import NotFound from "./notFound/NotFound";
+
 class Router extends React.Component {
   componentDidMount() {
     this.props.checkAuth();
   }
 
   render() {
-    console.log(this.props.isLogin);
+    let routes;
+    if (this.props.user?.roles?.some((ele) => ele.id === 1 || ele.id === 3)) {
+      routes = (
+        <Switch>
+          <Route path="/" exact component={Timer} />
+          <Route path="/timer" component={Timer} />
+          <Route path="/report" component={Report} />
+          {/* <Route path="/profile" component={<p>profile</p>} />  */}
+          <Route path="/manage" component={Manage} />
+          <Route path="/createProject" component={CreateProject} />
+          <Route path="/projects" exact component={Projects} />
+          <Route path="/projects/:id" exact component={ProjectDetail} />
+          <Route component={NotFound} />
+        </Switch>
+      );
+    } else {
+      routes = (
+        <Switch>
+          <Route path="/" exact component={Timer} />
+          <Route path="/timer" component={Timer} />
+          <Route path="/report" component={Report} />
+          <Route component={NotFound} />
+
+          {/* <Route path="/profile" component={<p>profile</p>} />  */}
+        </Switch>
+      );
+    }
     return (
       <React.Fragment>
         {this.props.isLogin ? (
           <React.Fragment>
             <Header />
-            <Switch>
-              <Route path="/" exact component={Manage} />
-              <Route path="/timer" component={Timer} />
-              <Route path="/report" component={Report}/>
-              <Route path="/manage" component={Manage} />
-              <Route path="/projects" exact component={Projects} />
-              <Route path= "/projects/:id" exact component={ProjectDetail} />
-            </Switch>
+            {routes}
           </React.Fragment>
         ) : (
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
-
           </Switch>
         )}
       </React.Fragment>
@@ -46,8 +66,10 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const { token, user } = state.auth;
   return {
-    isLogin: state.auth.token ? true : false,
+    isLogin: token ? true : false,
+    user,
   };
 };
 export default connect(mapStateToProps, {

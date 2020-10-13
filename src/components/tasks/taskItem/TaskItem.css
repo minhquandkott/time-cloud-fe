@@ -16,6 +16,7 @@
   border-radius: 50%;
   font-size: 2.3rem;
   transition: all .7s;
+  cursor: pointer;
 }
 
 .task_item>button {

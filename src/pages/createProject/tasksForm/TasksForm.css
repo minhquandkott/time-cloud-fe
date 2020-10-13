@@ -1,0 +1,8 @@
+.tasks_form__add{
+  margin-top: 2rem;
+  outline: none;
+  background-color: var(--color-light-tertiary);
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  border: 2px solid var(--color-button);
+}

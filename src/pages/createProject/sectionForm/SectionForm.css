@@ -1,13 +1,19 @@
+.section_form {
+  margin-bottom: 1rem;
+
+}
+
 .section_form__header {
 
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
-  border-bottom: 1px solid var(--color-light-tertiary);
+  border-bottom: 2px solid var(--color-light-tertiary);
 }
 
 .section_form__header>h2 {
   font-size: 3rem;
   font-weight: 800;
+  
 
 }
 

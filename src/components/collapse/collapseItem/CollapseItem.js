@@ -28,8 +28,7 @@ const CollapseItem = ({
     const reverseToggleItems = document.querySelectorAll(
       `.${className} .toggle_item.reverse`
     );
-    console.log(reverseToggleItems);
-    
+
     if (showContent) {
       toggleItems.forEach((toggleItem) => {
         toggleItem.style.maxHeight = toggleItem.scrollHeight + "px";
@@ -45,7 +44,6 @@ const CollapseItem = ({
         toggleItem.style.opacity = "0";
       });
       reverseToggleItems.forEach((reverseToggleItem) => {
-        
         reverseToggleItem.style.maxHeight =
           reverseToggleItem.scrollHeight + "px";
         reverseToggleItem.style.opacity = "1";
@@ -65,20 +63,8 @@ const CollapseItem = ({
         onClick={(event) => onButtonClick(event)}
         className="collapse_item__button"
       >
-        {showContent ? <RemoveIcon /> : <AddIcon /> }
+        {showContent ? <RemoveIcon /> : <AddIcon />}
       </button>
-      {/* <div className="collapse_item__content">
-        <div>
-          <UserInfo userName="VietNam" />
-        </div>
-        <div className="toggle_item">
-          <p>asdfdsfkdsfjkldsjfklajfksjdfksdjfksd</p>
-          <p>asdfdsfkdsfjkldsjfklajfksjdfksdjfksd</p>
-          <p>asdfdsfkdsfjkldsjfklajfksjdfksdjfksd</p>
-          <p>asdfdsfkdsfjkldsjfklajfksjdfksdjfksd</p>
-          <p>asdfdsfkdsfjkldsjfklajfksjdfksdjfksd</p>
-        </div>
-      </div> */}
       {children}
     </div>
   );

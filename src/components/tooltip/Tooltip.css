@@ -1,18 +1,14 @@
 .tooltip {
   position: absolute;
-  width: 100%;
   background-color: red;
   z-index: 1;
-
+  overflow-x: hidden;
 }
-
-
 
 .tooltip__arrow {
   position: absolute;
   left: 50%;
 }
-
 
 .tooltip__arrow__top {
   bottom: 0;

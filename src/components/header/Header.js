@@ -4,9 +4,9 @@ import Logo from "../logo/Logo";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { connect } from "react-redux";
 import { logout } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
-  console.log(props.user);
   const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef(null);
   function onClickHandler() {
@@ -24,17 +24,43 @@ const Header = (props) => {
     });
   }, []);
 
+  const features = props.user?.roles?.some(
+    (ele) => ele.id === 1 || ele.id === 3
+  ) ? (
+    <React.Fragment>
+      <Link to="/timer">Your timer</Link>
+      <Link
+        to={{
+          pathname: "/report",
+          state: localStorage.getItem("userId"),
+        }}
+      >
+        Report
+      </Link>
+      <Link to="/manage">Manage</Link>
+      <Link to="/projects">Project</Link>
+    </React.Fragment>
+  ) : (
+    <React.Fragment>
+      <Link to="/timer">Your timer</Link>
+      <Link
+        to={{
+          pathname: "/report",
+          state: localStorage.getItem("userId"),
+        }}
+      >
+        Report
+      </Link>
+    </React.Fragment>
+  );
+
   return (
     <div className="header">
       <div className="header__logo">
         <Logo />
         TimeCloud
       </div>
-      <div className="header__feature">
-        <a href="/">Your timer</a>
-        <a href="/">Time off</a>
-        <a href="/">Report</a>
-      </div>
+      <div className="header__feature">{features}</div>
       <div className="header__account">
         <img
           alt="avatar"

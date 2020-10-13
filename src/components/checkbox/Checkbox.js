@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 const Checkbox = (props) => {
   const {
     id,
-    onCheckboxChanged,
-    showUnCheck,
+    onCheckboxChanged = () => {},
+    showUnCheck = false,
     css,
     checked,
     setPointerEvents,

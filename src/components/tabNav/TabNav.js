@@ -22,7 +22,7 @@ const TabNav = ({ tabTitles, children }) => {
         ))}
       </div>
       <div className="tab_nav__content">
-        {children.map((ele, index) => (
+        {children?.map((ele, index) => (
           <Tab isSelectedTab={index === selectedIndex} key={index}>
             {ele}
           </Tab>
