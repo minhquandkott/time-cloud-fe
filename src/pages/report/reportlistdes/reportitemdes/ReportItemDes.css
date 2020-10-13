@@ -1,0 +1,31 @@
+.report_item_des{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    border-bottom: 2px solid lightgray;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.report_item_des>h2{
+    font-size: 2rem;
+    margin-top: 0.70rem;
+    flex:0.3;
+    font-weight: bold;
+}
+
+.report_item_des>h3{
+    font-size: 2rem;
+    color: darkgray;
+    margin-top: 0.70rem;
+    flex:1
+
+}
+
+.report_item_des>p{
+    font-weight: bold;
+    color: var(--color-button);
+    font-size: 2rem;
+    margin-top: 0.70rem;
+    flex: -0.7;
+}

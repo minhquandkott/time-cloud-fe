@@ -1,0 +1,62 @@
+.report {
+    padding: 5rem 5rem;
+    font-family: 'Heebo', sans-serif;
+    --line-height: 4.5rem;
+    --font-size-primary: 4.5rem;
+    --font-size-secondary: 1.8rem;
+  }
+
+.report_title {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    font-size: 4.5rem;
+    font-weight: 600;
+    flex: 1;
+}
+
+.report_user{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.report_user_info{
+    font-size: 5rem;
+}
+
+.report_body {
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+.report_user_avatarInfo>h2{
+    padding-top: 3rem;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.report_user_avatarInfo>p{
+    font-size: 1.5rem;
+    color: darkgray;
+    padding-top: 0.5rem;
+}
+
+.report_user_hour{
+    text-align: right;
+}
+
+.report_user_hour>h2{
+    font-size: 3.5rem;
+    font-weight: bold;
+    padding-top: 2.5rem;
+
+}
+
+.report_user_hour>p{
+    font-size: 1.5rem;
+    color: darkgray;
+    padding-top: 0.25rem;
+}

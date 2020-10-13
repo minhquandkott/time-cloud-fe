@@ -4,12 +4,39 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
+import TabNav from "../components/tabNav/TabNav";
 import CreateProject from "./createProject/CreateProject";
 import SelectItem from "../components/selectItem/SelectItem";
+import Collapse from "../components/collapse/Collapse";
 import UserInfo from "../components/userInfo/UserInfo";
 
 const arr = ["Tasks", "Team"];
+const tasks = [{name: "task1"},{name: "task1"}]
+const teams = [{name: "t1"},{name: "t2"}]
 function App() {
+  // const taskC = (
+  //   <div>
+  //     <Collapse selectMultiple={true}>
+  //       {tasks.map(task => (
+  //         <div>
+  //           <div>{task.name}</div>
+  //           <div className="toggle_item">
+  //             <p>{task.name}</p>
+  //             <p>{task.name}</p>
+  //             <p>{task.name}</p>
+  //             <p>{task.name}</p>
+  //             <p>{task.name}</p>
+  //           </div>
+  //         </div>
+  //       ))}
+  //     </Collapse>
+  //   </div>
+  // )
+  const teamC = (
+    <div>
+      <p>Team</p>
+    </div>
+  )
   return (
     <div className="app">
       {/* <CreateProject /> */}
@@ -18,11 +45,10 @@ function App() {
         secondaryInfo="vanhiep99w@gmail.com"
         flag="pm"
       /> */}
+
       <BrowserRouter history={history}>
         <Router />
       </BrowserRouter>
-      
-
     </div>
   );
 }
