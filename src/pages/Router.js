@@ -12,6 +12,7 @@ import Projects from "./../pages/companyProjects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 import ProjectDetail from "./projectDetail/ProjectDetail";
 import NotFound from "./notFound/NotFound";
+import ReportAdmin from "./report/reportadmin/ReportAdmin";
 
 class Router extends React.Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ class Router extends React.Component {
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
+          <Route path="/report_test" component={ReportAdmin} />
           {/* <Route path="/profile" component={<p>profile</p>} />  */}
           <Route path="/manage" component={Manage} />
           <Route path="/createProject" component={CreateProject} />
