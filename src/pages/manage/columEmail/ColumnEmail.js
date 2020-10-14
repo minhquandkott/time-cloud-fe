@@ -12,7 +12,7 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
     setShowTooltip(!showTooltip);
   };
   useEffect(() => {
-    if (selectedMember?.user.id !== userRole.user.id) setShowTooltip(false);
+    if (selectedMember?.user?.id !== userRole.user.id) setShowTooltip(false);
   }, [selectedMember, userRole.user.id]);
 
   return (

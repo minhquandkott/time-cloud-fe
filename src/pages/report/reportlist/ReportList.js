@@ -22,7 +22,7 @@ const ReportList = ({ user }) => {
 
   return (
     <div className="reportList">
-      <Collapse selectMultiple={true}>
+      <Collapse selectMultiple={false}>
         {projects.map((project) => (
           <ReportItem project={project} user={user} key={project.id} />
         ))}

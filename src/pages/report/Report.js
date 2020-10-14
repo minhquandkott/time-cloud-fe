@@ -7,6 +7,7 @@ import TimeCloudAPI from "../../apis/timeCloudAPI";
 import { convertSecondToHour } from "../../utils/Utils";
 import Avatar from "../../components/avatar/Avatar";
 import history from "../../history/";
+import PageDesign from "../../components/pageDesign/PageDesign";
 
 const Report = () => {
   const tabTitles = ["By Projects", "By Times"];
@@ -40,18 +41,18 @@ const Report = () => {
   }, []);
 
   return (
-    <div className="report">
-      <div className="report_title">
-        <h2>Report</h2>
-      </div>
+    <PageDesign title="Report">
       <div className="report_user">
-        <Avatar avatar={user?.avatar} avatarSize="10rem">
-          <div className="report_user_avatarInfo">
-            <h2>{user?.name}</h2>
-            <p>{user?.email}</p>
-          </div>
-        </Avatar>
-        <div className="report_user_hour">
+        <div className="page_design__animate__left">
+          <Avatar avatar={user?.avatar} avatarSize="10rem">
+            <div className="report_user_avatarInfo">
+              <h2>{user?.name}</h2>
+              <p>{user?.email}</p>
+            </div>
+          </Avatar>
+        </div>
+
+        <div className="report_user_hour page_design__animate__right">
           <h2>{convertSecondToHour(time) + "h"}</h2>
           <p>hour tracked</p>
         </div>
@@ -68,7 +69,7 @@ const Report = () => {
           </TabNav>
         ) : null}
       </div>
-    </div>
+    </PageDesign>
   );
 };
 

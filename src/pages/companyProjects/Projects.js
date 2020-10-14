@@ -64,6 +64,7 @@ class Projects extends React.Component {
             pointSize="15"
             title={project.name}
             key={project.id}
+            cssTittle={{ fontSize: "2rem", fontWeight: "700" }}
           />
         ),
       },
@@ -141,7 +142,7 @@ class Projects extends React.Component {
       });
     }
     return (
-      <PageDesign title="Projecs">
+      <PageDesign title="Projects">
         <div className="projects__content">
           <div className="projects__search">
             <input
