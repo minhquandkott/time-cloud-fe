@@ -14,21 +14,29 @@ const Report = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
     TimeCloudAPI()
       .get(`users/${history.location.state}/total-times`)
       .then((response) => {
-        setTime(response.data);
+        if (isMounted) setTime(response.data);
       })
       .catch((error) => {});
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
     TimeCloudAPI()
       .get(`users/${history.location.state}`)
       .then((response) => {
-        setUser(response.data);
+        if (isMounted) setUser(response.data);
       })
       .catch((error) => {});
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

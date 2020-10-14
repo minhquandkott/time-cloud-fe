@@ -5,8 +5,9 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { connect } from "react-redux";
 import { logout } from "../../redux/actions";
 import { Link } from "react-router-dom";
+import UserInfo from "../../components/userInfo/UserInfo";
 
-const Header = (props) => {
+const Header = ({ user, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef(null);
   function onClickHandler() {
@@ -14,19 +15,21 @@ const Header = (props) => {
   }
 
   useEffect(() => {
+    let isMounted = true;
     window.addEventListener("mouseup", (event) => {
       if (
         event.target.parentElement !==
         dropDownRef.current?.previousElementSibling
       ) {
-        setIsOpen(false);
+        if (isMounted) setIsOpen(false);
       }
     });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const features = props.user?.roles?.some(
-    (ele) => ele.id === 1 || ele.id === 3
-  ) ? (
+  const features = user?.roles?.some((ele) => ele.id === 1 || ele.id === 3) ? (
     <React.Fragment>
       <Link to="/timer">Your timer</Link>
       <Link
@@ -62,16 +65,15 @@ const Header = (props) => {
       </div>
       <div className="header__feature">{features}</div>
       <div className="header__account">
-        <img
-          alt="avatar"
-          src={
-            props.user?.avatar
-              ? props.user.avatar
-              : "https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg"
-          }
+        <UserInfo
+          src={user?.avatar ? user.avatar : null}
+          primaryInfo={user?.name}
+          cssForPrimaryInfo={{
+            color: "white",
+            paddingTop: ".85rem",
+            fontSize: "1.6rem",
+          }}
         />
-
-        <p>{props.user?.name ? props.user.name : ""}</p>
         <button onClick={onClickHandler}>
           <ArrowDropDownIcon />
         </button>
@@ -83,7 +85,7 @@ const Header = (props) => {
           <p>Setting</p>
           <p
             onClick={() => {
-              props.logout();
+              logout();
             }}
           >
             Log Out

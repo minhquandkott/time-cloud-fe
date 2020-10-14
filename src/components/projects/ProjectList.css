@@ -16,6 +16,6 @@
 } */
 .project_list::-webkit-scrollbar-thumb {
   background-color: var(--color-dark-tertiary);
-
   border-radius: 5px;
 }
+

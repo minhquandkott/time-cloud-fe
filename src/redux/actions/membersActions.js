@@ -5,7 +5,6 @@ import {
   SELECT_MEMBER,
   ADD_ROLE_SUCCESS,
   GET_USER_SUCCESS,
-
   ADD_ROLE_USER_SUCCESS,
   DELETE_ROLE_USER_SUCCESS,
   START_CHANGE_USER_ROLE,
@@ -120,12 +119,12 @@ export const getUser = (userId) => {
     } catch (error) {
       console.log(error);
     }
-  }
-}
+  };
+};
 
 export const getUserSuccess = (user) => {
   return {
     type: GET_USER_SUCCESS,
-    payload: user
-  }
-}
+    payload: user,
+  };
+};

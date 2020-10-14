@@ -30,7 +30,7 @@ class Router extends React.Component {
           <Route path="/manage" component={Manage} />
           <Route path="/createProject" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
-          <Route path="/projects/:id" exact component={ProjectDetail} />
+          <Route path="/projects/:id" component={ProjectDetail} />
           <Route component={NotFound} />
         </Switch>
       );
@@ -40,9 +40,8 @@ class Router extends React.Component {
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
-          <Route component={NotFound} />
 
-          {/* <Route path="/profile" component={<p>profile</p>} />  */}
+          {this.props.user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
       );
     }
@@ -66,10 +65,11 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { token, user } = state.auth;
+  const { token, user, loading } = state.auth;
   return {
     isLogin: token ? true : false,
     user,
+    loading,
   };
 };
 export default connect(mapStateToProps, {

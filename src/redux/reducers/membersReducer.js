@@ -87,8 +87,8 @@ export default (state = initialState, { type, payload }) => {
     case GET_USER_SUCCESS:
       return {
         ...state,
-        selectedMember: payload
-      }
+        selectedMember: payload,
+      };
     default:
       return state;
   }

@@ -10,6 +10,7 @@ import Point from "../../components/point/Point";
 import history from "../../history";
 import TrackTime from "./TrackTime/TrackTime";
 import UserColumn from "./ProjectUser/UserColumn";
+import PageDesign from "../../components/pageDesign/PageDesign";
 
 class Projects extends React.Component {
   constructor(props) {
@@ -140,10 +141,7 @@ class Projects extends React.Component {
       });
     }
     return (
-      <div className="projects">
-        <div className="projects__title">
-          <h1>Projects</h1>
-        </div>
+      <PageDesign title="Projecs">
         <div className="projects__content">
           <div className="projects__search">
             <input
@@ -151,10 +149,13 @@ class Projects extends React.Component {
               name="txtSearch"
               onChange={this.onChange}
               placeholder="Searching your project"
+              className="page_design__animate__left"
             ></input>
-            <SearchIcon onClick={this.onSearch} />
           </div>
-          <button className="projects__bt" onClick={this.onCreateProject}>
+          <button
+            className="projects__bt page_design__animate__right"
+            onClick={this.onCreateProject}
+          >
             Create new project
           </button>
         </div>
@@ -169,7 +170,7 @@ class Projects extends React.Component {
             })
           }
         />
-      </div>
+      </PageDesign>
     );
   }
 }
