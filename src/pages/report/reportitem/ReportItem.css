@@ -14,6 +14,7 @@
 }
 
 .report_item__project_name>h2{
+    padding-left: 1rem;
     font-weight: bold;
     font-size: 2rem;
     margin-top: 0.70rem;
@@ -23,7 +24,7 @@
     font-size: 2rem;
     margin-top: 0.70rem;
     color: darkgray;
-    padding-left: 1rem;
+    padding-left: 0.5rem;
 }
 
 .report_item__project>p{
@@ -33,3 +34,6 @@
     margin-top: 0.70rem;
 }
 
+.toggle_item{
+    padding-left: 4rem;
+}
