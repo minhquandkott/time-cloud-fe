@@ -40,6 +40,11 @@ const ReportItem = ({ project, user }) => {
     <div className="report_item">
       <div className="report_item__project">
         <div className="report_item__project_name">
+          <div className="report_item_project_color" 
+            style={{height:"30px",
+                    width:"30px", 
+                    background:`${project.color}`, 
+                    borderRadius:"15px 50px 50px 15px"}}></div>
           <h2>{project.name}</h2>
           <h3>({project.clientName})</h3>
         </div>

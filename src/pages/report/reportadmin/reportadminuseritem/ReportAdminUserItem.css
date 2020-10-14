@@ -1,0 +1,26 @@
+.report_admin_user_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-bottom: 1px solid darkgray;
+}
+
+.report_admin_user_item:hover{
+    background-color: rgb(233, 241, 255);
+    cursor: pointer;
+}
+
+.report_admin_user_item>p{
+    font-size: 1.5em;
+    padding-top: 0.75rem;
+}
+
+.report_admin_user_avatarInfo>h2{
+    padding-top: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

@@ -4,7 +4,6 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
-import Manage from "./manage/Manage";
 
 function App() {
   return (

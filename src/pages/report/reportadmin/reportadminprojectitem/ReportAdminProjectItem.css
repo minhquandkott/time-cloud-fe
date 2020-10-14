@@ -1,0 +1,38 @@
+.report_admin_project_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-bottom: 1px solid darkgray;
+}
+
+.report_admin_project_item:hover{
+    background-color: rgb(233, 241, 255);
+    cursor: pointer;
+}
+
+.report_admin_project_item>p{
+    font-size: 1.5em;
+    padding-top: 0.75rem;
+}
+
+.report_admin_project_name{
+    display: flex;
+    flex-direction: row;
+}
+
+.report_admin_project_name>h2{
+    padding-top: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 1rem;
+}
+
+.report_admin_project_name>h3{
+    padding-top: 0.75rem;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+}

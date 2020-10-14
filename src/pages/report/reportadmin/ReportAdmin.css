@@ -1,0 +1,42 @@
+.report_admin{
+    padding-left: 25rem;
+    padding-right: 25rem;
+    padding-top: 3rem;
+}
+
+.report_admin_user>h1{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.report_admin_user_header{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    color: darkgray;
+}
+
+.report_admin_project>h1{
+    font-size: 2rem;
+    font-weight: bold;
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+}
+
+.report_admin_project_header{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    color: darkgray;
+}
+
