@@ -7,13 +7,23 @@ class ProjectDetailTask extends React.Component {
     state = {
         tasks: []
     }
+
+    _isMounted = false;
+
     componentDidMount = () => {    
+        this._isMounted = true;
         timeCloudAPI().get(`projects/${this.props.project.id}/tasks`)
         .then(response => {
-            this.setState({
-                tasks: response.data
-            })
+            if(this._isMounted) {
+                this.setState({
+                    tasks: response.data
+                })
+            }
         });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {
@@ -30,9 +40,9 @@ class ProjectDetailTask extends React.Component {
                     <tbody></tbody>
                 </table>
                 <Collapse>
-                    {this.state.tasks.map((task, index) => {
+                    {this.state.tasks.map((task) => {
                         return (
-                                    <ViewUsersByTask task = {task} key={task.id}/> 
+                            <ViewUsersByTask task = {task} key={task.id}/> 
                         )
                     })}
                 </Collapse>

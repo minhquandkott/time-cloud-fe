@@ -12,39 +12,7 @@ import ProjectDetailTeam from "../../components/projectDetailItems/projectDetail
 import ProjectDetailDiscussion from "../../components/projectDetailItems/projectDetailDiscussion/ProjectDetailDiscussion";
 import TabNav from "../../components/tabNav/TabNav";
 
-// const routes = [
-//   {
-//     path : '/projects/:id/task',
-//     exact: true,
-//     main : ({match, location}) => <ProjectDetailTask match ={match} location = {location} />
-//   },
-//   {
-//     path : '/projects/:id/team',
-//     exact: true,
-//     main : ({match, location}) => <ProjectDetailTeam match ={match} location = {location} />
-//   },
-//   {
-//     path : '/projects/:id/discussion',
-//     exact: true,
-//     main : ({match, location}) => <ProjectDetailDiscussion match ={match} location = {location} />
-//   }
-// ]
-
 class Projects extends React.Component {
-  // showRoute = (routes) => {
-  //   var result = null;
-  //   result = routes.map((item, index) => {
-  //     return (
-  //       <Route
-  //         key={index}
-  //         path={item.path}
-  //         exact={item.exact}
-  //         component={item.main}
-  //       />
-  //     );
-  //   });
-  //   return result;
-  // };
 
   componentDidMount = () => {
     var userId = history.location.state.project.element.createdBy;
@@ -59,7 +27,7 @@ class Projects extends React.Component {
     return (
       <div className="project_detail">
         <div className="project_detail__header">
-          <div className="project_detail__header_info">
+          <div className="project_detail__header_info" >
             <h1
               style={{
                 color: project.color
@@ -81,7 +49,7 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
-        <TabNav tabTitles={["Tasks", "Team", "Descussion"]}>
+        <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
           <ProjectDetailTask project={project}/>
           <ProjectDetailTeam project={project}/>
           <ProjectDetailDiscussion />

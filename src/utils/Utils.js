@@ -29,12 +29,12 @@ export const convertSecond = (totalSecond) => {
   };
 };
 
+
 export const convertSecondToHour = (totalSecond) => {
   const hour = totalSecond / 3600;
   const convertedHour = Math.floor(hour);
   const convertedSuffix = Math.ceil(((totalSecond % 3600) / 3600) * 100) / 100;
-
-  return convertedHour + convertedSuffix;
+  return Math.floor((convertedHour + convertedSuffix)*100)/100;
 };
 
 export const ROLE_LIST = [

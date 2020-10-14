@@ -19,4 +19,5 @@
 
 .project_detail_task thead th:nth-child(2) {
     width: 30%;
+    text-align: center;
 }

@@ -8,16 +8,27 @@ class ViewUsersByTask extends React.Component {
     state = {
         users: []
     }
+
+    _isMounted = false;
+
     componentDidMount(){
+        this._isMounted = true;
         timeCloudAPI().get(`tasks/${this.props.task.id}/users`)
         .then(response => {
-            this.setState({
-                users: response.data
-            })
+            if(this._isMounted) {
+                this.setState({
+                    users: response.data
+                })
+            }
         });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     
     render() {
+        const usersFake = [{id :1 , gender: false,name : "" }] 
         var {task} = this.props;
         var {users} = this.state;
         return (
@@ -31,9 +42,9 @@ class ViewUsersByTask extends React.Component {
                     </div>
                 </div>
                 <div className = "toggle_item reverse">
-                    <ProjectUser users = {users} rowStatus = {true} />
+                    <ProjectUser taskId = {task.id} users = {users.length === 0 ? usersFake : users} rowStatus = {true} />
                 </div>
-                <div className="toggle_item"><ProjectUser users = {users} rowStatus = {false} /></div>
+                <div className="toggle_item"><ProjectUser taskId = {task.id} users = {users} rowStatus = {false} /></div>
             </div>
         )
     }
