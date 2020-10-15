@@ -11,9 +11,13 @@ import Report from "./report/Report";
 import Projects from "./../pages/companyProjects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 import ProjectDetail from "./projectDetail/ProjectDetail";
+<<<<<<< HEAD
+import Profile from "./profile/Profile";
+=======
 import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
 
+>>>>>>> develop
 class Router extends React.Component {
   componentDidMount() {
     this.props.checkAuth();
@@ -52,7 +56,18 @@ class Router extends React.Component {
         {this.props.isLogin ? (
           <React.Fragment>
             <Header />
+<<<<<<< HEAD
+            <Switch>
+              <Route path="/" exact component={Manage} />
+              <Route path="/timer" component={Timer} />
+              <Route path="/manage" component={Manage} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/projects" exact component={Projects} />
+              <Route path="/projects/:id" exact component={ProjectDetail} />
+            </Switch>
+=======
             {routes}
+>>>>>>> develop
           </React.Fragment>
         ) : (
           <Switch>

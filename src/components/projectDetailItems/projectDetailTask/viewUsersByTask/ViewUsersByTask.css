@@ -13,6 +13,7 @@
     margin-top: 5px;
     margin-bottom: 10px;
     width: 70%;
+    font-weight: 500;
 }
 
 .view_user_by_task__tracked {
@@ -20,4 +21,9 @@
     font-size: large;
     margin-top: 1rem;
     color: #2f0fbd;
+    text-align: center;
+}
+
+.heightItem {
+    max-height: 30px !important; 
 }

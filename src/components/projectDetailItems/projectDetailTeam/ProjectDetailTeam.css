@@ -15,4 +15,5 @@
 
 .project_detail_team thead th:nth-child(2) {
     width: 30%;
+    text-align: center;
 }
