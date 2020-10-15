@@ -31,7 +31,7 @@
   background-color: white;
   height: 500px;
   width: 880px;
-  transform: translate(120px, -220px);
+  transform: translate(120px, 0px);
 }
 
 .profile_left__image {
@@ -40,11 +40,44 @@
   border-radius: 50%;
   background-color: white;
   padding: 5px;
+  display:block;
+  overflow:hidden;
+  position:relative;
+  transition: border .15s ease-in;
   transform: translate(-100px, 150px);
+}
+
+.profile_left__image:hover .overlay {
+  height: 40px;
+}
+
+.profile_left__image:hover {
+  border: 2px solid #0AAFF1;
+  cursor: pointer;
 }
 
 .profile_left__image img {
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile_left__image, .overlay {
+  position: absolute;
+}
+
+.overlay {
+  width:100%;
+  height: 0px;
+   z-index:1;
+   bottom:0;
+   font-weight: bold;
+   color:white;
+   background-color: rgba(10, 175, 241, 0.781);
+   transition: all 1s;
+   padding-top: 0px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Lato', sans-serif;
 }
