@@ -11,6 +11,7 @@ import Report from "./report/Report";
 import Projects from "./../pages/companyProjects/Projects";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
 import ProjectDetail from "./projectDetail/ProjectDetail";
+import Profile from "./profile/Profile";
 import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
 
@@ -28,11 +29,11 @@ class Router extends React.Component {
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
           <Route path="/report_test" component={ReportAdmin} />
-          {/* <Route path="/profile" component={<p>profile</p>} />  */}
+          <Route path="/profile" component={Profile} />
           <Route path="/manage" component={Manage} />
           <Route path="/createProject" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
-          <Route path="/projects/:id" exact component={ProjectDetail} />
+          <Route path="/projects/:id" component={ProjectDetail} />
           <Route component={NotFound} />
         </Switch>
       );
@@ -42,9 +43,8 @@ class Router extends React.Component {
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
-          <Route component={NotFound} />
 
-          {/* <Route path="/profile" component={<p>profile</p>} />  */}
+          {this.props.user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
       );
     }
@@ -68,10 +68,11 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { token, user } = state.auth;
+  const { token, user, loading } = state.auth;
   return {
     isLogin: token ? true : false,
     user,
+    loading,
   };
 };
 export default connect(mapStateToProps, {

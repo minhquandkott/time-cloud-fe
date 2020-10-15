@@ -36,23 +36,19 @@ const Table = ({
         mountOnEnter
         unmountOnExit
         onEnter={(node) => {
-          console.log(1, node);
           node.style.opacity = 0;
           node.style.transform = "translateX(150%)";
         }}
         onEntering={(node) => {
-          console.log(2, node);
           node.style.opacity = 1;
           node.style.transform = "translateX(0)";
         }}
         onEntered={() => console.log(3)}
         onExit={(node) => {
-          console.log(4, node);
           node.style.maxHeight = node.scrollHeight + "px";
           node.style.transform = "translateX(0)";
         }}
         onExiting={(node) => {
-          console.log(5, node);
           node.style.maxHeight = 0;
           node.style.padding = "0";
           node.style.transform = "translateX(150%)";
@@ -98,8 +94,8 @@ const Table = ({
           direction="row"
         />
         <Skeleton
-          countItem={6}
-          heightItem="5rem"
+          countItem={4}
+          heightItem="4rem"
           direction="column"
           bgSkeleton="var(--color-light-primary)"
         />

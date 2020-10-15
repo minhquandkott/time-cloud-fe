@@ -42,6 +42,8 @@
 
 .table__body>tr>td {
   color: var(--color-dark-primary);
+  font-size: 1.9rem;
+  font-weight: 650;
 }
 
 .table__body>tr:hover .visible_hover {

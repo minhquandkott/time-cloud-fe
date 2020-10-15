@@ -6,19 +6,23 @@ import ReportItem from "../reportitem/ReportItem";
 
 const ReportList = ({ user }) => {
   const [projects, setProjects] = useState([]);
-  console.log(user);
   useEffect(() => {
+    let isMounted = true;
     timeCloudAPI()
       .get(`users/${user.id}/projects`)
       .then((response) => {
-        setProjects(response.data);
+        if (isMounted) setProjects(response.data);
       })
       .catch((error) => {});
-  }, [user.id]);
+    return () => {
+      isMounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="reportList">
-      <Collapse selectMultiple={true}>
+      <Collapse selectMultiple={false}>
         {projects.map((project) => (
           <ReportItem project={project} user={user} key={project.id} />
         ))}

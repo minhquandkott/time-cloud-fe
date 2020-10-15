@@ -1,9 +1,10 @@
 .project_detail_task {
     width: 100%;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .project_detail_task table {
-    margin: 30px 0;
+    margin: 2rem 0;
 }
 
 .project_detail_task thead th {
@@ -19,4 +20,5 @@
 
 .project_detail_task thead th:nth-child(2) {
     width: 30%;
+    text-align: center;
 }

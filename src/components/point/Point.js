@@ -4,7 +4,7 @@ import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import PropTypes from "prop-types";
 
 const Point = (props) => {
-  const { pointSize, color, title, css } = props;
+  const { pointSize, color, title, css, cssTittle } = props;
   return (
     <div className="point" style={{ ...css }}>
       <FiberManualRecordIcon
@@ -13,7 +13,11 @@ const Point = (props) => {
           color: `${color}`,
         }}
       />
-      {title ? <p className="title">{title}</p> : null}
+      {title ? (
+        <p className="title" style={{ ...cssTittle }}>
+          {title}
+        </p>
+      ) : null}
 
       {props.children}
     </div>
@@ -27,4 +31,5 @@ Point.propTypes = {
   pointSize: PropTypes.string,
   title: PropTypes.string.isRequired,
   css: PropTypes.object,
+  cssTittle: PropTypes.object,
 };

@@ -22,7 +22,7 @@ class TrackTime extends React.Component{
                 {
                     const {data} = responce
                     if(responce.data) 
-                        this.setState({totalTime: convertSecondToHour(data), increaseStep: convertSecondToHour(data)/100 })
+                        this.setState({totalTime: convertSecondToHour(data), increaseStep: convertSecondToHour(data)/200 })
                         const id = setInterval(this.increaseTime, 1 );
                         this.setState({intervalId:id});
                 }

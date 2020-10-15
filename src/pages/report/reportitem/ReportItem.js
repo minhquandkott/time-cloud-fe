@@ -9,22 +9,30 @@ const ReportItem = ({ project, user }) => {
   const [time, setTime] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     timeCloudAPI()
       .get(`projects/${project.id}/tasks`)
       .then((response) => {
-        setTasks(response.data);
+        if (isMounted) setTasks(response.data);
       })
       .catch((error) => {});
+    return () => {
+      isMounted = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
     timeCloudAPI()
       .get(`projects/${project.id}/users/${user.id}/total-times`)
       .then((response) => {
-        setTime(response.data);
+        if (isMounted) setTime(response.data);
       })
       .catch((error) => {});
+    return () => {
+      isMounted = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

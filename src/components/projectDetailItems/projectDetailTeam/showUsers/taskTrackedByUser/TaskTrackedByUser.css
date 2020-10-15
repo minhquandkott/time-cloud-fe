@@ -1,0 +1,7 @@
+.list_tasks__tracked {
+    width: 30%;
+    text-align: center;
+    color: var(--color-button);
+    font-size: 1.5rem;
+    font-weight: 400;
+}

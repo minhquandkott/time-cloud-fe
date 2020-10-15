@@ -7,7 +7,7 @@ const Avatar = ({ avatar, avatarSize, children, alt }) => {
   return (
     <div className="avatar">
       <img
-        src={!avatar ? female : avatar}
+        src={avatar ? avatar : female}
         alt={alt ? alt : ""}
         className="avatar__img"
         style={{ width: avatarSize, height: avatarSize }}

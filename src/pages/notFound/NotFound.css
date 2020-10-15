@@ -11,8 +11,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Heebo', sans-serif;
   margin-top: -6rem;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .not_found__404{

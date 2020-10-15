@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./ReportItemTask.css";
 import timeCloudAPI from "../../../../apis/timeCloudAPI";
-import Ultils, { convertSecondToHour } from "../../../../utils/Utils";
+import { convertSecondToHour } from "../../../../utils/Utils";
 import "./ReportItemTask.css";
 
 const ReportItemTask = ({ user, task }) => {
   const [time, setTime] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     timeCloudAPI()
       .get(`tasks/${task.id}/users/${user.id}/total-times`)
       .then((response) => {
-        setTime(response.data);
+        if (isMounted) setTime(response.data);
       })
       .catch((error) => {});
+    return () => {
+      isMounted = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

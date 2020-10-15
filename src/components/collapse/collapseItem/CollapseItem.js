@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import UserInfo from "../../userInfo/UserInfo";
 import "./CollapseItem.css";
 import PropTypes from "prop-types";
 

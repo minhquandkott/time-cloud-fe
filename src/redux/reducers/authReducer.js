@@ -76,7 +76,8 @@ export default (state = initialState, { type, payload }) => {
     case AUTH_SET_USER_INFO:
       return {
         ...state,
-        user: payload,
+        user: { ...state.user, ...payload },
+        loading: false,
       };
     default:
       return state;

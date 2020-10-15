@@ -1,51 +1,15 @@
 import React from "react";
 import "./ProjectDetail.css";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { deleteProjects, fetchTasks, getUser } from "../../redux/actions";
 import history from "../../history";
 import TrackTime from "../companyProjects/TrackTime/TrackTime";
-import MenuProjectDetail from "./../companyProjects/menuProjectDetail/MenuProjectDetail";
-import { randomColorArray, randomNumber } from "../../utils/Utils";
 import ProjectDetailTask from "../../components/projectDetailItems/projectDetailTask/ProjectDetailTask";
 import ProjectDetailTeam from "../../components/projectDetailItems/projectDetailTeam/ProjectDetailTeam";
 import ProjectDetailDiscussion from "../../components/projectDetailItems/projectDetailDiscussion/ProjectDetailDiscussion";
 import TabNav from "../../components/tabNav/TabNav";
 
-// const routes = [
-//   {
-//     path : '/projects/:id/task',
-//     exact: true,
-//     main : ({match, location}) => <ProjectDetailTask match ={match} location = {location} />
-//   },
-//   {
-//     path : '/projects/:id/team',
-//     exact: true,
-//     main : ({match, location}) => <ProjectDetailTeam match ={match} location = {location} />
-//   },
-//   {
-//     path : '/projects/:id/discussion',
-//     exact: true,
-//     main : ({match, location}) => <ProjectDetailDiscussion match ={match} location = {location} />
-//   }
-// ]
-
 class Projects extends React.Component {
-  // showRoute = (routes) => {
-  //   var result = null;
-  //   result = routes.map((item, index) => {
-  //     return (
-  //       <Route
-  //         key={index}
-  //         path={item.path}
-  //         exact={item.exact}
-  //         component={item.main}
-  //       />
-  //     );
-  //   });
-  //   return result;
-  // };
-
   componentDidMount = () => {
     var userId = history.location.state.project.element.createdBy;
     this.props.getUser(userId);
@@ -62,7 +26,7 @@ class Projects extends React.Component {
           <div className="project_detail__header_info">
             <h1
               style={{
-                color: project.color
+                color: project.color,
               }}
             >
               {" "}
@@ -81,9 +45,9 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
-        <TabNav tabTitles={["Tasks", "Team", "Descussion"]}>
-          <ProjectDetailTask project={project}/>
-          <ProjectDetailTeam project={project}/>
+        <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
+          <ProjectDetailTask project={project} />
+          <ProjectDetailTeam project={project} />
           <ProjectDetailDiscussion />
         </TabNav>
       </div>

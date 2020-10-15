@@ -3,7 +3,6 @@ import {
   FETCH_MEMBERS_SUCCESS,
   MEMBERS_ACTION_FAIL,
   SELECT_MEMBER,
-  ADD_ROLE_SUCCESS,
   GET_USER_SUCCESS,
   ADD_ROLE_USER_SUCCESS,
   DELETE_ROLE_USER_SUCCESS,
@@ -87,8 +86,8 @@ export default (state = initialState, { type, payload }) => {
     case GET_USER_SUCCESS:
       return {
         ...state,
-        selectedMember: payload
-      }
+        selectedMember: payload,
+      };
     default:
       return state;
   }
