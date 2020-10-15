@@ -7,17 +7,6 @@ class UserTracked extends React.Component {
     tracked: 0,
   };
 
-  componentDidMount() {
-    timeCloudAPI()
-      .get(`users/${this.props.user.id}/total-times`)
-      .then((response) => {
-        this.setState({
-          tracked: convertSecondToHour(response.data),
-        });
-      });
-  }
-
-<<<<<<< HEAD
     _isMounted = false;
 
     componentDidMount() {
@@ -45,11 +34,6 @@ class UserTracked extends React.Component {
            }}> {this.state.tracked} </span>
         )
     }
-=======
-  render() {
-    return <span> {this.state.tracked} </span>;
-  }
->>>>>>> develop
 }
 
 export default UserTracked;
