@@ -4,7 +4,7 @@ import CountUser from "../CountUser/CountUser";
 
 class ProjectUser extends React.Component {
   render() {
-    var { users, rowStatus } = this.props;
+    var { users, rowStatus, taskId } = this.props;
     return (
       <div
         className="project_user__avatar"
@@ -12,8 +12,9 @@ class ProjectUser extends React.Component {
       >
         {users.map((ele, index) => {
           if (rowStatus) {
-            return index < 3 ? (
+            return index < 4 ? (
               <CountUser
+                taskId={taskId}
                 ele={ele}
                 amount={users.length}
                 index={index}
@@ -24,6 +25,7 @@ class ProjectUser extends React.Component {
           } else {
             return (
               <CountUser
+                taskId={taskId}
                 rowStatus={rowStatus}
                 ele={ele}
                 amount={users.length}

@@ -39,7 +39,9 @@
     color: white;
     border-radius: 3%;
     font-size: 1.7rem;
+    font-weight: 600;
     display: inline-block;
+    cursor: pointer;
 }
 
 .projects__search>input[type=text] {

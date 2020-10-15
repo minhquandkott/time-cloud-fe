@@ -1,7 +1,9 @@
 .count_user {
     display: flex;
-    width: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
+    font-size: 1.5rem;
     background-color: #ece7e7;
     vertical-align: middle;
     align-items: center;
@@ -11,10 +13,25 @@
 .count_user_item {
     margin: 5px 0;
     display: flex;
+    align-items: center;
+    
     /* justify-content: center; */
 }
 
 .count_user_item__name {
     margin-top: 8px;
     font-size: medium;
+}
+
+.count_user_item__left {
+    display: flex;
+    width: 70%;
+}
+
+.count_user_item__right {
+    width: 30%;
+    color: var(--color-button);
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
 }

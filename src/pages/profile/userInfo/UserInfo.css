@@ -1,0 +1,57 @@
+.user_info button {
+  background-color: var(--color-button); /* Green */
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 2px;
+  margin-right: 10rem;
+  cursor: pointer;
+}
+
+.user_info {
+  font-size: 20px;
+  font-family: Heebo;
+  padding-top: 2rem;
+  text-align: right;
+}
+
+.user_info__field {
+  padding: 3rem 0rem 0rem 10rem;
+  display: flex;
+  align-items: center;
+}
+.user_info__field input, select {
+  margin-left: 20px;
+  height: 3rem;
+  padding: 0px 0px 0px 20px;
+  width: 30%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: large;
+}
+
+.user_info__field label {
+  text-align: left;
+  font-weight: 500;
+  display: inline-block;
+  flex-basis: 10rem;
+}
+
+.role_name {
+  display: flex;
+  margin-left: 2rem;
+}
+
+.user_infor__field__edit input, select {
+  outline-color: var(--color-button)
+}
+
+.user_infor__field__detail input {
+  outline: none;
+  border: hidden;
+}

@@ -7,19 +7,33 @@ class UserTracked extends React.Component {
     tracked: 0,
   };
 
-  componentDidMount() {
-    timeCloudAPI()
-      .get(`users/${this.props.user.id}/total-times`)
-      .then((response) => {
-        this.setState({
-          tracked: convertSecondToHour(response.data),
-        });
-      });
-  }
+    _isMounted = false;
 
-  render() {
-    return <span> {this.state.tracked} </span>;
-  }
+    componentDidMount() {
+        this._isMounted = true;
+        timeCloudAPI().get(`projects/${this.props.projectId}/users/${this.props.user.id}/total-times`)
+        .then(response => {
+            if(this._isMounted) {
+                this.setState({
+                    tracked: convertSecondToHour(response.data)
+                })
+            }
+        })
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    render() {
+        return (
+            <span style={{
+                color: "var(--color-button)",
+                fontWeight: 500,
+                fontSize: "2rem"
+           }}> {this.state.tracked} </span>
+        )
+    }
 }
 
 export default UserTracked;

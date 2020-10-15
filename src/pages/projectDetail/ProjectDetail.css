@@ -14,7 +14,7 @@
 
 .project_detail__header_info {
     margin-top: 5rem;
-    font-size: 5rem;
+    font-size: 6rem;
     font-weight: 500;
 }
 
@@ -38,7 +38,8 @@
 
 .tracked_time p {
     display: flex;
-    font-size: 5rem;
+    font-size: 6rem;
     font-weight: 400;
-    color: rgba(223, 16, 27, 0.979);
+    color: var(--color-button);
+    font-weight: 500;
 }

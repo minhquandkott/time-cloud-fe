@@ -45,7 +45,7 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
-        <TabNav tabTitles={["Tasks", "Team", "Descussion"]}>
+        <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
           <ProjectDetailTask project={project} />
           <ProjectDetailTeam project={project} />
           <ProjectDetailDiscussion />

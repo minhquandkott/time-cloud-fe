@@ -63,7 +63,6 @@ class Projects extends React.Component {
             pointSize="15"
             title={project.name}
             key={project.id}
-            cssTittle={{ fontSize: "2rem", fontWeight: "700" }}
           />
         ),
       },
@@ -123,7 +122,7 @@ class Projects extends React.Component {
                 style={{ ...styleCom }}
                 className=" projects__icon projects__icon__delete"
                 onClick={(e) => {
-                  console.log(e);
+                  e.stopPropagation();
                   this.onDelete(project.id);
                 }}
               />
