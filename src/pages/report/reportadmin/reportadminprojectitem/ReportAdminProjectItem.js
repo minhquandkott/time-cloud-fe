@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import "./ReportAdminProjectItem.css";
 import TimeCloudAPI from "../../../../apis/timeCloudAPI";
 import {convertSecondToHour} from "../../../../utils/Utils";
+import history from "../../../../history/index";
 
 const ReportAdminUserItem = ({project}) => {
 
@@ -13,8 +14,16 @@ const ReportAdminUserItem = ({project}) => {
         }).catch(error=>{});
     });
 
+    function toProjectReportPage() {
+        console.log(project);
+        history.push({
+            pathname:`projects/${project.id}`,
+            state:project
+        })
+    }
+
     return (
-        <div className="report_admin_project_item">
+        <div className="report_admin_project_item" onClick={toProjectReportPage}>
             <div className="report_admin_project_name">
                 <div className="report_admin_project_color" 
                 style={{height:"30px",
