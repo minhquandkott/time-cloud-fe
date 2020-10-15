@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ReportItemTask.css";
 import timeCloudAPI from "../../../../apis/timeCloudAPI";
-import Ultils, { convertSecondToHour } from "../../../../utils/Utils";
+import { convertSecondToHour } from "../../../../utils/Utils";
 import "./ReportItemTask.css";
 
 const ReportItemTask = ({ user, task }) => {

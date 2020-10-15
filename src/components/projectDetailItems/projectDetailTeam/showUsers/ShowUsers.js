@@ -1,7 +1,6 @@
 import React from "react";
 import "./ShowUsers.css";
 import timeCloudAPI from "../../../../apis/timeCloudAPI";
-import CountUser from "../../../../pages/companyProjects/CountUser/CountUser";
 import UserInfo from "../../../../components/userInfo/UserInfo";
 import UserTracked from "./userTracked/UserTracked";
 
@@ -21,7 +20,7 @@ class ShowUsers extends React.Component {
 
   render() {
     var { tasks } = this.state;
-    var { user, index, avatar } = this.props;
+    var { user, avatar } = this.props;
     return (
       <div className="show_users">
         <div className="show_users__item">

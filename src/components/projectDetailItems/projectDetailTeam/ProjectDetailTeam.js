@@ -22,7 +22,6 @@ class ProjectDetailTeam extends React.Component {
   }
 
   render() {
-    var { project } = this.props;
     return (
       <div className="project_detail_team">
         <table style={{ width: "100%" }}>

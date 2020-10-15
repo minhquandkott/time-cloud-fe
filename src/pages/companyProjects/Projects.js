@@ -1,7 +1,6 @@
 import "./Projects.css";
 import React from "react";
 import { connect } from "react-redux";
-import SearchIcon from "@material-ui/icons/Search";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Table from "../../components/table/Table";

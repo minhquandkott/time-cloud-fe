@@ -64,7 +64,7 @@ export const deleteProjects = (id) => {
   return async (dispatch) => {
     console.log(id);
     try {
-      const response = await timeCloudAPI().delete(`projects/${id}`);
+      await timeCloudAPI().delete(`projects/${id}`);
       //console.log(response);
       dispatch(deleteProjectsSuccess(id));
     } catch (error) {
@@ -72,5 +72,3 @@ export const deleteProjects = (id) => {
     }
   };
 };
-
-

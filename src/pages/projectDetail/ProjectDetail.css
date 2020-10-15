@@ -2,6 +2,7 @@
 .project_detail {
     margin: 0 10%;
     overflow-x: hidden;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .project_detail__header {

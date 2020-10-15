@@ -4,7 +4,6 @@ import {
   FETCH_TASKS_START,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
-import { fetchProjectsSuccess } from "../actions";
 
 export const startFetchTasks = () => {
   return {

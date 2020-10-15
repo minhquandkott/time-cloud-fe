@@ -31,8 +31,9 @@
   text-decoration: none;
   text-transform: capitalize;
   color: var(--color-light-primary);
-  padding: 1rem;
-  font-size: 1.7rem;
+  padding: 1.5rem 2rem;
+  font-size: 1.9rem;
+  font-weight: 500;
 }
 
 .header__account {

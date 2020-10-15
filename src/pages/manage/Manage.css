@@ -8,9 +8,6 @@
 }
 
 
-
-
-
 .manage__search>input {
   
   line-height: var(--line-height);
@@ -27,7 +24,7 @@
 .manage__search>input::placeholder {
 
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-dark-tertiary);
 }
 .manage__search>button {
