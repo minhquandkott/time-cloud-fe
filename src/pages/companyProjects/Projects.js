@@ -42,6 +42,14 @@ class Projects extends React.Component {
     }
   };
 
+  onEdit = (project) => {
+    console.log(project);
+    history.push({
+      pathname: "createProject",
+      state: project
+    })
+  }
+
   render() {
     const cssHeader = {
       textAlign: "left",
@@ -117,6 +125,10 @@ class Projects extends React.Component {
               <EditIcon
                 style={{ ...styleCom, marginRight: "5px" }}
                 className="projects__icon projects__icon__edit"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  this.onEdit(project);
+                }}
               />
               <DeleteIcon
                 style={{ ...styleCom }}
@@ -163,10 +175,13 @@ class Projects extends React.Component {
           data={projects}
           skeletonLoading={projects.length ? false : true}
           onClickHandler={(element) =>
-            history.push({
-              pathname: `/projects/${element.id}`,
-              state: { project: { element } },
-            })
+            {
+              console.log(element);
+              history.push({
+                pathname: `/projects/${element.id}`,
+                state: { project: { element } },
+              })
+            }
           }
         />
       </PageDesign>
