@@ -1,10 +1,7 @@
 import "./Projects.css";
 import React from "react";
 import { connect } from "react-redux";
-<<<<<<< HEAD
-=======
 import SearchIcon from "@material-ui/icons/Search";
->>>>>>> develop
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Table from "../../components/table/Table";
@@ -13,10 +10,7 @@ import Point from "../../components/point/Point";
 import history from "../../history";
 import TrackTime from "./TrackTime/TrackTime";
 import UserColumn from "./ProjectUser/UserColumn";
-<<<<<<< HEAD
-=======
 import PageDesign from "../../components/pageDesign/PageDesign";
->>>>>>> develop
 
 class Projects extends React.Component {
   constructor(props) {
@@ -40,11 +34,7 @@ class Projects extends React.Component {
   };
 
   onCreateProject = () => {
-<<<<<<< HEAD
-    console.log(11);
-=======
     history.push("/createProject");
->>>>>>> develop
   };
 
   onDelete = (id) => {
@@ -67,7 +57,6 @@ class Projects extends React.Component {
           textTransform: "capitalize",
           verticalAlign: "middle",
           cursor: "pointer",
-<<<<<<< HEAD
         },
         convertData: (project) => (
           <Point
@@ -92,69 +81,34 @@ class Projects extends React.Component {
       tracktime: {
         key: "tracktime",
         label: "Tracked Time (h)",
-=======
-        },
-        convertData: (project) => (
-          <Point
-            color={project.color}
-            pointSize="15"
-            title={project.name}
-            key={project.id}
-            cssTittle={{ fontSize: "2rem", fontWeight: "700" }}
-          />
-        ),
-      },
-      client: {
-        key: "client",
-        label: "client",
->>>>>>> develop
         width: "20%",
         cssHeader,
         cssData: {
           verticalAlign: "middle",
           cursor: "pointer",
         },
-<<<<<<< HEAD
         convertData: (project) => <TrackTime projectId={project.id} />,
       },
       members: {
         key: "members",
         label: "Members",
         width: "30%",
-=======
-        convertData: (project) => project.clientName,
-      },
-      tracktime: {
-        key: "tracktime",
-        label: "Tracked Time (h)",
-        width: "20%",
->>>>>>> develop
         cssHeader,
         cssData: {
           verticalAlign: "middle",
           cursor: "pointer",
         },
-<<<<<<< HEAD
         convertData: (project) => <UserColumn project={project} />,
       },
       actions: {
         key: "actions",
         label: "actions",
         width: "10%",
-=======
-        convertData: (project) => <TrackTime projectId={project.id} />,
-      },
-      members: {
-        key: "members",
-        label: "Members",
-        width: "30%",
->>>>>>> develop
         cssHeader,
         cssData: {
           verticalAlign: "middle",
           cursor: "pointer",
         },
-<<<<<<< HEAD
         convertData: (project) => {
           const styleCom = {
             fontSize: "3rem",
@@ -176,40 +130,6 @@ class Projects extends React.Component {
             </React.Fragment>
           );
         },
-=======
-        convertData: (project) => <UserColumn project={project} />,
-      },
-      actions: {
-        key: "actions",
-        label: "actions",
-        width: "10%",
-        cssHeader,
-        cssData: {
-          verticalAlign: "middle",
-          cursor: "pointer",
-        },
-        convertData: (project) => {
-          const styleCom = {
-            fontSize: "3rem",
-          };
-          return (
-            <React.Fragment>
-              <EditIcon
-                style={{ ...styleCom, marginRight: "5px" }}
-                className="projects__icon projects__icon__edit"
-              />
-              <DeleteIcon
-                style={{ ...styleCom }}
-                className=" projects__icon projects__icon__delete"
-                onClick={(e) => {
-                  console.log(e);
-                  this.onDelete(project.id);
-                }}
-              />
-            </React.Fragment>
-          );
-        },
->>>>>>> develop
       },
     };
 
@@ -221,14 +141,7 @@ class Projects extends React.Component {
       });
     }
     return (
-<<<<<<< HEAD
-      <div className="projects">
-        <div className="projects__title">
-          <h1>Projects</h1>
-        </div>
-=======
       <PageDesign title="Projects">
->>>>>>> develop
         <div className="projects__content">
           <div className="projects__search">
             <input
@@ -236,11 +149,6 @@ class Projects extends React.Component {
               name="txtSearch"
               onChange={this.onChange}
               placeholder="Searching your project"
-<<<<<<< HEAD
-            ></input>
-          </div>
-          <button className="projects__bt" onClick={this.onCreateProject}>
-=======
               className="page_design__animate__left"
             ></input>
           </div>
@@ -248,7 +156,6 @@ class Projects extends React.Component {
             className="projects__bt page_design__animate__right"
             onClick={this.onCreateProject}
           >
->>>>>>> develop
             Create new project
           </button>
         </div>
@@ -263,11 +170,7 @@ class Projects extends React.Component {
             })
           }
         />
-<<<<<<< HEAD
-      </div>
-=======
       </PageDesign>
->>>>>>> develop
     );
   }
 }

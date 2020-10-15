@@ -7,7 +7,6 @@ class TaskTracked extends React.Component {
     tracked: 0,
   };
 
-<<<<<<< HEAD
     state = {
         tracked: 0
     }
@@ -39,21 +38,6 @@ class TaskTracked extends React.Component {
         }}> {this.state.tracked} </span>
         )
     }
-=======
-  componentDidMount() {
-    timeCloudAPI()
-      .get(`tasks/${this.props.taskId}/total-times`)
-      .then((response) => {
-        this.setState({
-          tracked: convertSecondToHour(response.data),
-        });
-      });
-  }
-
-  render() {
-    return <span> {this.state.tracked} </span>;
-  }
->>>>>>> develop
 }
 
 export default TaskTracked;
