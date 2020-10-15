@@ -39,6 +39,18 @@ class UserInfo extends React.Component {
     })
   }
 
+  onCancel = () => {
+    var { user } = this.props;
+    this.setState({
+      editStatus: false,
+      txtname: user.name,
+      txtaddress: user.address,
+      txtemail: user.email,
+      txtgender: user.gender,
+      txtphone: user.phoneNumber,
+    })
+  }
+
   onSave = () => {
     var {user} = this.props;
     var {
@@ -167,7 +179,12 @@ class UserInfo extends React.Component {
           }
           
         </div>
-        {editStatus ? <button onClick={this.onSave}>Save</button> : <button onClick={this.onEdit}>Edit</button>}
+        {editStatus ? <div>
+                        <button onClick={this.onSave}>Save</button> 
+                        <button onClick={this.onCancel}>Cancel</button>
+                      </div>
+                    : <button onClick={this.onEdit}>Edit</button>
+        }
       </div>
     );
   }
