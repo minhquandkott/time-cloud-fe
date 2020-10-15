@@ -175,13 +175,10 @@ class Projects extends React.Component {
           data={projects}
           skeletonLoading={projects.length ? false : true}
           onClickHandler={(element) =>
-            {
-              console.log(element);
-              history.push({
-                pathname: `/projects/${element.id}`,
-                state: { project: { element } },
-              })
-            }
+            history.push({
+              pathname: `/projects/${element.id}`,
+              state: element,
+            })
           }
         />
       </PageDesign>
