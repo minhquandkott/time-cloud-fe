@@ -4,6 +4,8 @@ import timeCloudAPI from "../../../../apis/timeCloudAPI";
 import UserInfo from "../../../../components/userInfo/UserInfo";
 import UserTracked from "./userTracked/UserTracked";
 import TaskTrackedByUser from "./taskTrackedByUser/TaskTrackedByUser";
+import male from "../../../../assets/images/male.png";
+import female from "../../../../assets/images/female.png";
 
 class ShowUsers extends React.Component {
   state = {
@@ -33,13 +35,13 @@ class ShowUsers extends React.Component {
 
   render() {
     var { tasks } = this.state;
-    var { user, avatar, project } = this.props;
+    var { user, project } = this.props;
     return (
       <div className="show_users">
         <div className="show_users__item">
           <div className="show_users__name" style={{ marginBottom: "0" }}>
             <UserInfo
-              avatar={avatar}
+              avatar={user?.avatar ? user.avatar : (user?.gender ? male : female)}
               cssForPrimaryInfo={{ fontWeight: "500" }}
               primaryInfo={user.name}
               secondaryInfo={user.email}

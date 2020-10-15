@@ -3,8 +3,7 @@ import Collapse from "../../../components/collapse/Collapse";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
 import ShowUser from "./showUsers/ShowUsers";
 import "./ProjectDetailTeam.css";
-import male from "../../../assets/images/male.png";
-import female from "../../../assets/images/female.png";
+
 
 class ProjectDetailTeam extends React.Component {
   state = {
@@ -48,7 +47,6 @@ class ProjectDetailTeam extends React.Component {
             return (
               <ShowUser
                 project={project}
-                avatar={user.gender ? male : female}
                 user={user}
                 index={index}
                 key={user.id}
