@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 import { fetchMembers } from "../../../redux/actions";
 import { connect } from "react-redux";
 import MembersSearch from "./membersSearch/MembersSearch";
+import history from '../../../history/index';
 
 const TeamMembers = ({
   selectedMembers,
@@ -74,6 +75,10 @@ const TeamMembers = ({
     },
   };
 
+  const onInvite = () => {
+    history.push("/manage");
+  }
+
   const onAddMember = (member) => {
     if (!selectedMembers.find((ele) => ele.id === member.id)) {
       setSelectedMembers([...selectedMembers, member]);
@@ -112,7 +117,7 @@ const TeamMembers = ({
         <div className="team_members__bottom_right">
           <p>Need to add some one?</p>
           <p>
-            Go to <span>Manager &gt; People</span> to invite them to Project.
+            Go to <span onClick={() => onInvite()}>Manager &gt; People</span> to invite them to Project.
           </p>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { logout } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import UserInfo from "../../components/userInfo/UserInfo";
+import history from '../../history/index';
 
 const Header = ({ user, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,10 @@ const Header = ({ user, logout }) => {
       isMounted = false;
     };
   }, []);
+
+  const onProfile = () => {
+    history.push(`profile/${localStorage.getItem("userId")}`);
+  }
 
   const features = user?.roles?.some((ele) => ele.id === 1 || ele.id === 3) ? (
     <React.Fragment>
@@ -81,7 +86,7 @@ const Header = ({ user, logout }) => {
           className={`header__drop_down ${isOpen ? "active" : ""}`}
           ref={dropDownRef}
         >
-          <p>Profile</p>
+          <p onClick={() => onProfile()}>Profile</p>
           <p>Setting</p>
           <p
             onClick={() => {

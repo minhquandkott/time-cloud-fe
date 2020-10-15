@@ -11,12 +11,12 @@ import TabNav from "../../components/tabNav/TabNav";
 
 class Projects extends React.Component {
   componentDidMount = () => {
-    var userId = history.location.state.project.element.createdBy;
+    var userId = history.location.state.createdBy;
     this.props.getUser(userId);
   };
 
   render() {
-    var project = history.location.state.project.element;
+    var project = history.location.state;
     var createAt = new Date(project.createAt);
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";

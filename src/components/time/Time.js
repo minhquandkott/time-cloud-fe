@@ -44,9 +44,7 @@ class Time extends React.Component {
   onClickToSelectTime = (time, event) => {
     event.preventDefault();
     this.props.selectTime(time);
-    this.props.selectTask(
-      this.props.tasks.find((task) => task.id === time.task.id)
-    );
+    this.props.selectTask(time.task);
   };
   onFormSubmit = ({ description, name }) => {
     if (description !== "" && name !== "") {
