@@ -4,7 +4,6 @@ import { fetchProjects } from "../../redux/actions";
 import { connect } from "react-redux";
 import ProjectItem from "./projectItem/ProjectItem";
 import TaskList from "../tasks/TaskList";
-import { randomNumber, randomColorArray } from "../../utils/Utils";
 import Skeleton from "../loading/skeleton/Skeleton";
 
 class ProjectList extends React.Component {

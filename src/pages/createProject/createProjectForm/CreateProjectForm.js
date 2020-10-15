@@ -1,6 +1,7 @@
 import "./CreateProjectForm.css";
 import { reduxForm, Field } from "redux-form";
 import React from "react";
+import FlipCameraAndroidIcon from "@material-ui/icons/FlipCameraAndroid";
 
 const renderInput = ({ input, meta, label, flexInput, ...attribute }) => {
   return (
@@ -13,6 +14,7 @@ const renderInput = ({ input, meta, label, flexInput, ...attribute }) => {
 
 const renderProjectColor = (params) => {
   const { input, meta, label, flexInput, ...attribute } = params;
+  console.log(input);
   return (
     <div className="project_form_field project_form_field__color">
       <label>{label}</label>

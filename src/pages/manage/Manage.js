@@ -66,7 +66,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
               .sort((ele1, ele2) => ele1.id - ele2.id)
               .map((role) => (
                 <Point
-                  color= {`#${role.color}`}
+                  color={`#${role.color}`}
                   pointSize="15"
                   title={role.name}
                   css={{ flex: `${(10 / maxRole) * 0.1}` }}
@@ -94,15 +94,6 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
         onClickHandler={(element) => selectMember(element)}
       />
     </PageDesign>
-    // <div className="manage">
-    //   <div className="manage__header">
-    //     <h2>Admin</h2>
-
-    //   </div>
-    //   <div className="manage__context">
-
-    //   </div>
-    // </div>
   );
 };
 const mapStateToProp = (state) => {

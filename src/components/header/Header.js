@@ -71,7 +71,7 @@ const Header = ({ user, logout }) => {
       <div className="header__feature">{features}</div>
       <div className="header__account">
         <UserInfo
-          src={user?.avatar ? user.avatar : null}
+          avatar={user?.avatar ? user.avatar : null}
           primaryInfo={user?.name}
           cssForPrimaryInfo={{
             color: "white",

@@ -1,9 +1,9 @@
 .right_sign__header {
   flex: .2;
   text-align: right;
-
   font-size: 18px;
   font-weight: 300;
+  margin-bottom: 2rem;
 }
 
 .right_sign__header>p {
@@ -33,7 +33,7 @@
 
 .right_sign__title {
   flex: .2;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 }
 
 .right_sign__title>h3 {

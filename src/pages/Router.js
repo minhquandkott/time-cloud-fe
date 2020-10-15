@@ -27,12 +27,12 @@ class Router extends React.Component {
         <Switch>
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
-          <Route path="/report" component={Report} />
+          <Route path="/report" component={ReportAdmin} />
+          <Route path="/profile" component={Profile} />
           <Route path="/report/:id" component={Report} />
-          <Route path="/report_test" component={ReportAdmin} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/manage" component={Manage} />
-          <Route path="/createProject" component={CreateProject} />
+          <Route path="/create_project" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
           <Route component={NotFound} />
@@ -43,7 +43,7 @@ class Router extends React.Component {
         <Switch>
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
-          <Route path="/report" component={Report} />
+          <Route path="/report/:id" component={Report} />
           <Route path="/profile/:id" component={Profile} />
           {this.props.user?.roles ? <Route component={NotFound} /> : null}
         </Switch>

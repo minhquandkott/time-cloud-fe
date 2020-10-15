@@ -2,15 +2,25 @@ export function randomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 export const randomColorArray = [
-  "FFC156",
-  "F37365",
-  "4CDA87",
-  "80A1D4",
-  "75C9C8",
-  "0267C1",
-  "EFA00B",
-  "D65108",
-  "591F0A",
+  "#eb4d4b",
+  "#686de0",
+  "#be2edd",
+  "#22a6b3",
+  "#ff7979",
+  "#f9ca24",
+  "#05c46b",
+  "#485460",
+  "#3c40c6",
+  "#0be881",
+  "#0fbcf9",
+  "#5352ed",
+  "#7bed9f",
+  "#ffa502",
+  "#eccc68",
+  "#1e90ff",
+  "#6D214F",
+  "#B33771",
+  "#82589F",
 ];
 
 export const convertSecond = (totalSecond) => {
@@ -29,12 +39,11 @@ export const convertSecond = (totalSecond) => {
   };
 };
 
-
 export const convertSecondToHour = (totalSecond) => {
   const hour = totalSecond / 3600;
   const convertedHour = Math.floor(hour);
   const convertedSuffix = Math.ceil(((totalSecond % 3600) / 3600) * 100) / 100;
-  return Math.floor((convertedHour + convertedSuffix)*100)/100;
+  return Math.floor((convertedHour + convertedSuffix) * 100) / 100;
 };
 
 export const ROLE_LIST = [
