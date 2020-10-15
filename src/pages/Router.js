@@ -27,11 +27,10 @@ class Router extends React.Component {
         <Switch>
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
-          <Route path="/report" component={Report} />
-          <Route path="/report_test" component={ReportAdmin} />
+          <Route path="/report" component={ReportAdmin} />
           <Route path="/profile" component={Profile} />
           <Route path="/manage" component={Manage} />
-          <Route path="/createProject" component={CreateProject} />
+          <Route path="/create_project" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
           <Route component={NotFound} />

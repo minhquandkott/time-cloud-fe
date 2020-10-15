@@ -23,6 +23,12 @@ const MembersTaskSearch = ({
   };
 
   useEffect(() => {
+    if (!members.length) {
+      setCheckboxChecked(false);
+    }
+  }, [members]);
+
+  useEffect(() => {
     let maxResult = 4;
     const arr = members.filter((ele) => {
       if (inputValue) {

@@ -33,7 +33,7 @@ class Projects extends React.Component {
   };
 
   onCreateProject = () => {
-    history.push("/createProject");
+    history.push("/create_project");
   };
 
   onDelete = (id) => {

@@ -11,17 +11,28 @@ import Spinner from "../../components/loading/spinner/Spinner";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 class Login extends React.Component {
+  state = {
+    isShowError: false,
+  };
   renderInput({ input, meta: { error, touched }, label, ...attributes }) {
     return (
       <div className="login__field">
         <label htmlFor={label}>{label}</label>
-
         <input {...input} {...attributes} id={label} autoComplete="off" />
         {error && touched ? <ErrorIcon className="invalid" /> : null}
         {!error ? <CheckCircleIcon className="valid" /> : null}
         {error && touched ? <p>{error}</p> : <p></p>}
       </div>
     );
+  }
+
+  componentDidUpdate(preProps) {
+    if (preProps.authError !== this.props.authError && this.props.authError) {
+      this.setState({ isShowError: true });
+      setTimeout(() => {
+        this.setState({ isShowError: false });
+      }, 4000);
+    }
   }
 
   onFormSubmit = ({ email, password }) => {
@@ -31,6 +42,12 @@ class Login extends React.Component {
   onHeaderButtonHandler = () => {};
 
   render() {
+    const spanError =
+      this.state.isShowError && this.props.authError ? (
+        <span style={{ animation: "fade 4s forwards" }}>
+          {this.props.authError?.error}
+        </span>
+      ) : null;
     const header = {
       p: "Don't have account?",
       button: "Get Started",
@@ -72,6 +89,8 @@ class Login extends React.Component {
                   validation.maxLength15,
                 ]}
               />
+
+              <p className="login__error">{spanError}</p>
               <button className="login__submit">Sign In</button>
             </form>
           </RightSign>
@@ -86,8 +105,10 @@ const loginForm = reduxForm({
 })(Login);
 
 const mapStateToProps = (state) => {
+  const { loading, error } = state.auth;
   return {
-    loading: state.auth.loading,
+    loading,
+    authError: error,
   };
 };
 

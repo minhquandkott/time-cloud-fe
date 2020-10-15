@@ -12,6 +12,9 @@ import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 class SignUp extends React.Component {
+  state = {
+    isShowError: false,
+  };
   renderInput({ input, meta: { error, touched }, label, ...attributes }) {
     return (
       <div className="sign_up__field">
@@ -22,6 +25,14 @@ class SignUp extends React.Component {
         {error && touched ? <p>{error}</p> : <p></p>}
       </div>
     );
+  }
+  componentDidUpdate(preProps) {
+    if (preProps.authError !== this.props.authError && this.props.authError) {
+      this.setState({ isShowError: true });
+      setTimeout(() => {
+        this.setState({ isShowError: false });
+      }, 4000);
+    }
   }
 
   onFormSubmit = ({ username, email, password }) => {
@@ -38,6 +49,12 @@ class SignUp extends React.Component {
       h3: "Get Start absolutely free",
       p: "Free forever. No credit card needed.",
     };
+    const spanError =
+      this.state.isShowError && this.props.authError ? (
+        <span style={{ animation: "fade 4s forwards" }}>
+          {this.props.authError?.error}
+        </span>
+      ) : null;
 
     return (
       <div className="sign_up">
@@ -90,6 +107,7 @@ class SignUp extends React.Component {
                   validation.maxLength15,
                 ]}
               />
+              <p className="sign_up__error">{spanError}</p>
               <button className="sign_up__submit">Sign Up</button>
             </form>
           </RightSign>
@@ -103,8 +121,10 @@ const signUpForm = reduxForm({
 })(SignUp);
 
 const mapStateToProps = (state) => {
+  const { loading, error } = state.auth;
   return {
-    isLoading: state.auth.loading,
+    isLoading: loading,
+    authError: error,
   };
 };
 

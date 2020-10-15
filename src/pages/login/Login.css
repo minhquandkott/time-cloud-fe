@@ -23,6 +23,33 @@
   padding: 5rem;
 }
 
+.login__error{
+ 
+  height: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login__error>span{
+
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--color-error);
+ 
+}
+
+@keyframes fade{
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
 .login__form .login__field:last-child {
   margin-bottom: 5rem;
 }
@@ -84,10 +111,6 @@
 }
 
 
-
-
-
-
 .login__submit {
   width: 100%;
   padding: 1rem;
@@ -95,7 +118,9 @@
   background-color: var(--color-button);
   color: var(--color-light-primary);
   border: none;
+  border-radius: .2rem;
   font-size: 1.7rem;
+  cursor: pointer;
 }
 
 .login__spinner {

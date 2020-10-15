@@ -26,7 +26,7 @@ const Tooltip = ({
       );
     const html = document?.firstElementChild;
 
-    if (html.offsetWidth < pin?.offsetLeft + tooltip.offsetWidth / 2) {
+    if (html.offsetWidth < pin?.offsetLeft + tooltip?.offsetWidth / 2) {
       const extraLeft =
         html.offsetWidth - (pin.offsetLeft + tooltip.offsetWidth / 2);
       tooltip.style.left =
