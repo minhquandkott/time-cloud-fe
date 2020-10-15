@@ -24,7 +24,7 @@ const UserInfo = ({
               display: "inline-block",
               backgroundColor: "var(--color-error)",
               borderRadius: ".4rem",
-              padding: " .5rem .7rem",
+              padding: " .1rem .3rem",
               verticalAlign: "top",
               textTransform: "uppercase",
               fontWeight: "600",
@@ -42,8 +42,3 @@ const UserInfo = ({
 };
 
 export default UserInfo;
-
-UserInfo.propTypes = {
-  user: PropTypes.object,
-  cssForUsername: PropTypes.object,
-};

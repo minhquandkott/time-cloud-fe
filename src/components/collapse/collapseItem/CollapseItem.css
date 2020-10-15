@@ -24,6 +24,6 @@
 }
 
 .collapse .toggle_item {
-  transition: all .6s;
+  transition: all 1s;
   overflow: hidden;
 }

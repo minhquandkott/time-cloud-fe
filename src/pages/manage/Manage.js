@@ -6,6 +6,7 @@ import { fetchMembers, selectMember } from "../../redux/actions";
 import Point from "../../components/point/Point";
 import classes from "./Manage.module.css";
 import ColumnEmail from "./columEmail/ColumnEmail";
+import PageDesign from "../../components/pageDesign/PageDesign";
 
 const Manage = ({ members, fetchMembers, selectMember }) => {
   const maxRole = members.reduce((preV, curV) => {
@@ -13,7 +14,9 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
   }, 0);
 
   useEffect(() => {
-    fetchMembers(52);
+    setTimeout(() => {
+      fetchMembers(52);
+    }, 750);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -76,22 +79,30 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
     },
   };
 
+  const search = (
+    <div className="manage__search page_design__animate__right">
+      <input type="text" placeholder="Add new member by email address..." />
+      <button>Invite</button>
+    </div>
+  );
+
   return (
-    <div className="manage">
-      <div className="manage__header">
-        <h2>Admin</h2>
-        <div>
-          <input type="text" placeholder="Add new member by email address..." />
-          <button>Invite</button>
-        </div>
-      </div>
-      <div className="manage__context"></div>
+    <PageDesign title="Admin" headerRight={search}>
       <Table
         columns={columns}
         data={members}
         onClickHandler={(element) => selectMember(element)}
       />
-    </div>
+    </PageDesign>
+    // <div className="manage">
+    //   <div className="manage__header">
+    //     <h2>Admin</h2>
+
+    //   </div>
+    //   <div className="manage__context">
+
+    //   </div>
+    // </div>
   );
 };
 const mapStateToProp = (state) => {

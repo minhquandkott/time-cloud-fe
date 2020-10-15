@@ -12,14 +12,18 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
     setShowTooltip(!showTooltip);
   };
   useEffect(() => {
-    if (selectedMember?.user.id !== userRole.user.id) setShowTooltip(false);
+    if (selectedMember?.user?.id !== userRole.user.id) setShowTooltip(false);
   }, [selectedMember, userRole.user.id]);
 
   return (
     <div className="column_email ">
       <span>{userRole?.user?.email}</span>
       <button
-        className={!showTooltip ? "visible_hover" : ""}
+        className={
+          !showTooltip
+            ? `visible_hover column_email__button${userRole.id}`
+            : `column_email__button${userRole.id}`
+        }
         onClick={onButtonClick}
       >
         <CreateIcon
@@ -34,12 +38,9 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
         css={{
           boxShadow: "var(--box-shadow-secondary)",
           borderRadius: ".5rem",
-          display:
-            showTooltip && selectedMember?.user.id === userRole.user.id
-              ? "initial"
-              : "none",
           padding: ".5rem 1rem",
         }}
+        isShow={showTooltip && selectedMember?.user.id === userRole.user.id}
       >
         <RoleList />
       </ToolTip>

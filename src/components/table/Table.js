@@ -1,10 +1,16 @@
 import "./Table.css";
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
+import { TransitionGroup, Transition } from "react-transition-group";
 
-const Table = (props) => {
-  const { columns, data = [], onClickHandler, skeletonLoading = true } = props;
+const Table = ({
+  columns,
+  data = [],
+  onClickHandler = () => {},
+  skeletonLoading = true,
+}) => {
+  const [elementSelected, setElementSelected] = useState(null);
   const heads = columns
     ? Object.keys(columns).map((key) => {
         const { label, cssHeader, convertHeader, width } = columns[key];
@@ -22,25 +28,61 @@ const Table = (props) => {
       })
     : null;
 
-  const cells = data.map((element) => {
+  const cells = data.map((element, index) => {
     return (
-      <tr key={element.id} onClick={(event) => onClickHandler(element)}>
-        {Object.keys(columns).map((key) => {
-          const { cssData, convertData, width } = columns[key];
-          const cellData = element[key];
-          return (
-            <td
-              key={key}
-              style={{
-                ...cssData,
-                width: width,
-              }}
-            >
-              {convertData ? convertData(element) : cellData}
-            </td>
-          );
-        })}
-      </tr>
+      <Transition
+        key={element.id}
+        timeout={1000}
+        mountOnEnter
+        unmountOnExit
+        onEnter={(node) => {
+          node.style.opacity = 0;
+          node.style.transform = "translateX(150%)";
+        }}
+        onEntering={(node) => {
+          node.style.opacity = 1;
+          node.style.transform = "translateX(0)";
+        }}
+        onEntered={() => console.log(3)}
+        onExit={(node) => {
+          node.style.maxHeight = node.scrollHeight + "px";
+          node.style.transform = "translateX(0)";
+        }}
+        onExiting={(node) => {
+          node.style.maxHeight = 0;
+          node.style.padding = "0";
+          node.style.transform = "translateX(150%)";
+        }}
+        onExited={() => console.log(6)}
+      >
+        <tr
+          onClick={(event) => {
+            onClickHandler(element, event);
+            setElementSelected(element);
+          }}
+          style={{
+            transitionDelay: `${index * 0.03}s`,
+            position: elementSelected === element ? "relative" : "initial",
+            zIndex: elementSelected === element ? "1" : "initial",
+          }}
+        >
+          {Object.keys(columns).map((key) => {
+            const { cssData, convertData, width } = columns[key];
+            const cellData = element[key];
+            return (
+              <td
+                key={key}
+                style={{
+                  ...cssData,
+                  width: width,
+                }}
+              >
+                {convertData ? convertData(element) : cellData}
+              </td>
+            );
+          })}
+        </tr>
+      </Transition>
     );
   });
   const table =
@@ -52,8 +94,8 @@ const Table = (props) => {
           direction="row"
         />
         <Skeleton
-          countItem={6}
-          heightItem="5rem"
+          countItem={4}
+          heightItem="4rem"
           direction="column"
           bgSkeleton="var(--color-light-primary)"
         />
@@ -63,7 +105,9 @@ const Table = (props) => {
         <thead className="table__head">
           <tr>{heads}</tr>
         </thead>
-        <tbody className="table__body">{cells}</tbody>
+        <TransitionGroup className="table__body" component={"tbody"}>
+          {cells}
+        </TransitionGroup>
       </table>
     );
   return table;

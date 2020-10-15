@@ -3,7 +3,7 @@
   --color-light-primary: #FFFFFF;
   --color-light-secondary: #FBFCFE;
   --color-light-tertiary: #EEEEEE;
-
+  --color-medium: #cac9c9;
   --color-dark-primary: #363636;
   --color-dark-secondary: #525252;
   --color-dark-tertiary: #7B7B7B;
@@ -18,5 +18,8 @@
   --font-size-small: .9rem;
 
   --box-shadow-primary: 5px 5px 10px rgba(0, 0, 0, .5);
-  --box-shadow-secondary: 3px 3px 4px rgba(0, 0, 0, .4);
+  --box-shadow-secondary: 3px 3px 10px rgba(0, 0, 0, .4);
 }
+
+
+

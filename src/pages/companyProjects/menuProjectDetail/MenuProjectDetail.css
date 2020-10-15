@@ -18,6 +18,7 @@
     padding: 14px 16px;
     text-decoration: none;
 }
+<<<<<<< HEAD
 
 .menu_project_detail>li a:hover:not(.active) {
     background-color: rgb(237, 243, 239);
@@ -27,3 +28,5 @@
     background-color: rgb(237, 243, 239);
   } */
   
+=======
+>>>>>>> develop

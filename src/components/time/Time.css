@@ -41,11 +41,6 @@
   max-width: 30rem;
 }
 
-/* .form__input__task {
-  flex: .5;
-  padding-left: 1rem;
-} */
-
 .time__middle>.point {
   flex: 0.5;
   padding-top: 3px;
@@ -72,6 +67,8 @@
   padding-left: 1rem;
   padding: 0.5rem;
   line-height: 6rem;
+  cursor: pointer;
+
 }
 
 .time__middle>label>p {

@@ -1,0 +1,19 @@
+.report_list_des_header{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.report_list_des_header>h2{
+    font-size: 1.5rem;
+    margin-top: 0.70rem;
+    flex:0.3;
+    color: darkgray;
+}
+
+.report_list_des_header>h3{
+    font-size: 1.5rem;
+    margin-top: 0.70rem;
+    flex:1;
+    color: darkgray;
+}

@@ -19,6 +19,7 @@ import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
 import ProjectTask from "../projectTask/ProjectTask";
 class Time extends React.Component {
+  checkboxRef = React.createRef();
   renderInput = ({ input, meta, className, ...attributes }) => {
     return (
       <input
@@ -31,6 +32,13 @@ class Time extends React.Component {
   };
   componentDidMount() {
     this.props.fetchTimes(this.props.userId);
+    const arrChild = document.querySelectorAll(".time__middle *");
+    const checkbox = this.checkboxRef.current;
+    window.addEventListener("click", (event) => {
+      if (![...arrChild].some((e) => e === event.target)) {
+        checkbox.checked = false;
+      }
+    });
   }
 
   onClickToSelectTime = (time, event) => {
@@ -144,7 +152,7 @@ class Time extends React.Component {
             </DropDownTime>
           </div>
           <div className="time__middle">
-            <label htmlFor="task">
+            <label htmlFor="task" className="time__middle__label">
               {selectedTask ? (
                 <ProjectTask
                   projectName={selectedTask.project.name}
@@ -154,7 +162,7 @@ class Time extends React.Component {
                 <p>Task...</p>
               )}
             </label>
-            <input type="checkbox" id="task" />
+            <input type="checkbox" id="task" ref={this.checkboxRef} />
             <DropDownTime>
               <div className="drop_down__list_task">
                 {this.renderListTask()}

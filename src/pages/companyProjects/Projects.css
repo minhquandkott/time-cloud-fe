@@ -3,6 +3,7 @@
     font-size: 6rem;
     color: var(--color-dark-primary);
     font-weight: 500;
+    animation: leftMove 2s;
 }
 
 .projects__title {
@@ -12,12 +13,11 @@
 .projects {
     margin-left: 10%;
     margin-right: 10%;
-    font-family: Heebo; 
-
+    
 }
 .projects__content{
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,11 +29,6 @@
     width: 50%;
 }
 
-.projects__search>.MuiSvgIcon-root {
-    
-    font-size: 3.5rem;
-    color: darkgray;
-}
 
 .projects__bt {
     height: 4rem;
@@ -51,12 +46,19 @@
 
 .projects__search>input[type=text] {
     width: 80%;
-    padding: 10px 20px;
+    outline: none;
+    border: none;
+    border-radius: 0px;
+    padding: 1rem 0px;
     display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-bottom: 2px solid var(--color-button);
     box-sizing: border-box;
-  }
+    font-size: 1.6rem;
+    font-weight: 550;
+}
+.projects__search>input[type=text]::placeholder {
+    color: var(--color-dark-tertiary);
+}
 
 .projects__icon {
     transition: all .5s !important;
@@ -74,3 +76,12 @@
 .projects__icon__edit{
     color: var(--color-dark-primary);
 }
+
+@keyframes leftMove{
+    0%{
+      transform: translateX(-50%);
+    }
+    100%{
+      transform: translateX(0%);
+    }
+  }

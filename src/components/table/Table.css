@@ -7,24 +7,21 @@
 
 .table tr {
   display: block;
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .table__body>tr {
   border-bottom: 1px solid var(--color-light-tertiary);
+  transition: all 1s;
 }
 
 .table__body>tr:hover {
-  background-color: var(--color-light-tertiary);
+  background-color: #fafafa;
 }
 
 .visible_hover {
   opacity: 0;
   transition: all .3s;
-}
-
-.table__body>tr:hover .visible_hover {
-  opacity: 1;
 }
 
 .table th,
@@ -33,9 +30,10 @@
   vertical-align: middle;
 }
 
-.table>tbody {
+.table__body {
   cursor: pointer;
 }
+
 
 .table__head>tr>th {
   color: var(--color-dark-tertiary);
@@ -44,4 +42,10 @@
 
 .table__body>tr>td {
   color: var(--color-dark-primary);
+  font-size: 1.9rem;
+  font-weight: 650;
+}
+
+.table__body>tr:hover .visible_hover {
+  opacity: 1;
 }

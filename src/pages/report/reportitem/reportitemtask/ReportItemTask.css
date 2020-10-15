@@ -1,0 +1,24 @@
+.report_item_task{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    padding-top: 1rem;
+}
+
+.report_item_task>h2{
+    font-size: 2rem;
+    margin-top: 0.70rem;
+    flex:-0.8;
+}
+
+.report_item_task>div{
+    border-bottom: 2px dotted lightgray;
+    flex:1
+}
+
+.report_item_task>p{
+    color:var(--color-button);
+    font-size: 2rem;
+    margin-top: 0.70rem;
+    flex: -0.7;
+}
