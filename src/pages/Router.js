@@ -28,6 +28,7 @@ class Router extends React.Component {
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
+          <Route path="/report/:id" component={Report} />
           <Route path="/report_test" component={ReportAdmin} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/manage" component={Manage} />
