@@ -26,7 +26,7 @@ const CreateProject = ({ formValues }) => {
         clientName: client_name,
         name: project_name,
       });
-      const res = await Promise.allSettled([
+      await Promise.allSettled([
         ...selectedMembers.map((ele) =>
           timeCloudAPI().post(`projects/${id}/users/${ele.id}`)
         ),
@@ -37,6 +37,7 @@ const CreateProject = ({ formValues }) => {
       setError(error.response.data.message);
     }
   };
+  console.log(error);
 
   const checkFormEmpty = () => {
     if (formValues) {

@@ -1,19 +1,15 @@
 import React from "react";
 import "./ProjectDetail.css";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { deleteProjects, fetchTasks, getUser } from "../../redux/actions";
 import history from "../../history";
 import TrackTime from "../companyProjects/TrackTime/TrackTime";
-import MenuProjectDetail from "./../companyProjects/menuProjectDetail/MenuProjectDetail";
-import { randomColorArray, randomNumber } from "../../utils/Utils";
 import ProjectDetailTask from "../../components/projectDetailItems/projectDetailTask/ProjectDetailTask";
 import ProjectDetailTeam from "../../components/projectDetailItems/projectDetailTeam/ProjectDetailTeam";
 import ProjectDetailDiscussion from "../../components/projectDetailItems/projectDetailDiscussion/ProjectDetailDiscussion";
 import TabNav from "../../components/tabNav/TabNav";
 
 class Projects extends React.Component {
-
   componentDidMount = () => {
     var userId = history.location.state.project.element.createdBy;
     this.props.getUser(userId);
@@ -27,10 +23,10 @@ class Projects extends React.Component {
     return (
       <div className="project_detail">
         <div className="project_detail__header">
-          <div className="project_detail__header_info" >
+          <div className="project_detail__header_info">
             <h1
               style={{
-                color: project.color
+                color: project.color,
               }}
             >
               {" "}
@@ -50,8 +46,8 @@ class Projects extends React.Component {
           </div>
         </div>
         <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
-          <ProjectDetailTask project={project}/>
-          <ProjectDetailTeam project={project}/>
+          <ProjectDetailTask project={project} />
+          <ProjectDetailTeam project={project} />
           <ProjectDetailDiscussion />
         </TabNav>
       </div>

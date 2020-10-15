@@ -1,7 +1,6 @@
 import React from "react";
 import "./UserInfo.css";
 import Avatar from "../avatar/Avatar";
-import PropTypes from "prop-types";
 
 const UserInfo = ({
   avatar,

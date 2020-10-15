@@ -3,7 +3,7 @@ import Table from "../../../components/table/Table";
 import Checkbox from "../../../components/checkbox/Checkbox";
 import SelectItem from "../../../components/selectItem/SelectItem";
 import UserInfo from "../../../components/userInfo/UserInfo";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { fetchMembers } from "../../../redux/actions";
 import { connect } from "react-redux";
 import MembersSearch from "./membersSearch/MembersSearch";

@@ -3,7 +3,6 @@ import timeCloudAPI from "../../apis/timeCloudAPI";
 import "./Profile.css";
 import male from "../../assets/images/male.png";
 import female from "../../assets/images/female.png";
-import FacebookIcon from "@material-ui/icons/Facebook";
 import UserInfo from "./userInfo/UserInfo";
 
 class Profile extends React.Component {
@@ -28,7 +27,18 @@ class Profile extends React.Component {
         <div className="profile_upper">
           <div className="profile_content">
             <div className="profile_left__image">
-              <img alt="" src={user ? (user.avatar ? user.avatar : (user.gender ? male : female)) : male} />
+              <img
+                alt=""
+                src={
+                  user
+                    ? user.avatar
+                      ? user.avatar
+                      : user.gender
+                      ? male
+                      : female
+                    : male
+                }
+              />
             </div>
             <span>ABC</span>
             <div className="user_content">
