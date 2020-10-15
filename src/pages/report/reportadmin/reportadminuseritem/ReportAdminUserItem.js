@@ -14,8 +14,12 @@ const ReportAdminUserItem = ({user}) => {
         }).catch(error=>{});
     });
 
+    function mouse() {
+        console.log(user.id);
+    }
+
     return (
-        <div className="report_admin_user_item">
+        <div className="report_admin_user_item" onClick={mouse}>
         <Avatar avatar={user?.avatar} avatarSize="3rem">
           <div className="report_admin_user_avatarInfo">
             <h2>{user?.name}</h2>
