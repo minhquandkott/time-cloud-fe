@@ -17,7 +17,7 @@ const ReportAdminUserItem = ({project}) => {
     function toProjectReportPage() {
         console.log(project);
         history.push({
-            pathname:`projects/${project.id}`,
+            pathname:`/projects/${project.id}`,
             state:project
         })
     }
