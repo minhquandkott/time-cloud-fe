@@ -31,7 +31,7 @@ const Header = ({ user, logout }) => {
   }, []);
 
   const onProfile = () => {
-    history.push(`profile/${localStorage.getItem("userId")}`);
+    history.push(`/profile/${localStorage.getItem("userId")}`);
   }
 
   const features = user?.roles?.some((ele) => ele.id === 1 || ele.id === 3) ? (
