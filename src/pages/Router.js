@@ -43,7 +43,7 @@ class Router extends React.Component {
         <Switch>
           <Route path="/" exact component={Timer} />
           <Route path="/timer" component={Timer} />
-          <Route path="/report/:id" component={Report} />
+          <Route path="/report" component={Report} />
           <Route path="/profile/:id" component={Profile} />
           {this.props.user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
