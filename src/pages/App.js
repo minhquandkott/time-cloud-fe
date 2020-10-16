@@ -4,6 +4,7 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
+import Timer from "./timer/Timer";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter history={history}>
         <Router />
       </BrowserRouter>
+      {/* <Timer /> */}
     </div>
   );
 }

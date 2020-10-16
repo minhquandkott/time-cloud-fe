@@ -12,7 +12,6 @@ import {
 
 const initialState = {
   beginTime: null,
-  endTime: null,
   isCounting: false,
   intervalId: null,
   totalSecond: 0,
@@ -20,6 +19,7 @@ const initialState = {
   isSavingSuccess: false,
   errorMessage: null,
   selectedTask: null,
+  description: "",
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -28,55 +28,51 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         isCounting: true,
-        beginTime: payload.beginTime,
-        preCountingTime: payload.preCountingTime,
-      };
-    case SELECT_TASK:
-      return {
-        ...state,
-        ...initialState,
-        selectedTask: payload,
+        ...payload,
       };
     case TIME_END:
       return {
-        ...state,
-        endTime: payload.endTime,
-        isCounting: false,
-        intervalId: null,
-      };
-    case TIME_SET_INTERVAL_ID:
-      return {
-        ...state,
-        intervalId: payload,
-      };
-    case STOP_COUNTING_TIME:
-      return {
-        ...state,
-        isCounting: false,
+        ...initialState,
       };
     case INCREASE_TIME:
       return {
         ...state,
-        totalSecond: payload,
+        totalSecond: state.totalSecond + payload,
       };
-    case START_SAVING_TIME:
+    case SELECT_TASK:
       return {
         ...state,
-        isSaving: true,
+        selectedTask: payload,
       };
-    case SAVING_TIME_SUCCESS:
-      return {
-        ...initialState,
-        isSaving: false,
-        isSavingSuccess: true,
-      };
-    case SAVING_TIME_FAIL:
-      return {
-        ...state,
-        isSaving: false,
-        errorMessage: payload,
-        isSavingSuccess: false,
-      };
+
+    // case TIME_SET_INTERVAL_ID:
+    //   return {
+    //     ...state,
+    //     intervalId: payload,
+    //   };
+    // case STOP_COUNTING_TIME:
+    //   return {
+    //     ...state,
+    //     isCounting: false,
+    //   };
+    // case START_SAVING_TIME:
+    //   return {
+    //     ...state,
+    //     isSaving: true,
+    //   };
+    // case SAVING_TIME_SUCCESS:
+    //   return {
+    //     ...initialState,
+    //     isSaving: false,
+    //     isSavingSuccess: true,
+    //   };
+    // case SAVING_TIME_FAIL:
+    //   return {
+    //     ...state,
+    //     isSaving: false,
+    //     errorMessage: payload,
+    //     isSavingSuccess: false,
+    //   };
     default:
       return state;
   }

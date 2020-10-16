@@ -13,14 +13,13 @@ export { fetchProjects, deleteProjects } from "./projectActions";
 export { fetchTasks } from "./taskActions";
 
 export {
+  increaseTime,
   beginCountingTime,
-  createTime,
-  setIntervalId,
-  checkCurrentTime,
-  updateTime,
+  endCountingTime,
   fetchTask,
   saveTime,
   selectTask,
+  checkTime,
 } from "./timeActions";
 
 export { fetchTimes, selectTime } from "./timesActions";

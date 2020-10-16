@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Time.css";
-import { Field, reduxForm } from "redux-form";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import PauseIcon from "@material-ui/icons/Pause";
 import { connect } from "react-redux";
 import {
-  createTime,
-  saveTime,
+  increaseTime,
+  beginCountingTime,
+  endCountingTime,
   fetchTimes,
-  selectTime,
-  selectTask,
+  checkTime,
 } from "../../redux/actions";
 import Counter from "../counter/Counter";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
@@ -18,55 +17,67 @@ import DropDownTime from "../dropdown/DropDown";
 import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
 import ProjectTask from "../projectTask/ProjectTask";
-class Time extends React.Component {
-  checkboxRef = React.createRef();
-  renderInput = ({ input, meta, className, ...attributes }) => {
-    return (
-      <input
-        {...attributes}
-        {...input}
-        className={className}
-        autoComplete="off"
-      />
-    );
-  };
-  componentDidMount() {
-    this.props.fetchTimes(this.props.userId);
+import {
+  BEGIN_TIME,
+  SELECTED_TASK_ID,
+  DESCRIPTION,
+} from "../../utils/localStorageContact";
+
+const Time = ({
+  isCounting,
+  increaseTime,
+  beginCountingTime,
+  endCountingTime,
+  intervalId,
+  beginTime,
+  times,
+  projects,
+  tasks,
+  selectedTask,
+  fetchTimes,
+  userId,
+  description,
+  checkTime,
+  isSaving,
+}) => {
+  const checkboxRef = useRef(null);
+  const [desInput, setDesInput] = useState(
+    localStorage.getItem(DESCRIPTION) ? localStorage.getItem(DESCRIPTION) : ""
+  );
+
+  useEffect(() => {
+    if (!selectedTask) {
+      checkTime();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
     const arrChild = document.querySelectorAll(".time__middle *");
-    const checkbox = this.checkboxRef.current;
+    const checkbox = checkboxRef.current;
     window.addEventListener("click", (event) => {
       if (![...arrChild].some((e) => e === event.target)) {
         checkbox.checked = false;
       }
     });
-  }
+  }, []);
+  useEffect(() => {
+    fetchTimes(userId);
+  }, [fetchTimes, userId]);
 
-  onClickToSelectTime = (time, event) => {
-    event.preventDefault();
-    this.props.selectTime(time);
-    this.props.selectTask(time.task);
-  };
-  onFormSubmit = ({ description, name }) => {
-    if (description !== "" && name !== "") {
-      if (!this.props.isCounting) {
-        this.props.createTime();
-      } else {
-        this.props.createTime();
-      }
-    } else {
+  const onPlayButtonClick = () => {
+    if (isCounting) {
+      console.log("saving");
     }
   };
 
-  renderRecentTask = () => {
-    return this.props.times.map((time) => {
+  const renderRecentTask = () => {
+    return times.map((time) => {
       return (
         <TaskItem
           task={time.task}
           key={time.id}
           title={time.description}
-          methodHandlerReplacement={(event) =>
-            this.onClickToSelectTime(time, event)
-          }
+          // methodHandlerReplacement={(event) => onClickToSelectTime(time, event)}
         >
           <ProjectTask
             projectName={time.task.project.name}
@@ -77,8 +88,7 @@ class Time extends React.Component {
     });
   };
 
-  renderListTask = () => {
-    const { projects, tasks } = this.props;
+  const renderListTask = () => {
     let projectMap = new Map();
     projects.forEach((project) => {
       const taskList = tasks.filter((task) => task.project.id === project.id);
@@ -119,115 +129,91 @@ class Time extends React.Component {
     return returnValue;
   };
 
-  onSaveButtonClick = (event) => {
-    this.props.saveTime(this.props.description);
-    if (this.props.isSavingSuccess) {
-      this.props.reset();
-    }
+  const onDesInputChange = (event) => {
+    setDesInput(event.target.value);
   };
 
-  render() {
-    const { selectedTask } = this.props;
-    return (
-      <div className="time">
-        <form
-          className="form"
-          onSubmit={this.props.handleSubmit(this.onFormSubmit)}
-        >
-          <div className="time__left">
-            <Field
-              name="description"
-              type="text"
-              component={this.renderInput}
-              placeholder="Description..."
-              className="form__input form__input__description"
-            />
-
-            <DropDownTime title="recent_task">
-              <div className="drop_down__recent_task">
-                {this.renderRecentTask()}
-              </div>
-            </DropDownTime>
-          </div>
-          <div className="time__middle">
-            <label htmlFor="task" className="time__middle__label">
-              {selectedTask ? (
-                <ProjectTask
-                  projectName={selectedTask.project.name}
-                  taskName={selectedTask.name}
-                />
-              ) : (
-                <p>Task...</p>
-              )}
-            </label>
-            <input type="checkbox" id="task" ref={this.checkboxRef} />
-            <DropDownTime>
-              <div className="drop_down__list_task">
-                {this.renderListTask()}
-              </div>
-            </DropDownTime>
-          </div>
-          <div className="time__right">
-            <Counter />
-            <button className="form__button">
-              {this.props.isCounting ? (
-                <PauseIcon className="form__icon__pause" />
-              ) : (
-                <PlayCircleFilledWhiteIcon className="form__icon__play" />
-              )}
-            </button>
-            {!this.props.isCounting && this.props.beginTime ? (
-              <div
-                className="form__icon__save"
-                onClick={this.onSaveButtonClick}
-              >
-                {this.props.isSaving ? <Spinner /> : <SaveAltIcon />}
-              </div>
-            ) : null}
-          </div>
-        </form>
+  return (
+    <div className="time">
+      <div className="time__left">
+        <input
+          placeholder="Description"
+          type="text"
+          className="form__input form__input__description"
+          value={desInput}
+          onChange={onDesInputChange}
+        />
+        <DropDownTime title="recent_task">
+          <div className="drop_down__recent_task">{renderRecentTask()}</div>
+        </DropDownTime>
       </div>
-    );
-  }
-}
-const mapStateToProps = (state, props) => {
-  const { tasks, projects, times, time, auth } = state;
+      <div className="time__middle">
+        <label htmlFor="task" className="time__middle__label">
+          {selectedTask ? (
+            <ProjectTask
+              projectName={selectedTask.project.name}
+              taskName={selectedTask.name}
+            />
+          ) : (
+            <p>Task...</p>
+          )}
+        </label>
+        <input type="checkbox" id="task" ref={checkboxRef} />
+        <DropDownTime>
+          <div className="drop_down__list_task">{renderListTask()}</div>
+        </DropDownTime>
+      </div>
+      <div className="time__right">
+        <Counter />
+        <button className="form__button" onClick={() => onPlayButtonClick()}>
+          {isCounting ? (
+            <PauseIcon className="form__icon__pause" />
+          ) : (
+            <PlayCircleFilledWhiteIcon className="form__icon__play" />
+          )}
+        </button>
+        {/* {!isCounting && beginTime ? (
+            <div className="form__icon__save" onClick={onSaveButtonClick}>
+              {isSaving ? <Spinner /> : <SaveAltIcon />}
+            </div>
+          ) : null} */}
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
   const {
     isCounting,
-    isSaving,
+    intervalId,
     beginTime,
     selectedTask,
-    isSavingSuccess,
-  } = time;
-  const { userId } = auth;
-  const { selectedTime } = times;
+    description,
+    isSaving,
+  } = state.time;
+  const { times } = state.times;
+  const { projects } = state.projects;
+  const { tasks } = state.tasks;
+  const { userId } = state.auth;
+
   return {
-    initialValues: {
-      name: selectedTask?.name,
-      description: selectedTime?.description ? selectedTime.description : "",
-    },
     isCounting,
-    isSaving,
-    description: state.form.trackTimeForm?.values.description,
+    intervalId,
     beginTime,
-    tasks: tasks.tasks,
     selectedTask,
-    projects: projects.projects,
-    times: times.times,
-    isSavingSuccess,
+    times,
+    projects,
+    tasks,
     userId,
+    description,
+    isSaving,
   };
 };
 
-const trackTimeForm = reduxForm({
-  form: "trackTimeForm",
-  enableReinitialize: true,
-})(Time);
-
 export default connect(mapStateToProps, {
-  createTime,
-  saveTime,
+  increaseTime,
+  beginCountingTime,
+  endCountingTime,
   fetchTimes,
-  selectTime,
-  selectTask,
-})(trackTimeForm);
+  checkTime,
+})(Time);
