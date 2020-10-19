@@ -51,7 +51,7 @@ const ReportItem = ({ project, user }) => {
         <p>{convertSecondToHour(time) + "h"}</p>
       </div>
       <div className="toggle_item">
-        {tasks.map((task) => (
+        {tasks.sort((task1,task2)=>(task1.name<=task2.name?-1:1)).map((task) => (
           <ReportItemTask key={task.id} user={user} task={task} />
         ))}
       </div>
