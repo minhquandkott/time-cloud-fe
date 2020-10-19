@@ -5,6 +5,7 @@ import timeCloudAPI from "../../../apis/timeCloudAPI";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import WcIcon from "@material-ui/icons/Wc";
+import * as validation from "../../../utils/validationUtils";
 
 class UserInfo extends React.Component {
   state = {
@@ -51,7 +52,8 @@ class UserInfo extends React.Component {
     })
   }
 
-  onSave = () => {
+  onSubmit = (e) => {
+    e.preventDefault();
     var {user} = this.props;
     var {
       txtname,
@@ -104,88 +106,92 @@ class UserInfo extends React.Component {
         : "user_infor__field__detail"}`;
     console.log(classNameFill);
     return (
-      <div className="user_info">
-        <div className={classNameFill}>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="txtname"
-            value={txtname}
-            id="name"
-            onChange={this.onChange}
-            readOnly = {!editStatus}
-          ></input>
-        </div>
-        <div className={classNameFill}>
-          <label htmlFor="">Role</label>
-          {roles.map((role) => (
-            <div key={role.role.id} className="role_name">
-              <Point pointSize={"2rem"} title="" color={role.role.color} />
-              {role.role.name}
-            </div>
-          ))}
-        </div>
-        <div className={classNameFill}>
-          <label>Address</label>
-          <input
-            type="text"
-            name="txtaddress"
-            value={txtaddress ? txtaddress : "Null"}
-            onChange={this.onChange}
-            readOnly = {!editStatus}
-          ></input>
-        </div>
-        <div className={classNameFill}>
-          <label>
-            <PhoneIcon style={{ fontSize: "30px" }} />
-          </label>
-          <input
-            type="text"
-            name="txtphone"
-            value={txtphone ? txtphone : "Null"}
-            onChange={this.onChange}
-            readOnly = {!editStatus}
-          ></input>
-        </div>
-        <div className={classNameFill}>
-          <label>
-            {" "}
-            <EmailIcon style={{ fontSize: "30px" }} />{" "}
-          </label>
-          <input
-            type="text"
-            name="txtemail"
-            value={txtemail ? txtemail : "Null"}
-            onChange={this.onChange}
-            readOnly = {!editStatus}
-          ></input>
-        </div>
-        <div className={classNameFill}>
-          <label>
-            {" "}
-            <WcIcon style={{ fontSize: "30px" }} />{" "}
-          </label>
-          {
-            editStatus ? <select className="select_gender" name= "txtgender" value = {txtgender} onChange= {this.onChange}>
-                              <option value= {true} >Male</option>
-                              <option value= {false} >Female</option>
-                          </select> 
-                        : <input
-                            type="text"
-                            name="txtgender"
-                            value={txtgender ? "Male" : "Female"}
-                            readOnly = {!editStatus}
-                          ></input>
+      <form onSubmit={this.onSubmit}>
+        <div className="user_info">
+          <div className={classNameFill}>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="txtname"
+              value={txtname}
+              id="name"
+              onChange={this.onChange}
+              readOnly = {!editStatus}
+            ></input>
+          </div>
+          <div className={classNameFill}>
+            <label htmlFor="">Role</label>
+            {roles.map((role) => (
+              <div key={role.role.id} className="role_name">
+                <Point pointSize={"2rem"} title="" color={role.role.color} />
+                {role.role.name}
+              </div>
+            ))}
+          </div>
+          <div className={classNameFill}>
+            <label>Address</label>
+            <input
+              type="text"
+              name="txtaddress"
+              value={txtaddress}
+              onChange={this.onChange}
+              readOnly = {!editStatus}
+            ></input>
+          </div>
+          <div className={classNameFill}>
+            <label>
+              <PhoneIcon style={{ fontSize: "30px" }} />
+            </label>
+            <input
+              type="tel"
+              name="txtphone"
+              value={txtphone}
+              onChange={this.onChange}
+              readOnly = {!editStatus}
+              pattern="[0-9]{10}"
+            ></input>
+          </div>
+          <div className={classNameFill}>
+            <label>
+              {" "}
+              <EmailIcon style={{ fontSize: "30px" }} />{" "}
+            </label>
+            <input
+              type="email"
+              name="txtemail"
+              value={txtemail}
+              onChange={this.onChange}
+              readOnly = {!editStatus}
+              required
+            ></input>
+          </div>
+          <div className={classNameFill}>
+            <label>
+              {" "}
+              <WcIcon style={{ fontSize: "30px" }} />{" "}
+            </label>
+            {
+              editStatus ? <select className="select_gender" name= "txtgender" value = {txtgender} onChange= {this.onChange}>
+                                <option value= {true} >Male</option>
+                                <option value= {false} >Female</option>
+                            </select> 
+                          : <input
+                              type="text"
+                              name="txtgender"
+                              value={txtgender ? "Male" : "Female"}
+                              readOnly = {!editStatus}
+                            ></input>
+            }
+            
+          </div>
+          {editStatus ? <div>
+                          <button type="submit">Save</button> 
+                          <button onClick={this.onCancel}>Cancel</button>
+                        </div>
+                      : <button onClick={this.onEdit}>Edit</button>
           }
-          
         </div>
-        {editStatus ? <div>
-                        <button onClick={this.onSave}>Save</button> 
-                        <button onClick={this.onCancel}>Cancel</button>
-                      </div>
-                    : <button onClick={this.onEdit}>Edit</button>
-        }
-      </div>
+      </form>
     );
   }
 }
