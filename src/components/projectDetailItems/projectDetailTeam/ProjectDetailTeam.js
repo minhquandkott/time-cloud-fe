@@ -43,7 +43,7 @@ class ProjectDetailTeam extends React.Component {
           <tbody></tbody>
         </table>
         <Collapse>
-          {this.state.users.map((user, index) => {
+          {this.state.users.sort((user1,user2)=>(user1.name<=user2.name?-1:1)).map((user, index) => {
             return (
               <ShowUser
                 project={project}

@@ -5,3 +5,7 @@
 .collapse__header>button {}
 
 .collapse__content {}
+
+.collapse_item__button {
+    cursor: pointer;
+}
