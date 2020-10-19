@@ -27,6 +27,7 @@ class Projects extends React.Component {
             <h1
               style={{
                 color: project.color,
+                fontWeight: "600"
               }}
             >
               {" "}
