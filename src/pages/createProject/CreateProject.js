@@ -15,6 +15,7 @@ const CreateProject = ({ formValues }) => {
   const [createdTasks, setCreatedTasks] = useState([]);
   const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+
   const onCreateProject = async () => {
     setIsSaving(true);
     try {
@@ -70,7 +71,13 @@ const CreateProject = ({ formValues }) => {
   return (
     <div className="create_project">
       <SectionForm title="General Information">
-        <CreateProjectForm />
+        <CreateProjectForm
+          initialValues={{
+            project_name: "a",
+            client_name: "c",
+            project_color: "#000",
+          }}
+        />
       </SectionForm>
       <SectionForm title="Team Members">
         <TeamMembers

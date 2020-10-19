@@ -20,6 +20,7 @@ export {
   saveTime,
   selectTask,
   checkTime,
+  setDescription,
 } from "./timeActions";
 
 export { fetchTimes, selectTime } from "./timesActions";

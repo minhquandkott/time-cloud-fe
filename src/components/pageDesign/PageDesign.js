@@ -6,7 +6,7 @@ const PageDesign = ({ title, headerRight, children }) => {
     <div className="page_design">
       <div className="page_design__header">
         <div className="page_design__header__left">
-          <h2 className="page_design__animate__left">{title}</h2>
+          <h2>{title}</h2>
         </div>
         <div className="page_design__header__right">{headerRight}</div>
       </div>

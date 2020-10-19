@@ -1,12 +1,11 @@
 import {
   TIME_END,
   TIME_START,
-  SET_TIME_INFO,
   INCREASE_TIME,
   START_SAVING_TIME,
-  SAVING_TIME_SUCCESS,
   SAVING_TIME_FAIL,
   SELECT_TASK,
+  TIME_SET_DESCRIPTION,
 } from "./actionType";
 import {
   SELECTED_TASK_ID,
@@ -16,21 +15,13 @@ import {
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import { fetchTimes, selectTime } from "./index";
 
-export const beginCountingTime = (
-  beginTime,
-  intervalId,
-  description,
-  totalSecond = 0,
-  endTime
-) => {
+export const beginCountingTime = (beginTime, intervalId, totalSecond = 0) => {
   return {
     type: TIME_START,
     payload: {
       beginTime,
       intervalId,
-      description,
       totalSecond,
-      endTime,
     },
   };
 };
@@ -47,6 +38,13 @@ export const increaseTime = (step) => {
   return {
     type: INCREASE_TIME,
     payload: step,
+  };
+};
+
+export const setDescription = (description) => {
+  return {
+    type: TIME_SET_DESCRIPTION,
+    payload: description,
   };
 };
 
@@ -78,49 +76,42 @@ export const checkTime = () => {
     if (beginTime && selectedTaskId) {
       const totalSecond = Math.ceil((new Date().getTime() - beginTime) / 1000);
       dispatch(fetchTask(selectedTaskId));
+      dispatch(setDescription(description || ""));
       const intervalId = window.setInterval(() => {
         dispatch(increaseTime(1));
       }, 1000);
-      dispatch(
-        beginCountingTime(beginTime, intervalId, description, totalSecond)
-      );
+      dispatch(beginCountingTime(beginTime, intervalId, totalSecond));
     }
   };
 };
-// export const savingTimeSuccess = () => {
-//   return {
-//     type: SAVING_TIME_SUCCESS,
-//   };
-// };
-// export const savingTimeFail = (errorMessage) => {
-//   return {
-//     type: SAVING_TIME_FAIL,
-//     payload: errorMessage,
-//   };
-// };
 
-export const saveTime = (description) => {
+export const saveTime = () => {
   return async (dispatch, getState) => {
     dispatch(startSavingTime());
     const { id } = getState().time.selectedTask;
     const { userId } = getState().auth;
-    const { endTime, totalSecond } = getState().time;
-    const convertedBeginTime = endTime - totalSecond * 1000;
-
+    const { beginTime, description } = getState().time;
     try {
       await timeCloudAPI().post(`tasks/${id}/times`, {
         description,
-        mileSecondEndTime: endTime,
-        mileSecondStartTime: convertedBeginTime,
+        mileSecondEndTime: new Date().getTime(),
+        mileSecondStartTime: beginTime,
       });
       localStorage.removeItem(SELECTED_TASK_ID);
       localStorage.removeItem(BEGIN_TIME);
-      // dispatch(savingTimeSuccess());
+      localStorage.removeItem(DESCRIPTION);
       dispatch(fetchTimes(userId));
       dispatch(selectTime(null));
+      dispatch(endCountingTime());
     } catch (error) {
-      console.log(error);
-      // dispatch(savingTimeFail(error.response.message));
+      dispatch(savingTimeFail(error.response.data.message));
     }
+  };
+};
+
+export const savingTimeFail = (errorMessage) => {
+  return {
+    type: SAVING_TIME_FAIL,
+    payload: errorMessage,
   };
 };

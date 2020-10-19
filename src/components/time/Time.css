@@ -138,6 +138,7 @@
 
 .form__button>.MuiSvgIcon-root:hover {
   animation: scale1 2s;
+  cursor: pointer;
 }
 
 .form__icon__pause {
@@ -150,11 +151,14 @@
 }
 
 .form__icon__save {
-  background-color: rgb(184, 149, 149);
+  color: var(--color-light-primary);
   border-radius: 50%;
-  font-size: 4rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
 }
-
 
 .form__icon__save:hover {
   animation: scale1 1s;

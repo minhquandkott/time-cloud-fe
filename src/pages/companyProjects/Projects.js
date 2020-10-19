@@ -45,7 +45,7 @@ class Projects extends React.Component {
   onEdit = (project) => {
     console.log(project);
     history.push({
-      pathname: "createProject",
+      pathname: "/create_project",
       state: project
     })
   }

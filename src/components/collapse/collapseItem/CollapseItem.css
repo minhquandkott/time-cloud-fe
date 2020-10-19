@@ -14,7 +14,7 @@
   color: var(--color-dark-tertiary);
   margin-right: .5rem;
   padding-top: .7rem;
-
+  cursor: pointer;
 }
 
 .collapse_item__content {
@@ -24,6 +24,6 @@
 }
 
 .collapse .toggle_item {
-  transition: all 1s;
+  transition: all .5s;
   overflow: hidden;
 }

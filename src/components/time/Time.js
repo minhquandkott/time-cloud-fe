@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Time.css";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import PauseIcon from "@material-ui/icons/Pause";
@@ -9,27 +9,19 @@ import {
   endCountingTime,
   fetchTimes,
   checkTime,
+  setDescription,
+  saveTime,
 } from "../../redux/actions";
 import Counter from "../counter/Counter";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import Spinner from "../loading/spinner/Spinner";
 import DropDownTime from "../dropdown/DropDown";
 import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
 import ProjectTask from "../projectTask/ProjectTask";
-import {
-  BEGIN_TIME,
-  SELECTED_TASK_ID,
-  DESCRIPTION,
-} from "../../utils/localStorageContact";
+import { DESCRIPTION } from "../../utils/localStorageContact";
 
 const Time = ({
   isCounting,
-  increaseTime,
-  beginCountingTime,
-  endCountingTime,
-  intervalId,
-  beginTime,
   times,
   projects,
   tasks,
@@ -39,11 +31,11 @@ const Time = ({
   description,
   checkTime,
   isSaving,
+  setDescription,
+  saveTime,
+  endCountingTime,
 }) => {
   const checkboxRef = useRef(null);
-  const [desInput, setDesInput] = useState(
-    localStorage.getItem(DESCRIPTION) ? localStorage.getItem(DESCRIPTION) : ""
-  );
 
   useEffect(() => {
     if (!selectedTask) {
@@ -66,19 +58,14 @@ const Time = ({
 
   const onPlayButtonClick = () => {
     if (isCounting) {
-      console.log("saving");
+      saveTime();
     }
   };
 
   const renderRecentTask = () => {
     return times.map((time) => {
       return (
-        <TaskItem
-          task={time.task}
-          key={time.id}
-          title={time.description}
-          // methodHandlerReplacement={(event) => onClickToSelectTime(time, event)}
-        >
+        <TaskItem task={time.task} key={time.id} title={time.description}>
           <ProjectTask
             projectName={time.task.project.name}
             taskName={time.task.name}
@@ -130,7 +117,8 @@ const Time = ({
   };
 
   const onDesInputChange = (event) => {
-    setDesInput(event.target.value);
+    setDescription(event.target.value);
+    localStorage.setItem(DESCRIPTION, event.target.value);
   };
 
   return (
@@ -140,7 +128,7 @@ const Time = ({
           placeholder="Description"
           type="text"
           className="form__input form__input__description"
-          value={desInput}
+          value={description}
           onChange={onDesInputChange}
         />
         <DropDownTime title="recent_task">
@@ -166,17 +154,16 @@ const Time = ({
       <div className="time__right">
         <Counter />
         <button className="form__button" onClick={() => onPlayButtonClick()}>
-          {isCounting ? (
+          {isSaving ? (
+            <div className="form__icon__save">
+              <Spinner />
+            </div>
+          ) : isCounting ? (
             <PauseIcon className="form__icon__pause" />
           ) : (
             <PlayCircleFilledWhiteIcon className="form__icon__play" />
           )}
         </button>
-        {/* {!isCounting && beginTime ? (
-            <div className="form__icon__save" onClick={onSaveButtonClick}>
-              {isSaving ? <Spinner /> : <SaveAltIcon />}
-            </div>
-          ) : null} */}
       </div>
     </div>
   );
@@ -216,4 +203,6 @@ export default connect(mapStateToProps, {
   endCountingTime,
   fetchTimes,
   checkTime,
+  setDescription,
+  saveTime,
 })(Time);

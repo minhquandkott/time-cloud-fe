@@ -98,7 +98,8 @@
 }
 
 .header__drop_down>p {
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 4rem;
+  white-space: nowrap;
   font-size: 1.7rem;
 }
 

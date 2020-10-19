@@ -9,14 +9,17 @@ import ColumnEmail from "./columEmail/ColumnEmail";
 import PageDesign from "../../components/pageDesign/PageDesign";
 
 const Manage = ({ members, fetchMembers, selectMember }) => {
-  const maxRole = members.reduce((preV, curV) => {
+  const maxRole = 4;
+
+  const maxRoleCount = members.reduce((preV, curV) => {
     return preV > curV.roles.length ? preV : curV.roles.length;
   }, 0);
 
+  const cssFlexRole =
+    maxRoleCount <= maxRole ? (10 / maxRoleCount) * 0.1 : (10 / maxRole) * 0.1;
+  console.log(cssFlexRole);
   useEffect(() => {
-    setTimeout(() => {
-      fetchMembers(52);
-    }, 750);
+    fetchMembers(52);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,7 +41,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
     name: {
       key: "name",
       label: "name",
-      width: "20%",
+      width: "15%",
       cssHeader,
       cssData: {
         textTransform: "capitalize",
@@ -57,7 +60,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
     access: {
       key: "access",
       label: "access",
-      width: "40%",
+      width: "45%",
       cssHeader,
       convertData: (userRole) => {
         return (
@@ -69,7 +72,10 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
                   color={`#${role.color}`}
                   pointSize="15"
                   title={role.name}
-                  css={{ flex: `${(10 / maxRole) * 0.1}` }}
+                  css={{
+                    flexBasis: `calc(${cssFlexRole * 100}% - .7rem)`,
+                    paddingBottom: ".7rem",
+                  }}
                   key={role.id}
                 />
               ))}

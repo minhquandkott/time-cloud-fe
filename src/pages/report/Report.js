@@ -52,6 +52,8 @@ const Report = () => {
           </Avatar>
         </div>
 
+      
+
         <div className="report_user_hour page_design__animate__right">
           <h2>{convertSecondToHour(time) + "h"}</h2>
           <p>hour tracked</p>
