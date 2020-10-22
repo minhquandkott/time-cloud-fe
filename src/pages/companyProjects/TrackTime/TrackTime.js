@@ -9,15 +9,22 @@ class TrackTime extends React.Component{
         totalTime: 0,
     }
 
+    _isMounted = false;
+
     componentDidMount(){
+        this._isMounted = true;
         timeCloudAPI().get(`projects/${this.props.projectId}/total-times`)
         .then(response =>  
                 {
                     const {data} = response;
                     if(data) 
-                        this.setState({totalTime: convertSecondToHour(data)});
+                        if(this._isMounted) this.setState({totalTime: convertSecondToHour(data)});
                 }
             );
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render(){

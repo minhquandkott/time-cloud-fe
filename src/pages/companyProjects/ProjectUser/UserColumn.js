@@ -8,13 +8,22 @@ class UserColumn extends React.Component {
         users: []
     }
 
+    _isMounted = false;
+
     componentDidMount() {
+        this._isMounted = true;
         timeCloudAPI().get(`projects/${this.props.project.id}/users`)
         .then(response => {
-            this.setState({
-                users: response.data
-            })
+            if(this._isMounted) {
+                this.setState({
+                    users: response.data
+                })
+            }
         })
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {

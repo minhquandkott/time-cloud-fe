@@ -32,3 +32,5 @@ export {
   deleteUserRole,
   getUser,
 } from "./membersActions";
+
+export { getCurrentWeek, getNextWeek, getLastWeek } from './weekActions';

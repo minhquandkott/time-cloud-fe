@@ -89,6 +89,21 @@ class UserInfo extends React.Component {
     });
   };
 
+  printRole = (role, index) => {
+    if(((index + 1) % 4)) {
+      return <div className="list_roles">
+                <div key={role.role.id} className="role_name">
+                  <Point pointSize={"2rem"} title={role.role.name} color={role.role.color} />
+                  {role.role.name}
+                </div>
+              </div>
+    }
+    else return <div key={role.role.id} className="role_name">
+                  <Point pointSize={"2rem"} title="" color={role.role.color} />
+                  {role.role.name}
+                </div>
+  }
+
   render() {
     var {user} = this.props;
     var {
@@ -104,7 +119,6 @@ class UserInfo extends React.Component {
       `user_info__field ${editStatus
         ? "user_infor__field__edit"
         : "user_infor__field__detail"}`;
-    console.log(classNameFill);
     return (
       <form onSubmit={this.onSubmit}>
         <div className="user_info">
@@ -121,12 +135,13 @@ class UserInfo extends React.Component {
           </div>
           <div className={classNameFill}>
             <label htmlFor="">Role</label>
+            
+            <div className="list_roles">
             {roles.map((role) => (
-              <div key={role.role.id} className="role_name">
-                <Point pointSize={"2rem"} title="" color={role.role.color} />
-                {role.role.name}
-              </div>
-            ))}
+                <Point key={role.id} css={{flexBasis: "10rem", marginBottom: "1rem"}} pointSize={"2rem"} title={role.role.name} color={role.role.color}  cssTittle={{fontSize: "1.5rem"}} />
+              ))}
+            </div>
+              
           </div>
           <div className={classNameFill}>
             <label>Address</label>

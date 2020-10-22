@@ -50,10 +50,6 @@
   flex-basis: 10rem;
 }
 
-.role_name {
-  display: flex;
-  margin-left: 2rem;
-}
 
 .user_infor__field__edit input, select {
   outline-color: var(--color-button)
@@ -62,4 +58,10 @@
 .user_infor__field__detail input {
   outline: none;
   border: hidden;
+}
+
+.list_roles {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 3rem;
 }

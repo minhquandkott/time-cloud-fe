@@ -39,7 +39,7 @@ class Profile extends React.Component {
                     : male
                 }
               />
-              <div class="overlay">Change avatar</div>
+              <div className="overlay">Change avatar</div>
             </div>
             <div className="user_content">
               {user ? <UserInfo user={user} /> : ""}

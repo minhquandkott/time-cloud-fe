@@ -17,6 +17,9 @@ class Projects extends React.Component {
 
   render() {
     var project = history.location.state;
+    var x = new Date(project.createAt);
+    console.log(x);
+    console.log(project.createAt);
     var createAt = new Date(project.createAt);
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";
