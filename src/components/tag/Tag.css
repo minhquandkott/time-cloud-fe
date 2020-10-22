@@ -14,8 +14,8 @@
   display: inline-block;
   overflow: hidden;
   transition: all 1s;
-  padding-top: .8rem;
-  padding-bottom: .8rem;
+  padding: .8rem;
+  margin-right: .5rem;
   font-size: 1.8rem;
   text-transform: capitalize;
   background-color: var(--color-light-tertiary);

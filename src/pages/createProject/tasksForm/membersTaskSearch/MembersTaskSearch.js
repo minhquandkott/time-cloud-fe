@@ -1,5 +1,5 @@
 import "./MembersTaskSearch.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Checkbox from "../../../../components/checkbox/Checkbox";
 import Tag from "../../../../components/tag/Tag";
 import Tooltip from "../../../../components/tooltip/Tooltip";
@@ -18,6 +18,7 @@ const MembersTaskSearch = ({
   const [selectedData, setSelectedData] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const checkboxDirty = useRef(false);
   const onInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -57,11 +58,14 @@ const MembersTaskSearch = ({
   }, [inputValue, members, selectedTask]);
   const [showTooltip, setShowTooltip] = useState(false);
   const onCheckboxChanged = (event) => {
-    console.log(event.target.checked);
+    checkboxDirty.current = true;
     event.target.checked ? setCheckboxChecked(true) : setCheckboxChecked(false);
   };
   useEffect(() => {
-    checkboxChecked ? onAddAllMember(data) : onRemoveAllMember(data);
+    if (checkboxDirty.current) {
+      checkboxChecked ? onAddAllMember(data) : onRemoveAllMember(data);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [members, checkboxChecked, data]);
 

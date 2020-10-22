@@ -17,7 +17,6 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
 
   const cssFlexRole =
     maxRoleCount <= maxRole ? (10 / maxRoleCount) * 0.1 : (10 / maxRole) * 0.1;
-  console.log(cssFlexRole);
   useEffect(() => {
     fetchMembers(52);
     // eslint-disable-next-line react-hooks/exhaustive-deps

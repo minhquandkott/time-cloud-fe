@@ -1,21 +1,13 @@
-import "./Test.css";
-import React from "react";
+import React, { Component } from "react";
 
-function* gen(n) {
-  let a = 1;
-  var p = yield a + n;
-  console.log(p);
-  return 0;
+export default class test extends Component {
+  componentDidMount() {
+    console.log(1);
+  }
+  componentDidUpdate() {
+    console.log(2);
+  }
+  render() {
+    return <div>a</div>;
+  }
 }
-
-const Test = () => {
-  const b = () => {
-    const gen1 = gen(1);
-    console.log(gen1.next(1));
-    console.log(gen1.next());
-  };
-
-  return <div>{b()}</div>;
-};
-
-export default Test;

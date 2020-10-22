@@ -44,10 +44,9 @@ class Projects extends React.Component {
 
   onEdit = (project) => {
     history.push({
-      pathname: "/create_project",
-      state: project
-    })
-  }
+      pathname: `/edit_project/${project.id}`,
+    });
+  };
 
   render() {
     const cssHeader = {

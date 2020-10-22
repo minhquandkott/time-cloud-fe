@@ -34,6 +34,7 @@ class Router extends React.Component {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/manage" component={Manage} />
           <Route path="/create_project" component={CreateProject} />
+          <Route path="/edit_project/:id" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
           <Route component={NotFound} />

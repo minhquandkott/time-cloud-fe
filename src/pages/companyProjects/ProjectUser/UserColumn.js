@@ -1,28 +1,25 @@
 import React from "react";
-import timeCloudAPI from '../../../apis/timeCloudAPI';
-import ProjectUser from './ProjectUser';
+import timeCloudAPI from "../../../apis/timeCloudAPI";
+import ProjectUser from "./ProjectUser";
 
 class UserColumn extends React.Component {
+  state = {
+    users: [],
+  };
 
-    state = {
-        users: []
-    }
+  componentDidMount() {
+    timeCloudAPI()
+      .get(`projects/${this.props.project.id}/users`)
+      .then((response) => {
+        this.setState({
+          users: response.data,
+        });
+      });
+  }
 
-    componentDidMount() {
-        timeCloudAPI().get(`projects/${this.props.project.id}/users`)
-        .then(response => {
-            this.setState({
-                users: response.data
-            })
-        })
-    }
-
-    render() {
-        return (
-            <ProjectUser users = {this.state.users} rowStatus = {true} />
-        )
-    }
-
+  render() {
+    return <ProjectUser users={this.state.users} rowStatus={true} />;
+  }
 }
 
 export default UserColumn;

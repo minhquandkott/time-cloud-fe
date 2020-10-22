@@ -31,7 +31,7 @@ const Table = ({
   const cells = data.map((element, index) => {
     return (
       <Transition
-        key={element.id}
+        key={element?.id}
         timeout={1000}
         mountOnEnter
         unmountOnExit
@@ -43,7 +43,6 @@ const Table = ({
           node.style.opacity = 1;
           node.style.transform = "translateX(0)";
         }}
-        onEntered={() => console.log(3)}
         onExit={(node) => {
           node.style.maxHeight = node.scrollHeight + "px";
           node.style.transform = "translateX(0)";
