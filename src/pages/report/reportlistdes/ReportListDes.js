@@ -33,7 +33,8 @@ const ReportListDes = ({ user }) => {
         <h2>Time Entry</h2>
         <h3>Categories - Projects</h3>
       </div>
-      {newData.map((datum) => (
+      {
+        newData.reverse().map((datum) => (
         <ReportItemDes key={datum.id} user={user} data={datum} />
       ))}
     </div>

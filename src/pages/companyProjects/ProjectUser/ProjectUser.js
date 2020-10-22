@@ -10,7 +10,7 @@ class ProjectUser extends React.Component {
         className="project_user__avatar"
         style={{ display: rowStatus ? "flex" : "", marginBottom: "0" }}
       >
-        {users.map((ele, index) => {
+        {users.sort((user1,user2)=>(user1.name<=user2.name?-1:1)).map((ele, index) => {
           if (rowStatus) {
             return index < 4 ? (
               <CountUser

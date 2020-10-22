@@ -104,7 +104,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
 const mapStateToProp = (state) => {
   const { members } = state.members;
   return {
-    members: members.map((member) => {
+    members: members.sort((mem1,mem2)=>(mem1.user.name<=mem2.user.name?-1:1)).map((member) => {
       return { ...member };
     }),
   };
