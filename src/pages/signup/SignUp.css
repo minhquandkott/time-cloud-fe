@@ -6,8 +6,10 @@
 
 .sign_up__left {
   flex: .7;
+
   background-image:
-    linear-gradient(to left top,
+
+  linear-gradient(to left top,
       rgba(205, 73, 60, .8),
       rgba(151, 124, 220, .8)), url('/signup_image.png');
 
@@ -122,8 +124,9 @@
 }
 
 .sign_up__error{
- 
+  
   height: 2rem;
+
   text-align: center;
   margin-bottom: 1rem;
 }
@@ -133,5 +136,5 @@
   font-size: 1.7rem;
   font-weight: 600;
   color: var(--color-error);
- 
+  
 }

@@ -15,6 +15,32 @@ const Tooltip = ({
   const arrowRef = useRef(null);
   const contentRef = useRef(null);
   const [show, setShow] = useState(false);
+  const [direc, setDirec] = useState(direction);
+
+  useEffect(() => {
+    if (show) {
+      const tooltip = tooltipRef.current;
+      const arrow = arrowRef.current;
+      const pin = tooltipRef.current?.previousElementSibling;
+      const html = document?.firstElementChild;
+      if (tooltip && arrow && pin) {
+        console.dir(pin.offsetParent);
+        const documentHeight = html.offsetHeight;
+        const tooltipHeight = tooltip.offsetHeight;
+        const parentOffsetTop = pin.offsetParent.offsetTop;
+        const parentOffsetBottom =
+          documentHeight - parentOffsetTop + pin.offsetParent.offsetHeight;
+
+        console.log(tooltipHeight, parentOffsetTop, parentOffsetBottom);
+        if (parentOffsetTop < tooltipHeight) {
+          setDirec("bottom");
+        }
+        if (parentOffsetBottom < tooltipHeight) {
+          setDirec("top");
+        }
+      }
+    }
+  }, [show]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setPosition = useCallback(() => {
     const tooltip = tooltipRef.current;
@@ -25,6 +51,7 @@ const Tooltip = ({
         "Can't not find sibling to pin Tooltip ! please add sibling element"
       );
     const html = document?.firstElementChild;
+
     if (tooltip && arrow && pin) {
       if (html.offsetWidth < pin.offsetLeft + tooltip.offsetWidth / 2) {
         const extraLeft =
@@ -39,7 +66,7 @@ const Tooltip = ({
         tooltip.style.left =
           pin.offsetLeft - tooltip.offsetWidth / 2 + pin.offsetWidth / 2 + "px";
       }
-      if (direction === "top") {
+      if (direc === "top") {
         tooltip.style.top =
           pin.offsetTop - arrow.offsetHeight / 2 - tooltip.offsetHeight + "px";
       } else {
@@ -95,13 +122,13 @@ const Tooltip = ({
       onClick={(e) => e.stopPropagation()}
     >
       <p
-        className={`tooltip__arrow tooltip__arrow__${direction}`}
+        className={`tooltip__arrow tooltip__arrow__${direc}`}
         ref={arrowRef}
         style={{
           border: `${arrowSize} solid transparent`,
-          borderTopColor: direction === "top" ? backgroundColor : "transparent",
+          borderTopColor: direc === "top" ? backgroundColor : "transparent",
           borderBottomColor:
-            direction === "bottom" ? backgroundColor : "transparent",
+            direc === "bottom" ? backgroundColor : "transparent",
         }}
       ></p>
       <div className="tooltip__content" ref={contentRef}>

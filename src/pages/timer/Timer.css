@@ -1,5 +1,6 @@
 .timer {
-  background-color: #f3f4f9;
+  background-color: #F2F5F7;
   font-family: 'Quicksand', sans-serif;
   letter-spacing: -.5px;
+  min-height: 100vh;
 }

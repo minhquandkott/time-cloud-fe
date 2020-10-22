@@ -1,8 +1,11 @@
 import React from "react";
-import timeCloudAPI from '../../../apis/timeCloudAPI';
-import ProjectUser from './ProjectUser';
+import timeCloudAPI from "../../../apis/timeCloudAPI";
+import ProjectUser from "./ProjectUser";
 
 class UserColumn extends React.Component {
+  state = {
+    users: [],
+  };
 
     state = {
         users: []

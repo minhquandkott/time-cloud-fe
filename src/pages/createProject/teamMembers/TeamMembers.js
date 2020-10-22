@@ -3,25 +3,20 @@ import Table from "../../../components/table/Table";
 import Checkbox from "../../../components/checkbox/Checkbox";
 import SelectItem from "../../../components/selectItem/SelectItem";
 import UserInfo from "../../../components/userInfo/UserInfo";
-import React, { useEffect } from "react";
-import { fetchMembers } from "../../../redux/actions";
+import React, { useState } from "react";
+
 import { connect } from "react-redux";
 import MembersSearch from "./membersSearch/MembersSearch";
-import history from '../../../history/index';
+import history from "../../../history/index";
 
 const TeamMembers = ({
   selectedMembers,
   setSelectedMembers,
   selectedManager,
   setSelectedManager,
-  fetchMembers,
   members,
 }) => {
-  useEffect(() => {
-    fetchMembers(52);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  const [addAllMode, setAddAllMode] = useState(true);
   const columns = {
     people: {
       key: "action",
@@ -47,6 +42,7 @@ const TeamMembers = ({
           <UserInfo
             primaryInfo={element.user.name}
             secondaryInfo={element.user.email}
+            avatar={element.user.avatar}
             flag={selectedManager?.id === element.id ? "PM" : null}
           />
         </SelectItem>
@@ -77,7 +73,7 @@ const TeamMembers = ({
 
   const onInvite = () => {
     history.push("/manage");
-  }
+  };
 
   const onAddMember = (member) => {
     if (!selectedMembers.find((ele) => ele.id === member.id)) {
@@ -87,6 +83,10 @@ const TeamMembers = ({
 
   const onAddAllPeople = () => {
     setSelectedMembers([...members]);
+  };
+
+  const onRemoveAllPeople = () => {
+    setSelectedMembers([]);
   };
   return (
     <div className="team_members">
@@ -107,17 +107,23 @@ const TeamMembers = ({
             <button
               className="project_form__button"
               onClick={() => {
-                onAddAllPeople();
+                setAddAllMode(!addAllMode);
+                if (addAllMode) {
+                  onAddAllPeople();
+                } else {
+                  onRemoveAllPeople();
+                }
               }}
             >
-              Add all people.
+              {addAllMode ? "Add all people." : "Remove all people"}
             </button>
           ) : null}
         </div>
         <div className="team_members__bottom_right">
           <p>Need to add some one?</p>
           <p>
-            Go to <span onClick={() => onInvite()}>Manager &gt; People</span> to invite them to Project.
+            Go to <span onClick={() => onInvite()}>Manager &gt; People</span> to
+            invite them to Project.
           </p>
         </div>
       </div>
@@ -133,6 +139,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  fetchMembers,
-})(TeamMembers);
+export default connect(mapStateToProps)(TeamMembers);

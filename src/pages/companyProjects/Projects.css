@@ -31,13 +31,14 @@
 
 
 .projects__bt {
-    height: 4rem;
-    width: 22rem;
+
+  
+    padding: 1.2rem 3rem ;
     background-color: var(--color-button);
-    border: 0ch;
+    border: 0px;
     border-style: dashed;
     color: white;
-    border-radius: 3%;
+    border-radius: .5rem;
     font-size: 1.7rem;
     font-weight: 600;
     display: inline-block;

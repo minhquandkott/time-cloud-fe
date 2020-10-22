@@ -44,10 +44,9 @@ class Projects extends React.Component {
 
   onEdit = (project) => {
     history.push({
-      pathname: "/create_project",
-      state: project
-    })
-  }
+      pathname: `/edit_project/${project.id}`,
+    });
+  };
 
   render() {
     const cssHeader = {
@@ -188,7 +187,7 @@ class Projects extends React.Component {
 const mapStateToProp = (state) => {
   const { projects } = state.projects;
   return {
-    projects: projects.map((project) => {
+    projects: projects.sort((project1,project2)=>(project1.name<=project2.name?-1:1)).map((project) => {
       return { ...project, id: project.id };
     }),
   };

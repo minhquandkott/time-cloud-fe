@@ -1,4 +1,4 @@
-.form {
+.time {
   display: flex;
   box-shadow: 0 3px 4rem rgba(0, 0, 0, 0.15) !important;
   align-items: center;
@@ -7,11 +7,9 @@
   background-color: var(--color-light-primary);
 }
 
-.form__input {
-  background-color: transparent;
-}
 
 .form__input {
+  background-color: transparent;
   outline: none;
   padding: 0.5rem;
   border: none;
@@ -140,6 +138,7 @@
 
 .form__button>.MuiSvgIcon-root:hover {
   animation: scale1 2s;
+  cursor: pointer;
 }
 
 .form__icon__pause {
@@ -159,12 +158,6 @@
   align-items: center;
   width: 3rem;
   height: 3rem;
-}
-
-.form__icon__save>.MuiSvgIcon-root {
-  background-color: rgb(184, 149, 149);
-  border-radius: 50%;
-  font-size: 2.5rem;
 }
 
 .form__icon__save:hover {

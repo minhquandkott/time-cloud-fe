@@ -44,7 +44,7 @@ export const fetchMembers = (companyId) => {
       const response = await timeCloudAPI().get(`companies/${companyId}/users`);
       dispatch(fetchMembersSuccess(response.data));
     } catch (error) {
-      dispatch(actionFail(error.response.errorMessage));
+      dispatch(actionFail(error.response.data.errorMessage));
     }
   };
 };
@@ -68,7 +68,7 @@ export const addUserRole = (roleId) => {
         )
       );
     } catch (error) {
-      dispatch(actionFail(error.response.errorMessage));
+      dispatch(actionFail(error.response.data.errorMessage));
     }
   };
 };

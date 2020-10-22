@@ -27,6 +27,7 @@ class Router extends React.Component {
       routes = (
         <Switch>
           <Route path="/" exact component={Timer} />
+
           <Route path="/timer" component={Timer} />
           <Route path="/report" exact component={ReportAdmin} />
           <Route path="/profile" component={Profile} />
@@ -34,6 +35,7 @@ class Router extends React.Component {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/manage" component={Manage} />
           <Route path="/create_project" component={CreateProject} />
+          <Route path="/edit_project/:id" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
           <Route path="/timer_calendar" component={TimerCalendar} />

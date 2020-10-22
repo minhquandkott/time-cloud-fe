@@ -46,7 +46,7 @@ const ReportAdmin = () => {
           <p>Hours</p>
         </div>
       </div>
-      {newUsers.map((user) => (
+      {newUsers.sort((user1,user2)=>(user1.name<=user2.name?-1:1)).map((user) => (
         <ReportAdminUserItem key={user.id} user={user} />
       ))}
 
@@ -57,7 +57,7 @@ const ReportAdmin = () => {
           <p>Hours</p>
         </div>
       </div>
-      {project.map((project) => (
+      {project.sort((project1,project2)=>(project1.name<=project2.name?-1:1)).map((project) => (
         <ReportAdminProjectItem key={project.id} project={project} />
       ))}
     </PageDesign>

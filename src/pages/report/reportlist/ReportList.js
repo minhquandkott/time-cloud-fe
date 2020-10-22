@@ -23,7 +23,7 @@ const ReportList = ({ user }) => {
   return (
     <div className="reportList">
       <Collapse selectMultiple={false}>
-        {projects.map((project) => (
+        {projects.sort((project1,project2)=>(project1.name<=project2.name?-1:1)).map((project) => (
           <ReportItem project={project} user={user} key={project.id} />
         ))}
       </Collapse>

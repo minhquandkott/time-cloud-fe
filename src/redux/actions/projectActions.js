@@ -15,7 +15,7 @@ export const startFetchProject = () => {
 };
 
 export const fetchProjects = (userId) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(startFetchProject());
     try {
       const response = await timeCloudAPI().get(`users/${userId}/projects`);

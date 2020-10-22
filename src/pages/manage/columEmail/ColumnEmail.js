@@ -7,22 +7,36 @@ import RoleList from "../roleList/RoleList";
 import { connect } from "react-redux";
 
 const ColumnEmail = ({ userRole, selectedMember }) => {
+  const buttonClass = `column_email__button${userRole.id}`;
   const [showTooltip, setShowTooltip] = useState(false);
   const onButtonClick = (event) => {
     setShowTooltip(!showTooltip);
   };
+
   useEffect(() => {
     if (selectedMember?.user?.id !== userRole.user.id) setShowTooltip(false);
   }, [selectedMember, userRole.user.id]);
+
+  useEffect(() => {
+    const listElement = [
+      document.querySelector(`.${buttonClass}`),
+      ...document.querySelectorAll(`.${buttonClass} *`),
+    ];
+
+    window.addEventListener("click", (event) => {
+      if (!listElement.find((ele) => ele === event.target)) {
+        setShowTooltip(false);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="column_email ">
       <span>{userRole?.user?.email}</span>
       <button
         className={
-          !showTooltip
-            ? `visible_hover column_email__button${userRole.id}`
-            : `column_email__button${userRole.id}`
+          !showTooltip ? `visible_hover ${buttonClass}` : `${buttonClass}`
         }
         onClick={onButtonClick}
       >
@@ -39,6 +53,7 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
           boxShadow: "var(--box-shadow-secondary)",
           borderRadius: ".5rem",
           padding: ".5rem 1rem",
+          overflowY: "hidden",
         }}
         isShow={showTooltip && selectedMember?.user.id === userRole.user.id}
       >
