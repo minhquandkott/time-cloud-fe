@@ -43,6 +43,7 @@ const mapStateToProps = (state) => {
     return {
         week: state.week
     }
+    
 }
 
 export default connect(mapStateToProps, {getCurrentWeek})(TimerCalender);
