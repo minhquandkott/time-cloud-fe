@@ -4,7 +4,7 @@ import TimerByDay from '../timerByDay/TimerByDay';
 import WeekHeaderItem from './weekHeaderItem/WeekHeaderItem';
 import TotalTimeByWeek from './totalTimeByWeek/TotalTimeByWeek';
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Mon"];
+const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 class WeekHeader extends Component {
 
@@ -14,7 +14,7 @@ class WeekHeader extends Component {
     }
     buttonSelected = React.createRef();
 
-    check = (day) => {
+    checkFuture = (day) => {
         let temp = new Date();
         let check = false;
         if (day > temp) {
@@ -23,25 +23,31 @@ class WeekHeader extends Component {
         return check;
     }
 
-    componentDidUpdate = (preProps, preState) => {
-        const {days} = this.props;
-        if(days !== preProps.days) {
-            this.setState({
-                selectedIndex: 0,
-                date: days[0]
-            })
-        }
-    }
-
-    componentDidMount = () => {
-        const {days} = this.props;
+    checkCurrentDay = (days) => {
         let curr = new Date();
         let result = 0;
         days.map((day, index) => {
             if(day.getFullYear() === curr.getFullYear() && day.getMonth() === curr.getMonth() && day.getDate() === curr.getDate()) {
                 result = index;
             }
-        })
+        });
+        return result;
+    }
+
+    componentDidUpdate = (preProps, preState) => {
+        const {days} = this.props;
+        let index = this.checkCurrentDay(days);
+        if(days !== preProps.days) {
+            this.setState({
+                selectedIndex: index,
+                date: days[index]
+            })
+        }
+    }
+
+    componentDidMount = () => {
+        const {days} = this.props;
+        let result = this.checkCurrentDay(days)
         this.setState({
             selectedIndex: result,
             date: days[result]
@@ -50,7 +56,7 @@ class WeekHeader extends Component {
 
     listDays = (dates) => {
         let result = days.map((day, index) => {
-            const isDisable = this.check(dates[index]);
+            const isDisable = this.checkFuture(dates[index]);
             return <button 
                         style={{
                             background: this.state.selectedIndex === index ? "#f3f4f9" : "white",
