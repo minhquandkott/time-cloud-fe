@@ -1,0 +1,15 @@
+.total_time_by_week__hours {
+    margin-top: 0.5rem;
+    font-weight: 700;
+    color: var(--color-button);
+    font-size: 2rem;
+}
+
+.total_time_by_week__title {
+    font-size: 1.8rem;
+    font-weight: 550;
+}
+
+.total_time_by_week {
+    text-align: center;
+}

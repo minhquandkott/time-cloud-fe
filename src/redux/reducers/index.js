@@ -6,6 +6,7 @@ import taskReducer from "./taskReducer";
 import timeReducer from "./timeReducer";
 import timesReducer from "./timesReducer";
 import membersReducer from "./membersReducer";
+import weekReducer from './weekReducer';
 export default combineReducers({
   form: formReducer,
   auth: authReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   time: timeReducer,
   times: timesReducer,
   members: membersReducer,
+  week: weekReducer
 });

@@ -1,0 +1,45 @@
+.week_header {
+    display: flex;
+    align-items: flex-end;
+    height: 9rem;
+    border-radius: 5px;
+    background-color: white;
+    justify-content: space-evenly;
+    margin-bottom: 3rem;
+    padding: 0 10rem;
+    font-family: Heebo;
+}
+
+.week_header__total {
+    flex: 1;
+    height: 9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.week_header button {
+    border: none;
+    border-radius: 5% 5% 0 0;
+    cursor: pointer;
+    flex: 1;
+    height: 7rem;
+    outline: none;
+    font-weight: 550;
+    font-size: medium;
+}
+
+.week_header button:hover {
+    background-color: #dee0e4;
+}
+
+.week_header_empty {
+    flex: 1;
+    background-color: white;
+}
+
+.week_header__total_time {
+    margin-top: 0.5rem;
+    font-size: medium;
+    font-weight: 700;
+}

@@ -14,6 +14,7 @@ import ProjectDetail from "./projectDetail/ProjectDetail";
 import Profile from "./profile/Profile";
 import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
+import TimerCalendar from '../components/timerCalendar/TimerCalendar';
 
 class Router extends React.Component {
   componentDidMount() {
@@ -37,6 +38,7 @@ class Router extends React.Component {
           <Route path="/edit_project/:id" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
+          <Route path="/timer_calendar" component={TimerCalendar} />
           <Route component={NotFound} />
         </Switch>
       );
