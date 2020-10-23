@@ -7,10 +7,6 @@ class UserColumn extends React.Component {
     users: [],
   };
 
-    state = {
-        users: []
-    }
-
     _isMounted = false;
 
     componentDidMount() {
