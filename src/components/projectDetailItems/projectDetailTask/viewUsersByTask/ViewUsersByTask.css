@@ -8,6 +8,10 @@
     display: flex;
 }
 
+.view_user_by_task_empty {
+    height: 3.5rem;
+}
+
 .view_user_by_task__name {
     font-size: large;
     margin-top: 5px;

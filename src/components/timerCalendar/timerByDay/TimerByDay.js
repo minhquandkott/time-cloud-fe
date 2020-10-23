@@ -59,7 +59,7 @@ class TimerByDay extends Component {
                                 }) : <p> <PriorityHighIcon style={{fontSize:"4rem", color:"red"}} />
                                         Look like you didn't track any time at this day
                                     </p>
-                            : <Skeleton countItem={3} heightItem="2rem" direction="column" />
+                            : <Skeleton countItem={3} heightItem="4rem" direction="column" />
                 }
             </div>
         )
