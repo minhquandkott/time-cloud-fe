@@ -5,6 +5,7 @@ import timeCloudAPI from "../../../apis/timeCloudAPI";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import WcIcon from "@material-ui/icons/Wc";
+import {v4} from 'uuid';
 import * as validation from "../../../utils/validationUtils";
 
 class UserInfo extends React.Component {
@@ -138,7 +139,7 @@ class UserInfo extends React.Component {
             
             <div className="list_roles">
             {roles.map((role) => (
-                <Point key={role.id} css={{flexBasis: "10rem", marginBottom: "1rem"}} pointSize={"2rem"} title={role.role.name} color={role.role.color}  cssTittle={{fontSize: "1.5rem"}} />
+                <Point key={v4()} css={{flexBasis: "10rem", marginBottom: "1rem"}} pointSize={"2rem"} title={role.role.name} color={role.role.color}  cssTittle={{fontSize: "1.5rem"}} />
               ))}
             </div>
               
@@ -148,7 +149,7 @@ class UserInfo extends React.Component {
             <input
               type="text"
               name="txtaddress"
-              value={txtaddress}
+              value={txtaddress ? txtaddress : ""}
               onChange={this.onChange}
               readOnly = {!editStatus}
             ></input>
@@ -160,7 +161,7 @@ class UserInfo extends React.Component {
             <input
               type="tel"
               name="txtphone"
-              value={txtphone}
+              value={txtphone ? txtphone : ""}
               onChange={this.onChange}
               readOnly = {!editStatus}
               pattern="[0-9]{10}"
