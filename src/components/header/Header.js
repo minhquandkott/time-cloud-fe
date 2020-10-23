@@ -4,7 +4,7 @@ import Logo from "../logo/Logo";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { connect } from "react-redux";
 import { logout } from "../../redux/actions";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import UserInfo from "../../components/userInfo/UserInfo";
 import history from "../../history/index";
 
@@ -36,29 +36,36 @@ const Header = ({ user, logout }) => {
 
   const features = user?.roles?.some((ele) => ele.id === 1 || ele.id === 3) ? (
     <React.Fragment>
-      <Link to="/timer">Your timer</Link>
-      <Link
+      <NavLink to="/timer" activeClassName="header__feature__active">
+        Your timer
+      </NavLink>
+      <NavLink
         to={{
           pathname: "/report",
           state: localStorage.getItem("userId"),
         }}
+        activeClassName="header__feature__active"
       >
         Report
-      </Link>
-      <Link to="/manage">Manage</Link>
-      <Link to="/projects">Project</Link>
+      </NavLink>
+      <NavLink to="/manage" activeClassName="header__feature__active">
+        Manage
+      </NavLink>
+      <NavLink to="/projects" activeClassName="header__feature__active">
+        Project
+      </NavLink>
     </React.Fragment>
   ) : (
     <React.Fragment>
-      <Link to="/timer">Your timer</Link>
-      <Link
+      <NavLink to="/timer">Your timer</NavLink>
+      <NavLink
         to={{
           pathname: "/report",
           state: localStorage.getItem("userId"),
         }}
       >
         Report
-      </Link>
+      </NavLink>
     </React.Fragment>
   );
 

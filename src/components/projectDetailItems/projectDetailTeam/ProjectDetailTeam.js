@@ -4,7 +4,6 @@ import timeCloudAPI from "../../../apis/timeCloudAPI";
 import ShowUser from "./showUsers/ShowUsers";
 import "./ProjectDetailTeam.css";
 
-
 class ProjectDetailTeam extends React.Component {
   state = {
     users: [],
@@ -43,16 +42,19 @@ class ProjectDetailTeam extends React.Component {
           <tbody></tbody>
         </table>
         <Collapse>
-          {this.state.users.sort((user1,user2)=>(user1.name<=user2.name?-1:1)).map((user, index) => {
-            return (
-              <ShowUser
-                project={project}
-                user={user}
-                index={index}
-                key={user.id}
-              />
-            );
-          })}
+          {this.state.users
+            .sort((user1, user2) => (user1.name <= user2.name ? -1 : 1))
+            .map((user, index) => {
+              console.log(user);
+              return (
+                <ShowUser
+                  project={project}
+                  user={user}
+                  index={index}
+                  key={user.id}
+                />
+              );
+            })}
         </Collapse>
       </div>
     );

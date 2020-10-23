@@ -10,6 +10,7 @@ import {
   AUTH_SET_USER_INFO,
   AUTH_SET_USER_ROLE,
 } from "./actionType";
+import { fetchTasksSuccess } from "../actions";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
 import { TOKEN, USER_ID } from "../../utils/localStorageContact";
@@ -52,13 +53,13 @@ export const authentication = (email, password) => {
         password,
       });
       const { authorization, userid } = response1.headers;
+      localStorage.setItem(TOKEN, authorization);
+      localStorage.setItem(USER_ID, userid);
       console.log(authorization, userid);
       dispatch(authSuccess(authorization, userid));
       dispatch(setUserInfo(response1.data));
       dispatch(fetchUserRole(userid));
       history.push("/");
-      localStorage.setItem(TOKEN, authorization);
-      localStorage.setItem(USER_ID, userid);
     } catch (error) {
       console.log(error);
       dispatch(authFail(error.response.data.message));
@@ -96,6 +97,7 @@ const logoutSuccess = () => {
 export const logout = () => {
   return (dispatch, getState) => {
     localStorage.clear();
+
     dispatch(logoutSuccess());
     history.push("/");
   };

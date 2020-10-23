@@ -1,5 +1,5 @@
 import "./Manage.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../components/table/Table";
 import { connect } from "react-redux";
 import { fetchMembers, selectMember } from "../../redux/actions";
@@ -10,11 +10,15 @@ import PageDesign from "../../components/pageDesign/PageDesign";
 
 const Manage = ({ members, fetchMembers, selectMember }) => {
   const maxRole = 4;
-
+  const [searchInput, setSearchInput] = useState("");
+  const [currentMembers, setCurrentMembers] = useState([]);
   const maxRoleCount = members.reduce((preV, curV) => {
     return preV > curV.roles.length ? preV : curV.roles.length;
   }, 0);
 
+  useEffect(() => {
+    setCurrentMembers(members);
+  }, [members]);
   const cssFlexRole =
     maxRoleCount <= maxRole ? (10 / maxRoleCount) * 0.1 : (10 / maxRole) * 0.1;
   useEffect(() => {
@@ -25,6 +29,25 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
   const cssHeader = {
     textAlign: "left",
   };
+
+  const compareIgnoreCase = (pre, post) => {
+    console.log(pre, post);
+    return pre.toLocaleLowerCase().includes(post.toLocaleLowerCase());
+  };
+
+  useEffect(() => {
+    if (searchInput && members.length) {
+      const temp = members.filter(
+        (mem) =>
+          compareIgnoreCase(mem.user.email, searchInput) ||
+          compareIgnoreCase(mem.user.name, searchInput) ||
+          mem.roles.some((role) => compareIgnoreCase(role.name, searchInput))
+      );
+      setCurrentMembers(temp);
+    } else {
+      setCurrentMembers(members);
+    }
+  }, [members, searchInput]);
 
   const columns = {
     action: {
@@ -84,18 +107,23 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
     },
   };
 
-  const search = (
-    <div className="manage__search page_design__animate__right">
-      <input type="text" placeholder="Add new member by email address..." />
-      <button>Invite</button>
-    </div>
-  );
-
   return (
-    <PageDesign title="Admin" headerRight={search}>
+    <PageDesign
+      title="Admin"
+      headerRight={
+        <div className="manage__search page_design__animate__right">
+          <input
+            type="text"
+            placeholder="Search members..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
+      }
+    >
       <Table
         columns={columns}
-        data={members}
+        data={currentMembers}
         onClickHandler={(element) => selectMember(element)}
       />
     </PageDesign>
@@ -104,9 +132,11 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
 const mapStateToProp = (state) => {
   const { members } = state.members;
   return {
-    members: members.sort((mem1,mem2)=>(mem1.user.name<=mem2.user.name?-1:1)).map((member) => {
-      return { ...member };
-    }),
+    members: members
+      .sort((mem1, mem2) => (mem1.roles.length <= mem2.roles.length ? 1 : -1))
+      .map((member) => {
+        return { ...member };
+      }),
   };
 };
 export default connect(mapStateToProp, {

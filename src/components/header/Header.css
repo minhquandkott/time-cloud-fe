@@ -5,7 +5,7 @@
   background-color: var(--background-color-header);
 
   color: var(--color-light-primary);
-  padding: .5rem 2rem;
+  padding: 0 2rem;
   
 }
 
@@ -31,10 +31,18 @@
   text-decoration: none;
   text-transform: capitalize;
   color: var(--color-light-primary);
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 1rem;
+  margin-right: 1.5rem;
   font-size: 1.9rem;
   font-weight: 500;
+  border-bottom: 3px solid transparent;
 }
+
+.header__feature__active{
+  position: relative;
+  border-bottom-color: rgb(0,153,255) !important;
+}
+
 
 .header__account {
   display: flex;
@@ -111,3 +119,4 @@
 }
 
 .header__account>.MuiSvgIcon-root {}
+
