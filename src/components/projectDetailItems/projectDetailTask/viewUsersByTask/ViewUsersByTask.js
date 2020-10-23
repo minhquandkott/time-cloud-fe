@@ -6,21 +6,22 @@ import TaskTracked from "./taskTracked/TaskTracked";
 
 class ViewUsersByTask extends React.Component {
     state = {
-        users: []
+        users: [],
     }
 
     _isMounted = false;
 
     componentDidMount(){
-        this._isMounted = true;
-        timeCloudAPI().get(`tasks/${this.props.task.id}/users`)
-        .then(response => {
-            if(this._isMounted) {
-                this.setState({
-                    users: response.data
-                })
-            }
-        });
+            this._isMounted = true;
+            timeCloudAPI().get(`tasks/${this.props.task.id}/users`)
+            .then(response => {
+                if(this._isMounted) {
+                    this.setState({
+                        users: response.data,
+                    })
+                }
+
+            });
     }
 
     componentWillUnmount() {
@@ -31,6 +32,8 @@ class ViewUsersByTask extends React.Component {
         const usersFake = [{id :1 , gender: false,name : "" }] 
         var {task} = this.props;
         var {users} = this.state;
+
+        
         return (
             <div className="view_user_by_task">
                 <div className="view_user_by_task__item">
@@ -42,9 +45,13 @@ class ViewUsersByTask extends React.Component {
                     </div>
                 </div>
                 <div className = "toggle_item reverse">
-                    <ProjectUser taskId = {task.id} users = {users.length === 0 ? usersFake : users} rowStatus = {true} />
+                    {users.length ? <ProjectUser taskId = {task.id} users = {users.length === 0 ? usersFake : users} rowStatus = {true} />
+                                : <div className="view_user_by_task_empty"> </div> } 
                 </div>
-                <div className="toggle_item"><ProjectUser taskId = {task.id} users = {users} rowStatus = {false} /></div>
+                <div className="toggle_item">
+                    {users.length ? <ProjectUser taskId = {task.id} users = {users.length === 0 ? usersFake : users} rowStatus = {false} />
+                                : <div className="view_user_by_task_empty"> </div>}
+                </div>
             </div>
         )
     }

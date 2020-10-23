@@ -4,7 +4,7 @@ import TimerByDay from '../timerByDay/TimerByDay';
 import WeekHeaderItem from './weekHeaderItem/WeekHeaderItem';
 import TotalTimeByWeek from './totalTimeByWeek/TotalTimeByWeek';
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Mon"];
+const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 class WeekHeader extends Component {
 

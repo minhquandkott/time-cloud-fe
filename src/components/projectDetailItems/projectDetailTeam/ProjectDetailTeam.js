@@ -2,12 +2,13 @@ import React from "react";
 import Collapse from "../../../components/collapse/Collapse";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
 import ShowUser from "./showUsers/ShowUsers";
+import {v4} from 'uuid';
 import "./ProjectDetailTeam.css";
 
 
 class ProjectDetailTeam extends React.Component {
   state = {
-    users: [],
+    projectUsers: [],
   };
 
   _isMounted = false;
@@ -19,7 +20,7 @@ class ProjectDetailTeam extends React.Component {
       .then((response) => {
         if (this._isMounted) {
           this.setState({
-            users: response.data,
+            projectUsers: response.data,
           });
         }
       });
@@ -43,13 +44,13 @@ class ProjectDetailTeam extends React.Component {
           <tbody></tbody>
         </table>
         <Collapse>
-          {this.state.users.sort((user1,user2)=>(user1.name<=user2.name?-1:1)).map((user, index) => {
+          {this.state.projectUsers.sort((user1,user2)=>(user1.name<=user2.name?-1:1)).map((projectUser, index) => {
             return (
               <ShowUser
                 project={project}
-                user={user}
+                user={projectUser.user}
                 index={index}
-                key={user.id}
+                key={v4()}
               />
             );
           })}
