@@ -5,7 +5,6 @@ import CountUser from "../CountUser/CountUser";
 class ProjectUser extends React.Component {
   render() {
     var { users, rowStatus, taskId } = this.props;
-    console.log(users);
     return (
       <div
         className="project_user__avatar"
