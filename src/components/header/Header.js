@@ -57,12 +57,15 @@ const Header = ({ user, logout }) => {
     </React.Fragment>
   ) : (
     <React.Fragment>
-      <NavLink to="/timer">Your timer</NavLink>
+      <NavLink to="/timer" activeClassName="header__feature__active">
+        Your timer
+      </NavLink>
       <NavLink
         to={{
           pathname: "/report",
           state: localStorage.getItem("userId"),
         }}
+        activeClassName="header__feature__active"
       >
         Report
       </NavLink>

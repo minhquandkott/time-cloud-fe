@@ -245,7 +245,6 @@ const CreateProject = ({ match, fetchMembers, members }) => {
         timeCloudAPI().post(`projects/${id}/users/${mem.id}`)
       )
     );
-    console.log(arrRequest);
 
     Promise.allSettled(arrRequest).then((res) => setIsSaving(false));
   };
