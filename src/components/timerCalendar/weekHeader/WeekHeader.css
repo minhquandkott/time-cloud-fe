@@ -1,7 +1,8 @@
 .week_header {
     display: flex;
     align-items: flex-end;
-    height: 7rem;
+    height: 9rem;
+    border-radius: 5px;
     background-color: white;
     justify-content: space-evenly;
     margin-bottom: 3rem;
@@ -11,20 +12,20 @@
 
 .week_header__total {
     flex: 1;
-    height: 5rem;
+    height: 9rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .15rem;
 }
 
 .week_header button {
     border: none;
+    border-radius: 5% 5% 0 0;
     cursor: pointer;
     flex: 1;
-    height: 5rem;
+    height: 7rem;
     outline: none;
-    font-weight: 500;
+    font-weight: 550;
     font-size: medium;
 }
 

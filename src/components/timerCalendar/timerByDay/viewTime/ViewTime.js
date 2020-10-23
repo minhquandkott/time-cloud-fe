@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Point from '../../../point/Point';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import {v4} from 'uuid';
 
 import './ViewTime.css';
 
@@ -47,13 +48,13 @@ class ViewTime extends Component {
                         color= {time.task.project.color}
                         pointSize="15"
                         title={`${time.task.project.name}`}
-                        key={time.id}
+                        key={v4()}
                     />
                     <Point
                         color= "#aaaaab"
                         pointSize="7"
                         title={`${time.task.name}`}
-                        key={time.id}
+                        key={v4()}
                     />
                 </div>
                 <div className="view_time__from_to ">

@@ -1,5 +1,13 @@
 .timer_by_day {
-    margin-top: 2rem;
+    margin: 2rem 10rem 15rem 10rem;
     background-color: white;
-    margin-bottom: 15rem;
+}
+
+.timer_by_day>p {
+    height: 10rem;
+    font-size: large;
+    display: flex;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
 }

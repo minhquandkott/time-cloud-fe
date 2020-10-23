@@ -23,6 +23,31 @@ class WeekHeader extends Component {
         return check;
     }
 
+    componentDidUpdate = (preProps, preState) => {
+        const {days} = this.props;
+        if(days !== preProps.days) {
+            this.setState({
+                selectedIndex: 0,
+                date: days[0]
+            })
+        }
+    }
+
+    componentDidMount = () => {
+        const {days} = this.props;
+        let curr = new Date();
+        let result = 0;
+        days.map((day, index) => {
+            if(day.getFullYear() === curr.getFullYear() && day.getMonth() === curr.getMonth() && day.getDate() === curr.getDate()) {
+                result = index;
+            }
+        })
+        this.setState({
+            selectedIndex: result,
+            date: days[result]
+        })
+    }
+
     listDays = (dates) => {
         let result = days.map((day, index) => {
             const isDisable = this.check(dates[index]);
