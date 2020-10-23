@@ -39,12 +39,20 @@ export const convertSecond = (totalSecond) => {
   };
 };
 
-export const convertSecondToHour = (totalSecond) => {
+export const convertSecondToHour = (seconds) => {
+  
+  let hours = seconds/60/60;
+    let rhours = Math.floor(hours);
+    let rminutes = Math.round((hours - rhours) * 60);
+    return `${rhours}:${rminutes < 10 ? `0${rminutes}` : rminutes}`;
+};
+
+export const convertTime = (totalSecond) => {
   const hour = totalSecond / 3600;
   const convertedHour = Math.floor(hour);
   const convertedSuffix = Math.ceil(((totalSecond % 3600) / 3600) * 100) / 100;
   return Math.floor((convertedHour + convertedSuffix) * 100) / 100;
-};
+  }
 
 export const ROLE_LIST = [
   { id: 1, name: "ADMIN", color: "2ECC71" },
