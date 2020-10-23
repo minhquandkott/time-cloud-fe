@@ -10,7 +10,7 @@ export {
 
 export { fetchProjects, deleteProjects } from "./projectActions";
 
-export { fetchTasks } from "./taskActions";
+export { fetchTasks, fetchTasksSuccess } from "./taskActions";
 
 export {
   increaseTime,
@@ -33,4 +33,4 @@ export {
   getUser,
 } from "./membersActions";
 
-export { getCurrentWeek, getNextWeek, getLastWeek } from './weekActions';
+export { getCurrentWeek, getNextWeek, getLastWeek } from "./weekActions";

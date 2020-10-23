@@ -30,58 +30,33 @@ const Table = ({
 
   const cells = data.map((element, index) => {
     return (
-      <Transition
+      <tr
         key={element?.id}
-        timeout={1000}
-        mountOnEnter
-        unmountOnExit
-        onEnter={(node) => {
-          node.style.opacity = 0;
-          node.style.transform = "translateX(150%)";
+        onClick={(event) => {
+          onClickHandler(element, event);
+          setElementSelected(element);
         }}
-        onEntering={(node) => {
-          node.style.opacity = 1;
-          node.style.transform = "translateX(0)";
+        style={{
+          position: elementSelected === element ? "relative" : "initial",
+          zIndex: elementSelected === element ? "1" : "initial",
         }}
-        onExit={(node) => {
-          node.style.maxHeight = node.scrollHeight + "px";
-          node.style.transform = "translateX(0)";
-        }}
-        onExiting={(node) => {
-          node.style.maxHeight = 0;
-          node.style.padding = "0";
-          node.style.transform = "translateX(150%)";
-        }}
-        onExited={() => console.log(6)}
       >
-        <tr
-          onClick={(event) => {
-            onClickHandler(element, event);
-            setElementSelected(element);
-          }}
-          style={{
-            transitionDelay: `${index * 0.03}s`,
-            position: elementSelected === element ? "relative" : "initial",
-            zIndex: elementSelected === element ? "1" : "initial",
-          }}
-        >
-          {Object.keys(columns).map((key) => {
-            const { cssData, convertData, width } = columns[key];
-            const cellData = element[key];
-            return (
-              <td
-                key={key}
-                style={{
-                  ...cssData,
-                  width: width,
-                }}
-              >
-                {convertData ? convertData(element) : cellData}
-              </td>
-            );
-          })}
-        </tr>
-      </Transition>
+        {Object.keys(columns).map((key) => {
+          const { cssData, convertData, width } = columns[key];
+          const cellData = element[key];
+          return (
+            <td
+              key={key}
+              style={{
+                ...cssData,
+                width: width,
+              }}
+            >
+              {convertData ? convertData(element) : cellData}
+            </td>
+          );
+        })}
+      </tr>
     );
   });
   const table =
@@ -104,9 +79,7 @@ const Table = ({
         <thead className="table__head">
           <tr>{heads}</tr>
         </thead>
-        <TransitionGroup className="table__body" component={"tbody"}>
-          {cells}
-        </TransitionGroup>
+        <tbody className="table__body">{cells}</tbody>
       </table>
     );
   return table;

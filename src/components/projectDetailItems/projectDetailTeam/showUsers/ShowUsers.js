@@ -41,7 +41,7 @@ class ShowUsers extends React.Component {
         <div className="show_users__item">
           <div className="show_users__name" style={{ marginBottom: "0" }}>
             <UserInfo
-              avatar={user?.avatar ? user.avatar : (user?.gender ? male : female)}
+              avatar={user?.avatar ? user.avatar : user?.gender ? male : female}
               cssForPrimaryInfo={{ fontWeight: "500" }}
               primaryInfo={user.name}
               secondaryInfo={user.email}
@@ -55,14 +55,16 @@ class ShowUsers extends React.Component {
           {`${tasks.length} tasks`}
         </div>
         <div className="toggle_item">
-          {tasks.sort((task1,task2)=>(task1.name<=task2.name?-1:1)).map((task) => {
-            return (
-              <div key={task.id} className="list_tasks">
-                <div className="list_tasks__name">{task.name}</div>
-                <TaskTrackedByUser userId={user.id} taskId={task.id} />
-              </div>
-            );
-          })}
+          {tasks
+            .sort((task1, task2) => (task1.name <= task2.name ? -1 : 1))
+            .map((task) => {
+              return (
+                <div key={task.id} className="list_tasks">
+                  <div className="list_tasks__name">{task.name}</div>
+                  <TaskTrackedByUser userId={user.id} taskId={task.id} />
+                </div>
+              );
+            })}
         </div>
       </div>
     );

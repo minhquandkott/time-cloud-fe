@@ -130,6 +130,7 @@ const Time = ({
           className="form__input form__input__description"
           value={description}
           onChange={onDesInputChange}
+          maxLength="30"
         />
         <DropDownTime title="recent_task">
           <div className="drop_down__recent_task">{renderRecentTask()}</div>

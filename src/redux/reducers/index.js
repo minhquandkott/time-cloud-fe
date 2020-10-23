@@ -6,8 +6,9 @@ import taskReducer from "./taskReducer";
 import timeReducer from "./timeReducer";
 import timesReducer from "./timesReducer";
 import membersReducer from "./membersReducer";
-import weekReducer from './weekReducer';
-export default combineReducers({
+import weekReducer from "./weekReducer";
+import { AUTH_LOGOUT } from "../actions/actionType";
+const rootReducer = combineReducers({
   form: formReducer,
   auth: authReducer,
   projects: projectReducer,
@@ -15,5 +16,8 @@ export default combineReducers({
   time: timeReducer,
   times: timesReducer,
   members: membersReducer,
-  week: weekReducer
+  week: weekReducer,
 });
+
+export default (state, action) =>
+  rootReducer(action.type === AUTH_LOGOUT ? undefined : state, action);
