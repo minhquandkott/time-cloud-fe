@@ -33,4 +33,4 @@ export {
   getUser,
 } from "./membersActions";
 
-export { getCurrentWeek, getNextWeek, getLastWeek } from "./weekActions";
+export { getCurrentWeek, getNextWeek, getLastWeek, setDaySelected, fetchTotalTimeDaySelected } from "./weekActions";

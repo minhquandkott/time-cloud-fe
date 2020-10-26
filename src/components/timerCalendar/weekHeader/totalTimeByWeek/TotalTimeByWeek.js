@@ -19,7 +19,6 @@ class TotalTimeByWeek extends Component {
         let date = `${days[0].getFullYear()}-${days[0].getMonth() + 1}-${days[0].getDate()}`;
         timeCloudAPI().get(`users/${localStorage.getItem("userId")}/week/${date}/total-times`)
         .then(res => {
-            console.log(res.data);
             this.setState({
                 totalTime: res.data
             })

@@ -29,7 +29,9 @@ class UserColumn extends React.Component {
   render() {
     return (
       <ProjectUser
-        users={this.state.projectUsers.map((ele) => ele.user)}
+        users={this.state.projectUsers
+          .map((ele) => ele.user)
+        }
         rowStatus={true}
       />
     );
