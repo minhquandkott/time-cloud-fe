@@ -4,6 +4,7 @@ import "./Profile.css";
 import male from "../../assets/images/male.png";
 import female from "../../assets/images/female.png";
 import UserInfo from "./userInfo/UserInfo";
+import { withRouter } from "react-router-dom";
 
 class Profile extends React.Component {
   state = {
@@ -12,15 +13,15 @@ class Profile extends React.Component {
 
   componentDidMount() {
     timeCloudAPI()
-      .get(`users/${localStorage.getItem("userId")}`)
+      .get(`users/${this.props.match.params.id}`)
       .then((response) => {
-        console.log(response.data);
         this.setState({
           user: response.data,
         });
       });
   }
   render() {
+    console.log(this.props);
     var { user } = this.state;
     return (
       <div className="profile">
@@ -52,4 +53,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default withRouter(Profile);

@@ -85,7 +85,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       timeCloudAPI()
         .get(`projects/${match.params.id}/users`)
         .then((res) => {
-          setListUsers(res.data);
+          setListUsers(res.data.map((ele) => ele.user));
         });
     }
   }, [match.params.id, setListUsers]);
@@ -113,7 +113,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
           });
         });
     }
-  }, [editingMode, match.params.id]);
+  }, [match.params.id]);
 
   const saveTaskAndTaskMembers = async (task, projectId) => {
     const res = await timeCloudAPI().post(`projects/${projectId}/tasks`, {

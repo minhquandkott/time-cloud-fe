@@ -7,6 +7,7 @@ import Point from "../../components/point/Point";
 import classes from "./Manage.module.css";
 import ColumnEmail from "./columEmail/ColumnEmail";
 import PageDesign from "../../components/pageDesign/PageDesign";
+import history from "../../history";
 
 const Manage = ({ members, fetchMembers, selectMember }) => {
   const maxRole = 4;
@@ -31,7 +32,6 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
   };
 
   const compareIgnoreCase = (pre, post) => {
-    console.log(pre, post);
     return pre.toLocaleLowerCase().includes(post.toLocaleLowerCase());
   };
 
@@ -124,7 +124,10 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
       <Table
         columns={columns}
         data={currentMembers}
-        onClickHandler={(element) => selectMember(element)}
+        onClickHandler={(element) => {
+          selectMember(element);
+          history.push(`/profile/${element.id}`);
+        }}
       />
     </PageDesign>
   );
