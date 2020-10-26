@@ -8,7 +8,7 @@ const ReportAdminUserItem = ({project}) => {
 
     const [time,setTime] = useState(null);
     const [projectUsers,setProjectUsers] = useState([]);
-    let stillDoing = false;
+    let stillDoing;
 
     useEffect(()=>{
         TimeCloudAPI().get(`projects/${project.id}/total-times`).then(response=>{
@@ -27,6 +27,7 @@ const ReportAdminUserItem = ({project}) => {
             stillDoing=true;
             break;
         }
+        stillDoing = false;
     }
 
     function toProjectReportPage() {
