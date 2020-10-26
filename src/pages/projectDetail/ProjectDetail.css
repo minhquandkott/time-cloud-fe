@@ -36,7 +36,7 @@
     font-size: large;
 }
 
-.tracked_time p {
+.tracked_time__hours p {
     display: flex;
     font-size: 6rem;
     font-weight: 400;
