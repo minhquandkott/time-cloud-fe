@@ -5,29 +5,34 @@ import CreateIcon from "@material-ui/icons/Create";
 import ToolTip from "../../../components/tooltip/Tooltip";
 import RoleList from "../roleList/RoleList";
 import { connect } from "react-redux";
+import { selectMember } from "../../../redux/actions";
 
-const ColumnEmail = ({ userRole, selectedMember }) => {
+const ColumnEmail = ({ userRole, selectMember }) => {
   const buttonClass = `column_email__button${userRole.id}`;
   const [showTooltip, setShowTooltip] = useState(false);
   const onButtonClick = (event) => {
+    selectMember(userRole);
     setShowTooltip(!showTooltip);
+    event.stopPropagation();
   };
 
-  useEffect(() => {
-    if (selectedMember?.user?.id !== userRole.user.id) setShowTooltip(false);
-  }, [selectedMember, userRole.user.id]);
+  // useEffect(() => {
+  //   if (selectedMember?.user?.id !== userRole.user.id) setShowTooltip(false);
+  // }, [selectedMember, userRole.user.id]);
 
   useEffect(() => {
     const listElement = [
       document.querySelector(`.${buttonClass}`),
       ...document.querySelectorAll(`.${buttonClass} *`),
     ];
-
-    window.addEventListener("click", (event) => {
+    const onClick = (event) => {
       if (!listElement.find((ele) => ele === event.target)) {
         setShowTooltip(false);
       }
-    });
+    };
+
+    window.addEventListener("click", onClick);
+    return () => window.removeEventListener("click", onClick);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,7 +60,7 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
           padding: ".5rem 1rem",
           overflowY: "hidden",
         }}
-        isShow={showTooltip && selectedMember?.user.id === userRole.user.id}
+        isShow={showTooltip}
       >
         <RoleList />
       </ToolTip>
@@ -63,11 +68,4 @@ const ColumnEmail = ({ userRole, selectedMember }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const { selectedMember } = state.members;
-  return {
-    selectedMember,
-  };
-};
-
-export default connect(mapStateToProps)(ColumnEmail);
+export default connect(null, { selectMember })(ColumnEmail);

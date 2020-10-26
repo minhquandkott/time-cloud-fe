@@ -24,14 +24,12 @@ const Tooltip = ({
       const pin = tooltipRef.current?.previousElementSibling;
       const html = document?.firstElementChild;
       if (tooltip && arrow && pin) {
-        console.dir(pin.offsetParent);
         const documentHeight = html.offsetHeight;
         const tooltipHeight = tooltip.offsetHeight;
         const parentOffsetTop = pin.offsetParent.offsetTop;
         const parentOffsetBottom =
           documentHeight - parentOffsetTop + pin.offsetParent.offsetHeight;
 
-        console.log(tooltipHeight, parentOffsetTop, parentOffsetBottom);
         if (parentOffsetTop < tooltipHeight) {
           setDirec("bottom");
         }

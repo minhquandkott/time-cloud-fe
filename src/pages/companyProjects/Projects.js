@@ -48,6 +48,14 @@ class Projects extends React.Component {
     });
   };
 
+  onSortProjects = (projects) => {
+    return projects.sort((first, second) => {
+      if(first.name > second.name) return 1;
+      else if(first.name < second.name) return -1;
+      else return 0;
+    })
+  }
+
   render() {
     const cssHeader = {
       textAlign: "left",
@@ -144,6 +152,7 @@ class Projects extends React.Component {
 
     var { projects } = this.props;
     var { txtSearch } = this.state;
+    projects = this.onSortProjects(projects);
     if (txtSearch) {
       projects = projects.filter((project) => {
         return project.name.toLowerCase().indexOf(txtSearch) !== -1;

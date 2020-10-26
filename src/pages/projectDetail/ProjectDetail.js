@@ -18,8 +18,6 @@ class Projects extends React.Component {
   render() {
     var project = history.location.state;
     var x = new Date(project.createAt);
-    console.log(x);
-    console.log(project.createAt);
     var createAt = new Date(project.createAt);
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";
@@ -42,8 +40,8 @@ class Projects extends React.Component {
               &nbsp; at {createAt}
             </div>
           </div>
-          <div>
-            <div className="tracked_time">
+          <div className="tracked_time">
+            <div className="tracked_time__hours">
               <p> {<TrackTime projectId={project.id} />} </p>
             </div>
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
