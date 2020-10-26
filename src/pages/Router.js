@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Login from "../pages/login/Login";
 import Timer from "./timer/Timer";
@@ -14,7 +14,7 @@ import ProjectDetail from "./projectDetail/ProjectDetail";
 import Profile from "./profile/Profile";
 import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
-import TimerCalendar from '../components/timerCalendar/TimerCalendar';
+import TimerCalendar from "../components/timerCalendar/TimerCalendar";
 
 class Router extends React.Component {
   componentDidMount() {
@@ -26,11 +26,10 @@ class Router extends React.Component {
     if (this.props.user?.roles?.some((ele) => ele.id === 1 || ele.id === 3)) {
       routes = (
         <Switch>
-          <Route path="/" exact component={Timer} />
-
+          <Redirect from="/" exact to="/timer" />
           <Route path="/timer" component={Timer} />
           <Route path="/report" exact component={ReportAdmin} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/profile/:id" component={Profile} />
           <Route path="/report/:id" component={Report} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/manage" component={Manage} />
@@ -45,7 +44,7 @@ class Router extends React.Component {
     } else {
       routes = (
         <Switch>
-          <Route path="/" exact component={Timer} />
+          <Redirect from="/" exact to="/timer" />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
           <Route path="/profile/:id" component={Profile} />
