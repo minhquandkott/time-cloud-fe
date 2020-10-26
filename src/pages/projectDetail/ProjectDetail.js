@@ -40,8 +40,8 @@ class Projects extends React.Component {
               &nbsp; at {createAt}
             </div>
           </div>
-          <div>
-            <div className="tracked_time">
+          <div className="tracked_time">
+            <div className="tracked_time__hours">
               <p> {<TrackTime projectId={project.id} />} </p>
             </div>
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
