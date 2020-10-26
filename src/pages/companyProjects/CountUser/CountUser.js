@@ -32,7 +32,6 @@ class CountUser extends React.Component {
 
     render() {
         var {ele, index, amount, rowStatus} = this.props;
-        console.log(this.state.tracked);
         if(rowStatus) {
             if(index > 2) {
                 return <div key={index} className = "count_user"> {`+${amount-3}`} </div>

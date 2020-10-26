@@ -27,7 +27,6 @@ class ProjectDetailTask extends React.Component {
     }
 
     render() {
-        
         return (
             <div className="project_detail_task">
                 <table style={{width:"100%"}}>
@@ -40,7 +39,7 @@ class ProjectDetailTask extends React.Component {
                     <tbody></tbody>
                 </table>
                 <Collapse>
-                    {this.state.tasks.sort((task1,task2)=>(task1.name<=task2.name?-1:1)).map((task) => {
+                    {this.state.tasks.sort((task1,task2)=>(task1.name <= task2.name? -1 : 1)).map((task) => {
                         return (
                             <ViewUsersByTask task = {task} key={task.id}/> 
                         )

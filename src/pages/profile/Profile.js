@@ -4,6 +4,7 @@ import "./Profile.css";
 import male from "../../assets/images/male.png";
 import female from "../../assets/images/female.png";
 import UserInfo from "./userInfo/UserInfo";
+import {withRouter} from 'react-router-dom';
 
 class Profile extends React.Component {
   state = {
@@ -52,4 +53,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default withRouter(Profile);
