@@ -25,6 +25,16 @@
     margin-top: 0.70rem;
     color: darkgray;
     padding-left: 0.5rem;
+    padding-right: 1rem;
+}
+
+.report_item__project_name_isDone>h3{
+    font-size: 1.75rem;
+    margin-top: 0.70rem;
+    font-weight: bold;
+    color:white;
+    font-style: italic;
+    padding-left: 0.8rem;
 }
 
 .report_item__project>p{
