@@ -3,16 +3,13 @@ import './WeekHeader.css';
 import TimerByDay from '../timerByDay/TimerByDay';
 import WeekHeaderItem from './weekHeaderItem/WeekHeaderItem';
 import TotalTimeByWeek from './totalTimeByWeek/TotalTimeByWeek';
+import {setDaySelected} from '../../../redux/actions/index';
+import {connect} from 'react-redux';
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 class WeekHeader extends Component {
 
-    state = {
-        date : null,
-        selectedIndex: -1
-    }
-    buttonSelected = React.createRef();
 
     checkFuture = (day) => {
         let temp = new Date();
@@ -38,29 +35,24 @@ class WeekHeader extends Component {
         const {days} = this.props;
         let index = this.checkCurrentDay(days);
         if(days !== preProps.days) {
-            this.setState({
-                selectedIndex: index,
-                date: days[index]
-            })
+            this.props.setDaySelected(days[index], index);
         }
     }
 
     componentDidMount = () => {
         const {days} = this.props;
-        let result = this.checkCurrentDay(days)
-        this.setState({
-            selectedIndex: result,
-            date: days[result]
-        })
+        let result = this.checkCurrentDay(days);
+        this.props.setDaySelected(days[result], result);
     }
 
     listDays = (dates) => {
+        const {week} = this.props;
         let result = days.map((day, index) => {
             const isDisable = this.checkFuture(dates[index]);
             return <button 
                         style={{
-                            background: this.state.selectedIndex === index ? "#f3f4f9" : "white",
-                            color: this.state.selectedIndex === index ? "var(--color-button)" : isDisable ? "#c1c1c1" : "black",
+                            background: week.selectedIndex === index ? "#f3f4f9" : "white",
+                            color: week.selectedIndex === index ? "var(--color-button)" : isDisable ? "#c1c1c1" : "black",
                             pointerEvents: isDisable ? "none" : "initial",
                         }}
                         
@@ -74,16 +66,12 @@ class WeekHeader extends Component {
     }
 
     displayTimes = (date, index) => {
-
-        this.setState({
-            date: date,
-            selectedIndex: index
-        })
+        this.props.setDaySelected(date, index);
     }
 
     render() {
         const {days} = this.props;
-        const {date} = this.state;
+        const {selectedDay, selectedIndex} = this.props.week;
         return (
             <div>
                 <div className="week_header">
@@ -92,9 +80,15 @@ class WeekHeader extends Component {
                         <TotalTimeByWeek days={days} />
                     </div>
                 </div>
-                {date ? <TimerByDay day={date}/> : ""}
+                {selectedDay ? <TimerByDay day={selectedDay}/> : ""}
             </div>
         )
     }
 }
-export default WeekHeader;
+
+const mapStateToProps = (state) => {
+    return {
+        week: state.week
+    }
+}
+export default connect(mapStateToProps, {setDaySelected})(WeekHeader);

@@ -4,54 +4,31 @@ import timeCloudAPI from "../../../apis/timeCloudAPI";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import "./TimerByDay.css";
 import Skeleton from "../../../components/loading/skeleton/Skeleton";
+import {connect} from 'react-redux';
+import {fetchTotalTimeDaySelected} from '../../../redux/actions';
 
 class TimerByDay extends Component {
-  state = {
-    times: [],
-    isLoading: false,
-  };
-
-  fetchTimes = (day) => {
-    this.setState(
-      {
-        isLoading: true,
-      },
-      () => {
-        timeCloudAPI()
-          .get(`users/${localStorage.getItem("userId")}/times`)
-          .then((res) => {
-            let times = res.data;
-            times = times.filter((time) => {
-              let timeDate = new Date(time.createAt);
-              return (
-                day.getFullYear() === timeDate.getFullYear() &&
-                day.getMonth() === timeDate.getMonth() &&
-                day.getDate() === timeDate.getDate()
-              );
-            });
-            this.setState({
-              times: times,
-              isLoading: false,
-            });
-          });
-      }
-    );
-  };
+  
+  convertDate = (day) => {
+    return `${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`;
+  }
 
   componentDidMount = () => {
     const { day } = this.props;
-    this.fetchTimes(day);
+    console.log(day);
+    this.props.fetchTotalTimeDaySelected(this.convertDate(day));
   };
 
   componentDidUpdate = (preProps, preState) => {
     const { day } = this.props;
     if (day !== preProps.day) {
-      this.fetchTimes(day);
+      this.props.fetchTotalTimeDaySelected(this.convertDate(day));
     }
   };
 
   render() {
-    const { times, isLoading } = this.state;
+    const { times, isLoading } = this.props;
+    console.log(this.props)
     return (
       <div className="timer_by_day">
         {!isLoading ? (
@@ -74,4 +51,11 @@ class TimerByDay extends Component {
   }
 }
 
-export default TimerByDay;
+const mapStateToProps =(state) =>{
+   return {
+     isLoading: state.week.isLoading,
+     times: state.week.listTimeOfSelectedDay
+   }
+}
+
+export default connect(mapStateToProps, {fetchTotalTimeDaySelected})(TimerByDay);
