@@ -4,7 +4,7 @@ import timeCloudAPI from "../../../apis/timeCloudAPI";
 import { convertSecondToHour } from "../../../utils/Utils";
 import ReportItemTask from "../../../pages/report/reportitem/reportitemtask/ReportItemTask";
 
-const ReportItem = ({ project, user }) => {
+const ReportItem = ({ project, user, isDoing}) => {
   const [tasks, setTasks] = useState([]);
   const [time, setTime] = useState([]);
 
@@ -47,6 +47,14 @@ const ReportItem = ({ project, user }) => {
                     borderRadius:"15px 50px 50px 15px"}}></div>
           <h2>{project.name}</h2>
           <h3>({project.clientName})</h3>
+            {
+              isDoing===false?
+              <div className="report_item__project_name_isDone"
+                  style={{height:"30px",
+                          width:"70px", 
+                          background:"rgb(204, 13, 13)", 
+                          borderRadius:"15px 15px 15px 15px",}}><h3>DONE</h3></div>:<h3></h3>             
+            }
         </div>
         <p>{convertSecondToHour(time) + "h"}</p>
       </div>

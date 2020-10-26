@@ -5,13 +5,13 @@ import timeCloudAPI from "../../../apis/timeCloudAPI";
 import ReportItem from "../reportitem/ReportItem";
 
 const ReportList = ({ user }) => {
-  const [projects, setProjects] = useState([]);
+  const [projectUsers, setProjectUsers] = useState([]);
   useEffect(() => {
     let isMounted = true;
     timeCloudAPI()
-      .get(`users/${user.id}/projects`)
+      .get(`users/${user.id}/project-users`)
       .then((response) => {
-        if (isMounted) setProjects(response.data);
+        if (isMounted) setProjectUsers(response.data);
       })
       .catch((error) => {});
     return () => {
@@ -20,11 +20,13 @@ const ReportList = ({ user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(projectUsers);
+
   return (
     <div className="reportList">
       <Collapse selectMultiple={false}>
-        {projects.sort((project1,project2)=>(project1.name<=project2.name?-1:1)).map((project) => (
-          <ReportItem project={project} user={user} key={project.id} />
+        {projectUsers.sort((projectUser1,projectUser2)=>(projectUser1.project.name<=projectUser2.project.name?-1:1)).map((projectUser) => (
+          <ReportItem project={projectUser.project} user={user} isDoing={projectUser.isDoing} key={projectUser.project.id} />
         ))}
       </Collapse>
     </div>
