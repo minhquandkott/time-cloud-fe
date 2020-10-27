@@ -19,6 +19,8 @@ import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
 import ProjectTask from "../projectTask/ProjectTask";
 import { DESCRIPTION } from "../../utils/localStorageContact";
+import { fetchTotalTimeDaySelectedSuccess } from "../../redux/actions/index";
+import { convertDate } from "../../utils/Utils";
 
 const Time = ({
   isCounting,
@@ -33,6 +35,9 @@ const Time = ({
   isSaving,
   setDescription,
   saveTime,
+  fetchTotalTimeDaySelectedSuccess,
+  selectedDay,
+  listTimeOfSelectedDay,
 }) => {
   const checkboxRef = useRef(null);
 
@@ -57,7 +62,15 @@ const Time = ({
 
   const onPlayButtonClick = () => {
     if (isCounting) {
-      saveTime();
+      saveTime().then((res) => {
+        const now = convertDate(new Date());
+        if (convertDate(selectedDay) === now) {
+          fetchTotalTimeDaySelectedSuccess([
+            ...listTimeOfSelectedDay,
+            res.data,
+          ]);
+        }
+      });
     }
   };
 
@@ -182,6 +195,7 @@ const mapStateToProps = (state) => {
   const { projects } = state.projects;
   const { tasks } = state.tasks;
   const { userId } = state.auth;
+  const { selectedDay, listTimeOfSelectedDay } = state.week;
 
   return {
     isCounting,
@@ -194,6 +208,8 @@ const mapStateToProps = (state) => {
     userId,
     description,
     isSaving,
+    selectedDay,
+    listTimeOfSelectedDay,
   };
 };
 
@@ -205,4 +221,5 @@ export default connect(mapStateToProps, {
   checkTime,
   setDescription,
   saveTime,
+  fetchTotalTimeDaySelectedSuccess,
 })(Time);

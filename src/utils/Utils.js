@@ -25,10 +25,11 @@ export const randomColorArray = [
 
 export const convertSecond = (totalSecond) => {
   let timeRemaining = totalSecond;
-  const convertedHour = totalSecond > 3600 ? Math.floor(totalSecond / 3600) : 0;
+  const convertedHour =
+    totalSecond >= 3600 ? Math.floor(totalSecond / 3600) : 0;
   timeRemaining = timeRemaining - convertedHour * 3600;
   const convertedMinute =
-    timeRemaining > 60 ? Math.floor(timeRemaining / 60) : 0;
+    timeRemaining >= 60 ? Math.floor(timeRemaining / 60) : 0;
   timeRemaining = timeRemaining - convertedMinute * 60;
 
   const convertedSecond = timeRemaining;
@@ -40,11 +41,10 @@ export const convertSecond = (totalSecond) => {
 };
 
 export const convertSecondToHour = (seconds) => {
-  
-  let hours = seconds/60/60;
-    let rhours = Math.floor(hours);
-    let rminutes = Math.round((hours - rhours) * 60);
-    return `${rhours}:${rminutes < 10 ? `0${rminutes}` : rminutes}`;
+  let hours = seconds / 60 / 60;
+  let rhours = Math.floor(hours);
+  let rminutes = Math.round((hours - rhours) * 60);
+  return `${rhours}:${rminutes < 10 ? `0${rminutes}` : rminutes}`;
 };
 
 export const convertTime = (totalSecond) => {
@@ -52,7 +52,7 @@ export const convertTime = (totalSecond) => {
   const convertedHour = Math.floor(hour);
   const convertedSuffix = Math.ceil(((totalSecond % 3600) / 3600) * 100) / 100;
   return Math.floor((convertedHour + convertedSuffix) * 100) / 100;
-  }
+};
 
 export const ROLE_LIST = [
   { id: 1, name: "ADMIN", color: "2ECC71" },
@@ -65,3 +65,7 @@ export const ROLE_LIST = [
   { id: 8, name: "SEO", color: "361D2E" },
   { id: 9, name: "MEMBER", color: "86A397" },
 ];
+
+export const convertDate = (day) => {
+  return `${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`;
+};

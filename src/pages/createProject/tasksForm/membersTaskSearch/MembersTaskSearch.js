@@ -98,6 +98,7 @@ const MembersTaskSearch = ({
           }
           value={inputValue}
           onChange={onInputChange}
+          maxLength="20"
         />
         <Tooltip
           maxWidth="35rem"

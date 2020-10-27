@@ -23,6 +23,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     clientName: "",
     projectColor: randomColorArray[randomNumber(randomColorArray.length)],
   });
+  const [validate, setValidate] = useState(null);
 
   // * Edit mode state
   const [listTasks, setListTasks] = useState([]);
@@ -131,7 +132,6 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       ];
       await Promise.allSettled([...arrRequest]);
     }
-    console.log("save");
   };
 
   const onCreateProject = async () => {
@@ -156,7 +156,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       setIsSaving(false);
       history.push("/timer");
     } catch (error) {
-      setError(error.response.data.message);
+      console.log(error);
     }
   };
   const onEditProject = async () => {
@@ -249,11 +249,6 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     Promise.allSettled(arrRequest).then((res) => setIsSaving(false));
   };
 
-  const checkFormEmpty = () => {
-    const { projectName, clientName } = projectForm;
-    return projectName && clientName ? false : true;
-  };
-
   const onCancelProject = () => {
     window.confirm("Are you sure ?")
       ? history.push("/timer")
@@ -265,6 +260,8 @@ const CreateProject = ({ match, fetchMembers, members }) => {
         <CreateProjectForm
           projectForm={projectForm}
           setProjectForm={setProjectForm}
+          error={validate}
+          setError={setValidate}
         />
       </SectionForm>
       <SectionForm title="Team Members">
@@ -298,7 +295,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
           <button
             className="create_project__button__create_new"
             onClick={editingMode.current ? onEditProject : onCreateProject}
-            disabled={checkFormEmpty()}
+            disabled={validate?.projectName || validate?.clientName}
           >
             {editingMode.current ? "Save" : "Create New"}
           </button>
