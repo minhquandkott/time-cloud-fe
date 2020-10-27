@@ -40,7 +40,7 @@ export const fetchTimes = (userId) => {
       const response = await timeCloudAPI().get(`users/${userId}/times`);
       dispatch(fetchTimesSuccess(response.data));
     } catch (error) {
-      dispatch(fetchTimesFail(error.response.errorMessage));
+      dispatch(fetchTimesFail(error.response.data.errorMessage));
     }
   };
 };

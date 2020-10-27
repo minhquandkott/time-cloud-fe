@@ -28,7 +28,6 @@ class TimerByDay extends Component {
 
   render() {
     const { times, isLoading } = this.props;
-    console.log(this.props)
     return (
       <div className="timer_by_day">
         {!isLoading ? (

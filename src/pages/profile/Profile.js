@@ -21,7 +21,6 @@ class Profile extends React.Component {
       });
   }
   render() {
-    console.log(this.props);
     var { user } = this.state;
     return (
       <div className="profile">
@@ -40,7 +39,7 @@ class Profile extends React.Component {
                     : male
                 }
               />
-              <div className="overlay">Change avatar</div>
+              {/* <div className="overlay">Change avatar</div> */}
             </div>
             <div className="user_content">
               {user ? <UserInfo user={user} /> : ""}

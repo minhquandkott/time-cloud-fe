@@ -51,10 +51,10 @@
   height: 40px;
 }
 
-.profile_left__image:hover {
+/* .profile_left__image:hover {
   border: 2px solid #0AAFF1;
   cursor: pointer;
-}
+} */
 
 .profile_left__image img {
   width: 200px;
