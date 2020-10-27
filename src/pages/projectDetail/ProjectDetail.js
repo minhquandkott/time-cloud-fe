@@ -8,6 +8,7 @@ import ProjectDetailTask from "../../components/projectDetailItems/projectDetail
 import ProjectDetailTeam from "../../components/projectDetailItems/projectDetailTeam/ProjectDetailTeam";
 import ProjectDetailDiscussion from "../../components/projectDetailItems/projectDetailDiscussion/ProjectDetailDiscussion";
 import TabNav from "../../components/tabNav/TabNav";
+import Chart from "../../components/chart/Chart";
 
 class Projects extends React.Component {
   componentDidMount = () => {
@@ -21,6 +22,14 @@ class Projects extends React.Component {
     var createAt = new Date(project.createAt);
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";
+
+    // let labels = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+    // let datasets = {
+    //   label: "Times (Hour)",
+    //   color: project.color,
+    //   data: [11.5,100.5,0,5,6,7,9]
+    //   }; 
+
     return (
       <div className="project_detail">
         <div className="project_detail__header">
@@ -47,6 +56,9 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
+        {/* <div>
+            <Chart labels={labels} datasets={datasets}/>
+        </div> */}
         <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
           <ProjectDetailTask project={project} />
           <ProjectDetailTeam project={project} />

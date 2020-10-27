@@ -33,7 +33,6 @@ const Time = ({
   isSaving,
   setDescription,
   saveTime,
-  endCountingTime,
 }) => {
   const checkboxRef = useRef(null);
 

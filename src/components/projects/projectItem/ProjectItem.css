@@ -1,16 +1,17 @@
 .project_item {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  padding: 20px;
+  padding: 2rem;
   display: inline-block;
-  min-width: 180px;
-  margin-right: 20px;
-  padding-bottom: 70px;
+  min-width: 20rem;
+  margin-right: 2rem;
+  padding-bottom: 5rem;
   box-shadow: 6px 7px 13px rgba(0, 0, 0, 0.3);
   transition: all .5s;
 }
+
 
 .project_item:hover {
   transform: scale(1.03, 1.03);
