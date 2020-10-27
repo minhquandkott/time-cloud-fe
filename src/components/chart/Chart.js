@@ -33,11 +33,12 @@ const Chart = ({width,labels,datasets}) => {
 
 Chart.propTypes = {
     labels: PropTypes.array,
-    datasets : PropTypes.arrayOf(PropTypes.shape({
+    datasets : PropTypes.shape({
+        
         label:PropTypes.string,
         backgroundColor:PropTypes.string,
         data:PropTypes.arrayOf(PropTypes.number)
-    })),
+    }),
 }
 
 export default Chart;

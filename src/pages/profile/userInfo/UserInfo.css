@@ -32,6 +32,7 @@
   display: flex;
   align-items: center;
 }
+
 .user_info__field input, select {
   margin-left: 20px;
   height: 3rem;
@@ -53,6 +54,18 @@
 
 .user_infor__field__edit input, select {
   outline-color: var(--color-button)
+}
+
+.user_info_alert {
+  display: flex;
+  margin-left: 22rem;
+  margin-top: .3rem;
+  color: red;
+  font-size: 1.3rem;
+}
+
+.user_info_alert>p {
+  padding: 0.15rem 0 0 1rem;
 }
 
 .user_infor__field__detail input {

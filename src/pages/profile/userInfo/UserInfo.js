@@ -6,7 +6,8 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import WcIcon from "@material-ui/icons/Wc";
 import {v4} from 'uuid';
-import * as validation from "../../../utils/validationUtils";
+import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import {email, require, number, requireLength10} from "../../../utils/validationUtils";
 
 class UserInfo extends React.Component {
   state = {
@@ -17,7 +18,32 @@ class UserInfo extends React.Component {
     txtaddress: "",
     txtgender: false,
     editStatus: false,
+    error: null
   };
+  componentDidUpdate(preProps, preState) {
+    if(this.state.txtname !== preState.txtname || this.state.txtemail !== preState.txtemail || this.state.txtphone !== preState.txtphone){
+      this.setState({
+        error: {
+          txtname: this.validate([require], this.state.txtname),
+          txtemail: this.validate([require, email], this.state.txtemail),
+          txtphone: this.validate([number, requireLength10], this.state.txtphone)
+        }
+      })
+    }
+    
+  }
+
+  validate(validations = [], value){  
+
+    for(let i =0 ;i < validations.length; i++){
+      const error =  validations[i](value);
+      if(error){
+        return error;
+      } 
+    }
+    return undefined;
+}
+
 
   componentDidMount() {
     timeCloudAPI()
@@ -115,6 +141,7 @@ class UserInfo extends React.Component {
       txtemail,
       txtgender,
       txtphone,
+      error
     } = this.state;
     const classNameFill =
       `user_info__field ${editStatus
@@ -126,6 +153,11 @@ class UserInfo extends React.Component {
           <div className={classNameFill}>
             <label htmlFor="name">Name</label>
             <input
+              autoComplete= "off"
+              style={{
+                outlineColor: error?.txtname ? "red" : "var(--color-button)",
+                borderColor: error?.txtname ? "red" : "#ccc"
+              }}
               type="text"
               name="txtname"
               value={txtname}
@@ -134,9 +166,15 @@ class UserInfo extends React.Component {
               readOnly = {!editStatus}
             ></input>
           </div>
+          {error?.txtname ?
+              <div className="user_info_alert">
+                <ReportProblemIcon />
+                <p> {error.txtname} </p>
+              </div> 
+            : ""}
+
           <div className={classNameFill}>
             <label htmlFor="">Role</label>
-            
             <div className="list_roles">
             {roles.map((role) => (
                 <Point key={v4()} css={{flexBasis: "10rem", marginBottom: "1rem"}} pointSize={"2rem"} title={role.role.name} color={role.role.color}  cssTittle={{fontSize: "1.5rem"}} />
@@ -147,6 +185,7 @@ class UserInfo extends React.Component {
           <div className={classNameFill}>
             <label>Address</label>
             <input
+              autoComplete= "off"
               type="text"
               name="txtaddress"
               value={txtaddress ? txtaddress : ""}
@@ -159,28 +198,48 @@ class UserInfo extends React.Component {
               <PhoneIcon style={{ fontSize: "30px" }} />
             </label>
             <input
+              autoComplete= "off"
               type="tel"
               name="txtphone"
               value={txtphone ? txtphone : ""}
               onChange={this.onChange}
               readOnly = {!editStatus}
-              pattern="[0-9]{10}"
+              style={{
+                outlineColor: error?.txtphone ? "red" : "var(--color-button",
+                borderColor: error?.txtphone ? "red" : "#ccc"
+              }}
             ></input>
           </div>
+          {error?.txtphone ?
+              <div className="user_info_alert">
+                <ReportProblemIcon />
+                <p> {error.txtphone} </p>
+              </div> 
+            : ""}
           <div className={classNameFill}>
             <label>
               {" "}
               <EmailIcon style={{ fontSize: "30px" }} />{" "}
             </label>
             <input
+              autoComplete= "off"
               type="email"
               name="txtemail"
               value={txtemail}
               onChange={this.onChange}
               readOnly = {!editStatus}
-              required
+              style={{
+                outlineColor: error?.txtemail ? "red" : "var(--color-button",
+                borderColor: error?.txtemail ? "red" : "#ccc"
+              }}
             ></input>
           </div>
+          {error?.txtemail ?
+              <div className="user_info_alert">
+                <ReportProblemIcon />
+                <p> {error.txtemail} </p>
+              </div> 
+            : ""}
           <div className={classNameFill}>
             <label>
               {" "}
@@ -201,7 +260,13 @@ class UserInfo extends React.Component {
             
           </div>
           {editStatus ? <div>
-                          <button type="submit">Save</button> 
+                          <button 
+                            disabled={(error?.txtname || error?.txtemail) ? true : false}
+                            type="submit"
+                            style = {{backgroundColor: (error?.txtname || error?.txtemail) ? "darkgray" : "var(--color-button)" }}
+                          >
+                            Save
+                          </button> 
                           <button onClick={this.onCancel}>Cancel</button>
                         </div>
                       : <button onClick={this.onEdit}>Edit</button>
