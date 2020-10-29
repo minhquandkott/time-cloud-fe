@@ -23,6 +23,9 @@ export const randomColorArray = [
   "#82589F",
 ];
 
+export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+export const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
 export const convertSecond = (totalSecond) => {
   let timeRemaining = totalSecond;
   const convertedHour = totalSecond > 3600 ? Math.floor(totalSecond / 3600) : 0;

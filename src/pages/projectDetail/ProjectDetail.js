@@ -11,43 +11,74 @@ import TabNav from "../../components/tabNav/TabNav";
 import {convertTime} from '../../utils/Utils';
 import timeCloudAPI from '../../apis/timeCloudAPI';
 import Chart from "../../components/chart/Chart";
+import WeekSelected from '../../components/timerCalendar/weekSelect/WeekSelect';
+import {getCurrentWeek} from '../../redux/actions/index';
+import {days as dayTitles, months} from '../../utils/Utils';
+
+const listDay = (firstDay, lastDay) => {
+  let result = [];
+  result.push(firstDay);
+  for(let i=1; i<6; i++) {
+      let day = new Date(result[i-1]);
+      day.setDate(day.getDate() + 1)
+      result.push(day);
+  }
+  result.push(lastDay);
+  return result;
+}
+
+const convertDays = (days) => {
+  return days.map((day, index) => {
+    return `${months[day.getMonth()]} ${day.getDate()}`;
+  })
+}
 
 class Projects extends React.Component {
 
   state = {
     data: []
-  }  
+  }
 
-  componentDidMount = () => {
-    var userId = history.location.state.createdBy;
+  fetchTimeWeekByDay = (day) => {
     const project = history.location.state;
-    let date = new Date();
-    let day = `${date.getFullYear()}-${date.getMonth() +1}-${date.getDate()}`;
-    this.props.getUser(userId);
     timeCloudAPI().get(`projects/${project.id}/date/${day}/all-week-times`)
     .then(res => {
-      console.log(res.data);
       this.setState({
         data: res.data.map(ele => !ele ? 0 : convertTime(ele))
       })
     })
+  }
+
+  componentDidUpdate = (preProps, preState) => {
+    let firstDay = this.props.firstDay;
+    if(firstDay !== preProps.firstDay) {
+      let day = `${firstDay.getFullYear()}-${firstDay.getMonth() +1}-${firstDay.getDate()}`;
+      this.fetchTimeWeekByDay(day);
+    }
+  }
+
+  componentDidMount = () => {
+    var userId = history.location.state.createdBy;
+    this.props.getUser(userId);
+    this.props.getCurrentWeek();
     
   };
 
-
-
   render() {
+    let {firstDay, lastDay} = this.props;
+    const {data} = this.state;
+    if(firstDay) var days = listDay(firstDay, lastDay);
     var project = history.location.state;
-    var x = new Date(project.createAt);
     var createAt = new Date(project.createAt);
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";
-
-    let labels = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+    if(days) var labels = convertDays(days).map((day, index) => {
+      return `${dayTitles[index]}, ${day}`;
+    })
     let datasets = {
       label: "Times (Hour)",
       color: project.color,
-      data: this.state.data
+      data: data
       }; 
 
     return (
@@ -76,7 +107,12 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
-        <div>
+        {days ?
+            <div className="project_detail_feature">
+              <WeekSelected days = {days}/>
+            </div>
+          : ""}
+        <div className="project_detail__chart">
             <Chart labels={labels} datasets={datasets}/>
         </div>
         <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
@@ -97,10 +133,13 @@ const mapStateToProp = (state) => {
       return { ...project, id: project.id };
     }),
     user: user,
+    firstDay: state.week.firstDay,
+    lastDay: state.week.lastDay
   };
 };
 export default connect(mapStateToProp, {
   fetchTasks,
   deleteProjects,
   getUser,
+  getCurrentWeek
 })(Projects);

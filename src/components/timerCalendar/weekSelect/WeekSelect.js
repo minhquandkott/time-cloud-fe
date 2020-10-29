@@ -4,9 +4,7 @@ import "./WeekSelect.css";
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { getNextWeek, getLastWeek } from '../../../redux/actions/index';
-
-const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
-
+import {months} from '../../../utils/Utils';
 
 class WeekSelect extends Component {
 
@@ -32,7 +30,7 @@ class WeekSelect extends Component {
     render(){
         let {week, days} = this.props;
         var check = this.checkWeek(days);
-        let weekName = `${month[week.firstDay?.getMonth()]} ${week.firstDay?.getDate()} - ${month[week.lastDay?.getMonth()]} ${week.lastDay?.getDate()}`
+        let weekName = `${months[week.firstDay?.getMonth()]} ${week.firstDay?.getDate()} - ${months[week.lastDay?.getMonth()]} ${week.lastDay?.getDate()}`
         return (
             <div className="week_select">
                 <button onClick={this.onLastWeek}> <NavigateBeforeIcon style= {{fontSize:"1.5rem"}}  /> </button>

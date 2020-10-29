@@ -4,9 +4,8 @@ import TimerByDay from '../timerByDay/TimerByDay';
 import WeekHeaderItem from './weekHeaderItem/WeekHeaderItem';
 import TotalTimeByWeek from './totalTimeByWeek/TotalTimeByWeek';
 import {setDaySelected} from '../../../redux/actions/index';
+import {days} from '../../../utils/Utils';
 import {connect} from 'react-redux';
-
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 class WeekHeader extends Component {
 
