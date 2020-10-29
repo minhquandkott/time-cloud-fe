@@ -34,7 +34,6 @@ const convertDays = (days) => {
 }
 
 class Projects extends React.Component {
-
   state = {
     data: []
   }
@@ -43,7 +42,7 @@ class Projects extends React.Component {
     const project = history.location.state;
     timeCloudAPI().get(`projects/${project.id}/date/${day}/all-week-times`)
     .then(res => {
-      this.setState({
+      this.setState({     
         data: res.data.map(ele => !ele ? 0 : convertTime(ele))
       })
     })

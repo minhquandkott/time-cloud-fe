@@ -51,9 +51,8 @@ const ReportItem = ({ project, user, isDoing}) => {
               isDoing===false?
               <div className="report_item__project_name_isDone"
                   style={{height:"30px",
-                          width:"70px", 
                           background:"rgb(204, 13, 13)", 
-                          borderRadius:"15px 15px 15px 15px",}}><h3>DONE</h3></div>:<h3></h3>             
+                          borderRadius:"15px 15px 15px 15px",}}><h3>Old Project</h3></div>:<h3></h3>             
             }
         </div>
         <p>{convertSecondToHour(time) + "h"}</p>
