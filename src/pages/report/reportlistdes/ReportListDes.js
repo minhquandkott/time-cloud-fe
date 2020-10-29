@@ -10,7 +10,6 @@ const ReportListDes = ({ user }) => {
     timeCloudAPI()
       .get(`users/${user.id}/times`)
       .then((response) => {
-        console.log(response);
         setData(response.data);
       })
       .catch((error) => {});
@@ -33,8 +32,7 @@ const ReportListDes = ({ user }) => {
         <h2>Time Entry</h2>
         <h3>Categories - Projects</h3>
       </div>
-      {
-        newData.reverse().map((datum) => (
+      {newData.reverse().map((datum) => (
         <ReportItemDes key={datum.id} user={user} data={datum} />
       ))}
     </div>

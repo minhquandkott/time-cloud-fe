@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export function randomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -49,9 +51,8 @@ export const convertSecondToHour = (seconds) => {
 
 export const convertTime = (totalSecond) => {
   const hour = totalSecond / 3600;
-  const convertedHour = Math.floor(hour);
-  const convertedSuffix = Math.ceil(((totalSecond % 3600) / 3600) * 100) / 100;
-  return Math.floor((convertedHour + convertedSuffix) * 100) / 100;
+  const convertedHour = Math.floor(hour * 1000);
+  return convertedHour / 1000;
 };
 
 export const ROLE_LIST = [

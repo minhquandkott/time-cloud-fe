@@ -8,12 +8,28 @@ import ProjectDetailTask from "../../components/projectDetailItems/projectDetail
 import ProjectDetailTeam from "../../components/projectDetailItems/projectDetailTeam/ProjectDetailTeam";
 import ProjectDetailDiscussion from "../../components/projectDetailItems/projectDetailDiscussion/ProjectDetailDiscussion";
 import TabNav from "../../components/tabNav/TabNav";
+import { convertTime } from "../../utils/Utils";
+import timeCloudAPI from "../../apis/timeCloudAPI";
 import Chart from "../../components/chart/Chart";
 
 class Projects extends React.Component {
+  state = {
+    data: [],
+  };
+
   componentDidMount = () => {
     var userId = history.location.state.createdBy;
+    const project = history.location.state;
+    let date = new Date();
+    let day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     this.props.getUser(userId);
+    timeCloudAPI()
+      .get(`projects/${project.id}/date/${day}/all-week-times`)
+      .then((res) => {
+        this.setState({
+          data: res.data.map((ele) => (!ele ? 0 : convertTime(ele))),
+        });
+      });
   };
 
   render() {
@@ -23,12 +39,12 @@ class Projects extends React.Component {
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";
 
-    // let labels = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-    // let datasets = {
-    //   label: "Times (Hour)",
-    //   color: project.color,
-    //   data: [11.5,100.5,0,5,6,7,9]
-    //   }; 
+    let labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    let datasets = {
+      label: "Times (Hour)",
+      color: project.color,
+      data: this.state.data,
+    };
 
     return (
       <div className="project_detail">
@@ -37,7 +53,7 @@ class Projects extends React.Component {
             <h1
               style={{
                 color: project.color,
-                fontWeight: "600"
+                fontWeight: "600",
               }}
             >
               {" "}
@@ -56,9 +72,9 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
-        {/* <div>
-            <Chart labels={labels} datasets={datasets}/>
-        </div> */}
+        <div>
+          <Chart labels={labels} datasets={datasets} />
+        </div>
         <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
           <ProjectDetailTask project={project} />
           <ProjectDetailTeam project={project} />

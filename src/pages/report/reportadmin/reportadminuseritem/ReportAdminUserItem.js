@@ -20,7 +20,7 @@ const ReportAdminUserItem = ({ user }) => {
   function toUserReportPage() {
     history.push({
       pathname: `/report/${user.id}`,
-      state: user.id
+      state: user.id,
     });
   }
 

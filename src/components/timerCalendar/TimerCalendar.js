@@ -18,7 +18,6 @@ const listDay = (firstDay, lastDay) => {
 }
 
 
-
 class TimerCalender extends Component {
 
     componentDidMount() {

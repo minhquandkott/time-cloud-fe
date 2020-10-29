@@ -5,7 +5,6 @@ import RoleItem from "./RoleItem/RoleItem";
 import { ROLE_LIST } from "../../../utils/Utils";
 
 const RoleList = ({ selectedMember }) => {
-  console.log(selectedMember);
   return (
     <div className="role_list">
       {ROLE_LIST.map((ele) => (

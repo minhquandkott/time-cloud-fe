@@ -31,9 +31,7 @@ class ProjectDetailTeam extends React.Component {
 
   render() {
     var { project } = this.props;
-    var {projectUsers} = this.state;
-    console.log(project);
-    console.log(projectUsers);
+    var { projectUsers } = this.state;
     return (
       <div className="project_detail_team">
         <table style={{ width: "100%" }}>
@@ -46,8 +44,10 @@ class ProjectDetailTeam extends React.Component {
           <tbody></tbody>
         </table>
         <Collapse>
-          {this.state.projectUsers
-            .sort((user1, user2) => (user1.user.name <= user2.user.name ? -1 : 1))
+          {projectUsers
+            .sort((user1, user2) =>
+              user1.user.name <= user2.user.name ? -1 : 1
+            )
             .map((projectUser, index) => {
               return (
                 <ShowUser

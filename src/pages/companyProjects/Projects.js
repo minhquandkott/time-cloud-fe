@@ -1,26 +1,118 @@
 import "./Projects.css";
 import React from "react";
-import { connect } from "react-redux";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Table from "../../components/table/Table";
-import { fetchProjects, deleteProjects, fetchTasks } from "../../redux/actions";
 import Point from "../../components/point/Point";
 import history from "../../history";
 import TrackTime from "./TrackTime/TrackTime";
 import UserColumn from "./ProjectUser/UserColumn";
 import PageDesign from "../../components/pageDesign/PageDesign";
+import ActionColumn from "./actionColumn/ActionColumn";
+import timeCloudAPI from "../../apis/timeCloudAPI";
+import Axios from "axios";
 
 class Projects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       txtSearch: "",
+      projects: [],
+    };
+    this.cancelSource = Axios.CancelToken.source();
+    this.cssHeader = {
+      textAlign: "left",
+    };
+    this.columns = {
+      project: {
+        key: "project",
+        label: "project",
+        width: "20%",
+        cssHeader: this.cssHeader,
+        cssData: {
+          textTransform: "capitalize",
+          verticalAlign: "middle",
+          cursor: "pointer",
+        },
+        convertData: (project) => (
+          <Point
+            color={project.color}
+            pointSize="15"
+            title={project.name}
+            key={project.id}
+          />
+        ),
+      },
+      client: {
+        key: "client",
+        label: "client",
+        width: "20%",
+        cssHeader: this.cssHeader,
+        cssData: {
+          verticalAlign: "middle",
+          cursor: "pointer",
+        },
+        convertData: (project) => project.clientName,
+      },
+      tracktime: {
+        key: "tracktime",
+        label: "Tracked Time (h)",
+        width: "20%",
+        cssHeader: this.cssHeader,
+        cssData: {
+          verticalAlign: "middle",
+          cursor: "pointer",
+        },
+        convertData: (project) => <TrackTime projectId={project.id} />,
+      },
+      members: {
+        key: "members",
+        label: "Members",
+        width: "30%",
+        cssHeader: this.cssHeader,
+        cssData: {
+          verticalAlign: "middle",
+          cursor: "pointer",
+        },
+        convertData: (project) => <UserColumn project={project} />,
+      },
+      actions: {
+        key: "actions",
+        label: "actions",
+        width: "10%",
+        cssHeader: this.cssHeader,
+        cssData: {
+          verticalAlign: "middle",
+          cursor: "pointer",
+        },
+        convertData: (project) => {
+          return (
+            <ActionColumn
+              project={project}
+              onEdit={this.onEdit}
+              onDelete={this.onDelete}
+            />
+          );
+        },
+      },
     };
   }
 
+  fetchAllProject = async () => {
+    const res = await timeCloudAPI().get("projects");
+    const res1 = await Promise.allSettled(
+      res.data.map((project) =>
+        timeCloudAPI().get(`projects/${project.id}/available`)
+      )
+    );
+    const temp = res.data.map((project, index) => {
+      const available =
+        res1[index].status === "fulfilled" ? res1[index].value.data : false;
+      return { ...project, available };
+    });
+    this.setState({ projects: temp });
+  };
+
   componentDidMount = () => {
-    this.props.fetchProjects(localStorage.getItem("userId"));
+    this.fetchAllProject();
   };
 
   onChange = (e) => {
@@ -50,108 +142,20 @@ class Projects extends React.Component {
 
   onSortProjects = (projects) => {
     return projects.sort((first, second) => {
-      if(first.name > second.name) return 1;
-      else if(first.name < second.name) return -1;
+      if (first.name > second.name) return 1;
+      else if (first.name < second.name) return -1;
       else return 0;
-    })
+    });
+  };
+
+  cssCondition(project) {
+    if (!project.available) {
+      return { backgroundColor: "#ece7e7" };
+    }
   }
 
   render() {
-    const cssHeader = {
-      textAlign: "left",
-    };
-    const columns = {
-      project: {
-        key: "project",
-        label: "project",
-        width: "20%",
-        cssHeader,
-        cssData: {
-          textTransform: "capitalize",
-          verticalAlign: "middle",
-          cursor: "pointer",
-        },
-        convertData: (project) => (
-          <Point
-            color={project.color}
-            pointSize="15"
-            title={project.name}
-            key={project.id}
-          />
-        ),
-      },
-      client: {
-        key: "client",
-        label: "client",
-        width: "20%",
-        cssHeader,
-        cssData: {
-          verticalAlign: "middle",
-          cursor: "pointer",
-        },
-        convertData: (project) => project.clientName,
-      },
-      tracktime: {
-        key: "tracktime",
-        label: "Tracked Time (h)",
-        width: "20%",
-        cssHeader,
-        cssData: {
-          verticalAlign: "middle",
-          cursor: "pointer",
-        },
-        convertData: (project) => <TrackTime projectId={project.id} />,
-      },
-      members: {
-        key: "members",
-        label: "Members",
-        width: "30%",
-        cssHeader,
-        cssData: {
-          verticalAlign: "middle",
-          cursor: "pointer",
-        },
-        convertData: (project) => <UserColumn project={project} />,
-      },
-      actions: {
-        key: "actions",
-        label: "actions",
-        width: "10%",
-        cssHeader,
-        cssData: {
-          verticalAlign: "middle",
-          cursor: "pointer",
-        },
-        convertData: (project) => {
-          const styleCom = {
-            fontSize: "3rem",
-          };
-          return (
-            <React.Fragment>
-              <EditIcon
-                style={{ ...styleCom, marginRight: "5px" }}
-                className="projects__icon projects__icon__edit"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  this.onEdit(project);
-                }}
-              />
-              <DeleteIcon
-                style={{ ...styleCom }}
-                className=" projects__icon projects__icon__delete"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  this.onDelete(project.id);
-                }}
-              />
-            </React.Fragment>
-          );
-        },
-      },
-    };
-
-    var { projects } = this.props;
-    var { txtSearch } = this.state;
+    var { txtSearch, projects } = this.state;
     projects = this.onSortProjects(projects);
     if (txtSearch) {
       projects = projects.filter((project) => {
@@ -178,8 +182,9 @@ class Projects extends React.Component {
           </button>
         </div>
         <Table
-          columns={columns}
-          data={projects}
+          columns={this.columns}
+          cssCondition={this.cssCondition}
+          data={this.state.projects}
           skeletonLoading={projects.length ? false : true}
           onClickHandler={(element) =>
             history.push({
@@ -193,16 +198,4 @@ class Projects extends React.Component {
   }
 }
 
-const mapStateToProp = (state) => {
-  const { projects } = state.projects;
-  return {
-    projects: projects.sort((project1,project2)=>(project1.name<=project2.name?-1:1)).map((project) => {
-      return { ...project, id: project.id };
-    }),
-  };
-};
-export default connect(mapStateToProp, {
-  fetchProjects,
-  fetchTasks,
-  deleteProjects,
-})(Projects);
+export default Projects;
