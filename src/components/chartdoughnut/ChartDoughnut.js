@@ -7,7 +7,7 @@ const ChartDoughnut = ({labels,datasets}) => {
     return (
         <div>
             <Doughnut
-                width = {50}
+                width = {15}
                 height={15}
                 data={{
                     labels: labels,

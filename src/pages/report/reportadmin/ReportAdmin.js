@@ -22,7 +22,7 @@ const ReportAdmin = () => {
 
   useEffect(() => {
     TimeCloudAPI()
-      .get(`companies/52/projects`)
+      .get(`companies/52/projects-available`)
       .then((response) => {
         setProjects(response.data);
       })

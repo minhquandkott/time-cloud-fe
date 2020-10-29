@@ -25,7 +25,19 @@
     font-size: 5rem;
 }
 
+.report_chart_body{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-top: 3rem;
+}
+
+.report_chart{
+    flex: 0.3;
+}
+
 .report_body {
+    flex: 0.7;
 }
 
 .report_user_avatarInfo>h2{
