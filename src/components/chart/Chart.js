@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './Chart.css';
 import { Bar } from "react-chartjs-2";
 
-const Chart = ({width,labels,datasets}) => {
+const Chart = ({labels,datasets}) => {
     return (
         <div>
             <Bar
