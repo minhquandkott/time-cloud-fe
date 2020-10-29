@@ -43,3 +43,11 @@
     color: var(--color-button);
     font-weight: 500;
 }
+
+.project_detail_feature {
+    margin: 0 0 -3rem -3rem;
+}
+
+.project_detail__chart {
+    margin-bottom: 3rem;
+}

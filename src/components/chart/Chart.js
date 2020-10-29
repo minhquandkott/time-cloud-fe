@@ -25,6 +25,7 @@ const Chart = ({width,labels,datasets}) => {
                         display: true,
                         text:""
                     },
+                    
                 }}
             />
         </div>
