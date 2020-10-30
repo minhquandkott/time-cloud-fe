@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ChartDoughnut.css';
-import { Doughnut } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 
 const ChartDoughnut = ({labels,datasets}) => {
     return (
         <div>
-            <Doughnut
+            <Pie
                 width = {15}
                 height={15}
                 data={{
@@ -18,10 +18,13 @@ const ChartDoughnut = ({labels,datasets}) => {
                     }
                 ]
                 }}
-                 option={{
+                options={{
+                    legend: { 
+                        display: true },
                     title: {
-                    display: true,
-                    text: ""
+                        display: true,
+                        text: 'units: (%)',
+                        position:'bottom'
                     }
                 }}
             />
@@ -31,9 +34,8 @@ const ChartDoughnut = ({labels,datasets}) => {
 
 ChartDoughnut.propTypes = {
     labels: PropTypes.array,
-    datasets : PropTypes.shape({
-        
-        label:PropTypes.string,
+    datasets : PropTypes.shape({        
+        label:PropTypes.arrayOf(PropTypes.string),
         backgroundColor:PropTypes.arrayOf(PropTypes.string),
         data:PropTypes.arrayOf(PropTypes.number)
     }),
