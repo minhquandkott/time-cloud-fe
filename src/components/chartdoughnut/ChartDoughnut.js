@@ -20,11 +20,13 @@ const ChartDoughnut = ({labels,datasets}) => {
                 }}
                 options={{
                     legend: { 
-                        display: true },
+                        display: true 
+                    },
                     title: {
                         display: true,
-                        text: 'units: (%)',
-                        position:'bottom'
+                        text: 'unit:(%)',
+                        position:'bottom',
+                        fontSize:'20'
                     }
                 }}
             />
