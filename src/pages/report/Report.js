@@ -9,7 +9,6 @@ import Avatar from "../../components/avatar/Avatar";
 import history from "../../history/";
 import PageDesign from "../../components/pageDesign/PageDesign";
 import ChartDoughnut from "../../components/chartdoughnut/ChartDoughnut";
-import timeCloudAPI from "../../apis/timeCloudAPI";
 
 const Report = () => {
   const tabTitles = ["By Projects", "By Times"];
@@ -58,24 +57,27 @@ const Report = () => {
   useEffect(() => {
     Promise.all(projects.map(project => TimeCloudAPI().get(`projects/${project.project.id}/users/${history.location.state}/total-times`)))
       .then(res => {
-        const temp = res.map(ele => convertTime(ele.data))
-        setTimeUsers(temp)
+        if(res.length){
+          const temp = res.map(ele => convertTime(ele.data))
+          const totalTime = temp.reduce((a,b) => a+b);
+          const result = temp.map(ele =>{ 
+            return Math.floor(ele/totalTime*10000)/100
+          })
+          setTimeUsers(result);
+        }
       });
       
   }, [projects])
 
   let labels = projects.map(project => project.project.name);
-  let label = "Time (Hour)";
   let color = projects.map(project => project.project.color);
+  let label = [];
 
-  console.log(timeUsers);
   let datasets = {
     label:label,
     color:color,
     data: timeUsers
   };
-
-  
 
   return (
     <PageDesign title="Report">
@@ -96,10 +98,10 @@ const Report = () => {
       </div>
 
       <div className='report_chart_body'>
-      <div className="report_chart">
-      <ChartDoughnut labels={labels} datasets={datasets}/>
-      </div>
-      <div className="report_body">
+        <div className="report_chart">
+          <ChartDoughnut labels={labels} datasets={datasets}/>
+        </div>
+        <div className="report_body">
         {user ? (
           <TabNav tabTitles={tabTitles}>
             <div>
@@ -110,7 +112,7 @@ const Report = () => {
             </div>
           </TabNav>
         ) : null}
-      </div>
+        </div>
       </div>
     </PageDesign>
   );
