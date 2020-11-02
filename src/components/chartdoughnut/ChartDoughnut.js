@@ -29,6 +29,12 @@ const ChartDoughnut = ({ labels, datasets }) => {
             position: "bottom",
             fontSize: "20",
           },
+          plugins: {
+            datalabels: {
+               display: false,
+              
+            }
+         }
         }}
       />
     </div>
