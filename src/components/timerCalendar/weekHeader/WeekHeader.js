@@ -82,21 +82,21 @@ class WeekHeader extends Component {
     this.props.setDaySelected(date, index);
   };
 
-  render() {
-    const { days } = this.props;
-    const { selectedDay } = this.props.week;
-    return (
-      <div>
-        <div className="week_header">
-          {this.listDays(days)}
-          <div className="week_header__total">
-            <TotalTimeByWeek days={days} />
-          </div>
-        </div>
-        {selectedDay ? <TimerByDay day={selectedDay} /> : ""}
-      </div>
-    );
-  }
+    render() {
+        const {days} = this.props;
+        const {selectedDay} = this.props.week;
+        return (
+            <div>
+                <div className="week_header">
+                    {this.listDays(days)}
+                    <div className="week_header__total">
+                        <TotalTimeByWeek days={days} />
+                    </div>
+                </div>
+                {selectedDay ? <TimerByDay day={selectedDay}/> : ""}
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = (state) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Chart.css';
 import { Bar } from "react-chartjs-2";
+import 'chartjs-plugin-datalabels';
 
 const Chart = ({labels,datasets}) => {
     return (
@@ -25,7 +26,18 @@ const Chart = ({labels,datasets}) => {
                         display: true,
                         text:""
                     },
-                    
+                    plugins: {
+                        datalabels: {
+                           display: true,
+                           color: 'black',
+                           anchor: "end",
+                           align: "top",
+                           font : {
+                               size: 15,
+                               weight: 550
+                           }
+                        }
+                     }
                 }}
             />
         </div>

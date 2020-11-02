@@ -149,13 +149,11 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
-        {days ? (
-          <div className="project_detail_feature">
-            <WeekSelected days={days} />
-          </div>
-        ) : (
-          ""
-        )}
+        {days ?
+            <div className="project_detail_feature">
+              <WeekSelected days = {days} dayCreateProject = {project?.createAt} />
+            </div>
+          : ""}
         <div className="project_detail__chart">
           <Chart labels={labels} datasets={datasets} />
         </div>
