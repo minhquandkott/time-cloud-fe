@@ -70,7 +70,7 @@ class WeekHeader extends Component {
 
     render() {
         const {days} = this.props;
-        const {selectedDay, selectedIndex} = this.props.week;
+        const {selectedDay} = this.props.week;
         return (
             <div>
                 <div className="week_header">

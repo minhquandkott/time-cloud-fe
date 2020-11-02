@@ -21,7 +21,8 @@ class WeekSelect extends Component {
 
     checkLastWeek = (days, dayCreateProject) => {
         let day = new Date(dayCreateProject);
-        if(days[0] <= day) return true;
+        let dayFormat = new Date(days[0].getFullYear(), days[0].getMonth(), days[0].getDate());
+        if(dayFormat <= day) return true;
         return false;
     }
 

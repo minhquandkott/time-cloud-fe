@@ -30,9 +30,12 @@ const Chart = ({labels,datasets}) => {
                         datalabels: {
                            display: true,
                            color: 'black',
-                           font: '3rem',
                            anchor: "end",
-                           align: "top"
+                           align: "top",
+                           font : {
+                               size: 15,
+                               weight: 550
+                           }
                         }
                      }
                 }}
