@@ -74,7 +74,7 @@ const Header = ({ user, logout }) => {
 
   return (
     <div className="header">
-      <div className="header__logo">
+      <div className="header__logo" onClick={() => history.push("/timer")}>
         <Logo />
         TimeCloud
       </div>

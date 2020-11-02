@@ -40,4 +40,9 @@ export {
   setDaySelected,
   fetchTotalTimeDaySelected,
   fetchTotalTimeDaySelectedSuccess,
+  removeTimeSelectedDay,
+  fetchTotalTimeCurrentDay,
+  fetchTotalTimeCurrentWeek,
+  addTotalTimeCurrentDay,
+  addTotalTimeCurrentWeek,
 } from "./weekActions";

@@ -7,7 +7,7 @@ import PageDesign from "../../../components/pageDesign/PageDesign";
 
 const ReportAdmin = () => {
   const [users, setUsers] = useState([]);
-  const [project, setProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   let newUsers = [];
 
@@ -22,7 +22,7 @@ const ReportAdmin = () => {
 
   useEffect(() => {
     TimeCloudAPI()
-      .get(`companies/52/projects`)
+      .get(`companies/52/projects-available`)
       .then((response) => {
         setProjects(response.data);
       })
@@ -59,7 +59,7 @@ const ReportAdmin = () => {
           <p>Hours</p>
         </div>
       </div>
-      {project
+      {projects
         .sort((project1, project2) => (project1.name <= project2.name ? -1 : 1))
         .map((project) => (
           <ReportAdminProjectItem key={project.id} project={project} />

@@ -10,7 +10,6 @@ import {
   AUTH_SET_USER_INFO,
   AUTH_SET_USER_ROLE,
 } from "./actionType";
-import { fetchTasksSuccess } from "../actions";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
 import { TOKEN, USER_ID } from "../../utils/localStorageContact";

@@ -6,31 +6,53 @@ import UserTracked from "./userTracked/UserTracked";
 import TaskTrackedByUser from "./taskTrackedByUser/TaskTrackedByUser";
 import male from "../../../../assets/images/male.png";
 import female from "../../../../assets/images/female.png";
+import ProjectDetailFlag from "../../projectDetailFlag/ProjectDetailFlag";
+import Axios from "axios";
 
 class ShowUsers extends React.Component {
   state = {
     tasks: [],
   };
 
-  _isMounted = false;
+  source = Axios.CancelToken.source();
 
   componentDidMount() {
-    this._isMounted = true;
-    timeCloudAPI()
-      .get(
-        `projects/${this.props.project.id}/users/${this.props.user.id}/tasks`
-      )
-      .then((response) => {
-        if (this._isMounted) {
+    this.fetchTasks();
+  }
+
+  fetchTasks() {
+    if (this.props.isDoing) {
+      // * fetch all in currentTasks(isDoing = true)
+      timeCloudAPI()
+        .get(
+          `projects/${this.props.project.id}/users/${this.props.user.id}/tasks`,
+          {
+            cancelToken: this.source.token,
+          }
+        )
+        .then((response) => {
           this.setState({
             tasks: response.data,
           });
-        }
+        });
+    } else {
+      // * fetch all in oldProject(isDoing = false)
+      Promise.all(
+        this.props.unavailableTasks.map((ele) =>
+          timeCloudAPI().get(`tasks/${ele}`, {
+            cancelToken: this.source.token,
+          })
+        )
+      ).then((res) => {
+        this.setState({
+          tasks: res.map((ele) => ele.data),
+        });
       });
+    }
   }
 
   componentWillUnmount() {
-    this._isMounted = false;
+    this.source.cancel();
   }
 
   render() {
@@ -45,6 +67,7 @@ class ShowUsers extends React.Component {
               cssForPrimaryInfo={{ fontWeight: "500" }}
               primaryInfo={user.name}
               secondaryInfo={user.email}
+              flag={this.props.isDoing || <ProjectDetailFlag />}
             />
           </div>
           <div className="show_users__tracked">

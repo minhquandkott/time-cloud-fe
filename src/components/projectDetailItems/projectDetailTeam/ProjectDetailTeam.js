@@ -29,6 +29,11 @@ class ProjectDetailTeam extends React.Component {
     this._isMounted = false;
   }
 
+  getUnavailableTasks(userId) {
+    return this.props.unavailableUsers.find((ele) => ele.user.id === userId)
+      ?.tasks;
+  }
+
   render() {
     var { project } = this.props;
     var { projectUsers } = this.state;
@@ -53,6 +58,10 @@ class ProjectDetailTeam extends React.Component {
                 <ShowUser
                   project={project}
                   user={projectUser.user}
+                  isDoing={projectUser.isDoing}
+                  unavailableTasks={this.getUnavailableTasks(
+                    projectUser.user.id
+                  )}
                   index={index}
                   key={v4()}
                 />

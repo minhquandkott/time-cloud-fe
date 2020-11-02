@@ -33,6 +33,70 @@
 }
 
 .view_time__total {
-    flex: 1;
+    flex: 2;
     font-weight: 700;
+}
+.view_time__action{
+  flex: 1;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  padding: .1rem;
+}
+.view_time__action:hover{
+  background-color: white;
+  cursor: pointer;
+  
+}
+
+.view_time__action>.MuiSvgIcon-root{
+  color: var(--color-error);
+  font-size: 2.5rem;
+}
+.view_time__modal_action{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: .5rem;
+}
+.view_time__modal_action>button{
+  outline: none;
+  border: none;
+  padding: .5rem;
+  font-size: 1.7rem;
+  font-weight: 650;
+  margin-left: .5rem;
+  font-family: 'Quicksand';
+  cursor: pointer;
+  color: white;
+  border-radius: .5rem;
+}
+
+.view_time__modal_action>button:nth-child(1){
+  background-color: var(--color-error);
+}
+
+.view_time__modal_action>button:nth-child(2){
+  background-color: var(--color-button);
+}
+
+
+.view_time__modal_content>p{
+  font-weight: 550;
+  margin-bottom: 1rem;
+  min-width: 30rem;
+
+}
+.view_time__modal_content>div{
+  padding: 0 .5rem;
+}
+.view_time__modal_content>div>span{
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.view_user__spinner{
+  margin-left: 1rem;
+  flex-basis: 2rem;
+  height: 2rem;
 }

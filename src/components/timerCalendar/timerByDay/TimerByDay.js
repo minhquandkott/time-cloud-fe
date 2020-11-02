@@ -13,7 +13,7 @@ class TimerByDay extends Component {
     this.props.fetchTotalTimeDaySelected(convertDate(day));
   };
 
-  componentDidUpdate = (preProps, preState) => {
+  componentDidUpdate = (preProps) => {
     const { day } = this.props;
     if (day !== preProps.day) {
       this.props.fetchTotalTimeDaySelected(convertDate(day));

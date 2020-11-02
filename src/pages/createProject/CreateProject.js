@@ -277,7 +277,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   const renderAction = () => {
     return (
       <div className="create_project__modal">
-        <button onClick={() => history.push("/projects")}>Yes</button>
+        <button onClick={() => history.goBack()}>Yes</button>
       </div>
     );
   };

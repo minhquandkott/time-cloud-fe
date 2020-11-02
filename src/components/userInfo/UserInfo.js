@@ -21,12 +21,6 @@ const UserInfo = ({
             className="user_info__flag"
             style={{
               display: "inline-block",
-              backgroundColor: "var(--color-error)",
-              borderRadius: ".4rem",
-              padding: " .1rem .3rem",
-              verticalAlign: "top",
-              textTransform: "uppercase",
-              fontWeight: "600",
             }}
           >
             {flag}

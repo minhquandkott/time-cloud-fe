@@ -26,7 +26,20 @@ export const randomColorArray = [
 ];
 
 export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-export const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+export const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 export const convertSecond = (totalSecond) => {
   let timeRemaining = totalSecond;
@@ -71,5 +84,10 @@ export const ROLE_LIST = [
 ];
 
 export const convertDate = (day) => {
-  return `${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`;
+  const date = `${day.getDate()}`;
+  const stringDate = date.length === 1 ? `0${date}` : `${date}`;
+
+  const month = `${day.getMonth() + 1}`;
+  const stringMonth = month.length === 1 ? `0${month}` : `${month}`;
+  return `${stringDate}-${stringMonth}-${day.getFullYear()}`;
 };

@@ -9,6 +9,7 @@ const Modal = ({
   renderAction = () => {},
   show,
   onCloseModal,
+  cssBody,
 }) => {
   if (!show) {
     return null;
@@ -21,7 +22,11 @@ const Modal = ({
         onCloseModal();
       }}
     >
-      <div className="modal__body" onClick={(event) => event.stopPropagation()}>
+      <div
+        className="modal__body"
+        onClick={(event) => event.stopPropagation()}
+        style={{ ...cssBody }}
+      >
         <div className="modal__title">
           {title || "Modal"}
           <button onClick={() => onCloseModal()}>

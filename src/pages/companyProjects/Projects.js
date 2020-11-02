@@ -189,7 +189,6 @@ class Projects extends React.Component {
           onClickHandler={(element) =>
             history.push({
               pathname: `/projects/${element.id}`,
-              state: element,
             })
           }
         />

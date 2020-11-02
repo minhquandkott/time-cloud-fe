@@ -14,6 +14,7 @@ import Chart from "../../components/chart/Chart";
 import WeekSelected from "../../components/timerCalendar/weekSelect/WeekSelect";
 import { getCurrentWeek } from "../../redux/actions/index";
 import { days as dayTitles, months } from "../../utils/Utils";
+import { withRouter } from "react-router-dom";
 
 const listDay = (firstDay, lastDay) => {
   let result = [];
@@ -36,12 +37,14 @@ const convertDays = (days) => {
 class Projects extends React.Component {
   state = {
     data: [],
+    project: null,
+    unavailableUsers: [],
   };
 
   fetchTimeWeekByDay = (day) => {
-    const project = history.location.state;
+    const { id } = this.props.match.params;
     timeCloudAPI()
-      .get(`projects/${project.id}/date/${day}/all-week-times`)
+      .get(`projects/${id}/date/${day}/all-week-times`)
       .then((res) => {
         this.setState({
           data: res.data.map((ele) => (!ele ? 0 : convertTime(ele))),
@@ -49,7 +52,46 @@ class Projects extends React.Component {
       });
   };
 
-  componentDidUpdate = (preProps, preState) => {
+  async fetchProject() {
+    const { id } = this.props.match.params;
+    const requestProject = timeCloudAPI().get(`projects/${id}`);
+    const res = await Promise.all([
+      requestProject,
+      this.fetchUnavailableUser(),
+    ]);
+    const project = res[0].data;
+    this.setState(
+      {
+        project: project,
+        unavailableUsers: res[1],
+      },
+      () => {
+        this.props.getUser(project.createdBy);
+      }
+    );
+  }
+
+  async fetchUnavailableUser() {
+    const { id } = this.props.match.params;
+    let res = await timeCloudAPI().get(`projects/${id}/users?is_doing=false`);
+    const users = res.data;
+    res = await Promise.allSettled(
+      users.map((ele) =>
+        timeCloudAPI().get(`projects/${id}/users/${ele.user.id}/task_user`)
+      )
+    );
+    return res.map((ele, index) => {
+      return ele.value.data.reduce((acc, cur) => {
+        if (!acc.tasks) acc.tasks = [];
+        return {
+          user: users[index].user,
+          tasks: [...acc.tasks, cur.taskId],
+        };
+      }, {});
+    });
+  }
+
+  componentDidUpdate = (preProps) => {
     let firstDay = this.props.firstDay;
     if (firstDay !== preProps.firstDay) {
       let day = `${firstDay.getFullYear()}-${
@@ -60,17 +102,15 @@ class Projects extends React.Component {
   };
 
   componentDidMount = () => {
-    var userId = history.location.state.createdBy;
-    this.props.getUser(userId);
+    this.fetchProject();
     this.props.getCurrentWeek();
   };
 
   render() {
+    const { data, project, unavailableUsers } = this.state;
     let { firstDay, lastDay } = this.props;
-    const { data } = this.state;
     if (firstDay) var days = listDay(firstDay, lastDay);
-    var project = history.location.state;
-    var createAt = new Date(project.createAt);
+    var createAt = new Date(project?.createAt);
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";
     if (days)
@@ -79,7 +119,7 @@ class Projects extends React.Component {
       });
     let datasets = {
       label: "Times (Hour)",
-      color: project.color,
+      color: project?.color,
       data: data,
     };
 
@@ -89,12 +129,12 @@ class Projects extends React.Component {
           <div className="project_detail__header_info">
             <h1
               style={{
-                color: project.color,
+                color: project?.color,
                 fontWeight: "600",
               }}
             >
               {" "}
-              {project.name}{" "}
+              {project?.name}{" "}
             </h1>
             <div className="create__info">
               Created by &nbsp;
@@ -104,7 +144,7 @@ class Projects extends React.Component {
           </div>
           <div className="tracked_time">
             <div className="tracked_time__hours">
-              <p> {<TrackTime projectId={project.id} />} </p>
+              {project && <p> {<TrackTime projectId={project?.id} />} </p>}
             </div>
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
@@ -119,10 +159,20 @@ class Projects extends React.Component {
         <div className="project_detail__chart">
           <Chart labels={labels} datasets={datasets} />
         </div>
-        <TabNav tabTitles={["Tasks", "Team", "Discussion"]}>
-          <ProjectDetailTask project={project} />
-          <ProjectDetailTeam project={project} />
-          <ProjectDetailDiscussion />
+
+        <TabNav tabTitles={["Tasks", "Team"]}>
+          {project && (
+            <ProjectDetailTask
+              project={project}
+              unavailableUsers={unavailableUsers}
+            />
+          )}
+          {project && (
+            <ProjectDetailTeam
+              project={project}
+              unavailableUsers={unavailableUsers}
+            />
+          )}
         </TabNav>
       </div>
     );
@@ -130,20 +180,17 @@ class Projects extends React.Component {
 }
 
 const mapStateToProp = (state) => {
-  const { projects } = state.projects;
   const user = state.members.selectedMember;
   return {
-    projects: projects.map((project) => {
-      return { ...project, id: project.id };
-    }),
     user: user,
     firstDay: state.week.firstDay,
     lastDay: state.week.lastDay,
   };
 };
+
 export default connect(mapStateToProp, {
   fetchTasks,
   deleteProjects,
   getUser,
   getCurrentWeek,
-})(Projects);
+})(withRouter(Projects));
