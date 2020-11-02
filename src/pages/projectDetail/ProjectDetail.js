@@ -108,7 +108,7 @@ class Projects extends React.Component {
         </div>
         {days ?
             <div className="project_detail_feature">
-              <WeekSelected days = {days}/>
+              <WeekSelected days = {days} dayCreateProject = {project.createAt} />
             </div>
           : ""}
         <div className="project_detail__chart">

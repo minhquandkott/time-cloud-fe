@@ -19,6 +19,12 @@ class WeekSelect extends Component {
         return check;
     }
 
+    checkLastWeek = (days, dayCreateProject) => {
+        let day = new Date(dayCreateProject);
+        if(days[0] <= day) return true;
+        return false;
+    }
+
     onNextWeek = () => {
         this.props.getNextWeek(this.props.week.lastDay);
     }
@@ -28,12 +34,14 @@ class WeekSelect extends Component {
     }
 
     render(){
-        let {week, days} = this.props;
+        let {week, days, dayCreateProject} = this.props;
+        let checkLastWeek = false;
+        if(dayCreateProject) checkLastWeek = this.checkLastWeek(days, dayCreateProject);
         var check = this.checkWeek(days);
         let weekName = `${months[week.firstDay?.getMonth()]} ${week.firstDay?.getDate()} - ${months[week.lastDay?.getMonth()]} ${week.lastDay?.getDate()}`
         return (
             <div className="week_select">
-                <button onClick={this.onLastWeek}> <NavigateBeforeIcon style= {{fontSize:"1.5rem"}}  /> </button>
+                <button disabled = {checkLastWeek} style={{backgroundColor: checkLastWeek ? "#f5f2f2" : ""}} onClick={this.onLastWeek}> <NavigateBeforeIcon style= {{fontSize:"1.5rem"}}  /> </button>
                 <div className="week_select__name"> {weekName} </div>
                 <button disabled={check} style={{backgroundColor: check ? "#f5f2f2" : ""}} onClick={this.onNextWeek}> <NavigateNextIcon style= {{fontSize:"1.5rem"}}  /> </button>
             </div>
