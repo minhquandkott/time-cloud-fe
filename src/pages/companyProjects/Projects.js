@@ -103,6 +103,7 @@ class Projects extends React.Component {
         timeCloudAPI().get(`projects/${project.id}/available`)
       )
     );
+    console.log(res1);
     const temp = res.data.map((project, index) => {
       const available =
         res1[index].status === "fulfilled" ? res1[index].value.data : false;
