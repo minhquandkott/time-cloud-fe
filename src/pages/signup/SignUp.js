@@ -36,7 +36,11 @@ class SignUp extends React.Component {
   }
 
   onFormSubmit = ({ username, email, password }) => {
-    this.props.signUp(username, email, password);
+    this.props.signUp(
+      username,
+      email.toLocaleLowerCase(),
+      password.toLocaleLowerCase()
+    );
   };
 
   render() {

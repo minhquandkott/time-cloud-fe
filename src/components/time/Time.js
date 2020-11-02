@@ -11,6 +11,9 @@ import {
   checkTime,
   setDescription,
   saveTime,
+  fetchTotalTimeCurrentDay,
+  addTotalTimeCurrentDay,
+  addTotalTimeCurrentWeek,
 } from "../../redux/actions";
 import Counter from "../counter/Counter";
 import Spinner from "../loading/spinner/Spinner";
@@ -19,6 +22,8 @@ import TaskItem from "../tasks/taskItem/TaskItem";
 import Point from "../point/Point";
 import ProjectTask from "../projectTask/ProjectTask";
 import { DESCRIPTION } from "../../utils/localStorageContact";
+import { fetchTotalTimeDaySelectedSuccess } from "../../redux/actions/index";
+import { convertDate } from "../../utils/Utils";
 
 const Time = ({
   isCounting,
@@ -33,6 +38,11 @@ const Time = ({
   isSaving,
   setDescription,
   saveTime,
+  fetchTotalTimeDaySelectedSuccess,
+  selectedDay,
+  listTimeOfSelectedDay,
+  addTotalTimeCurrentDay,
+  addTotalTimeCurrentWeek,
 }) => {
   const checkboxRef = useRef(null);
 
@@ -57,7 +67,22 @@ const Time = ({
 
   const onPlayButtonClick = () => {
     if (isCounting) {
-      saveTime();
+      saveTime().then((res) => {
+        const now = convertDate(new Date());
+        const savedTime = res.data;
+        if (convertDate(selectedDay) === now) {
+          const totalTime =
+            (new Date(savedTime.endTime) - new Date(savedTime.startTime)) /
+            1000;
+          fetchTotalTimeDaySelectedSuccess([
+            ...listTimeOfSelectedDay,
+            savedTime,
+          ]);
+          addTotalTimeCurrentDay(totalTime);
+          addTotalTimeCurrentWeek(totalTime);
+          fetchTimes(userId);
+        }
+      });
     }
   };
 
@@ -68,6 +93,7 @@ const Time = ({
           <ProjectTask
             projectName={time.task.project.name}
             taskName={time.task.name}
+            projectColor={time.task.project.color}
           />
         </TaskItem>
       );
@@ -92,11 +118,15 @@ const Time = ({
         returnValue.push(
           <div className="project" key={project.id}>
             <div className="project__name">
-              <Point color="#80A1D4" pointSize="20px" title={project.name}>
+              <Point
+                color={project.color}
+                pointSize="20px"
+                title={project.name}
+              >
                 <p
                   className="project__company_name"
                   style={{
-                    color: "#80A1D4",
+                    color: project.color,
                   }}
                 >
                   ( {project.company.name} )
@@ -141,6 +171,7 @@ const Time = ({
             <ProjectTask
               projectName={selectedTask.project.name}
               taskName={selectedTask.name}
+              projectColor={selectedTask.project.color}
             />
           ) : (
             <p>Task...</p>
@@ -182,6 +213,7 @@ const mapStateToProps = (state) => {
   const { projects } = state.projects;
   const { tasks } = state.tasks;
   const { userId } = state.auth;
+  const { selectedDay, listTimeOfSelectedDay } = state.week;
 
   return {
     isCounting,
@@ -194,6 +226,8 @@ const mapStateToProps = (state) => {
     userId,
     description,
     isSaving,
+    selectedDay,
+    listTimeOfSelectedDay,
   };
 };
 
@@ -205,4 +239,8 @@ export default connect(mapStateToProps, {
   checkTime,
   setDescription,
   saveTime,
+  fetchTotalTimeDaySelectedSuccess,
+  fetchTotalTimeCurrentDay,
+  addTotalTimeCurrentDay,
+  addTotalTimeCurrentWeek,
 })(Time);

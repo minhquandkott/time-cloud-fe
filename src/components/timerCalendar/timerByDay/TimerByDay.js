@@ -1,28 +1,22 @@
 import React, { Component } from "react";
 import ViewTime from "./viewTime/ViewTime";
-import timeCloudAPI from "../../../apis/timeCloudAPI";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import "./TimerByDay.css";
 import Skeleton from "../../../components/loading/skeleton/Skeleton";
-import {connect} from 'react-redux';
-import {fetchTotalTimeDaySelected} from '../../../redux/actions';
+import { connect } from "react-redux";
+import { fetchTotalTimeDaySelected } from "../../../redux/actions";
+import { convertDate } from "../../../utils/Utils";
 
 class TimerByDay extends Component {
-  
-  convertDate = (day) => {
-    return `${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`;
-  }
-
   componentDidMount = () => {
     const { day } = this.props;
-    console.log(day);
-    this.props.fetchTotalTimeDaySelected(this.convertDate(day));
+    this.props.fetchTotalTimeDaySelected(convertDate(day));
   };
 
-  componentDidUpdate = (preProps, preState) => {
+  componentDidUpdate = (preProps) => {
     const { day } = this.props;
     if (day !== preProps.day) {
-      this.props.fetchTotalTimeDaySelected(this.convertDate(day));
+      this.props.fetchTotalTimeDaySelected(convertDate(day));
     }
   };
 
@@ -50,11 +44,13 @@ class TimerByDay extends Component {
   }
 }
 
-const mapStateToProps =(state) =>{
-   return {
-     isLoading: state.week.isLoading,
-     times: state.week.listTimeOfSelectedDay
-   }
-}
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.week.isLoading,
+    times: state.week.listTimeOfSelectedDay,
+  };
+};
 
-export default connect(mapStateToProps, {fetchTotalTimeDaySelected})(TimerByDay);
+export default connect(mapStateToProps, { fetchTotalTimeDaySelected })(
+  TimerByDay
+);

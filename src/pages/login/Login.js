@@ -36,7 +36,10 @@ class Login extends React.Component {
   }
 
   onFormSubmit = ({ email, password }) => {
-    this.props.authentication(email, password);
+    this.props.authentication(
+      email.toLocaleLowerCase(),
+      password.toLocaleLowerCase()
+    );
   };
 
   onHeaderButtonHandler = () => {};

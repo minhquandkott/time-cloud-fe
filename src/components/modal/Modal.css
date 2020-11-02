@@ -1,0 +1,54 @@
+.modal{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #7f7f7f91;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Quicksand', sans-serif;
+}
+.modal__body{
+  background-color: white;
+  min-width: 20rem;
+  padding: 1rem;
+  border-radius: .5rem;
+
+}
+.modal__title{
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  border-bottom: 1px solid #7f7f7f;
+  font-size: 2rem;
+  font-weight: 650;
+  text-transform: capitalize;
+  white-space: 3px;
+  padding: .7rem 0;
+}
+.modal__title >button{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.modal__title >button>.MuiSvgIcon-root{
+  color: var(--color-button);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+.modal__content{
+  border-bottom: 1px solid #7f7f7f;
+  padding: 1rem 0;
+  font-size: 1.8rem;
+  text-align: center;
+}
+.modal__action{
+  
+}

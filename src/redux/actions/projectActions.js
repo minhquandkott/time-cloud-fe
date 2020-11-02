@@ -14,12 +14,15 @@ export const startFetchProject = () => {
   };
 };
 
-export const fetchProjects = (userId) => {
+export const fetchProjects = (userId, cancelToken) => {
   return async (dispatch) => {
     dispatch(startFetchProject());
     try {
       const response = await timeCloudAPI().get(
-        `users/${userId}/projects-available`
+        `users/${userId}/projects-available`,
+        {
+          cancelToken: cancelToken,
+        }
       );
       dispatch(fetchProjectsSuccess(response.data));
     } catch (error) {

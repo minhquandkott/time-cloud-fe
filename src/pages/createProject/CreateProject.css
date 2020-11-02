@@ -52,3 +52,19 @@
 .create_project__button__cancel:hover{
   background-color: var(--color-light-tertiary);
 }
+
+.create_project__modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.create_project__modal>button{
+  outline: none;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: .5rem;
+  margin-top: .5rem;
+  background-color: var(--color-error);
+  cursor: pointer;
+}

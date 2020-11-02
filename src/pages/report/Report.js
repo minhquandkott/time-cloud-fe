@@ -4,7 +4,7 @@ import ReportList from "../../pages/report/reportlist/ReportList";
 import ReportListDes from "../../pages/report/reportlistdes/ReportListDes";
 import TabNav from "../../components/tabNav/TabNav";
 import TimeCloudAPI from "../../apis/timeCloudAPI";
-import { convertSecondToHour,convertTime } from "../../utils/Utils";
+import { convertSecondToHour, convertTime } from "../../utils/Utils";
 import Avatar from "../../components/avatar/Avatar";
 import history from "../../history/";
 import PageDesign from "../../components/pageDesign/PageDesign";
@@ -43,40 +43,51 @@ const Report = () => {
     };
   }, []);
 
-  const fetchProject = async() => {
-    const res = await TimeCloudAPI()
-      .get(`users/${history.location.state}/project-users`)
-  
-    setProjects(res.data);
-  }
+  const fetchProject = async () => {
+    const res = await TimeCloudAPI().get(
+      `users/${history.location.state}/project-users`
+    );
 
-  useEffect(() => {  
-    fetchProject()
+    setProjects(res.data);
+  };
+
+  useEffect(() => {
+    fetchProject();
   }, []);
 
   useEffect(() => {
-    Promise.all(projects.map(project => TimeCloudAPI().get(`projects/${project.project.id}/users/${history.location.state}/total-times`)))
-      .then(res => {
-        if(res.length){
-          const temp = res.map(ele => convertTime(ele.data))
-          const totalTime = temp.reduce((a,b) => a+b);
-          const result = temp.map(ele =>{ 
-            return Math.floor(ele/totalTime*10000)/100
-          })
+    Promise.all(
+      projects.map((project) =>
+        TimeCloudAPI().get(
+          `projects/${project.project.id}/users/${history.location.state}/total-times`
+        )
+      )
+    ).then((res) => {
+      if (res.length) {
+        const temp = res.map((ele) => convertTime(ele.data));
+        const totalTime = temp.reduce((a, b) => a + b);
+
+        if (temp.every((ele) => ele === 0)) {
+          setTimeUsers(temp.fill(-1));
+        } else {
+          const result = temp.map((ele) => {
+            console.log(ele);
+            return Math.floor((ele / totalTime) * 10000) / 100;
+          });
           setTimeUsers(result);
         }
-      });
-      
-  }, [projects])
+      }
+    });
+  }, [projects]);
 
-  let labels = projects.map(project => project.project.name);
-  let color = projects.map(project => project.project.color);
+  let labels = projects.map((project) => project.project.name);
+  let color = projects.map((project) => project.project.color);
   let label = [];
 
   let datasets = {
-    label:label,
-    color:color,
-    data: timeUsers
+    label: label,
+    color: color,
+    data: timeUsers,
   };
 
   return (
@@ -97,21 +108,21 @@ const Report = () => {
         </div>
       </div>
 
-      <div className='report_chart_body'>
+      <div className="report_chart_body">
         <div className="report_chart">
-          <ChartDoughnut labels={labels} datasets={datasets}/>
+          <ChartDoughnut labels={labels} datasets={datasets} />
         </div>
         <div className="report_body">
-        {user ? (
-          <TabNav tabTitles={tabTitles}>
-            <div>
-              <ReportList user={user} />
-            </div>
-            <div>
-              <ReportListDes user={user} />
-            </div>
-          </TabNav>
-        ) : null}
+          {user ? (
+            <TabNav tabTitles={tabTitles}>
+              <div>
+                <ReportList user={user} />
+              </div>
+              <div>
+                <ReportListDes user={user} />
+              </div>
+            </TabNav>
+          ) : null}
         </div>
       </div>
     </PageDesign>

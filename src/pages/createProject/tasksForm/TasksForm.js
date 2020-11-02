@@ -62,7 +62,6 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
   };
 
   const onMemberSelected = (member) => {
-    console.log(1);
     const temp = selectedTasks.find((task) => task.id === selectedTask.id);
     if (temp.users) {
       if (!temp.users.some((ele) => ele.id === member.id)) {
@@ -76,7 +75,6 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
   };
 
   const onMemberRemove = (memberId, task) => {
-    console.log(2);
     task.users = [...task.users.filter((ele) => memberId !== ele.id)];
 
     setSelectedTasks([...selectedTasks]);
@@ -84,21 +82,18 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
   };
 
   const onAddAllMember = (task) => {
-    console.log(3);
     task.users = [...selectedMembers];
     setSelectedTasks([...selectedTasks]);
     setSelectedTask({ ...task });
   };
 
   const onRemoveAllMember = (task) => {
-    console.log(4);
     task.users = [];
     setSelectedTasks([...selectedTasks]);
     setSelectedTask({ ...task });
   };
 
   const onInputEnter = (event) => {
-    console.log(5);
     if (event.keyCode === 13 && event.target.value) {
       const newTask = {
         id: v4(),
@@ -122,6 +117,7 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
         value={addTaskInputValue}
         onChange={(event) => setAddTaskInputValue(event.target.value)}
         onKeyUp={onInputEnter}
+        maxLength="30"
       />
     </div>
   );

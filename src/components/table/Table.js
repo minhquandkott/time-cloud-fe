@@ -2,13 +2,13 @@ import "./Table.css";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
-import { TransitionGroup, Transition } from "react-transition-group";
 
 const Table = ({
   columns,
   data = [],
   onClickHandler = () => {},
   skeletonLoading = true,
+  cssCondition = () => {},
 }) => {
   const [elementSelected, setElementSelected] = useState(null);
   const heads = columns
@@ -28,7 +28,7 @@ const Table = ({
       })
     : null;
 
-  const cells = data.map((element, index) => {
+  const cells = data.map((element) => {
     return (
       <tr
         key={element?.id}
@@ -39,6 +39,7 @@ const Table = ({
         style={{
           position: elementSelected === element ? "relative" : "initial",
           zIndex: elementSelected === element ? "1" : "initial",
+          ...cssCondition(element),
         }}
       >
         {Object.keys(columns).map((key) => {

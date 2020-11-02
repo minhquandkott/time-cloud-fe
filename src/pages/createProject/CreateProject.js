@@ -11,6 +11,8 @@ import Spinner from "../../components/loading/spinner/Spinner";
 import { fetchMembers } from "../../redux/actions";
 import { connect } from "react-redux";
 import { randomNumber, randomColorArray } from "../../utils/Utils";
+import { USER_ID } from "../../utils/localStorageContact";
+import Modal from "../../components/modal/Modal";
 
 const CreateProject = ({ match, fetchMembers, members }) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
@@ -23,6 +25,8 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     clientName: "",
     projectColor: randomColorArray[randomNumber(randomColorArray.length)],
   });
+  const [validate, setValidate] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   // * Edit mode state
   const [listTasks, setListTasks] = useState([]);
@@ -46,7 +50,9 @@ const CreateProject = ({ match, fetchMembers, members }) => {
           ...tasks.map((ele) => timeCloudAPI().get(`tasks/${ele.id}/users`)),
         ]);
         const temp = tasks.map((ele, index) => {
-          const users = res1[index].value.data;
+          const users = res1[index].value.data.filter(
+            (user) => user.id !== parseInt(localStorage.getItem(USER_ID))
+          );
           if (res1[index].status === "fulfilled") {
             return {
               ...ele,
@@ -85,7 +91,15 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       timeCloudAPI()
         .get(`projects/${match.params.id}/users`)
         .then((res) => {
-          setListUsers(res.data.map((ele) => ele.user));
+          setListUsers(
+            res.data
+              .filter(
+                (ele) =>
+                  ele.isDoing &&
+                  ele.user.id !== parseInt(localStorage.getItem(USER_ID))
+              )
+              .map((ele) => ele.user)
+          );
         });
     }
   }, [match.params.id, setListUsers]);
@@ -93,7 +107,10 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   useEffect(() => {
     if (editingMode.current && members.length) {
       const temp = listUsers.map((user) =>
-        members.find((member) => member.id === user.id)
+        members.find(
+          (member) =>
+            member.id === user.id && user.id !== localStorage.getItem(USER_ID)
+        )
       );
       setSelectedMembers(temp);
     }
@@ -131,7 +148,6 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       ];
       await Promise.allSettled([...arrRequest]);
     }
-    console.log("save");
   };
 
   const onCreateProject = async () => {
@@ -156,7 +172,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       setIsSaving(false);
       history.push("/timer");
     } catch (error) {
-      setError(error.response.data.message);
+      console.log(error);
     }
   };
   const onEditProject = async () => {
@@ -246,18 +262,28 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       )
     );
 
-    Promise.allSettled(arrRequest).then((res) => setIsSaving(false));
+    Promise.allSettled(arrRequest).then((res) => {
+      setIsSaving(false);
+      history.push("/projects");
+    });
   };
 
-  const checkFormEmpty = () => {
-    const { projectName, clientName } = projectForm;
-    return projectName && clientName ? false : true;
+  const checkHaveAnyChange = () => {
+    if (!editingMode.current) {
+      return validate?.projectName || validate?.clientName;
+    } else {
+    }
+  };
+  const renderAction = () => {
+    return (
+      <div className="create_project__modal">
+        <button onClick={() => history.goBack()}>Yes</button>
+      </div>
+    );
   };
 
   const onCancelProject = () => {
-    window.confirm("Are you sure ?")
-      ? history.push("/timer")
-      : console.log("ok");
+    setShowModal(true);
   };
   return (
     <div className="create_project">
@@ -265,6 +291,8 @@ const CreateProject = ({ match, fetchMembers, members }) => {
         <CreateProjectForm
           projectForm={projectForm}
           setProjectForm={setProjectForm}
+          error={validate}
+          setError={setValidate}
         />
       </SectionForm>
       <SectionForm title="Team Members">
@@ -298,12 +326,19 @@ const CreateProject = ({ match, fetchMembers, members }) => {
           <button
             className="create_project__button__create_new"
             onClick={editingMode.current ? onEditProject : onCreateProject}
-            disabled={checkFormEmpty()}
+            disabled={checkHaveAnyChange()}
           >
             {editingMode.current ? "Save" : "Create New"}
           </button>
         </div>
       </div>
+      <Modal
+        title={editingMode.current ? "Edit Project" : "Create Project"}
+        show={showModal}
+        onCloseModal={() => setShowModal(false)}
+        renderContent={() => "Are you sure?"}
+        renderAction={renderAction}
+      />
     </div>
   );
 };

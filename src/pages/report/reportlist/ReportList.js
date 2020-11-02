@@ -20,14 +20,21 @@ const ReportList = ({ user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(projectUsers);
-
   return (
     <div className="reportList">
       <Collapse selectMultiple={false}>
-        {projectUsers.sort((projectUser1,projectUser2)=>(projectUser1.project.name<=projectUser2.project.name?-1:1)).map((projectUser) => (
-          <ReportItem project={projectUser.project} user={user} isDoing={projectUser.isDoing} key={projectUser.project.id} />
-        ))}
+        {projectUsers
+          .sort((projectUser1, projectUser2) =>
+            projectUser1.project.name <= projectUser2.project.name ? -1 : 1
+          )
+          .map((projectUser) => (
+            <ReportItem
+              project={projectUser.project}
+              user={user}
+              isDoing={projectUser.isDoing}
+              key={projectUser.project.id}
+            />
+          ))}
       </Collapse>
     </div>
   );

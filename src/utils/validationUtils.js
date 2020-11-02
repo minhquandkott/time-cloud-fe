@@ -1,3 +1,13 @@
+export const validate = (validations, value) => {
+  for (let i = 0; i < validations.length; i++) {
+    const error = validations[i](value);
+    if (error) {
+      return error;
+    }
+  }
+  return undefined;
+};
+
 export const email = (value) => {
   const regularEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   return !regularEmail.test(value) ? "Invalid email address" : undefined;

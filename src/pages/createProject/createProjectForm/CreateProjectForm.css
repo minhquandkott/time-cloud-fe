@@ -3,6 +3,9 @@
   justify-content: flex-start;
   align-items: flex-start;
   padding: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  font-family: "Quicksand";
 }
 
 .project_form_field * {
@@ -22,12 +25,31 @@
   border-radius: 0;
   border: none;
   padding: 1rem;
+  padding-top: 0;
   outline: none;
   font-size: 1.8rem;
   font-weight: 500;
   border-bottom: 2px solid var(--color-button);
   box-shadow: 1px 1px 2px solid var(0, 0, 0, .8);
 }
+
+.create_project_form__error{
+
+  color: var(--color-error);
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: left;
+  flex: 1;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  margin-left: 5rem;
+  line-height: 1rem;
+}
+.create_project_form__error>.MuiSvgIcon-root{
+  font-size: 2.5rem;
+}
+
 
 .project_form_field>input::placeholder {
   color: var(--color-dark-tertiary);

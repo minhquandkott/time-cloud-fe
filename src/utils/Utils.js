@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export function randomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -24,14 +26,28 @@ export const randomColorArray = [
 ];
 
 export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-export const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+export const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 export const convertSecond = (totalSecond) => {
   let timeRemaining = totalSecond;
-  const convertedHour = totalSecond > 3600 ? Math.floor(totalSecond / 3600) : 0;
+  const convertedHour =
+    totalSecond >= 3600 ? Math.floor(totalSecond / 3600) : 0;
   timeRemaining = timeRemaining - convertedHour * 3600;
   const convertedMinute =
-    timeRemaining > 60 ? Math.floor(timeRemaining / 60) : 0;
+    timeRemaining >= 60 ? Math.floor(timeRemaining / 60) : 0;
   timeRemaining = timeRemaining - convertedMinute * 60;
 
   const convertedSecond = timeRemaining;
@@ -43,18 +59,17 @@ export const convertSecond = (totalSecond) => {
 };
 
 export const convertSecondToHour = (seconds) => {
-  
-  let hours = seconds/60/60;
-    let rhours = Math.floor(hours);
-    let rminutes = Math.round((hours - rhours) * 60);
-    return `${rhours}:${rminutes < 10 ? `0${rminutes}` : rminutes}`;
+  let hours = seconds / 60 / 60;
+  let rhours = Math.floor(hours);
+  let rminutes = Math.round((hours - rhours) * 60);
+  return `${rhours}:${rminutes < 10 ? `0${rminutes}` : rminutes}`;
 };
 
 export const convertTime = (totalSecond) => {
   const hour = totalSecond / 3600;
   const convertedHour = Math.floor(hour * 1000);
-  return convertedHour/1000;
-  }
+  return convertedHour / 1000;
+};
 
 export const ROLE_LIST = [
   { id: 1, name: "ADMIN", color: "2ECC71" },
@@ -67,3 +82,12 @@ export const ROLE_LIST = [
   { id: 8, name: "SEO", color: "361D2E" },
   { id: 9, name: "MEMBER", color: "86A397" },
 ];
+
+export const convertDate = (day) => {
+  const date = `${day.getDate()}`;
+  const stringDate = date.length === 1 ? `0${date}` : `${date}`;
+
+  const month = `${day.getMonth() + 1}`;
+  const stringMonth = month.length === 1 ? `0${month}` : `${month}`;
+  return `${stringDate}-${stringMonth}-${day.getFullYear()}`;
+};

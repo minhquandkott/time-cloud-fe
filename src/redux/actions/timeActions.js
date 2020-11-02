@@ -92,7 +92,7 @@ export const saveTime = () => {
     const { userId } = getState().auth;
     const { beginTime, description } = getState().time;
     try {
-      await timeCloudAPI().post(`tasks/${id}/times`, {
+      const res = await timeCloudAPI().post(`tasks/${id}/times`, {
         description,
         mileSecondEndTime: new Date().getTime(),
         mileSecondStartTime: beginTime,
@@ -103,6 +103,7 @@ export const saveTime = () => {
       dispatch(fetchTimes(userId));
       dispatch(selectTime(null));
       dispatch(endCountingTime());
+      return res;
     } catch (error) {
       dispatch(savingTimeFail(error.response.data.message));
     }

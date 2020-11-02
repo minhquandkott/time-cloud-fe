@@ -57,6 +57,7 @@ const MembersSearch = ({
         type="text"
         placeholder="Add more people ..."
         className="project_form__input"
+        maxLength="15"
       />
       <Tooltip
         maxWidth="35rem"
