@@ -45,9 +45,9 @@
 }
 
 .project_detail_feature {
-    margin: 0 0 -3rem -3rem;
+    margin: 0 0 0 -3rem;
 }
 
 .project_detail__chart {
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
 }
