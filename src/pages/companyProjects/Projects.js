@@ -143,8 +143,8 @@ class Projects extends React.Component {
 
   onSortProjects = (projects) => {
     return projects.sort((first, second) => {
-      if (first.name > second.name) return 1;
-      else if (first.name < second.name) return -1;
+      if (first.available > second.available) return -1;
+      else if (first.available < second.available) return 1;
       else return 0;
     });
   };
