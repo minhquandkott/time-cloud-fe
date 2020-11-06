@@ -1,0 +1,17 @@
+.tooltip_v2{
+  position: absolute;
+  background-color: red;
+}
+
+.tooltip_v2__arrow{
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid red;
+}
+.tooltip_v2__content{
+  width: 20rem;
+  height: 20rem;
+  background-color: aquamarine;
+}

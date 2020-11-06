@@ -1,0 +1,13 @@
+.view_time_dd_task__input{
+  border-radius: 2px;
+  outline: none;
+  border: 1px solid var(--color-dark-primary);
+  font-size: 1.6rem;
+  font-weight: 600;
+  width: 90%;
+  padding: .8rem;
+  padding-left: 2rem;
+  position: sticky;
+  top: 0;
+  left: 0;
+}

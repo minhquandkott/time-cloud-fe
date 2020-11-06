@@ -11,6 +11,18 @@ function App() {
       <BrowserRouter history={history}>
         <Router />
       </BrowserRouter>
+      {/* <div
+        style={{
+          width: "80rem",
+          height: "70rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "cyan",
+        }}
+      >
+        <Tooltip>Click me</Tooltip>
+      </div> */}
     </div>
   );
 }

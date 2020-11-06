@@ -18,13 +18,22 @@ export const fetchProjects = (userId, cancelToken) => {
   return async (dispatch) => {
     dispatch(startFetchProject());
     try {
-      const response = await timeCloudAPI().get(
-        `users/${userId}/projects-available`,
-        {
-          cancelToken: cancelToken,
-        }
+      let res = await timeCloudAPI().get(`users/${userId}/projects-available`, {
+        cancelToken: cancelToken,
+      });
+      const projects = res.data;
+      res = await Promise.all(
+        projects.map((project) =>
+          timeCloudAPI().get(`projects/${project.id}/users/${userId}/tasks`)
+        )
       );
-      dispatch(fetchProjectsSuccess(response.data));
+      dispatch(
+        fetchProjectsSuccess(
+          projects.map((ele, index) => {
+            return { ...ele, tasks: res[index].data };
+          })
+        )
+      );
     } catch (error) {
       dispatch(fetchProjectsFail(2));
     }

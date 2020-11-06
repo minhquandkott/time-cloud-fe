@@ -16,10 +16,6 @@ const ColumnEmail = ({ userRole, selectMember }) => {
     event.stopPropagation();
   };
 
-  // useEffect(() => {
-  //   if (selectedMember?.user?.id !== userRole.user.id) setShowTooltip(false);
-  // }, [selectedMember, userRole.user.id]);
-
   useEffect(() => {
     const listElement = [
       document.querySelector(`.${buttonClass}`),

@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import {
   selectTask,
   beginCountingTime,
-  endCountingTime,
   increaseTime,
 } from "../../../redux/actions";
 import {
@@ -19,36 +18,25 @@ const TaskItem = ({
   children,
   selectTask,
   beginCountingTime,
-  endCountingTime,
   increaseTime,
-  selectedTask,
+  isCounting,
 }) => {
   const startCount = () => {
+    const now = new Date();
     selectTask(task);
-    localStorage.setItem(BEGIN_TIME, new Date().getTime());
+    localStorage.setItem(BEGIN_TIME, now);
     localStorage.setItem(SELECTED_TASK_ID, task.id);
     const intervalId = window.setInterval(() => {
       increaseTime(1);
     }, 1000);
-    beginCountingTime(new Date().getTime(), intervalId);
+    beginCountingTime(now, intervalId);
   };
 
-  const saveTime = () => {
-    console.log("save");
-  };
   const onButtonPlayClick = () => {
-    if (!selectedTask) {
-      startCount();
+    if (isCounting) {
+      selectTask(task);
     } else {
-      const chosen = window.confirm(
-        "You have a time which has not saved yet! Do you want to save?"
-      );
-      if (!chosen) {
-        endCountingTime();
-        startCount();
-      } else {
-        saveTime();
-      }
+      startCount();
     }
   };
 
@@ -64,9 +52,9 @@ const TaskItem = ({
 };
 
 const mapStateToProps = (state) => {
-  const { selectedTask } = state.time;
+  const { isCounting } = state.time;
   return {
-    selectedTask,
+    isCounting,
   };
 };
 
@@ -74,5 +62,4 @@ export default connect(mapStateToProps, {
   selectTask,
   beginCountingTime,
   increaseTime,
-  endCountingTime,
 })(TaskItem);

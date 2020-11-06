@@ -1,72 +1,50 @@
 import React, { Component } from "react";
 import "./WeekHeaderItem.css";
-import timeCloudAPI from "../../../../apis/timeCloudAPI";
-import { convertSecondToHour } from "../../../../utils/Utils";
 import { connect } from "react-redux";
+import { selectDay } from "../../../../redux/actions";
+import {
+  days as dayTitles,
+  convertSecondToHour,
+  checkDayWithNow,
+} from "../../../../utils/Utils";
 
 class WeekHeaderItem extends Component {
-  state = {
-    totalTime: 0,
+  onButtonClick = (index) => {
+    this.props.selectDay(index);
   };
 
-  fetchTotalTime = (date) => {
-    if (
-      this.props.totalTimeCurrentDay === 0 ||
-      this.props.totalTimeCurrentDay
-    ) {
-      this.setState({
-        totalTime: this.props.totalTimeCurrentDay,
-      });
-    } else {
-      let dateURL = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
-      timeCloudAPI()
-        .get(
-          `users/${localStorage.getItem("userId")}/date/${dateURL}/total-times`
-        )
-        .then((res) => {
-          this.setState({
-            totalTime: res.data,
-          });
-        });
-    }
-  };
-
-  componentDidUpdate = (preProps) => {
-    const { date, totalTimeCurrentDay } = this.props;
-    if (
-      date !== preProps.date ||
-      totalTimeCurrentDay !== preProps.totalTimeCurrentDay
-    ) {
-      this.fetchTotalTime(date);
-    }
-  };
-
-  componentDidMount = () => {
-    const { date } = this.props;
-    this.fetchTotalTime(date);
-  };
   render() {
-    const { day } = this.props;
-    const { totalTime } = this.state;
+    const { index, totalTime, day, selectedIndex, isLoading } = this.props;
+    const isDisable = checkDayWithNow(day);
     return (
-      <div className="week_header_item">
-        <p className="week_header_item__day">{day}</p>
+      <button
+        style={{
+          background: selectedIndex === index ? "#f3f4f9" : "white",
+          color:
+            selectedIndex === index
+              ? "var(--color-button)"
+              : isDisable === 1
+              ? "#c1c1c1"
+              : "black",
+          pointerEvents: isDisable === 1 ? "none" : "initial",
+        }}
+        onClick={() => this.onButtonClick(index)}
+        className="week_header_item"
+      >
+        <p className="week_header_item__day">{dayTitles[index]}</p>
         <p className="week_header_item__total_time">
-          {convertSecondToHour(totalTime)}
+          {isLoading ? "0:00" : convertSecondToHour(totalTime)}
         </p>
-      </div>
+      </button>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const { date } = ownProps;
-  const result = {};
-  if (new Date().toDateString() === date.toDateString()) {
-    result.totalTimeCurrentDay = state.week.totalTimeCurrentDay;
-  }
-  return result;
+const mapStateToProps = (state) => {
+  const { selectedIndex, isLoadingTotalTimes } = state.week;
+  return {
+    selectedIndex,
+    isLoading: isLoadingTotalTimes,
+  };
 };
-export default connect(mapStateToProps)(WeekHeaderItem);
+export default connect(mapStateToProps, { selectDay })(WeekHeaderItem);

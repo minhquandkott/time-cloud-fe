@@ -38,7 +38,7 @@ export const fetchTimes = (userId) => {
     dispatch(startFetchTimes());
     try {
       const response = await timeCloudAPI().get(
-        `users/${userId}/times/page?limit=5&page=0&sort_by=createAt&order=DESC`
+        `users/${userId}/times/page?limit=10&page=0&sort_by=modifyAt&order=DESC`
       );
       dispatch(fetchTimesSuccess(response.data));
     } catch (error) {

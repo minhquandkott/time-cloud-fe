@@ -127,6 +127,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+input, select, textarea, button{font-family:inherit;}
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
@@ -137,5 +139,4 @@ table {
 
 body {
   font-family: 'Roboto Condensed', sans-serif;
-
 }

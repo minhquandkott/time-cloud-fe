@@ -1,0 +1,43 @@
+.list_project_task{
+  padding: 1.5rem;
+  min-width: 30rem;
+}
+.list_project_task__item{}
+.list_project_task__project{
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+.list_project_task__project>.MuiSvgIcon-root{
+  font-size: 2rem;
+  margin-right: .5rem;
+}
+
+.list_project_task__project>span:nth-of-type(1){
+
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-right: 1rem;
+}
+
+.list_project_task__project>span:nth-of-type(2){
+  font-size: 1.4rem;
+  font-weight: 500;
+
+}
+.list_project_task__tasks{
+  padding-left: .5rem;
+}
+
+.list_project_task__task_item>p{
+  font-size: 1.7rem;
+  padding: 1rem 0;
+  font-weight: 500;
+  cursor: pointer;
+}
+.list_project_task__task_item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

@@ -164,14 +164,6 @@
   animation: scale1 1s;
 }
 
-.drop_down__list_task>.project {}
-
-.drop_down__list_task>.project .project__company_name {
-  margin: auto 0 auto auto;
-}
-
-
-
 .drop_down__recent_task>.task_item>h3 {
   flex-basis: 50%;
 }
@@ -182,10 +174,3 @@
   font-weight: 400;
 }
 
-.drop_down__list_task .project__name {
-  padding: 1rem;
-}
-
-.drop_down__list_task .project__task {
-  padding-left: 3rem;
-}

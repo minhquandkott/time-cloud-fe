@@ -1,21 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Point from "../../../point/Point";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { v4 } from "uuid";
 import Modal from "../../../modal/Modal";
 import "./ViewTime.css";
 import ProjectTask from "../../../projectTask/ProjectTask";
 import timeCloudAPI from "../../../../apis/timeCloudAPI";
-import { removeTimeSelectedDay } from "../../../../redux/actions";
 import Spinner from "../../../loading/spinner/Spinner";
-
+import {
+  removeTimeOfSelectedDay,
+  editTimeOfListTime,
+  fetchTimes,
+  setSelectedTime,
+} from "../../../../redux/actions";
+import { removeSpace } from "../../../../utils/Utils";
+import { USER_ID } from "../../../../utils/localStorageContact";
+import ViewTimeDDTask from "./viewTimeDDTask/ViewTimeDDTask";
 class ViewTime extends Component {
   state = {
     showModal: false,
     isDeleting: false,
+    descriptionInput: this.props.time.description,
+    showTaskDD: false,
+    showTimeDD: false,
   };
+
+  descriptionInputRef = React.createRef();
   from_to = () => {
     const { time } = this.props;
     const startTime = new Date(time.startTime);
@@ -55,6 +65,7 @@ class ViewTime extends Component {
   }
   onDeleteTime() {
     const { time } = this.props;
+
     this.setState(
       {
         showModal: false,
@@ -64,7 +75,7 @@ class ViewTime extends Component {
         timeCloudAPI()
           .delete(`times/${time.id}`)
           .then(() => {
-            this.props.removeTimeSelectedDay(time);
+            this.props.removeTimeOfSelectedDay(time);
             this.setState({ isDeleting: false });
           });
       }
@@ -101,40 +112,112 @@ class ViewTime extends Component {
     );
   }
 
+  onEditDescription = () => {
+    this.setState(
+      { descriptionInput: removeSpace(this.state.descriptionInput) },
+      () => {
+        const { time } = this.props;
+        if (this.state.descriptionInput) {
+          console.log(
+            this.state.descriptionInput,
+            this.descriptionInputRef.current
+          );
+          if (
+            this.state.descriptionInput !== this.descriptionInputRef.current
+          ) {
+            this.setState({ isDeleting: true });
+            timeCloudAPI()
+              .put(`times/${time.id}`, {
+                description: this.state.descriptionInput,
+                mileSecondStartTime: new Date(time.startTime).getTime(),
+                mileSecondEndTime: new Date(time.endTime).getTime(),
+                userId: time.user.id,
+                taskId: time.task.id,
+              })
+              .then((res) => {
+                this.setState({ isDeleting: false });
+                this.props.editTimeOfListTime(res.data);
+                this.props.fetchTimes(localStorage.getItem(USER_ID));
+              });
+          }
+        } else {
+          if (this.state.descriptionInput === "")
+            this.setState({
+              descriptionInput: this.descriptionInputRef.current,
+            });
+        }
+      }
+    );
+  };
+
+  onDDTaskClose = (task) => {
+    const { time, selectedTime } = this.props;
+    this.setState({ showTaskDD: false });
+    if (task.id !== this.props.selectedTime.task.id) {
+      this.setState({ isDeleting: true });
+      timeCloudAPI()
+        .put(`times/${time.id}`, {
+          description: this.state.descriptionInput,
+          mileSecondStartTime: new Date(time.startTime).getTime(),
+          mileSecondEndTime: new Date(time.endTime).getTime(),
+          userId: time.user.id,
+          taskId: task.id,
+        })
+        .then((res) => {
+          this.setState({ isDeleting: false });
+          this.props.fetchTimes(localStorage.getItem(USER_ID));
+        });
+    }
+  };
+
   render() {
     let { time } = this.props;
+    this.descriptionInputRef.current = time.description;
     return (
-      <div className="view_time">
-        <div className="view_time__description ">{time.description}</div>
+      <div
+        className="view_time"
+        onClick={() => this.props.setSelectedTime(time)}
+      >
+        <div className="view_time__description ">
+          <input
+            value={this.state.descriptionInput}
+            onChange={(e) =>
+              this.setState({ descriptionInput: e.target.value })
+            }
+            maxLength="30"
+            onBlur={() => this.onEditDescription()}
+          />
+        </div>
         <div className="view_time__project_task ">
-          <Point
-            color={time.task.project.color}
-            pointSize="15"
-            title={`${time.task.project.name}`}
-            key={v4()}
+          <ViewTimeDDTask
+            isShow={this.state.showTaskDD}
+            onCloseHandler={this.onDDTaskClose}
+            task={time.task}
           />
-          <Point
-            color="#aaaaab"
-            pointSize="7"
-            title={`${time.task.name}`}
-            key={v4()}
-          />
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() =>
+              this.setState({ showTaskDD: !this.state.showTaskDD })
+            }
+          >
+            <ProjectTask
+              projectName={time.task.project.name}
+              taskName={time.task.name}
+              projectColor={time.task.project.color}
+            />
+          </div>
         </div>
         <div className="view_time__from_to ">{this.from_to()}</div>
         <div className="view_time__total ">{this.getHours(time)}</div>
-        {!this.state.isDeleting ? (
-          <button
-            className="view_time__action"
-            onClick={() => this.onButtonDeleteClick()}
-          >
-            <DeleteForeverIcon />
-          </button>
-        ) : (
-          <div className="view_user__spinner">
+        <div className="view_time__action">
+          {!this.state.isDeleting ? (
+            <button onClick={() => this.onButtonDeleteClick()}>
+              <DeleteForeverIcon />
+            </button>
+          ) : (
             <Spinner />
-          </div>
-        )}
-
+          )}
+        </div>
         <Modal
           onCloseModal={() => this.setState({ showModal: false })}
           show={this.state.showModal}
@@ -147,4 +230,16 @@ class ViewTime extends Component {
   }
 }
 
-export default connect(null, { removeTimeSelectedDay })(ViewTime);
+const mapStateToProps = (state) => {
+  const { selectedTime } = state.week;
+  return {
+    selectedTime,
+  };
+};
+
+export default connect(mapStateToProps, {
+  removeTimeOfSelectedDay,
+  editTimeOfListTime,
+  fetchTimes,
+  setSelectedTime,
+})(ViewTime);
