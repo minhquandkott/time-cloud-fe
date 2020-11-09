@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Time.css";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import PauseIcon from "@material-ui/icons/Pause";
@@ -11,25 +11,28 @@ import {
   checkTime,
   setDescription,
   saveTime,
-  fetchTotalTimeCurrentDay,
-  addTotalTimeCurrentDay,
-  addTotalTimeCurrentWeek,
+  addTimeOfSelectedDay,
+  selectTask,
 } from "../../redux/actions";
 import Counter from "../counter/Counter";
 import Spinner from "../loading/spinner/Spinner";
 import DropDownTime from "../dropdown/DropDown";
 import TaskItem from "../tasks/taskItem/TaskItem";
-import Point from "../point/Point";
+import ListProjectTask from "../listProjectTask/ListProjectTask";
 import ProjectTask from "../projectTask/ProjectTask";
-import { DESCRIPTION } from "../../utils/localStorageContact";
-import { fetchTotalTimeDaySelectedSuccess } from "../../redux/actions/index";
-import { convertDate } from "../../utils/Utils";
+import {
+  DESCRIPTION,
+  BEGIN_TIME,
+  SELECTED_TASK_ID,
+} from "../../utils/localStorageContact";
+import DropDown2 from "../dropdown2/DropDown2";
+import { convertHours } from "../../utils/Utils";
+import CheckIcon from "@material-ui/icons/Check";
+import TimeDDStartTime from "./timeDDStartTime/TimeDDStartTime";
 
 const Time = ({
   isCounting,
   times,
-  projects,
-  tasks,
   selectedTask,
   fetchTimes,
   userId,
@@ -38,13 +41,15 @@ const Time = ({
   isSaving,
   setDescription,
   saveTime,
-  fetchTotalTimeDaySelectedSuccess,
-  selectedDay,
-  listTimeOfSelectedDay,
-  addTotalTimeCurrentDay,
-  addTotalTimeCurrentWeek,
+  addTimeOfSelectedDay,
+  selectTask,
+  increaseTime,
+  beginCountingTime,
+  projects,
+  beginTime,
 }) => {
-  const checkboxRef = useRef(null);
+  const [showDDProjectTask, setShowDDProjectTask] = useState(false);
+  const [showDDStartTime, setShowDDStartTime] = useState(false);
 
   useEffect(() => {
     if (!selectedTask) {
@@ -52,15 +57,8 @@ const Time = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    const arrChild = document.querySelectorAll(".time__middle *");
-    const checkbox = checkboxRef.current;
-    window.addEventListener("click", (event) => {
-      if (![...arrChild].some((e) => e === event.target)) {
-        checkbox.checked = false;
-      }
-    });
-  }, []);
+
+  useEffect(() => {});
   useEffect(() => {
     fetchTimes(userId);
   }, [fetchTimes, userId]);
@@ -68,21 +66,23 @@ const Time = ({
   const onPlayButtonClick = () => {
     if (isCounting) {
       saveTime().then((res) => {
-        const now = convertDate(new Date());
         const savedTime = res.data;
-        if (convertDate(selectedDay) === now) {
-          const totalTime =
-            (new Date(savedTime.endTime) - new Date(savedTime.startTime)) /
-            1000;
-          fetchTotalTimeDaySelectedSuccess([
-            ...listTimeOfSelectedDay,
-            savedTime,
-          ]);
-          addTotalTimeCurrentDay(totalTime);
-          addTotalTimeCurrentWeek(totalTime);
-          fetchTimes(userId);
-        }
+        addTimeOfSelectedDay(savedTime);
+        fetchTimes(userId);
       });
+    }
+  };
+
+  const onTaskClick = (task) => {
+    selectTask(task);
+    localStorage.setItem(SELECTED_TASK_ID, task.id);
+    if (!isCounting) {
+      const now = new Date();
+      localStorage.setItem(BEGIN_TIME, now);
+      const intervalId = window.setInterval(() => {
+        increaseTime(1);
+      }, 1000);
+      beginCountingTime(now, intervalId);
     }
   };
 
@@ -100,49 +100,19 @@ const Time = ({
     });
   };
 
-  const renderListTask = () => {
-    let projectMap = new Map();
-    projects.forEach((project) => {
-      const taskList = tasks.filter((task) => task.project.id === project.id);
-      projectMap.set(project, taskList);
-    });
-    const sortedProjectMap = new Map(
-      [...projectMap.entries()].sort((preEntries, postEntries) => {
-        return postEntries[1].length - preEntries[1].length;
-      })
-    );
-
-    const returnValue = [];
-    sortedProjectMap.forEach((tasks, project) => {
-      if (tasks.length) {
-        returnValue.push(
-          <div className="project" key={project.id}>
-            <div className="project__name">
-              <Point
-                color={project.color}
-                pointSize="20px"
-                title={project.name}
-              >
-                <p
-                  className="project__company_name"
-                  style={{
-                    color: project.color,
-                  }}
-                >
-                  ( {project.company.name} )
-                </p>
-              </Point>
-            </div>
-            <div className="project__task">
-              {tasks.map((task) => {
-                return <TaskItem task={task} key={task.id} />;
-              })}
-            </div>
-          </div>
-        );
-      }
-    });
-    return returnValue;
+  const renderFlagTask = (task) => {
+    if (task.id === selectedTask?.id) {
+      return (
+        <CheckIcon
+          style={{
+            fontSize: "2rem",
+            backgroundColor: "var(--color-button)",
+            borderRadius: "50%",
+            color: "white",
+          }}
+        />
+      );
+    }
   };
 
   const onDesInputChange = (event) => {
@@ -177,12 +147,45 @@ const Time = ({
             <p>Task...</p>
           )}
         </label>
-        <input type="checkbox" id="task" ref={checkboxRef} />
-        <DropDownTime>
-          <div className="drop_down__list_task">{renderListTask()}</div>
-        </DropDownTime>
+        <input
+          type="checkbox"
+          id="task"
+          onChange={(e) => {
+            setShowDDProjectTask(e.target.checked);
+            e.stopPropagation();
+          }}
+          checked={showDDProjectTask}
+        />
+        <DropDown2
+          isShow={showDDProjectTask}
+          onCloseHandler={() => setShowDDProjectTask(false)}
+          renderContent={() => (
+            <ListProjectTask
+              onClickTaskHandler={onTaskClick}
+              renderFlagTask={renderFlagTask}
+              projects={projects}
+            />
+          )}
+          maxHeight="40rem"
+        />
       </div>
       <div className="time__right">
+        <div className="time__start_time">
+          {isCounting && (
+            <p onClick={() => setShowDDStartTime(true)}>
+              {convertHours(beginTime.getHours(), beginTime.getMinutes())}
+            </p>
+          )}
+          <DropDown2
+            isShow={showDDStartTime}
+            onCloseHandler={() => setShowDDStartTime(false)}
+            renderContent={() => (
+              <TimeDDStartTime onCloseDD={() => setShowDDStartTime(false)} />
+            )}
+            css={{ padding: 0 }}
+          />
+        </div>
+
         <Counter />
         <button className="form__button" onClick={() => onPlayButtonClick()}>
           {isSaving ? (
@@ -210,10 +213,8 @@ const mapStateToProps = (state) => {
     isSaving,
   } = state.time;
   const { times } = state.times;
-  const { projects } = state.projects;
-  const { tasks } = state.tasks;
   const { userId } = state.auth;
-  const { selectedDay, listTimeOfSelectedDay } = state.week;
+  const { projects } = state.projects;
 
   return {
     isCounting,
@@ -221,13 +222,10 @@ const mapStateToProps = (state) => {
     beginTime,
     selectedTask,
     times,
-    projects,
-    tasks,
     userId,
     description,
     isSaving,
-    selectedDay,
-    listTimeOfSelectedDay,
+    projects,
   };
 };
 
@@ -239,8 +237,6 @@ export default connect(mapStateToProps, {
   checkTime,
   setDescription,
   saveTime,
-  fetchTotalTimeDaySelectedSuccess,
-  fetchTotalTimeCurrentDay,
-  addTotalTimeCurrentDay,
-  addTotalTimeCurrentWeek,
+  addTimeOfSelectedDay,
+  selectTask,
 })(Time);

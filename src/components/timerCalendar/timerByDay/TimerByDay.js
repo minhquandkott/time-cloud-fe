@@ -4,40 +4,24 @@ import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import "./TimerByDay.css";
 import Skeleton from "../../../components/loading/skeleton/Skeleton";
 import { connect } from "react-redux";
-import { fetchTotalTimeDaySelected } from "../../../redux/actions";
-import { convertDate } from "../../../utils/Utils";
 
 class TimerByDay extends Component {
-  componentDidMount = () => {
-    const { day } = this.props;
-    this.props.fetchTotalTimeDaySelected(convertDate(day));
-  };
-
-  componentDidUpdate = (preProps) => {
-    const { day } = this.props;
-    if (day !== preProps.day) {
-      this.props.fetchTotalTimeDaySelected(convertDate(day));
-    }
-  };
-
   render() {
     const { times, isLoading } = this.props;
     return (
       <div className="timer_by_day">
-        {!isLoading ? (
-          times.length ? (
-            times.map((time) => {
-              return <ViewTime key={time.id} time={time} />;
-            })
-          ) : (
-            <p>
-              {" "}
-              <PriorityHighIcon style={{ fontSize: "4rem", color: "red" }} />
-              Look like you haven't done any time on this day
-            </p>
-          )
-        ) : (
+        {isLoading ? (
           <Skeleton countItem={3} heightItem="4rem" direction="column" />
+        ) : times.length ? (
+          times.map((time, index) => {
+            return <ViewTime key={time.id} time={time} index={index} />;
+          })
+        ) : (
+          <p>
+            {" "}
+            <PriorityHighIcon style={{ fontSize: "4rem", color: "red" }} />
+            Look like you haven't done any time on this day
+          </p>
         )}
       </div>
     );
@@ -45,12 +29,11 @@ class TimerByDay extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const { times, isLoadingTimes } = state.week;
   return {
-    isLoading: state.week.isLoading,
-    times: state.week.listTimeOfSelectedDay,
+    times,
+    isLoading: isLoadingTimes,
   };
 };
 
-export default connect(mapStateToProps, { fetchTotalTimeDaySelected })(
-  TimerByDay
-);
+export default connect(mapStateToProps)(TimerByDay);

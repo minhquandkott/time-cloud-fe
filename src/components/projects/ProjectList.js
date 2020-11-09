@@ -18,7 +18,7 @@ class ProjectList extends React.Component {
     return this.props.projects.map((project) => {
       return (
         <ProjectItem project={project} key={project.id}>
-          <TaskList projectId={project.id} />
+          <TaskList tasks={project.tasks} />
         </ProjectItem>
       );
     });

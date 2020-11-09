@@ -1,9 +1,13 @@
+.week_header_item{
+  outline: none;
+  border: none;
+  padding: 2rem 0;
+  cursor: pointer;
+  font-size: 1.7rem;
+}
 .week_header_item__total_time {
     margin-top: 0.5rem;
-    font-size: medium;
+    font-size: 1.8rem;
     font-weight: 700;
 }
 
-.week_header_item {
-    padding-bottom: 1rem;
-}

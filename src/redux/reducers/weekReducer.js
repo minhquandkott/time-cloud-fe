@@ -1,87 +1,85 @@
 import {
-  GET_CURRENT_WEEK,
-  NEXT_WEEK,
-  LAST_WEEK,
-  DAY_SELECTED,
-  FETCH_TOTAL_TIME_DAY_SELECTED_SUCCESS,
-  FETCH_TOTAL_TIME_DAY_SELECTED_FAIL,
-  FETCH_TOTAL_TIME_DAY_SELECTED_START,
-  REMOVE_TIME_SELECTED_DAY,
-  SET_TOTAL_TIME_CURRENT_DAY,
-  SET_TOTAL_TIME_CURRENT_WEEK,
+  SET_SELECTED_INDEX,
+  SET_NOW_INDEX,
+  SET_DAYS,
+  LOADING_DAY_TOTAL_TIMES,
+  SET_DAY_TOTAL_TIMES,
+  LOADING_TIMES,
+  SET_TIMES,
+  SET_WEEK_TOTAL_TIME,
+  SET_SELECTED_TIME,
+  SET_NEAREST_TIMES,
 } from "../actions/actionType";
+import { getDaysOfWeek } from "../../utils/Utils";
 
 const initialState = {
-  firstDay: null,
-  lastDay: null,
-  selectedDay: null,
-  isLoading: false,
   selectedIndex: -1,
-  listTimeOfSelectedDay: [],
-  totalTimeCurrentDay: 0,
-  totalTimeCurrentWeek: 0,
-  error: [],
+  nowIndex: -1,
+  days: getDaysOfWeek(new Date()),
+  dayTotalTimes: [],
+  isLoadingTimes: false,
+  isLoadingTotalTimes: false,
+  times: [],
+  weekTotalTime: 0,
+  selectedTime: null,
+  preNearestTime: null,
+  nextNearestTime: null,
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_CURRENT_WEEK:
+    case SET_SELECTED_INDEX:
       return {
         ...state,
-        firstDay: payload.firstDay,
-        lastDay: payload.lastDay,
+        selectedIndex: payload,
       };
-    case NEXT_WEEK:
+    case SET_NOW_INDEX:
       return {
         ...state,
-        firstDay: payload.firstDay,
-        lastDay: payload.lastDay,
+        nowIndex: payload,
       };
-    case LAST_WEEK:
+    case SET_DAYS:
       return {
         ...state,
-        firstDay: payload.firstDay,
-        lastDay: payload.lastDay,
+        days: payload,
       };
-    case DAY_SELECTED:
+    case LOADING_DAY_TOTAL_TIMES:
       return {
         ...state,
-        selectedDay: payload.selectedDay,
-        selectedIndex: payload.selectedIndex,
+        isLoadingTotalTimes: true,
       };
-    case FETCH_TOTAL_TIME_DAY_SELECTED_START:
+    case SET_DAY_TOTAL_TIMES:
       return {
         ...state,
-        isLoading: true,
+        isLoadingTotalTimes: false,
+        dayTotalTimes: payload,
       };
-    case FETCH_TOTAL_TIME_DAY_SELECTED_SUCCESS:
+    case LOADING_TIMES:
       return {
         ...state,
-        listTimeOfSelectedDay: payload,
-        isLoading: false,
+        isLoadingTimes: true,
       };
-    case FETCH_TOTAL_TIME_DAY_SELECTED_FAIL:
+    case SET_TIMES:
       return {
         ...state,
-        error: payload,
-        isLoading: false,
+        isLoadingTimes: false,
+        times: payload,
       };
-    case REMOVE_TIME_SELECTED_DAY:
+    case SET_WEEK_TOTAL_TIME:
       return {
         ...state,
-        listTimeOfSelectedDay: state.listTimeOfSelectedDay.filter(
-          (ele) => ele.id !== payload.id
-        ),
+        weekTotalTime: payload,
       };
-    case SET_TOTAL_TIME_CURRENT_DAY:
+    case SET_SELECTED_TIME:
       return {
         ...state,
-        totalTimeCurrentDay: payload,
+        selectedTime: payload,
       };
-    case SET_TOTAL_TIME_CURRENT_WEEK:
+    case SET_NEAREST_TIMES:
       return {
         ...state,
-        totalTimeCurrentWeek: payload,
+        preNearestTime: payload.pre,
+        nextNearestTime: payload.next,
       };
     default:
       return state;

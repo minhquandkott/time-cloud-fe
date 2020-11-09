@@ -1,10 +1,9 @@
 .view_time {
     display: flex;
     font-size: large;
-    padding: 2rem 4rem;
     align-items: center;
     border-bottom: 1px solid rgb(235, 232, 232);
-    cursor: pointer;
+    font-family: "Quicksand";
 }
 
 .view_time:hover {
@@ -12,13 +11,27 @@
 }
 
 .view_time__description {
-    flex: 10;
-    font-weight: 500;
+    flex: 9;
+    padding: 2rem 5rem;
+}
+.view_time__description>input{
+  outline: none;
+  border: 1px solid transparent;
+  background-color: transparent;
+  font-weight: 600;
+  font-size: 1.6rem;
+  width: 100%;
+}
+.view_time__description>input:focus{
+  border: 1px solid var(--color-dark-primary);
+  background-color: white;
 }
 
 .view_time__project_task {
-    flex: 6;
+    flex: 7;
     display: flex;
+    position: relative;
+    padding: 2rem 4rem;
 }
 
 .view_time__from_to {
@@ -29,31 +42,36 @@
     display: flex;
     align-items: flex-end;
     font-weight: 400;
-    font-family: Heebo;
+    padding: 2rem 5rem;
+    position: relative
 }
 
 .view_time__total {
     flex: 2;
     font-weight: 700;
+    padding: 2rem 5rem;
 }
 .view_time__action{
   flex: 1;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+.view_time__action>button{
   outline: none;
   border: none;
   background-color: transparent;
   padding: 0;
   padding: .1rem;
-}
-.view_time__action:hover{
-  background-color: white;
   cursor: pointer;
-  
 }
 
-.view_time__action>.MuiSvgIcon-root{
+.view_time__action>button>.MuiSvgIcon-root{
   color: var(--color-error);
   font-size: 2.5rem;
 }
+
+
 .view_time__modal_action{
   display: flex;
   justify-content: flex-end;
@@ -70,16 +88,14 @@
   cursor: pointer;
   color: white;
   border-radius: .5rem;
+  
 }
-
-.view_time__modal_action>button:nth-child(1){
+.view_time__modal_action>button:nth-of-type(1){
   background-color: var(--color-error);
 }
-
-.view_time__modal_action>button:nth-child(2){
+.view_time__modal_action>button:nth-of-type(2){
   background-color: var(--color-button);
 }
-
 
 .view_time__modal_content>p{
   font-weight: 550;
@@ -95,8 +111,7 @@
   margin-top: 1rem;
 }
 
-.view_user__spinner{
-  margin-left: 1rem;
-  flex-basis: 2rem;
-  height: 2rem;
+.view_time_dd_time__tt_disable{
+  cursor: inherit !important;
+  color: #939393 !important;
 }

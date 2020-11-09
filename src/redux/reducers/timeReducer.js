@@ -6,6 +6,7 @@ import {
   SAVING_TIME_FAIL,
   SELECT_TASK,
   TIME_SET_DESCRIPTION,
+  SET_BEGIN_TIME,
 } from "../actions/actionType";
 
 const initialState = {
@@ -30,6 +31,12 @@ export default (state = initialState, { type, payload }) => {
     case TIME_END:
       return {
         ...initialState,
+      };
+    case SET_BEGIN_TIME:
+      return {
+        ...state,
+        beginTime: payload.beginTime,
+        totalSecond: payload.totalSecond,
       };
     case INCREASE_TIME:
       return {

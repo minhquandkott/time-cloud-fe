@@ -1,5 +1,3 @@
-import Axios from "axios";
-
 export function randomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -90,4 +88,60 @@ export const convertDate = (day) => {
   const month = `${day.getMonth() + 1}`;
   const stringMonth = month.length === 1 ? `0${month}` : `${month}`;
   return `${stringDate}-${stringMonth}-${day.getFullYear()}`;
+};
+
+export const equalDates = (date1, date2) => {
+  return date1.toDateString() === date2.toDateString();
+};
+
+export const getDaysOfWeek = (dayInWeek) => {
+  let first;
+  if (dayInWeek.getDay() === 0) {
+    first = dayInWeek.getDate() - 6;
+  } else {
+    first = dayInWeek.getDate() - (dayInWeek.getDay() - 1);
+  }
+  let firstDay = new Date(dayInWeek.setDate(first));
+  const result = [firstDay];
+  for (let i = 1; i < 7; i++) {
+    let day = new Date(result[i - 1]);
+    day.setDate(day.getDate() + 1);
+    result.push(day);
+  }
+  return result;
+};
+
+export const checkDayInWeekNow = (day) => {
+  const daysNow = getDaysOfWeek(new Date());
+  if (daysNow.some((ele) => equalDates(day, ele))) {
+    //* is day in week now
+    return 0;
+  } else if (daysNow[0] - day > 0) {
+    //* is day in pre week
+    return -1;
+  } else if (daysNow[6] - day < 0) {
+    // * is day in next week
+    return 1;
+  }
+};
+
+export const removeSpace = (string) => {
+  const regex = /(\s)+/g;
+  return string.replaceAll(regex, " ").trim();
+};
+
+export const checkDayWithNow = (day) => {
+  const now = new Date();
+  if (equalDates(day, now)) {
+    return 0;
+  } else if (now - day > 0) {
+    return -1;
+  }
+  return 1;
+};
+
+export const convertHours = (hour, minutes) => {
+  const stringMinute = `${minutes}`.length === 1 ? `0${minutes}` : minutes;
+  if (hour > 12) return `${hour - 12}:${stringMinute} PM`;
+  else return `${hour}:${stringMinute} AM`;
 };

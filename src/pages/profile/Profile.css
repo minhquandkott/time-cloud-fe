@@ -5,6 +5,8 @@
   position: absolute;
   overflow: hidden;
   display: inline-block;
+  
+
 }
 
 .profile_upper {
@@ -24,7 +26,7 @@
   height: 500px;
   border-radius: 1%;
   background-color: white;
-  transform: translate(250px, 50px);
+  transform: translate(20rem, 3.5rem);
 }
 
 .user_content {
@@ -51,10 +53,6 @@
   height: 40px;
 }
 
-/* .profile_left__image:hover {
-  border: 2px solid #0AAFF1;
-  cursor: pointer;
-} */
 
 .profile_left__image img {
   width: 200px;
@@ -70,14 +68,13 @@
 .overlay {
   width:100%;
   height: 0px;
-   z-index:1;
-   bottom:0;
-   font-weight: bold;
-   color:white;
-   background-color: rgba(10, 175, 241, 0.781);
-   transition: all 1s;
-   padding-top: 0px;
-    text-align: center;
-    font-size: 1.5rem;
-    font-family: 'Lato', sans-serif;
+  z-index:1;
+  bottom:0;
+  font-weight: bold;
+  color:white;
+  background-color: rgba(10, 175, 241, 0.781);
+  transition: all 1s;
+  padding-top: 0px;
+  text-align: center;
+  font-size: 1.5rem;
 }

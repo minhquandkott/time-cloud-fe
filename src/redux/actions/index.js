@@ -10,8 +10,6 @@ export {
 
 export { fetchProjects, deleteProjects } from "./projectActions";
 
-export { fetchTasks, fetchTasksSuccess } from "./taskActions";
-
 export {
   increaseTime,
   beginCountingTime,
@@ -21,6 +19,7 @@ export {
   selectTask,
   checkTime,
   setDescription,
+  setBeginTime,
 } from "./timeActions";
 
 export { fetchTimes, selectTime } from "./timesActions";
@@ -34,15 +33,19 @@ export {
 } from "./membersActions";
 
 export {
-  getCurrentWeek,
+  getWeekNow,
   getNextWeek,
-  getLastWeek,
-  setDaySelected,
-  fetchTotalTimeDaySelected,
-  fetchTotalTimeDaySelectedSuccess,
-  removeTimeSelectedDay,
-  fetchTotalTimeCurrentDay,
-  fetchTotalTimeCurrentWeek,
-  addTotalTimeCurrentDay,
-  addTotalTimeCurrentWeek,
+  getPreWeek,
+  fetchTimesOfSelectedDay,
+  fetchTotalTimeDay,
+  fetchTotalTimeWeek,
+  fetchDayTotalTimes,
+  selectDay,
+  removeTimeOfSelectedDay,
+  addTimeOfSelectedDay,
+  editTimeOfListTime,
+  setSelectedTime,
+  setTimes,
+  getNearestTime,
+  updateTimeOfSelectedDay,
 } from "./weekActions";

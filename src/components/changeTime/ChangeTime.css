@@ -1,0 +1,41 @@
+.change_time{  
+  background-color: transparent;
+  width: fit-content;
+}
+.change_time__title{
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #F5F9FD;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid white;
+}
+
+.change_time__content{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 1.5rem;
+  padding-right: 3rem;
+
+}
+.change_time__content>button{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color:  #F5F9FD;
+  text-align: left;
+  font-size: 1.5rem;
+  padding: .5rem 0;
+  cursor: pointer;
+  
+}
+.change_time__content>button>p{
+  width: 8rem;
+}
+
+.change_time__button__disable{
+  cursor: inherit !important;
+  color: #939393 !important;
+}

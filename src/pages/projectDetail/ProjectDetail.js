@@ -1,32 +1,22 @@
 import React from "react";
 import "./ProjectDetail.css";
 import { connect } from "react-redux";
-import { deleteProjects, fetchTasks, getUser } from "../../redux/actions";
-import history from "../../history";
+import { deleteProjects, getUser, getWeekNow } from "../../redux/actions";
 import TrackTime from "../companyProjects/TrackTime/TrackTime";
 import ProjectDetailTask from "../../components/projectDetailItems/projectDetailTask/ProjectDetailTask";
 import ProjectDetailTeam from "../../components/projectDetailItems/projectDetailTeam/ProjectDetailTeam";
-import ProjectDetailDiscussion from "../../components/projectDetailItems/projectDetailDiscussion/ProjectDetailDiscussion";
 import TabNav from "../../components/tabNav/TabNav";
 import { convertTime } from "../../utils/Utils";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import Chart from "../../components/chart/Chart";
-import WeekSelected from "../../components/timerCalendar/weekSelect/WeekSelect";
-import { getCurrentWeek } from "../../redux/actions/index";
-import { days as dayTitles, months } from "../../utils/Utils";
+import WeekSelect from "../../components/timerCalendar/weekSelect/WeekSelect";
+import {
+  days as dayTitles,
+  months,
+  equalDates,
+  checkDayInWeekNow,
+} from "../../utils/Utils";
 import { withRouter } from "react-router-dom";
-
-const listDay = (firstDay, lastDay) => {
-  let result = [];
-  result.push(firstDay);
-  for (let i = 1; i < 6; i++) {
-    let day = new Date(result[i - 1]);
-    day.setDate(day.getDate() + 1);
-    result.push(day);
-  }
-  result.push(lastDay);
-  return result;
-};
 
 const convertDays = (days) => {
   return days.map((day, index) => {
@@ -36,20 +26,28 @@ const convertDays = (days) => {
 
 class Projects extends React.Component {
   state = {
-    data: [],
     project: null,
     unavailableUsers: [],
+    data: [],
   };
 
   fetchTimeWeekByDay = (day) => {
     const { id } = this.props.match.params;
+    let dayURL = `${day.getFullYear()}-${day.getMonth() + 1}-${day.getDate()}`;
     timeCloudAPI()
-      .get(`projects/${id}/date/${day}/all-week-times`)
+      .get(`projects/${id}/date/${dayURL}/all-week-times`)
       .then((res) => {
         this.setState({
           data: res.data.map((ele) => (!ele ? 0 : convertTime(ele))),
         });
       });
+  };
+
+  componentDidUpdate = (preProps) => {
+    const firstDay = this.props.days[0];
+    if (!equalDates(preProps.days[0], firstDay)) {
+      this.fetchTimeWeekByDay(firstDay);
+    }
   };
 
   async fetchProject() {
@@ -91,25 +89,15 @@ class Projects extends React.Component {
     });
   }
 
-  componentDidUpdate = (preProps) => {
-    let firstDay = this.props.firstDay;
-    if (firstDay !== preProps.firstDay) {
-      let day = `${firstDay.getFullYear()}-${
-        firstDay.getMonth() + 1
-      }-${firstDay.getDate()}`;
-      this.fetchTimeWeekByDay(day);
-    }
-  };
-
   componentDidMount = () => {
     this.fetchProject();
-    this.props.getCurrentWeek();
+    this.props.getWeekNow();
+    this.fetchTimeWeekByDay(new Date());
   };
 
   render() {
-    const { data, project, unavailableUsers } = this.state;
-    let { firstDay, lastDay } = this.props;
-    if (firstDay) var days = listDay(firstDay, lastDay);
+    const { project, unavailableUsers, data } = this.state;
+    let { days } = this.props;
     var createAt = new Date(project?.createAt);
     createAt = createAt.toLocaleDateString();
     var createdBy = this.props.user?.name ? this.props.user.name : "";
@@ -120,7 +108,7 @@ class Projects extends React.Component {
     let datasets = {
       label: "Times (Hour)",
       color: project?.color,
-      data: data,
+      data,
     };
 
     return (
@@ -149,11 +137,9 @@ class Projects extends React.Component {
             <div style={{ fontSize: "1.5rem" }}> hours tracked</div>
           </div>
         </div>
-        {days ?
-            <div className="project_detail_feature">
-              <WeekSelected days = {days} dayCreateProject = {project?.createAt} />
-            </div>
-          : ""}
+        <div className="project_detail_feature">
+          <WeekSelect />
+        </div>
         <div className="project_detail__chart">
           <Chart labels={labels} datasets={datasets} />
         </div>
@@ -179,16 +165,15 @@ class Projects extends React.Component {
 
 const mapStateToProp = (state) => {
   const user = state.members.selectedMember;
+  const { days } = state.week;
   return {
     user: user,
-    firstDay: state.week.firstDay,
-    lastDay: state.week.lastDay,
+    days,
   };
 };
 
 export default connect(mapStateToProp, {
-  fetchTasks,
   deleteProjects,
   getUser,
-  getCurrentWeek,
+  getWeekNow,
 })(withRouter(Projects));

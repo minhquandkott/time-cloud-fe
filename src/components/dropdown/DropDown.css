@@ -5,8 +5,6 @@
   overflow-y: auto;
   opacity: 0;
   box-shadow: 11px 15px 15px rgba(0, 0, 0, 0.3);
-  transition: all 1s;
-  transition-property: opacity max-height;
   z-index: 1;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;

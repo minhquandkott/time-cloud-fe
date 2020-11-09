@@ -6,6 +6,7 @@ import {
   SAVING_TIME_FAIL,
   SELECT_TASK,
   TIME_SET_DESCRIPTION,
+  SET_BEGIN_TIME,
 } from "./actionType";
 import {
   SELECTED_TASK_ID,
@@ -23,6 +24,19 @@ export const beginCountingTime = (beginTime, intervalId, totalSecond = 0) => {
       intervalId,
       totalSecond,
     },
+  };
+};
+
+export const setBeginTime = (beginTime) => {
+  return (dispatch) => {
+    const totalSecond = Math.ceil((new Date().getTime() - beginTime) / 1000);
+    dispatch({
+      type: SET_BEGIN_TIME,
+      payload: {
+        beginTime,
+        totalSecond,
+      },
+    });
   };
 };
 
@@ -74,13 +88,16 @@ export const checkTime = () => {
   return (dispatch) => {
     const { beginTime, description, selectedTaskId } = localStorage;
     if (beginTime && selectedTaskId) {
-      const totalSecond = Math.ceil((new Date().getTime() - beginTime) / 1000);
+      console.log(beginTime);
+      const totalSecond = Math.ceil(
+        (new Date().getTime() - new Date(beginTime)) / 1000
+      );
       dispatch(fetchTask(selectedTaskId));
       dispatch(setDescription(description || ""));
       const intervalId = window.setInterval(() => {
         dispatch(increaseTime(1));
       }, 1000);
-      dispatch(beginCountingTime(beginTime, intervalId, totalSecond));
+      dispatch(beginCountingTime(new Date(beginTime), intervalId, totalSecond));
     }
   };
 };
@@ -95,7 +112,7 @@ export const saveTime = () => {
       const res = await timeCloudAPI().post(`tasks/${id}/times`, {
         description,
         mileSecondEndTime: new Date().getTime(),
-        mileSecondStartTime: beginTime,
+        mileSecondStartTime: new Date(beginTime).getTime(),
       });
       localStorage.removeItem(SELECTED_TASK_ID);
       localStorage.removeItem(BEGIN_TIME);

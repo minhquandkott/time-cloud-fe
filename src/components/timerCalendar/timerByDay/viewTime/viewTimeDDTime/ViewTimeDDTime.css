@@ -1,0 +1,49 @@
+.view_time_dd_time{
+  display: flex;
+  flex-direction: column;
+  background-color: #0066CC;
+}
+.view_time_dd_time__top{
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+.view_time_dd_time__top>*{
+  border-bottom: 2px solid var(--color-light-tertiary);
+}
+.view_time_dd_time__top>*:nth-child(1){
+  border-right: 2px solid var(--color-light-tertiary);
+}
+.view_time_dd_time__bottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+}
+.view_time_dd_time__bottom>span:nth-child(1){
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0px;
+  cursor: pointer;
+  display: inline-block;
+}
+.view_time_dd_time__bottom button{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  
+  
+}
+.view_time_dd_time__bottom button>.MuiSvgIcon-root{
+  font-size: 2rem;
+}
+
+.view_time_dd_time__tt{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  padding: .4rem;
+}
