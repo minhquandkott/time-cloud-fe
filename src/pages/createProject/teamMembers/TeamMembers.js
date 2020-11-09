@@ -123,7 +123,7 @@ const TeamMembers = ({
           <p>Need to add some one?</p>
           <p>
             Go to <span onClick={() => onInvite()}>Manager &gt; People</span> to
-            invite them to Project.
+            see all Members.
           </p>
         </div>
       </div>

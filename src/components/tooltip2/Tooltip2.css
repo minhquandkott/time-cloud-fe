@@ -1,6 +1,9 @@
 .tooltip_v2{
   position: absolute;
-  background-color: red;
+  
+  z-index: 1;
+  
+  
 }
 
 .tooltip_v2__arrow{
@@ -11,7 +14,8 @@
   border-bottom: 5px solid red;
 }
 .tooltip_v2__content{
-  width: 20rem;
-  height: 20rem;
-  background-color: aquamarine;
+  background-color: white;
+  box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  font-family: 'Quicksand', sans-serif;
 }

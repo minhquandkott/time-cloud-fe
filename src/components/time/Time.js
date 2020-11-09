@@ -20,10 +20,15 @@ import DropDownTime from "../dropdown/DropDown";
 import TaskItem from "../tasks/taskItem/TaskItem";
 import ListProjectTask from "../listProjectTask/ListProjectTask";
 import ProjectTask from "../projectTask/ProjectTask";
-import { DESCRIPTION } from "../../utils/localStorageContact";
+import {
+  DESCRIPTION,
+  BEGIN_TIME,
+  SELECTED_TASK_ID,
+} from "../../utils/localStorageContact";
 import DropDown2 from "../dropdown2/DropDown2";
-import { BEGIN_TIME, SELECTED_TASK_ID } from "../../utils/localStorageContact";
+import { convertHours } from "../../utils/Utils";
 import CheckIcon from "@material-ui/icons/Check";
+import TimeDDStartTime from "./timeDDStartTime/TimeDDStartTime";
 
 const Time = ({
   isCounting,
@@ -41,8 +46,10 @@ const Time = ({
   increaseTime,
   beginCountingTime,
   projects,
+  beginTime,
 }) => {
   const [showDDProjectTask, setShowDDProjectTask] = useState(false);
+  const [showDDStartTime, setShowDDStartTime] = useState(false);
 
   useEffect(() => {
     if (!selectedTask) {
@@ -68,10 +75,10 @@ const Time = ({
 
   const onTaskClick = (task) => {
     selectTask(task);
+    localStorage.setItem(SELECTED_TASK_ID, task.id);
     if (!isCounting) {
       const now = new Date();
       localStorage.setItem(BEGIN_TIME, now);
-      localStorage.setItem(SELECTED_TASK_ID, task.id);
       const intervalId = window.setInterval(() => {
         increaseTime(1);
       }, 1000);
@@ -163,6 +170,22 @@ const Time = ({
         />
       </div>
       <div className="time__right">
+        <div className="time__start_time">
+          {isCounting && (
+            <p onClick={() => setShowDDStartTime(true)}>
+              {convertHours(beginTime.getHours(), beginTime.getMinutes())}
+            </p>
+          )}
+          <DropDown2
+            isShow={showDDStartTime}
+            onCloseHandler={() => setShowDDStartTime(false)}
+            renderContent={() => (
+              <TimeDDStartTime onCloseDD={() => setShowDDStartTime(false)} />
+            )}
+            css={{ padding: 0 }}
+          />
+        </div>
+
         <Counter />
         <button className="form__button" onClick={() => onPlayButtonClick()}>
           {isSaving ? (

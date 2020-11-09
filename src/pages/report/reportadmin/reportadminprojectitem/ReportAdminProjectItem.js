@@ -16,7 +16,7 @@ const ReportAdminUserItem = ({ project }) => {
         setTime(response.data);
       })
       .catch((error) => {});
-  });
+  }, [project.id]);
 
   useEffect(() => {
     TimeCloudAPI()
@@ -25,7 +25,7 @@ const ReportAdminUserItem = ({ project }) => {
         setProjectUsers(response.data);
       })
       .catch((error) => {});
-  });
+  }, [project.id]);
 
   for (let index = 0; index < projectUsers.length; index++) {
     if (projectUsers[index].isDoing === true) {

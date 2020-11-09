@@ -1,3 +1,6 @@
+.user_info{
+  font-family: 'Quicksand', sans-serif !important;
+}
 .user_info button {
   background-color: var(--color-button); /* Green */
   border: none;
@@ -6,8 +9,8 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-  border-radius: 2px;
+  font-size: 17px;
+  border-radius: .5rem;
   margin-right: 10rem;
   cursor: pointer;
 }
@@ -22,7 +25,6 @@
 
 .user_info {
   font-size: 20px;
-  font-family: Heebo;
   padding-top: 2rem;
   text-align: right;
 }
@@ -46,7 +48,8 @@
 
 .user_info__field label {
   text-align: left;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.9rem;
   display: inline-block;
   flex-basis: 10rem;
 }

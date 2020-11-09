@@ -8,6 +8,7 @@ import {
   SET_TIMES,
   SET_WEEK_TOTAL_TIME,
   SET_SELECTED_TIME,
+  SET_NEAREST_TIMES,
 } from "../actions/actionType";
 import { getDaysOfWeek } from "../../utils/Utils";
 
@@ -20,7 +21,9 @@ const initialState = {
   isLoadingTotalTimes: false,
   times: [],
   weekTotalTime: 0,
-  selectedTime: -1,
+  selectedTime: null,
+  preNearestTime: null,
+  nextNearestTime: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -71,6 +74,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         selectedTime: payload,
+      };
+    case SET_NEAREST_TIMES:
+      return {
+        ...state,
+        preNearestTime: payload.pre,
+        nextNearestTime: payload.next,
       };
     default:
       return state;

@@ -1,0 +1,14 @@
+.time_dd_start_time{
+  background-color: #0066CC;
+}
+.time_dd_start_time>button{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  padding: 1rem .5rem;
+  color: white;
+  border-top: 2px solid white;
+  width: 100%;
+  cursor: pointer;
+}

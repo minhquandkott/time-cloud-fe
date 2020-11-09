@@ -19,6 +19,7 @@ export {
   selectTask,
   checkTime,
   setDescription,
+  setBeginTime,
 } from "./timeActions";
 
 export { fetchTimes, selectTime } from "./timesActions";
@@ -45,4 +46,6 @@ export {
   editTimeOfListTime,
   setSelectedTime,
   setTimes,
+  getNearestTime,
+  updateTimeOfSelectedDay,
 } from "./weekActions";

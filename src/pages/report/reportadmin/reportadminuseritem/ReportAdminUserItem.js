@@ -15,7 +15,7 @@ const ReportAdminUserItem = ({ user }) => {
         setTime(response.data);
       })
       .catch((error) => {});
-  });
+  }, [user.id]);
 
   function toUserReportPage() {
     history.push({

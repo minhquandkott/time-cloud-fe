@@ -3,27 +3,27 @@ import ReactDOM from "react-dom";
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 
-const Tooltip2 = ({ children }) => {
+const Tooltip2 = ({ children, renderContent, arrow, cssBody }) => {
   const [show, setShow] = useState(false);
 
   const pinRef = useRef(null);
-  const tooltipRef = useRef(null);
   const renderTooltip = () => {
     if (show) {
       const { top, left } = pinRef.current.getBoundingClientRect();
-      console.log(window.innerHeight, window.innerWidth, left);
 
       return ReactDOM.createPortal(
         <div
           className="tooltip_v2"
-          ref={tooltipRef}
           style={{
             bottom: `${window.innerHeight - top - window.scrollY}px`,
             left: `${left + window.scrollX}px`,
           }}
         >
-          <div className="tooltip_v2__arrow"></div>
-          <div className="tooltip_v2__content"></div>
+          {arrow && <div className="tooltip_v2__arrow"></div>}
+
+          <div className="tooltip_v2__content" style={{ ...cssBody }}>
+            {renderContent()}
+          </div>
         </div>,
         document.getElementById("tooltip")
       );

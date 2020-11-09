@@ -7,6 +7,7 @@ const DropDown2 = ({
   isShow,
   onCloseHandler = () => {},
   maxHeight,
+  css,
 }) => {
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
@@ -38,7 +39,7 @@ const DropDown2 = ({
       <div
         className="drop_down_2"
         ref={dropdownRef}
-        style={{ maxHeight: maxHeight }}
+        style={{ maxHeight: maxHeight, ...css }}
       >
         {renderHeader()}
         {renderContent()}

@@ -7,6 +7,7 @@ import {
   convertSecondToHour,
   checkDayWithNow,
 } from "../../../../utils/Utils";
+import Tooltip2 from "../../../tooltip2/Tooltip2";
 
 class WeekHeaderItem extends Component {
   onButtonClick = (index) => {
@@ -31,7 +32,20 @@ class WeekHeaderItem extends Component {
         onClick={() => this.onButtonClick(index)}
         className="week_header_item"
       >
-        <p className="week_header_item__day">{dayTitles[index]}</p>
+        <Tooltip2
+          arrow={false}
+          renderContent={() => <p>{day.toDateString()}</p>}
+          cssBody={{
+            backgroundColor: "#0066CC",
+            color: "white",
+            padding: ".8rem",
+            fontSize: "1.6rem",
+            fontWeight: "600",
+          }}
+        >
+          <p className="week_header_item__day">{dayTitles[index]}</p>
+        </Tooltip2>
+
         <p className="week_header_item__total_time">
           {isLoading ? "0:00" : convertSecondToHour(totalTime)}
         </p>

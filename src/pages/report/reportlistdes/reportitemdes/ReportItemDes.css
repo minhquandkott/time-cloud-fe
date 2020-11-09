@@ -8,15 +8,14 @@
 }
 
 .report_item_des>h2{
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-top: 0.70rem;
     flex:0.3;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .report_item_des>h3{
-    font-size: 2rem;
-    color: darkgray;
+    font-size: 1.8rem;
     margin-top: 0.70rem;
     flex:1
 

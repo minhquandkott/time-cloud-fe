@@ -8,6 +8,7 @@ import {
   SET_TIMES,
   SET_WEEK_TOTAL_TIME,
   SET_SELECTED_TIME,
+  SET_NEAREST_TIMES,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import {
@@ -49,7 +50,7 @@ export const setTimes = (times) => {
   return {
     type: SET_TIMES,
     payload: times.sort((time1, time2) => {
-      return new Date(time1.createAt) - new Date(time2.createAt);
+      return new Date(time1.startTime) - new Date(time2.startTime);
     }),
   };
 };
@@ -225,11 +226,51 @@ export const addTimeOfSelectedDay = (time) => {
   };
 };
 
+export const updateTimeOfSelectedDay = (time) => {
+  return (dispatch, getState) => {
+    const {
+      weekTotalTime,
+      dayTotalTimes,
+      selectedIndex,
+      selectedTime,
+    } = getState().week;
+    const removedTotalTime =
+      (new Date(selectedTime.endTime) - new Date(selectedTime.startTime)) /
+      1000;
+    const addedTotalTime =
+      (new Date(time.endTime) - new Date(time.startTime)) / 1000;
+    const temp = dayTotalTimes.map((ele, index) => {
+      if (index === selectedIndex)
+        return ele - removedTotalTime + addedTotalTime;
+      return ele;
+    });
+    dispatch(
+      setWeekTotalTime(weekTotalTime - removedTotalTime + addedTotalTime)
+    );
+    dispatch(setDaysTotalTimes(temp));
+  };
+};
+
 // * ------------------------------
 
 export const setSelectedTime = (time) => {
   return {
     type: SET_SELECTED_TIME,
     payload: time,
+  };
+};
+
+export const getNearestTime = (time) => {
+  return (dispatch, getState) => {
+    const { times } = getState().week;
+    const index = times.findIndex((ele) => ele.id === time.id);
+
+    dispatch({
+      type: SET_NEAREST_TIMES,
+      payload: {
+        pre: index ? times[index - 1] : null,
+        next: index === times.length - 1 ? null : times[index + 1],
+      },
+    });
   };
 };

@@ -139,3 +139,9 @@ export const checkDayWithNow = (day) => {
   }
   return 1;
 };
+
+export const convertHours = (hour, minutes) => {
+  const stringMinute = `${minutes}`.length === 1 ? `0${minutes}` : minutes;
+  if (hour > 12) return `${hour - 12}:${stringMinute} PM`;
+  else return `${hour}:${stringMinute} AM`;
+};

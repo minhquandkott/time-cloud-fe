@@ -12,10 +12,14 @@ import {
   editTimeOfListTime,
   fetchTimes,
   setSelectedTime,
+  getNearestTime,
+  updateTimeOfSelectedDay,
 } from "../../../../redux/actions";
-import { removeSpace } from "../../../../utils/Utils";
+import { removeSpace, convertHours } from "../../../../utils/Utils";
 import { USER_ID } from "../../../../utils/localStorageContact";
 import ViewTimeDDTask from "./viewTimeDDTask/ViewTimeDDTask";
+import ViewTimeDDTime from "./viewTimeDDTime/ViewTimeDDTime";
+
 class ViewTime extends Component {
   state = {
     showModal: false,
@@ -30,18 +34,23 @@ class ViewTime extends Component {
     const { time } = this.props;
     const startTime = new Date(time.startTime);
     const endTime = new Date(time.endTime);
-    let hourStart = this.convertHours(
-      startTime.getHours(),
-      startTime.getMinutes()
-    );
+    let hourStart = convertHours(startTime.getHours(), startTime.getMinutes());
 
-    let hourEnd = this.convertHours(endTime.getHours(), endTime.getMinutes());
+    let hourEnd = convertHours(endTime.getHours(), endTime.getMinutes());
     return (
-      <>
+      <div
+        onClick={() => this.setState({ showTimeDD: true })}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+        }}
+      >
         {`${hourStart} `}
         <ArrowRightAltIcon />
         {` ${hourEnd}`}
-      </>
+      </div>
     );
   };
 
@@ -118,10 +127,6 @@ class ViewTime extends Component {
       () => {
         const { time } = this.props;
         if (this.state.descriptionInput) {
-          console.log(
-            this.state.descriptionInput,
-            this.descriptionInputRef.current
-          );
           if (
             this.state.descriptionInput !== this.descriptionInputRef.current
           ) {
@@ -151,7 +156,7 @@ class ViewTime extends Component {
   };
 
   onDDTaskClose = (task) => {
-    const { time, selectedTime } = this.props;
+    const { time } = this.props;
     this.setState({ showTaskDD: false });
     if (task.id !== this.props.selectedTime.task.id) {
       this.setState({ isDeleting: true });
@@ -170,13 +175,39 @@ class ViewTime extends Component {
     }
   };
 
+  onDDTimeClose = () => {
+    const { time, selectedTime } = this.props;
+    this.setState({ showTimeDD: false });
+    if (
+      time.endTime !== selectedTime.endTime ||
+      time.startTime !== selectedTime.startTime
+    ) {
+      this.setState({ isDeleting: true });
+      timeCloudAPI()
+        .put(`times/${time.id}`, {
+          description: this.state.descriptionInput,
+          mileSecondStartTime: new Date(time.startTime).getTime(),
+          mileSecondEndTime: new Date(time.endTime).getTime(),
+          userId: time.user.id,
+          taskId: time.task.id,
+        })
+        .then((res) => {
+          this.setState({ isDeleting: false });
+          this.props.updateTimeOfSelectedDay(time);
+        });
+    }
+  };
+
   render() {
     let { time } = this.props;
     this.descriptionInputRef.current = time.description;
     return (
       <div
         className="view_time"
-        onClick={() => this.props.setSelectedTime(time)}
+        onClick={() => {
+          this.props.setSelectedTime(time);
+          this.props.getNearestTime(time);
+        }}
       >
         <div className="view_time__description ">
           <input
@@ -207,7 +238,14 @@ class ViewTime extends Component {
             />
           </div>
         </div>
-        <div className="view_time__from_to ">{this.from_to()}</div>
+        <div className="view_time__from_to ">
+          <ViewTimeDDTime
+            time={time}
+            isShow={this.state.showTimeDD}
+            onCloseHandler={this.onDDTimeClose}
+          />
+          {this.from_to()}
+        </div>
         <div className="view_time__total ">{this.getHours(time)}</div>
         <div className="view_time__action">
           {!this.state.isDeleting ? (
@@ -224,6 +262,7 @@ class ViewTime extends Component {
           title="Delete time!"
           renderContent={() => this.renderModalContent()}
           renderAction={() => this.renderModalAction()}
+          cssBody={{ minWidth: "35rem" }}
         />
       </div>
     );
@@ -231,9 +270,10 @@ class ViewTime extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedTime } = state.week;
+  const { selectedTime, selectedIndex } = state.week;
   return {
     selectedTime,
+    selectedIndex,
   };
 };
 
@@ -242,4 +282,6 @@ export default connect(mapStateToProps, {
   editTimeOfListTime,
   fetchTimes,
   setSelectedTime,
+  getNearestTime,
+  updateTimeOfSelectedDay,
 })(ViewTime);

@@ -6,17 +6,13 @@
     font-family: "Quicksand";
 }
 
-.view_time>*:not(:last-child){
-  padding: 2rem 5rem;
-}
-
 .view_time:hover {
     background-color: rgb(219, 217, 217);
 }
 
 .view_time__description {
-    flex: 10;
-    
+    flex: 9;
+    padding: 2rem 5rem;
 }
 .view_time__description>input{
   outline: none;
@@ -32,9 +28,10 @@
 }
 
 .view_time__project_task {
-    flex: 6;
+    flex: 7;
     display: flex;
     position: relative;
+    padding: 2rem 4rem;
 }
 
 .view_time__from_to {
@@ -45,12 +42,14 @@
     display: flex;
     align-items: flex-end;
     font-weight: 400;
-    font-family: Heebo;
+    padding: 2rem 5rem;
+    position: relative
 }
 
 .view_time__total {
     flex: 2;
     font-weight: 700;
+    padding: 2rem 5rem;
 }
 .view_time__action{
   flex: 1;
@@ -89,7 +88,13 @@
   cursor: pointer;
   color: white;
   border-radius: .5rem;
+  
+}
+.view_time__modal_action>button:nth-of-type(1){
   background-color: var(--color-error);
+}
+.view_time__modal_action>button:nth-of-type(2){
+  background-color: var(--color-button);
 }
 
 .view_time__modal_content>p{
@@ -104,4 +109,9 @@
 .view_time__modal_content>div>span{
   display: inline-block;
   margin-top: 1rem;
+}
+
+.view_time_dd_time__tt_disable{
+  cursor: inherit !important;
+  color: #939393 !important;
 }

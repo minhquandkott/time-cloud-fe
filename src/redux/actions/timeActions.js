@@ -6,6 +6,7 @@ import {
   SAVING_TIME_FAIL,
   SELECT_TASK,
   TIME_SET_DESCRIPTION,
+  SET_BEGIN_TIME,
 } from "./actionType";
 import {
   SELECTED_TASK_ID,
@@ -23,6 +24,19 @@ export const beginCountingTime = (beginTime, intervalId, totalSecond = 0) => {
       intervalId,
       totalSecond,
     },
+  };
+};
+
+export const setBeginTime = (beginTime) => {
+  return (dispatch) => {
+    const totalSecond = Math.ceil((new Date().getTime() - beginTime) / 1000);
+    dispatch({
+      type: SET_BEGIN_TIME,
+      payload: {
+        beginTime,
+        totalSecond,
+      },
+    });
   };
 };
 
@@ -83,7 +97,7 @@ export const checkTime = () => {
       const intervalId = window.setInterval(() => {
         dispatch(increaseTime(1));
       }, 1000);
-      dispatch(beginCountingTime(beginTime, intervalId, totalSecond));
+      dispatch(beginCountingTime(new Date(beginTime), intervalId, totalSecond));
     }
   };
 };

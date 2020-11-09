@@ -174,3 +174,16 @@
   font-weight: 400;
 }
 
+.time__start_time {
+  position: relative;
+}
+.time__start_time>p{
+  line-height: 6rem;
+
+}
+
+.time__start_time >p{
+  font-size: 1.8rem;
+  margin-right: 3rem;
+  min-width: 6.5rem;
+}
