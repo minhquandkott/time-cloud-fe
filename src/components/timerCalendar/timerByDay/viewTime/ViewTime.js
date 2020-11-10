@@ -205,8 +205,10 @@ class ViewTime extends Component {
       <div
         className="view_time"
         onClick={() => {
-          this.props.setSelectedTime(time);
-          this.props.getNearestTime(time);
+          if (this.state.showTaskDD && this.state.showTimeDD) {
+            this.props.setSelectedTime(time);
+            this.props.getNearestTime(time);
+          }
         }}
       >
         <div className="view_time__description ">
