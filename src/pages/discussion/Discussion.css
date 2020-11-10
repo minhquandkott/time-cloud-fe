@@ -1,0 +1,21 @@
+.discussion {
+    display: flex;
+    margin: 5rem;
+    height: 70vh;
+    width: 70vw;
+    border: 1px solid darkgrey;
+}
+
+.discussion__item {
+    display: flex;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    width: 70%;
+    
+    height: 100%;
+    
+}
+
+.discussion__feature {
+    width: 30%;
+}
