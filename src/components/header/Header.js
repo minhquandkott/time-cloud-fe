@@ -54,6 +54,9 @@ const Header = ({ user, logout }) => {
       <NavLink to="/projects" activeClassName="header__feature__active">
         Project
       </NavLink>
+      <NavLink to="/discussion" activeClassName="header__feature__active">
+        Discussion
+      </NavLink>
     </React.Fragment>
   ) : (
     <React.Fragment>
@@ -68,6 +71,9 @@ const Header = ({ user, logout }) => {
         activeClassName="header__feature__active"
       >
         Report
+      </NavLink>
+      <NavLink to="/discussion" activeClassName="header__feature__active">
+        Discussion
       </NavLink>
     </React.Fragment>
   );

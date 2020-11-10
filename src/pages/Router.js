@@ -15,6 +15,7 @@ import Profile from "./profile/Profile";
 import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
 import TimerCalendar from "../components/timerCalendar/TimerCalendar";
+import Discussion from '../pages/discussion/Discussion';
 
 class Router extends React.Component {
   componentDidMount() {
@@ -38,6 +39,7 @@ class Router extends React.Component {
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
           <Route path="/timer_calendar" component={TimerCalendar} />
+          <Route path="/discussion" component={Discussion}></Route>
           <Route component={NotFound} />
         </Switch>
       );
@@ -48,6 +50,7 @@ class Router extends React.Component {
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
           <Route path="/profile/:id" component={Profile} />
+          <Route path="/discussion" component={Discussion} />
           {this.props.user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
       );

@@ -1,0 +1,32 @@
+.content {
+    margin-left: 1rem;
+    font-size: large;
+    display: table-caption;
+    padding-top: .3rem;
+    width: 100%;
+}
+
+.content__text {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content__attributes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: .7rem;
+}
+
+.content__attributes p:nth-child(2) {
+    font-size: 1.2rem;
+    color: red;
+    cursor: pointer;
+}
+
+.content__attributes p:nth-child(3) {
+    font-size: 1.2rem;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+}
