@@ -1,21 +1,64 @@
 .discussion {
+    
+    margin: 1rem 10rem;
+    border: 1px solid black;
+    height: 87vh;
+}
+
+.discussion__header{
+    
     display: flex;
-    margin: 5rem;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+}
+.discussion__header>* {
+    flex-grow:1;
+}
+
+.discussion__left {
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 85vh;
+    margin: 0 0 0 3rem;
+}
+.discussion__list {
     height: 70vh;
-    width: 70vw;
-    border: 1px solid darkgrey;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .discussion__item {
     display: flex;
     font-family: 'Quicksand', sans-serif;
     font-weight: 600;
-    width: 70%;
-    
-    height: 100%;
-    
+    padding: 1rem 0;
+    border-radius: 3rem;
+    margin: .5rem;
 }
 
 .discussion__feature {
     width: 30%;
+}
+
+.discussion__write {
+    display: flex;
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+
+.discussion__write input {
+    width: 90%;
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 2rem;
+    outline: none;
+    border: none;
+    padding: 0 2rem;
+    font-weight: 600;
+    background-color: #F0F2F5;
+    font-size: large;
 }
