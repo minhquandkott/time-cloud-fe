@@ -7,6 +7,7 @@ import {
   SELECT_TASK,
   TIME_SET_DESCRIPTION,
   SET_BEGIN_TIME,
+  SET_LAST_TIME_CURRENT_DAY,
 } from "../actions/actionType";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   errorMessage: null,
   selectedTask: null,
   description: "",
+  lastTimeCurrentDay: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -63,6 +65,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isSaving: false,
         errorMessage: payload,
+      };
+    case SET_LAST_TIME_CURRENT_DAY:
+      return {
+        ...state,
+        lastTimeCurrentDay: payload,
       };
     default:
       return state;

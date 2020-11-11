@@ -7,11 +7,13 @@ import {
   SELECT_TASK,
   TIME_SET_DESCRIPTION,
   SET_BEGIN_TIME,
+  SET_LAST_TIME_CURRENT_DAY,
 } from "./actionType";
 import {
   SELECTED_TASK_ID,
   DESCRIPTION,
   BEGIN_TIME,
+  USER_ID,
 } from "../../utils/localStorageContact";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import { fetchTimes, selectTime } from "./index";
@@ -131,5 +133,26 @@ export const savingTimeFail = (errorMessage) => {
   return {
     type: SAVING_TIME_FAIL,
     payload: errorMessage,
+  };
+};
+
+export const setLastTimeCurrentDay = (lastTimeCurrentDay) => {
+  return {
+    type: SET_LAST_TIME_CURRENT_DAY,
+    payload: lastTimeCurrentDay,
+  };
+};
+
+export const fetchLastTimeCurrentDay = () => {
+  return (dispatch) => {
+    timeCloudAPI()
+      .get(
+        `users/${localStorage.getItem(
+          USER_ID
+        )}/times/page?limit=1&page=0&sort_by=createAt&order=DESC`
+      )
+      .then((res) => {
+        dispatch(setLastTimeCurrentDay(res.data[0]));
+      });
   };
 };

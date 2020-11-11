@@ -13,6 +13,8 @@ import {
   saveTime,
   addTimeOfSelectedDay,
   selectTask,
+  fetchLastTimeCurrentDay,
+  setLastTimeCurrentDay,
 } from "../../redux/actions";
 import Counter from "../counter/Counter";
 import Spinner from "../loading/spinner/Spinner";
@@ -47,6 +49,8 @@ const Time = ({
   beginCountingTime,
   projects,
   beginTime,
+  fetchLastTimeCurrentDay,
+  setLastTimeCurrentDay,
 }) => {
   const [showDDProjectTask, setShowDDProjectTask] = useState(false);
   const [showDDStartTime, setShowDDStartTime] = useState(false);
@@ -54,6 +58,7 @@ const Time = ({
   useEffect(() => {
     if (!selectedTask) {
       checkTime();
+      fetchLastTimeCurrentDay();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -69,6 +74,7 @@ const Time = ({
         const savedTime = res.data;
         addTimeOfSelectedDay(savedTime);
         fetchTimes(userId);
+        setLastTimeCurrentDay(savedTime);
       });
     }
   };
@@ -239,4 +245,6 @@ export default connect(mapStateToProps, {
   saveTime,
   addTimeOfSelectedDay,
   selectTask,
+  fetchLastTimeCurrentDay,
+  setLastTimeCurrentDay,
 })(Time);

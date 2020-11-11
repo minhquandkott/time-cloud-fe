@@ -53,11 +53,10 @@ const TimeDDStartTime = ({ beginTime, lastTime, setBeginTime, onCloseDD }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { beginTime } = state.time;
-  const lastTime = state.week.times[state.week.times.length - 1];
+  const { beginTime, lastTimeCurrentDay } = state.time;
   return {
     beginTime,
-    lastTime,
+    lastTime: lastTimeCurrentDay,
   };
 };
 

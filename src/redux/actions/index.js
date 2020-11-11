@@ -20,6 +20,8 @@ export {
   checkTime,
   setDescription,
   setBeginTime,
+  setLastTimeCurrentDay,
+  fetchLastTimeCurrentDay,
 } from "./timeActions";
 
 export { fetchTimes, selectTime } from "./timesActions";

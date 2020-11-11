@@ -15,7 +15,11 @@ import {
   getNearestTime,
   updateTimeOfSelectedDay,
 } from "../../../../redux/actions";
-import { removeSpace, convertHours } from "../../../../utils/Utils";
+import {
+  removeSpace,
+  convertHours,
+  convertSecondToHour,
+} from "../../../../utils/Utils";
 import { USER_ID } from "../../../../utils/localStorageContact";
 import ViewTimeDDTask from "./viewTimeDDTask/ViewTimeDDTask";
 import ViewTimeDDTime from "./viewTimeDDTime/ViewTimeDDTime";
@@ -29,7 +33,10 @@ class ViewTime extends Component {
     showTimeDD: false,
   };
 
-  descriptionInputRef = React.createRef();
+  timeRef = React.createRef();
+  componentDidMount() {
+    this.timeRef.current = this.props.time;
+  }
   from_to = () => {
     const { time } = this.props;
     const startTime = new Date(time.startTime);
@@ -39,7 +46,9 @@ class ViewTime extends Component {
     let hourEnd = convertHours(endTime.getHours(), endTime.getMinutes());
     return (
       <div
-        onClick={() => this.setState({ showTimeDD: true })}
+        onClick={() => {
+          this.setState({ showTimeDD: true });
+        }}
         style={{
           display: "flex",
           alignItems: "center",
@@ -58,16 +67,8 @@ class ViewTime extends Component {
     const startTime = new Date(time.startTime);
     const endTime = new Date(time.endTime);
     let seconds = (endTime.getTime() - startTime.getTime()) / 1000;
-    let hours = seconds / 60 / 60;
-    let rhours = Math.floor(hours);
-    let rminutes = Math.round((hours - rhours) * 60);
-    return `${rhours}:${rminutes < 10 ? `0${rminutes}` : rminutes}`;
+    return convertSecondToHour(seconds);
   };
-
-  convertHours(hour, minutes) {
-    if (hour > 12) return `${hour - 12}:${minutes ? minutes : "00"}PM`;
-    else return `${hour}:${minutes ? minutes : "00"}AM`;
-  }
 
   onButtonDeleteClick() {
     this.setState({ showModal: true });
@@ -90,6 +91,27 @@ class ViewTime extends Component {
       }
     );
   }
+
+  editTime = () => {
+    let { time } = this.props;
+    this.setState({ isDeleting: true });
+    timeCloudAPI()
+      .put(`times/${time.id}`, {
+        description: this.state.descriptionInput,
+        mileSecondStartTime: new Date(time.startTime).getTime(),
+        mileSecondEndTime: new Date(time.endTime).getTime(),
+        userId: time.user.id,
+        taskId: time.task.id,
+      })
+      .then((res) => {
+        const savedTime = res.data;
+        this.setState({ isDeleting: false });
+        this.timeRef.current = savedTime;
+        this.props.editTimeOfListTime(savedTime);
+        this.props.fetchTimes(localStorage.getItem(USER_ID));
+        this.props.updateTimeOfSelectedDay(time);
+      });
+  };
 
   renderModalAction() {
     return (
@@ -125,90 +147,50 @@ class ViewTime extends Component {
     this.setState(
       { descriptionInput: removeSpace(this.state.descriptionInput) },
       () => {
-        const { time } = this.props;
         if (this.state.descriptionInput) {
           if (
-            this.state.descriptionInput !== this.descriptionInputRef.current
+            this.state.descriptionInput !== this.timeRef.current.description
           ) {
-            this.setState({ isDeleting: true });
-            timeCloudAPI()
-              .put(`times/${time.id}`, {
-                description: this.state.descriptionInput,
-                mileSecondStartTime: new Date(time.startTime).getTime(),
-                mileSecondEndTime: new Date(time.endTime).getTime(),
-                userId: time.user.id,
-                taskId: time.task.id,
-              })
-              .then((res) => {
-                this.setState({ isDeleting: false });
-                this.props.editTimeOfListTime(res.data);
-                this.props.fetchTimes(localStorage.getItem(USER_ID));
-              });
+            this.editTime();
           }
         } else {
-          if (this.state.descriptionInput === "")
-            this.setState({
-              descriptionInput: this.descriptionInputRef.current,
-            });
+          this.setState({
+            descriptionInput: this.timeRef.current.description,
+          });
         }
       }
     );
   };
 
-  onDDTaskClose = (task) => {
-    const { time } = this.props;
+  onDDTaskClose = () => {
+    let { time } = this.props;
     this.setState({ showTaskDD: false });
-    if (task.id !== this.props.selectedTime.task.id) {
-      this.setState({ isDeleting: true });
-      timeCloudAPI()
-        .put(`times/${time.id}`, {
-          description: this.state.descriptionInput,
-          mileSecondStartTime: new Date(time.startTime).getTime(),
-          mileSecondEndTime: new Date(time.endTime).getTime(),
-          userId: time.user.id,
-          taskId: task.id,
-        })
-        .then((res) => {
-          this.setState({ isDeleting: false });
-          this.props.fetchTimes(localStorage.getItem(USER_ID));
-        });
+    if (this.timeRef.current.task.id !== time.task.id) {
+      this.editTime();
     }
   };
 
   onDDTimeClose = () => {
-    const { time, selectedTime } = this.props;
+    const { time } = this.props;
+    const preTime = this.timeRef.current;
     this.setState({ showTimeDD: false });
     if (
-      time.endTime !== selectedTime.endTime ||
-      time.startTime !== selectedTime.startTime
+      time.endTime !== preTime.endTime ||
+      time.startTime !== preTime.startTime
     ) {
-      this.setState({ isDeleting: true });
-      timeCloudAPI()
-        .put(`times/${time.id}`, {
-          description: this.state.descriptionInput,
-          mileSecondStartTime: new Date(time.startTime).getTime(),
-          mileSecondEndTime: new Date(time.endTime).getTime(),
-          userId: time.user.id,
-          taskId: time.task.id,
-        })
-        .then((res) => {
-          this.setState({ isDeleting: false });
-          this.props.updateTimeOfSelectedDay(time);
-        });
+      this.editTime();
     }
   };
 
   render() {
     let { time } = this.props;
-    this.descriptionInputRef.current = time.description;
+
     return (
       <div
         className="view_time"
         onClick={() => {
-          if (this.state.showTaskDD && this.state.showTimeDD) {
-            this.props.setSelectedTime(time);
-            this.props.getNearestTime(time);
-          }
+          this.props.setSelectedTime(time);
+          this.props.getNearestTime(time);
         }}
       >
         <div className="view_time__description ">
@@ -245,6 +227,7 @@ class ViewTime extends Component {
             time={time}
             isShow={this.state.showTimeDD}
             onCloseHandler={this.onDDTimeClose}
+            preTime={this.timeRef.current}
           />
           {this.from_to()}
         </div>

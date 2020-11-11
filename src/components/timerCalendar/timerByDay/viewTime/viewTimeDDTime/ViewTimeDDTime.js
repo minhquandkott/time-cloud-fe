@@ -15,8 +15,7 @@ const ViewTimeDDTime = ({
   nextNearestTime,
   times,
   setTimes,
-  setSelectedTime,
-  selectedTime,
+  preTime,
 }) => {
   const renderContent = () => {
     return (
@@ -41,7 +40,7 @@ const ViewTimeDDTime = ({
         </div>
         <div className="view_time_dd_time__bottom">
           <span
-            onClick={setOnOfLastTime}
+            onClick={setStartOfLastTime}
             className={
               checkOnOfLastTimeButtonDisable()
                 ? "view_time_dd_time__tt_disable"
@@ -70,7 +69,7 @@ const ViewTimeDDTime = ({
     );
   };
 
-  const setOnOfLastTime = () => {
+  const setStartOfLastTime = () => {
     if (!checkOnOfLastTimeButtonDisable()) {
       setTimes(
         times.map((ele) => {
@@ -94,8 +93,8 @@ const ViewTimeDDTime = ({
     if (checkHaveAnyChange()) {
       setTimes(
         times.map((ele) => {
-          if (ele.id === selectedTime.id) {
-            return selectedTime;
+          if (ele.id === preTime.id) {
+            return preTime;
           }
           return ele;
         })
@@ -104,10 +103,10 @@ const ViewTimeDDTime = ({
   };
 
   const checkHaveAnyChange = () => {
-    const temp = times.find((ele) => ele.id === selectedTime.id);
+    const temp = times.find((ele) => ele.id === preTime.id);
     if (
-      temp.endTime !== selectedTime.endTime ||
-      temp.startTime !== selectedTime.startTime
+      temp.endTime !== preTime.endTime ||
+      temp.startTime !== preTime.startTime
     ) {
       return true;
     }
@@ -153,10 +152,9 @@ const ViewTimeDDTime = ({
       }
       return true;
     } else {
-      const temp = new Date(selectedTime.startTime);
+      const temp = new Date(preTime.startTime);
       temp.setHours(0, 0, 0, 0);
       if (startTime - temp < 0) {
-        console.log(1);
         return true;
       }
     }
@@ -171,7 +169,7 @@ const ViewTimeDDTime = ({
       }
       return true;
     } else {
-      const temp = new Date(selectedTime.endTime);
+      const temp = new Date(preTime.endTime);
       temp.setHours(23, 59, 59, 999);
       if (endTime - temp > 0) {
         return true;
@@ -203,12 +201,11 @@ const ViewTimeDDTime = ({
 };
 
 const mapStateToProps = (state) => {
-  const { preNearestTime, nextNearestTime, times, selectedTime } = state.week;
+  const { preNearestTime, nextNearestTime, times } = state.week;
   return {
     preNearestTime,
     nextNearestTime,
     times,
-    selectedTime,
   };
 };
 

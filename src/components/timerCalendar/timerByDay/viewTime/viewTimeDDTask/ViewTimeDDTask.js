@@ -82,7 +82,7 @@ const ViewTimeDDTask = ({
       onCloseHandler={() => {
         setSearchInput("");
         setSearchProjects(projects);
-        onCloseHandler(task);
+        onCloseHandler();
       }}
       maxHeight="30rem"
     />
