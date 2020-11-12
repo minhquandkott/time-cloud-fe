@@ -53,18 +53,34 @@
   background-color: var(--color-light-tertiary);
 }
 
-.create_project__modal{
+.create_project__modal_action{
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
-.create_project__modal>button{
+.create_project__modal_action>button{
   outline: none;
   border: none;
   font-size: 1.8rem;
   font-weight: 600;
-  padding: .5rem;
+  padding: .7rem 1.5rem;
   margin-top: .5rem;
-  background-color: var(--color-error);
   cursor: pointer;
+  margin-left: 2rem;
+}
+.create_project__modal_action>button:nth-of-type(1){
+  background-color: var(--color-error);
+}
+.create_project__modal_action>button:nth-of-type(2){
+  background-color: var(--color-button);
+}
+.create_project__modal_content{
+  line-height: 2.2rem;
+}
+
+.create_project__modal_content>p:nth-of-type(1){
+  font-weight: 500;
+}
+.create_project__modal_content>p:nth-of-type(2){
+  font-weight: 600;
 }

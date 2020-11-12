@@ -276,8 +276,18 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   };
   const renderAction = () => {
     return (
-      <div className="create_project__modal">
+      <div className="create_project__modal_action">
         <button onClick={() => history.goBack()}>Yes</button>
+        <button onClick={() => setShowModal(false)}>No</button>
+      </div>
+    );
+  };
+
+  const renderContent = () => {
+    return (
+      <div className="create_project__modal_content">
+        <p>Cancel will discard all your changed! </p>
+        <p>Are you sure?</p>
       </div>
     );
   };
@@ -319,6 +329,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
             <button
               className="create_project__button__cancel"
               onClick={onCancelProject}
+              style={{}}
             >
               Cancel
             </button>
@@ -337,8 +348,9 @@ const CreateProject = ({ match, fetchMembers, members }) => {
         title={editingMode.current ? "Edit Project" : "Create Project"}
         show={showModal}
         onCloseModal={() => setShowModal(false)}
-        renderContent={() => "Are you sure?"}
+        renderContent={renderContent}
         renderAction={renderAction}
+        cssBody={{ minWidth: "25rem" }}
       />
     </div>
   );

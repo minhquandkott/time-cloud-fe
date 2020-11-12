@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   font-family: 'Quicksand', sans-serif;
+  z-index: 1;
 }
 .modal__body{
   background-color: white;
