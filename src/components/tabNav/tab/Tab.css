@@ -1,5 +1,5 @@
 .tab.animation {
-  animation: scaleTab 1s;
+  animation: scaleTab .5s;
 }
 
 @keyframes scaleTab {

@@ -30,3 +30,26 @@
     display: flex;
     align-items: center;
 }
+
+.content__actions {
+  display: flex;
+  align-items: center;
+}
+
+.content__button__comment {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.content__button__comment>p {
+  margin-left: .5rem;
+  border-bottom: 1px solid red;
+}
+
+.content__button__edit{
+  color: red;
+  border-bottom: 1px solid red;
+  cursor: pointer;
+}

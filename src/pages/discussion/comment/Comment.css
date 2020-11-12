@@ -1,0 +1,16 @@
+.comment{
+  margin-top: 2rem;
+}
+.comment__input{
+  flex: 1;
+}
+.comment__input>input{
+  width: 95%;
+  padding: .2rem;
+  padding-left: 1rem;
+  font-size: 1.65rem;
+  font-weight: 500;
+  border-radius: .5rem;
+  outline: none;
+  border: 1px solid var(--color-dark-secondary);
+}

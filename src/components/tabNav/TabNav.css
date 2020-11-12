@@ -10,7 +10,7 @@
   display: inline-block;
   font-size: 1.8rem;
   text-transform: capitalize;
-  color: var(--color-light-tertiary);
+  color: #858585;
   cursor: pointer;
   padding: .5rem;
   margin-right: 1rem;
@@ -20,6 +20,7 @@
 
   color: var(--color-dark-primary);
   position: relative;
+  font-weight: 600;
 }
 
 .tab_nav__nav>span.nav_active::after {

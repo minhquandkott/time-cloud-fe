@@ -1,11 +1,10 @@
 .interact {
-    padding-left: 2rem;
     display: table-caption;
 }
 
 .interact button {
     background-color: white !important;
-    border: 1px solid #ebeaf1;
+    border: 1px solid #c8c5dd;
     border-radius: 10% 10% 0 0;
     border-bottom: none;
     cursor: pointer;
@@ -15,7 +14,7 @@
 .interact p {
     width: 27px;
     height: 25px;
-    border: 1px solid #ebeaf1;
+    border: 1px solid #c8c5dd;
     display: flex;
     align-items: center;
     justify-content: center;

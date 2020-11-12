@@ -1,0 +1,35 @@
+.discussion_item{ 
+  
+  margin: .5rem;
+  background-color: transparent;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+  border-radius: 1rem;
+}
+.discussion_item__top{
+  display: flex;
+  
+  border-radius: 1rem;
+}
+.discussion_item__top>div:nth-child(1){
+  padding: 1.5rem;
+  display: flex;
+  
+
+}
+.discussion_item__comment{
+  margin-left: 1.5rem;
+  padding-bottom: 1rem;
+  
+}
+.discussion_item__type{
+  flex-basis: 15rem;
+  background-color: #39ADB3;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius:1rem ;
+}

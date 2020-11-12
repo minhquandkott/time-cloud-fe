@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab/Tab";
 
-const TabNav = ({ tabTitles, children }) => {
+const TabNav = ({ tabTitles, children, renderTitle }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
@@ -17,7 +17,7 @@ const TabNav = ({ tabTitles, children }) => {
               setSelectedIndex(index);
             }}
           >
-            {tabTitle}
+            {renderTitle ? renderTitle(tabTitle) : tabTitle}
           </span>
         ))}
       </div>
