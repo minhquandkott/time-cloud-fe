@@ -4,11 +4,22 @@
     display: table-caption;
     padding-top: .3rem;
     width: 100%;
+    font-weight: 600;
 }
 
 .content__text {
     display: flex;
     flex-wrap: wrap;
+}
+
+.content__text input {
+  outline: none;
+  width: 65vw;
+  height: 2.5rem;
+  font-weight: 600;
+  font-size: large;
+  border-radius: 1rem;
+  padding: 0 1rem;
 }
 
 .content__attributes {
@@ -49,7 +60,19 @@
 }
 
 .content__button__edit{
-  color: red;
   border-bottom: 1px solid red;
   cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.content__button__delete {
+  margin-left: 1rem;
+  border-bottom: 1px solid red;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.content__button_actions {
+  color: red;
+  display: flex;
 }

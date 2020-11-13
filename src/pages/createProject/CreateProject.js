@@ -338,7 +338,10 @@ const CreateProject = ({ match, fetchMembers, members }) => {
             className="create_project__button__create_new"
             onClick={editingMode.current ? onEditProject : onCreateProject}
             disabled={checkHaveAnyChange()}
-            style={{ cursor: checkHaveAnyChange() ? "initial" : "pointer" }}
+            style={{ 
+              cursor: checkHaveAnyChange() ? "initial" : "pointer",
+              color: checkHaveAnyChange() ? "darkgray" : "white",
+             }}
           >
             {editingMode.current ? "Save" : "Create New"}
           </button>

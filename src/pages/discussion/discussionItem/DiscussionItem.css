@@ -7,7 +7,7 @@
 }
 .discussion_item__top{
   display: flex;
-  
+  justify-content: space-between;
   border-radius: 1rem;
 }
 .discussion_item__top>div:nth-child(1){

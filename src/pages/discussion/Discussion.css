@@ -17,6 +17,27 @@
     max-height: 38rem;
 }
 
+.heaer_right__select_box {
+  position: relative;
+  font-family: Arial;
+}
+
+.select-item {
+  background-color: darkgray;
+}
+
+.discussion__filter {
+  display: flex;
+}
+
+.header_right__select_box>select {
+  width: 15rem;
+  height: 4rem;
+  font-weight: 700;
+  font-size: large;
+}
+
+
 .discussion__content::-webkit-scrollbar {
   width: 3px;
 }
@@ -44,6 +65,14 @@
     margin-top: 1rem;
     
 }
+
+.discussion__filter__aler {
+  color: red;
+  font-size: large;
+  font-weight: 600;
+  align-self: center;
+}
+
 
 .discussion__footer input {
     width: 90%;
