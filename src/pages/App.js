@@ -4,14 +4,15 @@ import "../assets/css/animation.css";
 import { Router as BrowserRouter } from "react-router-dom";
 import history from "../history";
 import Router from "./Router";
-import ChangeTime from "../components/changeTime/ChangeTime";
+import Calendar from "../components/calendar/Calendar";
 
 function App() {
   return (
     <div className="app">
-      <BrowserRouter history={history}>
+      {/* <BrowserRouter history={history}>
         <Router />
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <Calendar />
       {/* <span>
         <ChangeTime time={new Date()} />
       </span> */}

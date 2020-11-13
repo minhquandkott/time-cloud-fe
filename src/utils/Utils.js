@@ -33,7 +33,7 @@ export const months = [
   "Jun",
   "Jul",
   "Aug",
-  "Sept",
+  "Sep",
   "Oct",
   "Nov",
   "Dec",
@@ -91,7 +91,7 @@ export const convertDate = (day) => {
 };
 
 export const equalDates = (date1, date2) => {
-  return date1.toDateString() === date2.toDateString();
+  return date1?.toDateString() === date2?.toDateString();
 };
 
 export const getDaysOfWeek = (dayInWeek) => {

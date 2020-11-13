@@ -1,0 +1,77 @@
+.calendar{
+  width: fit-content;
+  font-family: 'Quicksand', sans-serif;
+  box-shadow: 2px 2px 1.5rem rgba(0, 0, 0, .5);
+  border-radius: 1rem;
+}
+.calendar__header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem;
+}
+.calendar__header__middle>span{
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.calendar__header>button{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.calendar__header>button .MuiSvgIcon-root{
+  font-weight:500;
+  font-size: 1.8rem;
+}
+.calendar__content{
+  border-radius: 1rem;
+}
+
+.calendar__title{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-bottom: 2px solid var(--color-light-tertiary);
+}
+.calendar__title>span{
+  font-size: 1.35rem;
+  font-weight: 600;
+  text-align: center;
+  padding: .3rem;
+}
+.calendar__days{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: .5rem;
+  row-gap: 2px;
+  column-gap: 2px;
+  border-radius: 1rem;
+}
+.calendar__days>span{
+  padding: .6rem 1.6rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  text-align: center;
+  border-radius: 1rem;
+}
+.calendar__days>span:hover{
+  background-color: #efefef;;
+  
+}
+
+
+.calendar__days .disable{
+  background-color:transparent;
+  color: #cdcccc;
+  
+}
+.calendar__days .active{
+  background-color: #ffae91 !important;
+  color: var(--color-dark-primary);
+  border: 1px 1px ;
+}
