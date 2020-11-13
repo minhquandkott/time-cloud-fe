@@ -3,8 +3,9 @@ import './ProjectName.css';
 
 class ProjectName extends Component {
     render() {
+        const {project} = this.props;
         return (
-            <span className="project_name" style={{backgroundColor:"rgb(98 182 236)"}}> Facebook </span>
+            <span className="project_name" style={{backgroundColor: project.color}}> {project.name} </span>
         )
     }
 }

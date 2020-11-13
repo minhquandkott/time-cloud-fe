@@ -40,7 +40,7 @@
   background-color: #005ebd;
 }
 .create_project__button__create_new:disabled{
-  background-color: #3a5d80;
+  background-color: #e2e2df;
 }
 .create_project__button__cancel{
   border: none;
