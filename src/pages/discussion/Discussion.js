@@ -6,21 +6,22 @@ import "./Discussion.css";
 import PageDesign from "../../components/pageDesign/PageDesign";
 import DiscussionItem from "./discussionItem/DiscussionItem";
 import { v4 } from "uuid";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import DropDown2 from "../../components/dropdown2/DropDown2";
+import Skeleton from "../../components/loading/skeleton/Skeleton";
 
 const data = ["Bug", "Feature", "Approve"];
 class Discussion extends Component {
   state = {
     projects: [],
-    projectIndex: -1,
-    classify: "",
-    discussionInput: "",
+    projectSelected: null,
     discussions: [],
-    status: true,
+    isLoading: false,
+    showDDProject: false,
   };
-  endRef = React.createRef();
 
   componentDidMount() {
-    this.endRef.current.scrollIntoView();
+    this.setState({ isLoading: true });
     timeCloudAPI()
       .get(`users/${localStorage.getItem("userId")}/projects-available`)
       .then((res) => {
@@ -28,164 +29,92 @@ class Discussion extends Component {
           projects: res.data,
         });
       });
+    this.fetchAllDiscussion(0, 10, "createAt", "ACS");
   }
 
-  onChange = (e) => {
-    const { projects, projectIndex } = this.state;
-    console.log(projects, projectIndex);
-    var target = e.target;
-    var name = target.name;
-    var value = target.value;
-    var position = -1;
-    projects.forEach((project, index) => {
-      if (project.id == value) {
-        position = index;
-      }
-    });
+  fetchAllDiscussion(page, limit, sortBy, order) {
     timeCloudAPI()
-      .get(`projects/${projects[position].id}/discussions`)
+      .get(`users/77/discussions?limit=${limit}&page=${page}`)
       .then((res) => {
-        this.setState({
-          [name]: value,
-          discussions: res.data,
-          projectIndex: position,
-          status: true,
-        });
+        console.log(res.data);
       });
-  };
-
-  onSubmit = (e) => {
-    var { discussionInput, projectIndex, projects, discussions } = this.state;
-    if (projectIndex === -1) {
-      this.setState({ status: false });
-    } else if (e.key === "Enter" && discussionInput) {
-      let data = {
-        content: discussionInput,
-        userId: parseInt(localStorage.getItem("userId")),
-        projectId: projects[projectIndex].id,
-        type: "",
-      };
-      this.setState({
-        discussionInput: "",
-        status: true,
+  }
+  fetchAllDiscussionByProjectId(page, limit, sortBy, order) {}
+  onSelectProject = (project) => {
+    if (project.id === 0) {
+      this.setState({ projectSelected: null });
+      this.fetchAllDiscussion();
+    } else {
+      this.setState({ projectSelected: project }, () => {
+        this.getAllDiscussionByProjectId();
       });
-      timeCloudAPI()
-        .post("/discussions", data)
-        .then((res) => {
-          this.setState({
-            discussions: [...discussions, res.data],
-          });
-        });
     }
   };
-
-  onDeleteItem = (discussion) => {
-    if (window.confirm("Delete this discussion!!!")) {
-      timeCloudAPI()
-        .delete(`discussions/${discussion.id}`)
-        .then((res) => {
-          this.setState({
-            discussions: this.state.discussions.filter(
-              (ele) => ele.id !== discussion.id
-            ),
-          });
-        });
-    }
-  };
-
-  headerRight = (projects) => {
-    var { projectSelected, status, projectIndex } = this.state;
+  renderContentDDProject = () => {
+    const temp = [{ id: 0, name: "All" }, ...this.state.projects];
     return (
-      <div className="discussion__filter">
-        {!status ? (
-          <div className="discussion__filter__aler">Choose project</div>
-        ) : (
-          ""
-        )}
-        <div className="header_right__select_box">
-          <select
-            name="projectSelected"
-            style={{
-              backgroundColor:
-                projectIndex !== -1 ? projects[projectIndex]?.color : "#333F48",
-              color: "white",
-              border: !status ? "2px solid red" : "",
+      <div className="discussion__content_dd_project">
+        {temp.map((project) => {
+          return <p key={project.id}>{project.name}</p>;
+        })}
+      </div>
+    );
+  };
+
+  renderFilter = () => {
+    return (
+      <div
+        className="discussion__filter"
+        onClick={() => this.setState({ showDDProject: true })}
+      >
+        <div className="discussion__filter__project">
+          <span>All</span>
+          <ExpandMoreIcon />
+          <DropDown2
+            isShow={this.state.showDDProject}
+            onCloseHandler={() => this.setState({ showDDProject: false })}
+            renderContent={() => this.renderContentDDProject()}
+            css={{
+              boxShadow: "3px 3px 15px rgba(133,134,245, .7)",
+              borderRadius: ".5rem",
+              transform: "translateY(105%) translateX(0%)",
+              border: "1px solid #8586F5",
+              padding: "1px",
             }}
-            onChange={this.onChange}
-          >
-            <option className="select-item" hidden value="0">
-              Projects
-            </option>
-            {projects.map((project, index) => {
-              return (
-                <option
-                  className={
-                    project.name === projectSelected ? "" : "select-item"
-                  }
-                  key={v4()}
-                  style={{
-                    position: "absolute",
-                    backgroundColor:
-                      projectSelected === project.id ? project.color : "",
-                  }}
-                  value={project.id}
-                >
-                  {project.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="header_right__select_box">
-          <select
-            onChange={(e) => {
-              this.setState({ classify: e.target.value });
-            }}
-            name="classify"
-            //style={{backgroundColor: projectIndex !== -1 ? projects[projectIndex]?.color : "#333F48", color: "white"}}
-          >
-            <option className="select-item" hidden value="0">
-              Classify
-            </option>
-            {data.map((ele) => {
-              return (
-                <option
-                  //className= {project.name === projectSelected ? "" : "select-item"}
-                  key={v4()}
-                  style={{
-                    position: "absolute",
-                    //backgroundColor: (projectSelected === project.name) ? project.color : "",
-                  }}
-                  value={ele}
-                >
-                  {ele}
-                </option>
-              );
-            })}
-          </select>
+          />
         </div>
       </div>
     );
   };
 
   render() {
-    const { projects, classify, discussionInput, discussions } = this.state;
+    const { discussionInput, discussions, isLoading } = this.state;
     return (
-      <PageDesign title="Discussion" headerRight={this.headerRight(projects)}>
+      <PageDesign title="Discussion" headerRight={this.renderFilter()}>
         <div className="discussion">
-          <div className="discussion__content">
-            {discussions?.map((discussion) => {
-              return (
-                <DiscussionItem
-                  key={v4()}
-                  discussion={discussion}
-                  onDeleteItem={() => this.onDeleteItem(discussion)}
-                  onEditDiscussion={() => this.onEditDiscussion(discussion)}
-                />
-              );
-            })}
-            <div ref={this.endRef}></div>
-          </div>
+          {isLoading ? (
+            <>
+              <Skeleton countItem={5} direction="row" heightItem="4rem" />
+              <Skeleton countItem={2} direction="row" heightItem="4rem" />
+              <Skeleton countItem={4} direction="row" heightItem="4rem" />
+              <Skeleton countItem={1} direction="row" heightItem="4rem" />
+              <Skeleton countItem={2} direction="row" heightItem="4rem" />
+            </>
+          ) : (
+            <div className="discussion__content">
+              {discussions?.map((discussion) => {
+                return (
+                  <DiscussionItem
+                    key={v4()}
+                    discussion={discussion}
+                    onDeleteItem={() => this.onDeleteItem(discussion)}
+                    onEditDiscussion={() => this.onEditDiscussion(discussion)}
+                  />
+                );
+              })}
+            </div>
+          )}
+
           <div className="discussion__footer">
             <Avatar
               avatar={male}

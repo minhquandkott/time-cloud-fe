@@ -18,25 +18,65 @@
     max-height: 38rem;
 }
 
-.heaer_right__select_box {
+/* .heaer_right__select_box {
   position: relative;
   font-family: Arial;
 }
 
 .select-item {
   background-color: darkgray;
-}
+} */
 
 .discussion__filter {
   display: flex;
+  position: relative;
+}
+.discussion__filter__project{
+  
+  
+  border: 1px solid #8586F5;
+  border-radius: .5rem;
+  box-shadow: 3px 3px 15px rgba(133,134,245, .7);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 12rem;
+  
+}
+.discussion__filter__project:hover{
+  
 }
 
-.header_right__select_box>select {
+.discussion__filter__project>span{
+  font-size: 1.7rem;
+  font-weight: 600;
+  padding: .5rem 2rem;
+}
+.discussion__filter__project>.MuiSvgIcon-root{
+  font-size: 2rem;
+  padding: .5rem;
+}
+.discussion__content_dd_project{
+
+}
+.discussion__content_dd_project>p{
+  font-size: 1.7rem;
+  font-weight: 600;
+  padding: .5rem 1.5rem;
+}
+.discussion__content_dd_project>p:hover{
+  background-color: #D7D9DE;
+}
+
+
+
+/* .header_right__select_box>select {
   width: 15rem;
   height: 4rem;
   font-weight: 700;
   font-size: large;
-}
+} */
 
 
 .discussion__content::-webkit-scrollbar {

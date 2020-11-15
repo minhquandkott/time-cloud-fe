@@ -16,7 +16,7 @@
     #fbfcff 100%
   );
   background-repeat: no-repeat;
-  animation: skeletonToRight 0.8s infinite;
+  animation: skeletonToRight 1s infinite;
 }
 
 @keyframes skeletonToRight {

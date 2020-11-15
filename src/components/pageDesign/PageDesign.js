@@ -1,9 +1,9 @@
 import "./PageDesign.css";
 import React from "react";
 
-const PageDesign = ({ title, headerRight, children }) => {
+const PageDesign = ({ title, headerRight, children, css }) => {
   return (
-    <div className="page_design">
+    <div className="page_design" style={{ ...css }}>
       <div className="page_design__header">
         <div className="page_design__header__left">
           <h2>{title}</h2>

@@ -1,11 +1,11 @@
 .page_design{
-  padding: 0 10rem;
+  padding: 0 8rem;
   font-family: 'Quicksand', sans-serif;
   overflow-x: hidden;
 }
 .page_design__header{
-  margin-top: 2rem;
-  padding-bottom: 1rem;
+  margin-top: 1.5rem;
+  padding-bottom: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,8 +16,8 @@
 
 }
 .page_design__header__left>h2{
-  font-size: 5rem;
-  font-weight: 700;
+  font-size: 4.5rem;
+  font-weight: 800;
 }
 
 
