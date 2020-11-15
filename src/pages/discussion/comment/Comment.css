@@ -1,16 +1,17 @@
 .comment{
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 .comment__input{
   flex: 1;
 }
 .comment__input>input{
-  width: 95%;
-  padding: .2rem;
-  padding-left: 1rem;
+  width: 93%;
+  padding: .4rem;
+  padding-left: 2rem;
   font-size: 1.65rem;
   font-weight: 500;
   border-radius: .5rem;
   outline: none;
-  border: 1px solid var(--color-dark-secondary);
+  border: none;
+  box-shadow: 1px 1px .5rem rgba(0, 0, 0, .5);
 }
