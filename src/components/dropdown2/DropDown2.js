@@ -6,6 +6,7 @@ const DropDown2 = ({
   renderContent = () => {},
   isShow,
   onCloseHandler = () => {},
+  onScrollHandler = () => {},
   maxHeight,
   css,
 }) => {
@@ -40,6 +41,7 @@ const DropDown2 = ({
         className="drop_down_2"
         ref={dropdownRef}
         style={{ maxHeight: maxHeight, ...css }}
+        onScroll={onScrollHandler}
       >
         {renderHeader()}
         {renderContent()}

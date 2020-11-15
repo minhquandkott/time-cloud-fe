@@ -145,3 +145,15 @@ export const convertHours = (hour, minutes) => {
   if (hour > 12) return `${hour - 12}:${stringMinute} PM`;
   else return `${hour}:${stringMinute} AM`;
 };
+
+//get 50 year  ( 1970 -->)
+export const get50Years = (year) => {
+  if (!year) year = new Date().getFullYear();
+  const result = [];
+  let temp = year;
+  if (year < 1970) temp = 1970;
+  for (let i = 0; i < 50; i++) {
+    result.push(temp++);
+  }
+  return result;
+};

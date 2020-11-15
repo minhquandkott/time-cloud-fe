@@ -1,0 +1,15 @@
+.calendar_dd_month{
+  display: grid;
+  grid-template-columns: 1fr ;
+  width: fit-content;
+  
+}
+
+.calendar_dd_month>span{
+  padding: 1rem;
+  
+  cursor: pointer;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+

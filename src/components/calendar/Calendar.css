@@ -10,10 +10,25 @@
   justify-content: space-between;
   padding: .5rem;
 }
-.calendar__header__middle>span{
+.calendar__header__middle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+.calendar__header__middle>div{
+  
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: .5px;
+  display: flex;
+  cursor: pointer;
+}
+.calendar__header__middle>div:nth-of-type(1){
+  position: relative;
+}
+.calendar__header__middle>div:nth-of-type(2){
+  position: relative;
 }
 
 .calendar__header>button{
@@ -21,11 +36,23 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
+.calendar__header>button:nth-of-type(1){
+  justify-content: flex-start;
+}
+.calendar__header>button:nth-of-type(2){
+  justify-content: flex-end;
+}
 .calendar__header>button .MuiSvgIcon-root{
   font-weight:500;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  
 }
 .calendar__content{
   border-radius: 1rem;
@@ -42,6 +69,12 @@
   text-align: center;
   padding: .3rem;
 }
+.calendar__title>span:nth-of-type(1){
+  color: #FA4838;
+}
+.calendar__title>span:nth-of-type(7){
+  color: #FA4838;
+}
 .calendar__days{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -51,27 +84,40 @@
   border-radius: 1rem;
 }
 .calendar__days>span{
-  padding: .6rem 1.6rem;
+  padding: .6rem 1.4rem;
   font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   background-color: white;
   text-align: center;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
 }
 .calendar__days>span:hover{
   background-color: #efefef;;
-  
 }
 
 
-.calendar__days .disable{
-  background-color:transparent;
-  color: #cdcccc;
-  
-}
+
 .calendar__days .active{
-  background-color: #ffae91 !important;
-  color: var(--color-dark-primary);
-  border: 1px 1px ;
+  background-color: #aa91ff !important;
+  color: var(--color-light-secondary) !important;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .6);
 }
+
+
+.calendar__days .out_of_month{
+  color: #cdcccc;
+}
+.calendar__days .mon_sun{
+  
+  color: #FA4838;
+}
+
+.calendar__days .out_of_month.mon_sun{
+  color: #ffb4ae;
+}
+.calendar__days .current_day{
+  background-color: #d3dcfa;
+  
+}
+/* #ffb4ae */

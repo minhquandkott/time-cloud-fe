@@ -3,18 +3,18 @@ import React, { useState, useEffect } from "react";
 import Interact from "../../../components/interact/Interact";
 import Content from "../content/Content";
 import Comment from "../comment/Comment";
-import timeCloudAPI from '../../../apis/timeCloudAPI';
+import timeCloudAPI from "../../../apis/timeCloudAPI";
 
-const DiscussionItem = ({discussion, onDeleteItem}) => {
+const DiscussionItem = ({ discussion, onDeleteItem }) => {
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState(null);
-  
-  useEffect(() => {
-    timeCloudAPI().get(`discussions/${discussion.id}/comments`)
-    .then(res => {
-      setComments(res.data)
-    })
-  },[])
+
+  // useEffect(() => {
+  //   timeCloudAPI().get(`discussions/${discussion.id}/comments`)
+  //   .then(res => {
+  //     setComments(res.data)
+  //   })
+  // },[])
 
   const onButtonCommentClick = () => {
     setShowComment(!showComment);
@@ -30,7 +30,7 @@ const DiscussionItem = ({discussion, onDeleteItem}) => {
         }}
       >
         <div>
-          <Interact discussionId={discussion.id}/>
+          <Interact discussionId={discussion.id} />
           <Content
             amountOfComment={comments?.length}
             onButtonCommentClick={onButtonCommentClick}
@@ -45,7 +45,7 @@ const DiscussionItem = ({discussion, onDeleteItem}) => {
           <Comment
             totalComments={comments}
             isShow={showComment}
-            discussion = {discussion}
+            discussion={discussion}
             onCloseHandler={() => setShowComment(false)}
           />
         </div>

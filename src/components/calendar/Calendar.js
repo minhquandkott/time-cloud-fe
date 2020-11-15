@@ -1,22 +1,34 @@
 import "./Calendar.css";
 
-import React, { useState } from "react";
-import { getDaysOfWeek, days, months } from "../../utils/Utils";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import React, { useState, useEffect } from "react";
+import {
+  getDaysOfWeek,
+  days,
+  months,
+  get50Years,
+  equalDates,
+} from "../../utils/Utils";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import CalendarDDMonth from "./calendarDDMonth/CalendarDDMonth";
+import CalendarDDYear from "./calendarDDYear/CalendarDDYear";
 import DropDown2 from "../dropdown2/DropDown2";
+import { v4 } from "uuid";
 
-const Calendar = () => {
+const Calendar = ({ onSelectDay, value, multipleSelect = false }) => {
   const [daysOfMouth, setDaysOfMouth] = useState([]);
   const [firstDay, setFirstDay] = useState(null);
   const [lastDay, setLastDay] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [showDDMonth, setShowDDMonth] = useState(false);
+  const [showDDYear, setShowDDYear] = useState(false);
+  const [years, setYears] = useState([]);
+  const [selectedDays, setSelectedDays] = useState(value);
+
   const getDaysOfMouth = (mouth, year) => {
     var firstDay = new Date(year, mouth - 1, 1);
     var lastDay = new Date(year, mouth, 0);
     setFirstDay(firstDay);
     setLastDay(lastDay);
-    console.log(firstDay.toDateString(), lastDay.toDateString());
     const result = [];
     for (let i = 0; i < 6; i++) {
       const temp = new Date(firstDay);
@@ -25,6 +37,9 @@ const Calendar = () => {
     }
     setDaysOfMouth(result);
   };
+  useEffect(() => {
+    onSelectDay(selectedDays);
+  }, [onSelectDay, selectedDays]);
 
   const onPreButtonClick = () => {
     getDaysOfMouth(firstDay.getMonth(), firstDay.getFullYear());
@@ -33,48 +48,141 @@ const Calendar = () => {
     getDaysOfMouth(lastDay.getMonth() + 2, firstDay.getFullYear());
   };
 
-  const conditionDisable = (date) => {
+  const isOutOfMonth = (date) => {
     if (date - firstDay < 0 || date - lastDay > 0) {
       return true;
     }
     return false;
   };
+  const isMondayOrSunday = (date) => {
+    if (date.getDay() === 1 || date.getDay() === 0) {
+      return true;
+    }
+    return false;
+  };
 
-  useState(() => {
+  const onMonthChange = (month) => {
+    getDaysOfMouth(month, firstDay.getFullYear());
+    setShowDDMonth(false);
+  };
+
+  const onYearChange = (year) => {
+    getDaysOfMouth(firstDay.getMonth(), year);
+    setShowDDYear(false);
+  };
+
+  const onDDYearScrollHandler = (e) => {
+    const { scrollTop, offsetHeight, scrollHeight } = e.currentTarget;
+    if (scrollHeight - Math.ceil(scrollTop) - offsetHeight === 0) {
+      e.currentTarget.scroll({
+        top: 10,
+        behavior: "smooth",
+      });
+      setYears(get50Years(years[45]));
+    } else if (scrollTop === 0 && years[0] > 1970) {
+      e.currentTarget.scroll({
+        top: scrollHeight - offsetHeight - 1,
+        behavior: "smooth",
+      });
+      setYears(get50Years(years[5] - 50));
+    }
+  };
+
+  const onDayClick = (date) => {
+    const index = selectedDays.findIndex((ele) => equalDates(ele, date));
+    if (index === -1) {
+      if (multipleSelect) {
+        setSelectedDays([...selectedDays, date]);
+      } else {
+        setSelectedDays([date]);
+      }
+    } else {
+      const temp = [...selectedDays];
+      temp.splice(index, 1);
+      setSelectedDays([...temp]);
+    }
+  };
+
+  useEffect(() => {
     const date = new Date();
     getDaysOfMouth(date.getMonth() + 1, date.getFullYear());
+    setYears(get50Years(new Date().getFullYear() - 25));
   }, []);
+
   if (!daysOfMouth.length) return null;
   return (
     <div className="calendar">
       <div className="calendar__header">
         <button onClick={() => onPreButtonClick()}>
-          <ArrowBackIosIcon />
+          <ChevronLeftIcon />
+          {months[firstDay.getMonth() - 1]}
         </button>
         <div className="calendar__header__middle">
-          <span>{months[firstDay.getMonth()]}</span>
-          <span> </span>
-          <span>{firstDay.getFullYear()}</span>
+          <div onClick={() => setShowDDMonth(true)}>
+            {months[firstDay.getMonth()]}
+            <DropDown2
+              isShow={showDDMonth}
+              onCloseHandler={() => setShowDDMonth(false)}
+              renderContent={() => (
+                <CalendarDDMonth
+                  selectedMonth={firstDay.getMonth()}
+                  onClickHandler={onMonthChange}
+                />
+              )}
+              maxHeight="15rem"
+              css={{
+                transform: "translateX(-20%) translateY(102%)",
+                padding: "0",
+              }}
+            />
+          </div>
+
+          <div onClick={() => setShowDDYear(true)}>
+            {firstDay.getFullYear()}
+            <DropDown2
+              isShow={showDDYear}
+              onScrollHandler={onDDYearScrollHandler}
+              onCloseHandler={() => setShowDDYear(false)}
+              renderContent={() => (
+                <CalendarDDYear
+                  selectedYear={parseInt(firstDay.getFullYear())}
+                  onClickHandler={onYearChange}
+                  years={years}
+                />
+              )}
+              maxHeight="15rem"
+              css={{
+                transform: "translateX(-18%) translateY(102%)",
+                padding: "0",
+              }}
+            />
+          </div>
         </div>
         <button onClick={() => onNextButtonClick()}>
-          <ArrowForwardIosIcon />
+          {months[firstDay.getMonth() + 1]}
+          <ChevronRightIcon />
         </button>
       </div>
       <div className="calendar__content">
         <div className="calendar__title">
-          {days.map((ele) => (
-            <span>{ele}</span>
+          {days.map((ele, index) => (
+            <span key={index}>{ele}</span>
           ))}
         </div>
         <div className="calendar__days">
           {daysOfMouth.map((ele, index) => {
-            const className = `${conditionDisable(ele) ? "disable" : ""} ${
-              index === selectedIndex ? "active" : ""
-            }`;
+            const className = `${
+              equalDates(new Date(), ele) ? "current_day" : ""
+            } ${isOutOfMonth(ele) ? "out_of_month" : ""} ${
+              isMondayOrSunday(ele) ? "mon_sun" : ""
+            } ${
+              selectedDays.some((day) => equalDates(day, ele)) ? "active" : ""
+            } `;
             return (
               <span
-                onClick={() => setSelectedIndex(index)}
+                key={v4()}
                 className={className}
+                onClick={() => onDayClick(ele)}
               >
                 {ele.getDate()}
               </span>
