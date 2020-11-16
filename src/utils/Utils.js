@@ -94,6 +94,18 @@ export const equalDates = (date1, date2) => {
   return date1?.toDateString() === date2?.toDateString();
 };
 
+export const getTimeWriteDiscussion = (createAt) => {
+  let current = new Date();
+  let periodOfTime = current.getTime() - new Date(createAt).getTime();
+  let minute = Math.floor(periodOfTime / 1000 /60);
+  let hour = Math.floor(periodOfTime / 1000 / 3600);
+  let day = Math.floor(periodOfTime / 1000 / 3600 / 24);
+  if(day >= 1) return `${day} days ago`;
+  else if(hour >= 1) return `${hour} hours ago`;
+    else if(minute >= 1) return `${minute} minutes ago`;
+      else return 'Just now';
+}
+
 export const getDaysOfWeek = (dayInWeek) => {
   let first;
   if (dayInWeek.getDay() === 0) {

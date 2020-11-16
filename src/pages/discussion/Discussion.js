@@ -154,6 +154,15 @@ class Discussion extends Component {
     );
   };
 
+  onDeleteItem = (discussion) => {
+      timeCloudAPI().delete(`discussions/${discussion.id}`)
+      .then(res => {
+        this.setState({
+          discussions : this.state.discussions.filter(ele => ele.id !== discussion.id)
+        })
+      })
+    }
+
   renderFilter = () => {
     const { projectSelected } = this.state;
     return (
@@ -211,7 +220,6 @@ class Discussion extends Component {
                     key={discussion.id}
                     discussion={discussion}
                     onDeleteItem={() => this.onDeleteItem(discussion)}
-                    onEditDiscussion={() => this.onEditDiscussion(discussion)}
                   />
                 );
               })}
