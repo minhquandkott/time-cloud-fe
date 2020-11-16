@@ -141,7 +141,8 @@ class UserInfo extends React.Component {
       txtemail,
       txtgender,
       txtphone,
-      error
+      error,
+      editStatus
     } = this.state;
     const classNameFill =
       `user_info__field ${editStatus
@@ -166,7 +167,7 @@ class UserInfo extends React.Component {
               readOnly = {!editStatus}
             ></input>
           </div>
-          {error?.txtname ?
+          {(error?.txtname && editStatus) ?
               <div className="user_info_alert">
                 <ReportProblemIcon />
                 <p> {error.txtname} </p>
@@ -206,11 +207,11 @@ class UserInfo extends React.Component {
               readOnly = {!editStatus}
               style={{
                 outlineColor: error?.txtphone ? "red" : "var(--color-button",
-                borderColor: error?.txtphone ? "red" : "#ccc"
+                borderColor: (error?.txtphone && txtphone) ? "red" : "#ccc"
               }}
             ></input>
           </div>
-          {error?.txtphone ?
+          {(error?.txtphone && editStatus && txtphone) ?
               <div className="user_info_alert">
                 <ReportProblemIcon />
                 <p> {error.txtphone} </p>
@@ -234,7 +235,7 @@ class UserInfo extends React.Component {
               }}
             ></input>
           </div>
-          {error?.txtemail ?
+          {(error?.txtemail && editStatus) ?
               <div className="user_info_alert">
                 <ReportProblemIcon />
                 <p> {error.txtemail} </p>

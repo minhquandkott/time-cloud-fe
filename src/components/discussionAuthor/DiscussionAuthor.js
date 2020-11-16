@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import Avatar from '../avatar/Avatar';
 import './DiscussionAuthor.css';
-
 class DiscussionAuthor extends Component {
     render() {
         const {user} = this.props;
         return (
-            <Avatar 
+            <Avatar
                 avatar = {user.avatar}
                 avatarSize="1.5rem"
                 css={{alignItems: "center",
