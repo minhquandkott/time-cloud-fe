@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactDom from "react-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import "./Modal.css";

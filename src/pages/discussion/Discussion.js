@@ -192,11 +192,11 @@ class Discussion extends Component {
         <div className="discussion">
           {isLoading ? (
             <>
-              <Skeleton countItem={5} direction="row" heightItem="4rem" />
-              <Skeleton countItem={2} direction="row" heightItem="4rem" />
-              <Skeleton countItem={4} direction="row" heightItem="4rem" />
-              <Skeleton countItem={1} direction="row" heightItem="4rem" />
-              <Skeleton countItem={2} direction="row" heightItem="4rem" />
+              <Skeleton countItem={5} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={2} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={4} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={1} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={2} direction="row" heightItem="4.3rem" />
             </>
           ) : (
             <div

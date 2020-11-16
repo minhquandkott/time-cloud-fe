@@ -18,7 +18,7 @@ import {
   equalDates,
 } from "../../utils/Utils";
 
-const setSelectedIndex = (index) => {
+export const setSelectedIndex = (index) => {
   return {
     type: SET_SELECTED_INDEX,
     payload: index,
@@ -62,12 +62,10 @@ const setWeekTotalTime = (totalTime) => {
   };
 };
 
-export const getWeekNow = () => {
+export const getWeek = (date) => {
   return (dispatch) => {
-    const temp = getDaysOfWeek(new Date());
-    const index = temp.findIndex(
-      (ele) => ele.toDateString() === new Date().toDateString()
-    );
+    const temp = getDaysOfWeek(date);
+    const index = temp.findIndex((ele) => equalDates(ele, date));
     dispatch(setDays(temp));
     dispatch(setSelectedIndex(index));
     dispatch(setNowIndex(index));

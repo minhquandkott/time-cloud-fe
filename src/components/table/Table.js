@@ -69,7 +69,7 @@ const Table = ({
           direction="row"
         />
         <Skeleton
-          countItem={4}
+          countItem={5}
           heightItem="4rem"
           direction="column"
           bgSkeleton="var(--color-light-primary)"

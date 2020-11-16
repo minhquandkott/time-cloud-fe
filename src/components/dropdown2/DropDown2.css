@@ -21,4 +21,5 @@
 /* Handle */
 .drop_down_2::-webkit-scrollbar-thumb {
   background: #0066cc;
+  border-radius: 5px;
 }

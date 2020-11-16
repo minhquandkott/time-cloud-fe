@@ -14,7 +14,7 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    max-height: 45rem;
+    max-height: 74vh;
     min-height: 10rem;
     
 }
@@ -61,26 +61,21 @@
   background-color: #D7D9DE;
 }
 
-
-
-
-
 .discussion__content::-webkit-scrollbar {
   width: 3px;
+  
 }
 
 .discussion__content::-webkit-scrollbar-track {
   background: white;
+  
 }
 
 /* Handle */
 .discussion__content::-webkit-scrollbar-thumb {
-  background: #7a6464;
+  background: #a77d7d;
+  border-radius: .5rem;
 }
-
-
-
-
 
 .discussion__footer {
     position: fixed;

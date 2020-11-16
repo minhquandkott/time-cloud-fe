@@ -94,7 +94,8 @@ export const equalDates = (date1, date2) => {
   return date1?.toDateString() === date2?.toDateString();
 };
 
-export const getDaysOfWeek = (dayInWeek) => {
+export const getDaysOfWeek = (day) => {
+  const dayInWeek = new Date(day);
   let first;
   if (dayInWeek.getDay() === 0) {
     first = dayInWeek.getDate() - 6;
