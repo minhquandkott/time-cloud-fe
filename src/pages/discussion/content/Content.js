@@ -62,9 +62,6 @@ const Content = ({ onButtonCommentClick, discussion, onDelete, amountOfComment }
         type: ""
       };
       timeCloudAPI().put(`discussions/${discussion.id}`, discussionUpdate)
-      .then(res => {
-        setDiscussionInput("");
-      })
     }
   }
   return (
