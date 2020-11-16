@@ -24,13 +24,28 @@
 }
 .discussion_item__type{
   flex-basis: 13rem;
-  background-color: #39ADB3;
   font-size: 1.6rem;
   font-weight: 600;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   border-top-right-radius: 1rem;
   border-bottom-right-radius:1rem ;
+}
+
+.discussion_item__type__error{
+  background-color: #fdb1a5;
+  color: #ce5d48;
+}
+.discussion_item__type__feature{
+  background-color: #ffedb0;
+  color: #d8a75c;
+}
+.discussion_item__type__approve{
+  background-color: #91efd1;
+  color: #3ea381;
+}
+.discussion_item__type__none{
+  background-color: #ECF7ED;
+  color:#82b4f0;
 }

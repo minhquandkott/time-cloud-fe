@@ -13,7 +13,7 @@ function App() {
         <Router />
       </BrowserRouter>
       {/* <Calendar
-        multipleSelect={false}
+        multipleSelect={true}
         value={[new Date()]}
         onSelectDay={(value) => console.log(value)}
       /> */}

@@ -9,15 +9,19 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState(null);
 
-  // useEffect(() => {
-  //   timeCloudAPI().get(`discussions/${discussion.id}/comments`)
-  //   .then(res => {
-  //     setComments(res.data)
-  //   })
-  // },[])
-
   const onButtonCommentClick = () => {
     setShowComment(!showComment);
+  };
+
+  const getClassNameType = () => {
+    if (discussion.type === 0) {
+      return { className: "discussion_item__type__error", name: "Bug" };
+    } else if (discussion.type === 1) {
+      return { className: "discussion_item__type__feature", name: "Feature" };
+    } else if (discussion.type === 2) {
+      return { className: "discussion_item__type__approve", name: "Approve" };
+    }
+    return { className: "discussion_item__type__none", name: "None" };
   };
   return (
     <div className="discussion_item">
@@ -38,7 +42,11 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
             onDelete={onDeleteItem}
           />
         </div>
-        <div className="discussion_item__type">Feature</div>
+        <div
+          className={`discussion_item__type ${getClassNameType().className}`}
+        >
+          {getClassNameType().name}
+        </div>
       </div>
       {showComment && (
         <div className="discussion_item__comment">

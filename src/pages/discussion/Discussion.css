@@ -1,7 +1,6 @@
 .discussion {
   /* box-shadow: var(--box-shadow-primary); */
   position: relative;
-  margin-bottom: 2rem;
 }
 
 
@@ -15,24 +14,17 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    max-height: 38rem;
+    max-height: 45rem;
+    min-height: 10rem;
+    
 }
 
-/* .heaer_right__select_box {
-  position: relative;
-  font-family: Arial;
-}
-
-.select-item {
-  background-color: darkgray;
-} */
 
 .discussion__filter {
   display: flex;
   position: relative;
 }
 .discussion__filter__project{
-  
   
   border: 1px solid #8586F5;
   border-radius: .5rem;
@@ -41,7 +33,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 12rem;
+  width: 18rem;
   
 }
 .discussion__filter__project:hover{
@@ -71,12 +63,6 @@
 
 
 
-/* .header_right__select_box>select {
-  width: 15rem;
-  height: 4rem;
-  font-weight: 700;
-  font-size: large;
-} */
 
 
 .discussion__content::-webkit-scrollbar {
@@ -89,7 +75,7 @@
 
 /* Handle */
 .discussion__content::-webkit-scrollbar-thumb {
-  background: #0066cc;
+  background: #7a6464;
 }
 
 
@@ -98,8 +84,8 @@
 
 .discussion__footer {
     position: fixed;
-    bottom: 2rem;
-    left: 2rem;
+    bottom: 1rem;
+    left: 1rem;
     right: 2rem;
     display: flex;
     margin-left: 2rem;
@@ -107,16 +93,51 @@
     
 }
 
-.discussion__filter__aler {
-  color: red;
-  font-size: large;
-  font-weight: 600;
-  align-self: center;
+.discussion__footer>button{
+  outline: none;
+  border: none;
+  background-color: #E4E6EB;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
 }
 
+.discussion__footer>button:hover{
+  background-color: #ced8e1;
+}
+.discussion__footer>button>.MuiSvgIcon-root{
+  color: #1D1F23;
+  font-weight: 600;
+  font-size: 2.3rem;
+  
+}
 
-.discussion__footer input {
-    width: 90%;
+.discussion__footer__input{
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  height: 0;
+  transition: all 1s;
+  display: flex;
+  align-items: center;
+}
+.discussion__footer__input.visible{
+  width: 60%;
+  opacity: 1;
+  overflow: visible;
+  height: fit-content;
+}
+.discussion__footer__input >form{
+  flex: 1;
+}
+
+.discussion__footer__input >form> input {
+    width: 100%;
     font-family: 'Quicksand', sans-serif;
     border-radius: 2rem;
     outline: none;
@@ -126,4 +147,5 @@
     background-color: #F0F2F5;
     font-size: large;
     box-shadow: 2px 2px 1rem rgba(0, 0, 0, .6);
+
 }
