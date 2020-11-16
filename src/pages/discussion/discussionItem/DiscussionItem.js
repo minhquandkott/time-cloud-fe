@@ -1,6 +1,6 @@
 import "./DiscussionItem.css";
 import React, { useState, useEffect } from "react";
-import Interact from "../../../components/interact/Interact2";
+import Interact from "../../../components/interact/Interact";
 import Content from "../content/Content";
 import Comment from "../comment/Comment";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
