@@ -14,27 +14,28 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
   };
 
   const onAddComment = (comment) => {
-    timeCloudAPI().post(`/comments`, comment)
-      .then(res => {
-        setComments([...comments, res.data])
-      })
-  }
+    timeCloudAPI()
+      .post(`/comments`, comment)
+      .then((res) => {
+        setComments([...comments, res.data]);
+      });
+  };
 
   useEffect(() => {
-    timeCloudAPI().get(`discussions/${discussion.id}/comments`)
-    .then(res => {
-      setComments(res.data);
-    })
-  },[]);
+    timeCloudAPI()
+      .get(`discussions/${discussion.id}/comments`)
+      .then((res) => {
+        setComments(res.data);
+      });
+  }, [discussion.id]);
 
   const onDeleteComment = (commentId) => {
-    if(window.confirm('Delete this comment!!!')) {
-      timeCloudAPI().delete(`comments/${commentId}`)
-      .then(res => {
-        setComments(comments.filter(ele => ele.id !== commentId))
-      })
-      }
-  }
+    timeCloudAPI()
+      .delete(`comments/${commentId}`)
+      .then((res) => {
+        setComments(comments.filter((ele) => ele.id !== commentId));
+      });
+  };
 
   const getClassNameType = () => {
     if (discussion.type === 0) {
@@ -44,7 +45,7 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
     } else if (discussion.type === 2) {
       return { className: "discussion_item__type__approve", name: "Approve" };
     }
-    return { className: "discussion_item__type__none", name: "None" };
+    return { className: "discussion_item__type__none", name: "Others" };
   };
   return (
     <div className="discussion_item">
@@ -77,9 +78,9 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
             comments={comments}
             isShow={showComment}
             discussion={discussion}
-            onAddComment = {onAddComment}
+            onAddComment={onAddComment}
             onCloseHandler={() => setShowComment(false)}
-            onDeleteComment = {onDeleteComment}
+            onDeleteComment={onDeleteComment}
           />
         </div>
       )}

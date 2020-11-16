@@ -11,6 +11,7 @@ import DropDown2 from "../../components/dropdown2/DropDown2";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
 import { USER_ID } from "../../utils/localStorageContact";
 import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 
 const defaultSelect = { id: 0, name: "All" };
 class Discussion extends Component {
@@ -60,7 +61,6 @@ class Discussion extends Component {
         });
     }
   }
-
 
   async fetchAllDiscussion(page, limit, sortBy) {
     const res = await timeCloudAPI().get(
@@ -155,13 +155,16 @@ class Discussion extends Component {
   };
 
   onDeleteItem = (discussion) => {
-      timeCloudAPI().delete(`discussions/${discussion.id}`)
-      .then(res => {
+    timeCloudAPI()
+      .delete(`discussions/${discussion.id}`)
+      .then((res) => {
         this.setState({
-          discussions : this.state.discussions.filter(ele => ele.id !== discussion.id)
-        })
-      })
-    }
+          discussions: this.state.discussions.filter(
+            (ele) => ele.id !== discussion.id
+          ),
+        });
+      });
+  };
 
   renderFilter = () => {
     const { projectSelected } = this.state;
@@ -196,17 +199,18 @@ class Discussion extends Component {
       discussions,
       isLoading,
       showInputDiscussion,
+      projectSelected,
     } = this.state;
     return (
       <PageDesign title="Discussion" headerRight={this.renderFilter()}>
         <div className="discussion">
           {isLoading ? (
             <>
-              <Skeleton countItem={5} direction="row" heightItem="4rem" />
-              <Skeleton countItem={2} direction="row" heightItem="4rem" />
-              <Skeleton countItem={4} direction="row" heightItem="4rem" />
-              <Skeleton countItem={1} direction="row" heightItem="4rem" />
-              <Skeleton countItem={2} direction="row" heightItem="4rem" />
+              <Skeleton countItem={5} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={2} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={4} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={1} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={2} direction="row" heightItem="4.3rem" />
             </>
           ) : (
             <div
@@ -226,40 +230,42 @@ class Discussion extends Component {
             </div>
           )}
 
-          <div className="discussion__footer">
-            <div
-              className={`discussion__footer__input ${
-                showInputDiscussion ? "visible" : ""
-              }`}
-            >
-              <Avatar
-                avatar={male}
-                avatarSize="3.5rem"
-                cssImage={{ boxShadow: "2px 2px 1rem rgba(0, 0, 0, .6)" }}
-              />
-              <form onSubmit={(e) => this.onFormSubmit(e)}>
-                <input
-                  name="discussion"
-                  value={discussionInput}
-                  onChange={(e) => {
-                    this.setState({ discussionInput: e.target.value });
-                  }}
-                  type="text"
-                  placeholder="Write discussion..."
+          {projectSelected?.id !== 0 && (
+            <div className="discussion__footer">
+              <div
+                className={`discussion__footer__input ${
+                  showInputDiscussion ? "visible" : ""
+                }`}
+              >
+                <Avatar
+                  avatar={male}
+                  avatarSize="3.5rem"
+                  cssImage={{ boxShadow: "2px 2px 1rem rgba(0, 0, 0, .6)" }}
                 />
-              </form>
-            </div>
+                <form onSubmit={(e) => this.onFormSubmit(e)}>
+                  <input
+                    name="discussion"
+                    value={discussionInput}
+                    onChange={(e) => {
+                      this.setState({ discussionInput: e.target.value });
+                    }}
+                    type="text"
+                    placeholder="Write discussion..."
+                  />
+                </form>
+              </div>
 
-            <button
-              onClick={() =>
-                this.setState({
-                  showInputDiscussion: !showInputDiscussion,
-                })
-              }
-            >
-              <AddIcon />
-            </button>
-          </div>
+              <button
+                onClick={() =>
+                  this.setState({
+                    showInputDiscussion: !showInputDiscussion,
+                  })
+                }
+              >
+                {showInputDiscussion ? <RemoveIcon /> : <AddIcon />}
+              </button>
+            </div>
+          )}
         </div>
       </PageDesign>
     );

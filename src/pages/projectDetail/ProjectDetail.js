@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProjectDetail.css";
 import { connect } from "react-redux";
-import { deleteProjects, getUser, getWeekNow } from "../../redux/actions";
+import { deleteProjects, getUser, getWeek } from "../../redux/actions";
 import TrackTime from "../companyProjects/TrackTime/TrackTime";
 import ProjectDetailTask from "../../components/projectDetailItems/projectDetailTask/ProjectDetailTask";
 import ProjectDetailTeam from "../../components/projectDetailItems/projectDetailTeam/ProjectDetailTeam";
@@ -10,12 +10,7 @@ import { convertTime } from "../../utils/Utils";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import Chart from "../../components/chart/Chart";
 import WeekSelect from "../../components/timerCalendar/weekSelect/WeekSelect";
-import {
-  days as dayTitles,
-  months,
-  equalDates,
-  checkDayInWeekNow,
-} from "../../utils/Utils";
+import { days as dayTitles, months, equalDates } from "../../utils/Utils";
 import { withRouter } from "react-router-dom";
 
 const convertDays = (days) => {
@@ -91,8 +86,17 @@ class Projects extends React.Component {
 
   componentDidMount = () => {
     this.fetchProject();
-    this.props.getWeekNow();
+    this.props.getWeek(new Date());
     this.fetchTimeWeekByDay(new Date());
+  };
+
+  onDaySelected = (selectedDays) => {
+    const { days, getWeek } = this.props;
+    const index = days.findIndex((ele) => equalDates(ele, selectedDays[0]));
+    if (index === -1) {
+      getWeek(selectedDays[0]);
+      this.fetchTimeWeekByDay(selectedDays[0]);
+    }
   };
 
   render() {
@@ -138,7 +142,7 @@ class Projects extends React.Component {
           </div>
         </div>
         <div className="project_detail_feature">
-          <WeekSelect />
+          <WeekSelect onDaySelected={this.onDaySelected} />
         </div>
         <div className="project_detail__chart">
           <Chart labels={labels} datasets={datasets} />
@@ -175,5 +179,5 @@ const mapStateToProp = (state) => {
 export default connect(mapStateToProp, {
   deleteProjects,
   getUser,
-  getWeekNow,
+  getWeek,
 })(withRouter(Projects));

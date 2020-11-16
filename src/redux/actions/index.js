@@ -35,7 +35,7 @@ export {
 } from "./membersActions";
 
 export {
-  getWeekNow,
+  getWeek,
   getNextWeek,
   getPreWeek,
   fetchTimesOfSelectedDay,
@@ -50,4 +50,5 @@ export {
   setTimes,
   getNearestTime,
   updateTimeOfSelectedDay,
+  setSelectedIndex,
 } from "./weekActions";

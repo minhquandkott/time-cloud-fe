@@ -15,7 +15,12 @@ import CalendarDDYear from "./calendarDDYear/CalendarDDYear";
 import DropDown2 from "../dropdown2/DropDown2";
 import { v4 } from "uuid";
 
-const Calendar = ({ onSelectDay, value, multipleSelect = false }) => {
+const Calendar = ({
+  onSelectDay = () => {},
+  value = [],
+  multipleSelect = false,
+  conditionDisable = () => {},
+}) => {
   const [daysOfMouth, setDaysOfMouth] = useState([]);
   const [firstDay, setFirstDay] = useState(null);
   const [lastDay, setLastDay] = useState(null);
@@ -37,9 +42,6 @@ const Calendar = ({ onSelectDay, value, multipleSelect = false }) => {
     }
     setDaysOfMouth(result);
   };
-  useEffect(() => {
-    onSelectDay(selectedDays);
-  }, [onSelectDay, selectedDays]);
 
   const onPreButtonClick = () => {
     getDaysOfMouth(firstDay.getMonth(), firstDay.getFullYear());
@@ -89,17 +91,21 @@ const Calendar = ({ onSelectDay, value, multipleSelect = false }) => {
   };
 
   const onDayClick = (date) => {
-    const index = selectedDays.findIndex((ele) => equalDates(ele, date));
-    if (index === -1) {
-      if (multipleSelect) {
-        setSelectedDays([...selectedDays, date]);
+    if (!conditionDisable(date)) {
+      const index = selectedDays?.findIndex((ele) => equalDates(ele, date));
+      let temp = [];
+      if (index === -1) {
+        if (multipleSelect) {
+          temp = [...selectedDays, date];
+        } else {
+          temp = [date];
+        }
       } else {
-        setSelectedDays([date]);
+        temp = [...selectedDays];
+        temp.splice(index, 1);
       }
-    } else {
-      const temp = [...selectedDays];
-      temp.splice(index, 1);
-      setSelectedDays([...temp]);
+      setSelectedDays(temp);
+      onSelectDay(temp);
     }
   };
 
@@ -118,7 +124,11 @@ const Calendar = ({ onSelectDay, value, multipleSelect = false }) => {
           {months[firstDay.getMonth() - 1]}
         </button>
         <div className="calendar__header__middle">
-          <div onClick={() => setShowDDMonth(true)}>
+          <div
+            onClick={() => {
+              setShowDDMonth(true);
+            }}
+          >
             {months[firstDay.getMonth()]}
             <DropDown2
               isShow={showDDMonth}
@@ -176,8 +186,8 @@ const Calendar = ({ onSelectDay, value, multipleSelect = false }) => {
             } ${isOutOfMonth(ele) ? "out_of_month" : ""} ${
               isMondayOrSunday(ele) ? "mon_sun" : ""
             } ${
-              selectedDays.some((day) => equalDates(day, ele)) ? "active" : ""
-            } `;
+              selectedDays?.some((day) => equalDates(day, ele)) ? "active" : ""
+            } ${conditionDisable(ele) ? "disable" : ""}`;
             return (
               <span
                 key={v4()}

@@ -5,7 +5,8 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { months } from "../../../utils/Utils";
 import { getNextWeek, getPreWeek } from "../../../redux/actions";
-import { checkDayInWeekNow } from "../../../utils/Utils";
+import { checkDayInWeekNow, equalDates } from "../../../utils/Utils";
+import SelectCalendar from "../../selectCalendar/SelectCalendar";
 
 class WeekSelect extends Component {
   onNextWeek = () => {
@@ -16,18 +17,19 @@ class WeekSelect extends Component {
     this.props.getPreWeek();
   };
 
+  conditionDisableCalendar = (date) => {
+    if (date - new Date() > 0) return true;
+    if (new Date(this.props.user?.createAt) - date > 0) return true;
+    return false;
+  };
   render() {
-    let { days } = this.props;
+    let { days, selectedIndex } = this.props;
     let weekName = `${months[days[0].getMonth()]} ${days[0].getDate()} - ${
       months[days[6].getMonth()]
     } ${days[6].getDate()}`;
     return (
       <div className="week_select">
-        <button
-          // disabled={checkLastWeek}
-          // style={{ backgroundColor: checkLastWeek ? "#f5f2f2" : "" }}
-          onClick={this.onPreWeek}
-        >
+        <button onClick={this.onPreWeek}>
           {" "}
           <NavigateBeforeIcon style={{ fontSize: "1.5rem" }} />{" "}
         </button>
@@ -42,13 +44,23 @@ class WeekSelect extends Component {
           {" "}
           <NavigateNextIcon style={{ fontSize: "1.5rem" }} />{" "}
         </button>
+        <SelectCalendar
+          value={[days[selectedIndex]]}
+          multipleSelect={false}
+          onSelectDay={this.props.onDaySelected}
+          conditionDisable={this.conditionDisableCalendar}
+        />
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
+  const { days, selectedIndex } = state.week;
+  const { user } = state.auth;
   return {
-    days: state.week.days,
+    days,
+    selectedIndex,
+    user,
   };
 };
 

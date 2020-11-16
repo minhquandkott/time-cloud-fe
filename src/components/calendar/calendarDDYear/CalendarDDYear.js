@@ -15,7 +15,7 @@ const CalendarDDYear = ({ onClickHandler, selectedYear, years }) => {
     onClickHandler(year);
   };
   return (
-    <div className="calendar_dd_month">
+    <div className="calendar_dd_month" onClick={(e) => e.stopPropagation()}>
       {years.map((ele) => {
         return (
           <span

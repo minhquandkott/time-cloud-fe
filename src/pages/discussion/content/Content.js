@@ -5,39 +5,44 @@ import PublicIcon from "@material-ui/icons/Public";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "./Content.css";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import timeCloudAPI from '../../../apis/timeCloudAPI';
-import {getTimeWriteDiscussion} from '../../../utils/Utils';
-import Modal from '../../../components/modal/Modal';
+import timeCloudAPI from "../../../apis/timeCloudAPI";
+import { getTimeWriteDiscussion } from "../../../utils/Utils";
+import Modal from "../../../components/modal/Modal";
 
-const Content = ({ onButtonCommentClick, discussion, onDelete, amountOfComment }) => {
+const Content = ({
+  onButtonCommentClick,
+  discussion,
+  onDelete,
+  amountOfComment,
+}) => {
   const [discussionInput, setDiscussionInput] = useState("");
   const [editStatus, setEditStatus] = useState(false);
   const [deleteStatus, setDeleteStatus] = useState(false);
   useEffect(() => {
-    setDiscussionInput(discussion.content)
-  },[])
+    setDiscussionInput(discussion.content);
+  }, [discussion.content]);
 
   const onChange = (e) => {
     var target = e.target;
     var value = target.value;
     setDiscussionInput(value);
-  }
+  };
 
   const onEditDiscussion = () => {
     setEditStatus(!editStatus);
-  }
-  
+  };
+
   const renderModalContent = () => {
     return (
       <div className="discussion__model_content">
         <p>Do you want to delete this discussion?</p>
       </div>
-    )
-  }
+    );
+  };
 
   const onDeleteItemClick = () => {
     setDeleteStatus(!deleteStatus);
-  }
+  };
 
   const renderModalActions = () => {
     return (
@@ -45,31 +50,31 @@ const Content = ({ onButtonCommentClick, discussion, onDelete, amountOfComment }
         <button onClick={onDelete}> Delete </button>
         <button onClick={onCancel}> Cancel </button>
       </div>
-    )
-  }
+    );
+  };
 
   const onCancel = () => {
-
-  }
+    setDeleteStatus(false);
+  };
 
   const onSubmit = (e) => {
-    if(e.key === "Enter" && discussionInput) {
+    if (e.key === "Enter" && discussionInput) {
       setEditStatus(false);
       var discussionUpdate = {
         content: discussionInput,
         projectId: discussion.project.id,
         userId: discussion.user.id,
-        type: ""
+        type: "",
       };
-      timeCloudAPI().put(`discussions/${discussion.id}`, discussionUpdate)
+      timeCloudAPI().put(`discussions/${discussion.id}`, discussionUpdate);
     }
-  }
+  };
   return (
     <div className="content">
       <div className="content__text">
         <input
-          style={{border: editStatus ? "1px solid darkgray" : "none"}}
-          readOnly= {!editStatus}
+          style={{ border: editStatus ? "1px solid darkgray" : "none" }}
+          readOnly={!editStatus}
           type="text"
           value={discussionInput}
           name="discussionInput"
@@ -78,10 +83,11 @@ const Content = ({ onButtonCommentClick, discussion, onDelete, amountOfComment }
         />
       </div>
       <div className="content__attributes">
-        <ProjectName project={discussion.project}/>
-        <DiscussionAuthor user ={discussion.user} />
+        <ProjectName project={discussion.project} />
+        <DiscussionAuthor user={discussion.user} />
         <p>
-          {getTimeWriteDiscussion(discussion.createAt)} <PublicIcon style={{ marginLeft: ".3rem" }} />
+          {getTimeWriteDiscussion(discussion.createAt)}{" "}
+          <PublicIcon style={{ marginLeft: ".3rem" }} />
         </p>
         <FiberManualRecordIcon
           style={{ fontSize: ".5rem", margin: "0 1rem" }}
@@ -91,14 +97,23 @@ const Content = ({ onButtonCommentClick, discussion, onDelete, amountOfComment }
             <ChatBubbleOutlineIcon style={{ color: "red" }} />
             <p onClick={onButtonCommentClick}> {amountOfComment} comments </p>
           </div>
-          {
-            (discussion.user.id == localStorage.getItem("userId")) ?
-              <div className="content__button_actions">
-              <p className="content__button__edit" onClick={onEditDiscussion}> Edit </p>
-              <p className="content__button__delete" onClick={onDeleteItemClick}> Delete </p>
+          {discussion.user.id == localStorage.getItem("userId") ? (
+            <div className="content__button_actions">
+              <p className="content__button__edit" onClick={onEditDiscussion}>
+                {" "}
+                Edit{" "}
+              </p>
+              <p
+                className="content__button__delete"
+                onClick={onDeleteItemClick}
+              >
+                {" "}
+                Delete{" "}
+              </p>
             </div>
-            : ""
-          }
+          ) : (
+            ""
+          )}
           <Modal
             onCloseModal={() => setDeleteStatus(false)}
             show={deleteStatus}
@@ -106,7 +121,7 @@ const Content = ({ onButtonCommentClick, discussion, onDelete, amountOfComment }
             renderContent={() => renderModalContent()}
             renderAction={() => renderModalActions()}
             cssBody={{ minWidth: "35rem" }}
-        />
+          />
         </div>
       </div>
     </div>

@@ -1,8 +1,6 @@
 .calendar{
   width: fit-content;
   font-family: 'Quicksand', sans-serif;
-  box-shadow: 2px 2px 1.5rem rgba(0, 0, 0, .5);
-  border-radius: 1rem;
 }
 .calendar__header{
   display: flex;
@@ -118,6 +116,9 @@
 }
 .calendar__days .current_day{
   background-color: #d3dcfa;
-  
 }
-/* #ffb4ae */
+.calendar__days .disable{
+  background-color: #f0f0f0 !important;
+  pointer-events: none !important;
+  color: #d9d8d8 !important;
+}
