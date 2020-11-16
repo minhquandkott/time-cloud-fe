@@ -13,6 +13,29 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
     setShowComment(!showComment);
   };
 
+  const onAddComment = (comment) => {
+    timeCloudAPI().post(`/comments`, comment)
+      .then(res => {
+        setComments([...comments, res.data])
+      })
+  }
+
+  useEffect(() => {
+    timeCloudAPI().get(`discussions/${discussion.id}/comments`)
+    .then(res => {
+      setComments(res.data);
+    })
+  },[]);
+
+  const onDeleteComment = (commentId) => {
+    if(window.confirm('Delete this comment!!!')) {
+      timeCloudAPI().delete(`comments/${commentId}`)
+      .then(res => {
+        setComments(comments.filter(ele => ele.id !== commentId))
+      })
+      }
+  }
+
   const getClassNameType = () => {
     if (discussion.type === 0) {
       return { className: "discussion_item__type__error", name: "Bug" };
@@ -51,10 +74,12 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
       {showComment && (
         <div className="discussion_item__comment">
           <Comment
-            totalComments={comments}
+            comments={comments}
             isShow={showComment}
             discussion={discussion}
+            onAddComment = {onAddComment}
             onCloseHandler={() => setShowComment(false)}
+            onDeleteComment = {onDeleteComment}
           />
         </div>
       )}
