@@ -11,6 +11,7 @@ import DropDown2 from "../../components/dropdown2/DropDown2";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
 import { USER_ID } from "../../utils/localStorageContact";
 import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const defaultSelect = { id: 0, name: "All" };
 class Discussion extends Component {
@@ -249,7 +250,7 @@ class Discussion extends Component {
                 })
               }
             >
-              <AddIcon />
+              {showInputDiscussion?<RemoveIcon/>:<AddIcon/>}
             </button>
           </div>
         </div>
