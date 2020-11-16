@@ -32,7 +32,36 @@
 .content__attributes p:nth-child(2) {
     font-size: 1.2rem;
     color: red;
-    cursor: pointer;
+}
+
+.discussion__model_content {
+  padding: 1rem 0;
+}
+
+.discussion__model_actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 1rem;
+}
+.discussion__model_actions>button{
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: .5rem 1rem;
+  cursor: pointer;
+  border-radius: .5rem;
+  color: white;
+}
+
+.discussion__model_actions>button:nth-child(1) {
+  background-color: var(--color-error);
+  margin-right: .5rem;
+}
+
+.discussion__model_actions>button:nth-child(2) {
+  background-color: darkgray;
 }
 
 .content__attributes p:nth-child(3) {

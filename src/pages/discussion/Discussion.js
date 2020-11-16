@@ -11,6 +11,7 @@ import DropDown2 from "../../components/dropdown2/DropDown2";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
 import { USER_ID } from "../../utils/localStorageContact";
 import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 
 const defaultSelect = { id: 0, name: "All" };
 class Discussion extends Component {
@@ -153,6 +154,18 @@ class Discussion extends Component {
     );
   };
 
+  onDeleteItem = (discussion) => {
+    timeCloudAPI()
+      .delete(`discussions/${discussion.id}`)
+      .then((res) => {
+        this.setState({
+          discussions: this.state.discussions.filter(
+            (ele) => ele.id !== discussion.id
+          ),
+        });
+      });
+  };
+
   renderFilter = () => {
     const { projectSelected } = this.state;
     return (
@@ -186,6 +199,7 @@ class Discussion extends Component {
       discussions,
       isLoading,
       showInputDiscussion,
+      projectSelected,
     } = this.state;
     return (
       <PageDesign title="Discussion" headerRight={this.renderFilter()}>
@@ -210,47 +224,48 @@ class Discussion extends Component {
                     key={discussion.id}
                     discussion={discussion}
                     onDeleteItem={() => this.onDeleteItem(discussion)}
-                    onEditDiscussion={() => this.onEditDiscussion(discussion)}
                   />
                 );
               })}
             </div>
           )}
 
-          <div className="discussion__footer">
-            <div
-              className={`discussion__footer__input ${
-                showInputDiscussion ? "visible" : ""
-              }`}
-            >
-              <Avatar
-                avatar={male}
-                avatarSize="3.5rem"
-                cssImage={{ boxShadow: "2px 2px 1rem rgba(0, 0, 0, .6)" }}
-              />
-              <form onSubmit={(e) => this.onFormSubmit(e)}>
-                <input
-                  name="discussion"
-                  value={discussionInput}
-                  onChange={(e) => {
-                    this.setState({ discussionInput: e.target.value });
-                  }}
-                  type="text"
-                  placeholder="Write discussion..."
+          {projectSelected?.id !== 0 && (
+            <div className="discussion__footer">
+              <div
+                className={`discussion__footer__input ${
+                  showInputDiscussion ? "visible" : ""
+                }`}
+              >
+                <Avatar
+                  avatar={male}
+                  avatarSize="3.5rem"
+                  cssImage={{ boxShadow: "2px 2px 1rem rgba(0, 0, 0, .6)" }}
                 />
-              </form>
-            </div>
+                <form onSubmit={(e) => this.onFormSubmit(e)}>
+                  <input
+                    name="discussion"
+                    value={discussionInput}
+                    onChange={(e) => {
+                      this.setState({ discussionInput: e.target.value });
+                    }}
+                    type="text"
+                    placeholder="Write discussion..."
+                  />
+                </form>
+              </div>
 
-            <button
-              onClick={() =>
-                this.setState({
-                  showInputDiscussion: !showInputDiscussion,
-                })
-              }
-            >
-              <AddIcon />
-            </button>
-          </div>
+              <button
+                onClick={() =>
+                  this.setState({
+                    showInputDiscussion: !showInputDiscussion,
+                  })
+                }
+              >
+                {showInputDiscussion ? <RemoveIcon /> : <AddIcon />}
+              </button>
+            </div>
+          )}
         </div>
       </PageDesign>
     );

@@ -1,28 +1,62 @@
-import React, {Component} from 'react';
+import React,{ useState, useEffect } from 'react';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import './Interact.css';
+import timeCloudAPI from "../../apis/timeCloudAPI";
+import {v4}  from "uuid"
 
-class Interact extends Component {
+const Interact2 = ({discussionId}) => {
 
-    state = {
-        interactStatus: false,
-    }
+    const[interactStatus,setInteractStatus] = useState(false);
+    const[interact,setInteract] = useState([]);
+    const userId = localStorage.getItem('userId');
 
-    onInteract = () => {
-        this.setState({
-            interactStatus: !this.state.interactStatus
+    const onInteract = () => {
+        setInteractStatus(!interactStatus);
+        if(interactStatus){
+            onDislikeHandler();
+        }else{
+            onLikeHandler();
+        }
+    };
+    console.log(interact)
+
+    const onLikeHandler = () => {
+        timeCloudAPI().post("interacts", {
+            userId: userId,
+            discussionId: discussionId
         })
+        setInteract([...interact, {user:{id: userId},discussion: {id: discussionId}}]);
+    }
+    const onDislikeHandler = () => {
+        timeCloudAPI().post("interacts/delete",{
+            userId:userId,
+            discussionId:discussionId
+        })
+        setInteract(interact.filter(element => (element.user.id!=userId)));
     }
 
-    render() {
-        const {interactStatus} = this.state;
-        return (
-            <div className="interact">
-                <button onClick={this.onInteract}> <ThumbUpAltIcon style= {{color: interactStatus ? "4080FF" : "darkgray", backgroundColor:"white"}}  /> </button>
-                <p> 11 </p>
-            </div>
-        )
-    }
+    useEffect(() => {
+        timeCloudAPI()
+        .get(`discussions/${discussionId}/interacts`)
+        .then((response) => {
+            setInteract(response.data);
+            console.log(response.data);
+            response.data.forEach(element=>{
+                if(element.user.id == userId)
+                    setInteractStatus(true);
+            })
+        })
+        .catch((error) => {});
+    }, [discussionId]);
+
+    return (
+        <div className="interact">
+            <button onClick = {onInteract}> 
+                <ThumbUpAltIcon style= {{color: interactStatus ? "4080FF" : "darkGray", backgroundColor:"white"}}  /> 
+            </button>
+            <p> {interact.length} </p>
+        </div>
+    )
 }
 
-export default Interact;
+export default Interact2;
