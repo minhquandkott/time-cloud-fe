@@ -18,7 +18,6 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [selectedManager, setSelectedManager] = useState(null);
   const [createdTasks, setCreatedTasks] = useState([]);
-  const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [projectForm, setProjectForm] = useState({
     projectName: "",
@@ -338,10 +337,10 @@ const CreateProject = ({ match, fetchMembers, members }) => {
             className="create_project__button__create_new"
             onClick={editingMode.current ? onEditProject : onCreateProject}
             disabled={checkHaveAnyChange()}
-            style={{ 
+            style={{
               cursor: checkHaveAnyChange() ? "initial" : "pointer",
               color: checkHaveAnyChange() ? "darkgray" : "white",
-             }}
+            }}
           >
             {editingMode.current ? "Save" : "Create New"}
           </button>

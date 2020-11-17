@@ -5,7 +5,7 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { months } from "../../../utils/Utils";
 import { getNextWeek, getPreWeek } from "../../../redux/actions";
-import { checkDayInWeekNow, equalDates } from "../../../utils/Utils";
+import { checkDayInWeekNow } from "../../../utils/Utils";
 import SelectCalendar from "../../selectCalendar/SelectCalendar";
 
 class WeekSelect extends Component {

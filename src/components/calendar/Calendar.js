@@ -110,9 +110,15 @@ const Calendar = ({
   };
 
   useEffect(() => {
-    const date = new Date();
+    let date;
+    if (selectedDays.length) {
+      date = new Date(selectedDays[0]);
+    } else {
+      date = new Date();
+    }
     getDaysOfMouth(date.getMonth() + 1, date.getFullYear());
     setYears(get50Years(new Date().getFullYear() - 25));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!daysOfMouth.length) return null;

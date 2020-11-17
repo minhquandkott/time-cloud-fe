@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import "./Interact.css";
 import timeCloudAPI from "../../apis/timeCloudAPI";
-import { v4 } from "uuid";
 
 const Interact2 = ({ discussionId }) => {
   const [interactStatus, setInteractStatus] = useState(false);

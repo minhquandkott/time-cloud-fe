@@ -91,11 +91,13 @@ class Projects extends React.Component {
   };
 
   onDaySelected = (selectedDays) => {
-    const { days, getWeek } = this.props;
-    const index = days.findIndex((ele) => equalDates(ele, selectedDays[0]));
-    if (index === -1) {
-      getWeek(selectedDays[0]);
-      this.fetchTimeWeekByDay(selectedDays[0]);
+    if (selectedDays.length) {
+      const { days, getWeek } = this.props;
+      const index = days.findIndex((ele) => equalDates(ele, selectedDays[0]));
+      if (index === -1) {
+        getWeek(selectedDays[0]);
+        this.fetchTimeWeekByDay(selectedDays[0]);
+      }
     }
   };
 
