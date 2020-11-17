@@ -5,13 +5,14 @@ import timeCloudAPI from "../../apis/timeCloudAPI";
 import "./Discussion.css";
 import PageDesign from "../../components/pageDesign/PageDesign";
 import DiscussionItem from "./discussionItem/DiscussionItem";
-import { v4 } from "uuid";
+import { connect } from "react-redux";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DropDown2 from "../../components/dropdown2/DropDown2";
 import Skeleton from "../../components/loading/skeleton/Skeleton";
 import { USER_ID } from "../../utils/localStorageContact";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import Spinner from "../../components/loading/spinner/Spinner";
 
 const defaultSelect = { id: 0, name: "All" };
 class Discussion extends Component {
@@ -25,9 +26,21 @@ class Discussion extends Component {
     typeSelected: -1,
     currentPage: 0,
     showInputDiscussion: false,
+    isSavingDiscussion: false,
   };
 
   contentRef = React.createRef();
+  buttonBottomRef = React.createRef();
+
+  onClickOutSizeFooter = (event) => {
+    if (
+      this.buttonBottomRef.current &&
+      this.state.showInputDiscussion &&
+      !this.state.discussionInput
+    ) {
+      this.buttonBottomRef.current.click();
+    }
+  };
 
   componentDidMount() {
     this.setState({ isLoading: true, projectSelected: defaultSelect });
@@ -41,12 +54,18 @@ class Discussion extends Component {
     this.fetchAllDiscussion(this.state.currentPage, 7, "createAt").then((res) =>
       this.setState({ discussions: res, isLoading: false })
     );
+    window.addEventListener("click", this.onClickOutSizeFooter);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("click", this.onClickOutSizeFooter);
   }
 
   onFormSubmit(event) {
     const { discussionInput, projectSelected } = this.state;
     event.preventDefault();
     if (discussionInput && projectSelected.id !== 0) {
+      this.setState({ isSavingDiscussion: true });
       timeCloudAPI()
         .post("discussions", {
           content: discussionInput,
@@ -57,6 +76,7 @@ class Discussion extends Component {
           this.setState({
             discussions: [res.data, ...this.state.discussions],
             discussionInput: "",
+            isSavingDiscussion: false,
           });
         });
     }
@@ -200,6 +220,7 @@ class Discussion extends Component {
       isLoading,
       showInputDiscussion,
       projectSelected,
+      isSavingDiscussion,
     } = this.state;
     return (
       <PageDesign title="Discussion" headerRight={this.renderFilter()}>
@@ -231,14 +252,17 @@ class Discussion extends Component {
           )}
 
           {projectSelected?.id !== 0 && (
-            <div className="discussion__footer">
+            <div
+              className="discussion__footer"
+              onClick={(event) => event.stopPropagation()}
+            >
               <div
                 className={`discussion__footer__input ${
                   showInputDiscussion ? "visible" : ""
                 }`}
               >
                 <Avatar
-                  avatar={male}
+                  avatar={this.props.user?.avatar}
                   avatarSize="3.5rem"
                   cssImage={{ boxShadow: "2px 2px 1rem rgba(0, 0, 0, .6)" }}
                 />
@@ -251,18 +275,26 @@ class Discussion extends Component {
                     }}
                     type="text"
                     placeholder="Write discussion..."
+                    autoComplete="off"
                   />
                 </form>
               </div>
 
               <button
-                onClick={() =>
+                ref={this.buttonBottomRef}
+                onClick={() => {
                   this.setState({
                     showInputDiscussion: !showInputDiscussion,
-                  })
-                }
+                  });
+                }}
               >
-                {showInputDiscussion ? <RemoveIcon /> : <AddIcon />}
+                {isSavingDiscussion ? (
+                  <Spinner />
+                ) : showInputDiscussion ? (
+                  <RemoveIcon />
+                ) : (
+                  <AddIcon />
+                )}
               </button>
             </div>
           )}
@@ -272,4 +304,10 @@ class Discussion extends Component {
   }
 }
 
-export default Discussion;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps)(Discussion);

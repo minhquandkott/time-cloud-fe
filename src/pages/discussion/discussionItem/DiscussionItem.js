@@ -4,10 +4,12 @@ import Interact from "../../../components/interact/Interact";
 import Content from "../content/Content";
 import Comment from "../comment/Comment";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
+import { RestoreRounded } from "@material-ui/icons";
 
 const DiscussionItem = ({ discussion, onDeleteItem }) => {
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState(null);
+  const [data, setData] = useState(discussion);
 
   const onButtonCommentClick = () => {
     setShowComment(!showComment);
@@ -23,11 +25,11 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
 
   useEffect(() => {
     timeCloudAPI()
-      .get(`discussions/${discussion.id}/comments`)
+      .get(`discussions/${data.id}/comments`)
       .then((res) => {
         setComments(res.data);
       });
-  }, [discussion.id]);
+  }, [data.id]);
 
   const onDeleteComment = (commentId) => {
     timeCloudAPI()
@@ -37,12 +39,26 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
       });
   };
 
+  const onEditDiscussion = (value) => {
+    timeCloudAPI()
+      .put(`discussions/${data.id}`, {
+        content: value,
+        projectId: data.project.id,
+        userId: data.user.id,
+      })
+      .then((res) => {
+        if (res.data.type !== data.type) {
+          setData(res.data);
+        }
+      });
+  };
+
   const getClassNameType = () => {
-    if (discussion.type === 0) {
+    if (data.type === 0) {
       return { className: "discussion_item__type__error", name: "Bug" };
-    } else if (discussion.type === 1) {
+    } else if (data.type === 1) {
       return { className: "discussion_item__type__feature", name: "Feature" };
-    } else if (discussion.type === 2) {
+    } else if (data.type === 2) {
       return { className: "discussion_item__type__approve", name: "Approve" };
     }
     return { className: "discussion_item__type__none", name: "Others" };
@@ -58,12 +74,13 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
         }}
       >
         <div>
-          <Interact discussionId={discussion.id} />
+          <Interact discussionId={data.id} />
           <Content
             amountOfComment={comments?.length}
             onButtonCommentClick={onButtonCommentClick}
-            discussion={discussion}
+            discussion={data}
             onDelete={onDeleteItem}
+            onEdit={onEditDiscussion}
           />
         </div>
         <div
@@ -77,7 +94,7 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
           <Comment
             comments={comments}
             isShow={showComment}
-            discussion={discussion}
+            discussion={data}
             onAddComment={onAddComment}
             onCloseHandler={() => setShowComment(false)}
             onDeleteComment={onDeleteComment}

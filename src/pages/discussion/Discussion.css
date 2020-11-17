@@ -84,6 +84,7 @@
     left: 1rem;
     right: 2rem;
     display: flex;
+    align-items: center;
     margin-left: 2rem;
     margin-top: 1rem;
     
@@ -118,7 +119,7 @@
   opacity: 0;
   overflow: hidden;
   height: 0;
-  transition: all 1s;
+  transition: all .5s;
   display: flex;
   align-items: center;
 }
