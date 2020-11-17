@@ -64,8 +64,10 @@ const setWeekTotalTime = (totalTime) => {
 
 export const getWeek = (date) => {
   return (dispatch) => {
+    console.log(date);
     const temp = getDaysOfWeek(date);
     const index = temp.findIndex((ele) => equalDates(ele, date));
+    console.log(date);
     dispatch(setDays(temp));
     dispatch(setSelectedIndex(index));
     dispatch(setNowIndex(index));
