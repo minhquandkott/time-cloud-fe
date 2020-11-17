@@ -15,7 +15,6 @@
 }
 
 .report_user{
-    padding-top: 1rem;
     padding-bottom: 1rem;
     display: flex;
     justify-content: space-between;
@@ -29,7 +28,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    padding-top: 3rem;
+    padding-top: 0.5rem;
 }
 
 .report_chart{
