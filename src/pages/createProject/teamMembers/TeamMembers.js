@@ -3,13 +3,14 @@ import Table from "../../../components/table/Table";
 import Checkbox from "../../../components/checkbox/Checkbox";
 import SelectItem from "../../../components/selectItem/SelectItem";
 import UserInfo from "../../../components/userInfo/UserInfo";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
 import MembersSearch from "./membersSearch/MembersSearch";
 import history from "../../../history/index";
 
 const TeamMembers = ({
+  allMember,
   selectedMembers,
   setSelectedMembers,
   selectedManager,
@@ -71,6 +72,14 @@ const TeamMembers = ({
     },
   };
 
+  useEffect(() => {
+    if (allMember.length - 1 === selectedMembers.length) {
+      setAddAllMode(false);
+    } else {
+      setAddAllMode(true);
+    }
+  }, [allMember, selectedMembers]);
+
   const onInvite = () => {
     history.push("/manage");
   };
@@ -107,7 +116,7 @@ const TeamMembers = ({
             <button
               className="project_form__button"
               onClick={() => {
-                setAddAllMode(!addAllMode);
+                // setAddAllMode(!addAllMode);
                 if (addAllMode) {
                   onAddAllPeople();
                 } else {
@@ -115,7 +124,7 @@ const TeamMembers = ({
                 }
               }}
             >
-              {addAllMode ? "Add all people." : "Remove all people"}
+              {addAllMode ? "Add all people" : "Remove all people"}
             </button>
           ) : null}
         </div>

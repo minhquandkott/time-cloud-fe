@@ -1,5 +1,5 @@
 import "./CreateProject.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import CreateProjectForm from "./createProjectForm/CreateProjectForm";
 import SectionForm from "./sectionForm/SectionForm";
 import TeamMembers from "./teamMembers/TeamMembers";
@@ -18,7 +18,6 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [selectedManager, setSelectedManager] = useState(null);
   const [createdTasks, setCreatedTasks] = useState([]);
-  const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [projectForm, setProjectForm] = useState({
     projectName: "",
@@ -268,12 +267,18 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     });
   };
 
-  const checkHaveAnyChange = () => {
-    if (!editingMode.current) {
-      return validate?.projectName || validate?.clientName;
+  const checkHaveAnyChange = useMemo(() => {
+    if (editingMode.current) {
+      const temp =
+        projectForm.clientName === projectInfo.current?.clientName &&
+        projectForm.projectName === projectInfo.current?.name &&
+        projectForm.projectColor === projectInfo.current?.color;
+
+      return validate?.projectName || validate?.clientName || temp;
     } else {
+      return validate?.projectName || validate?.clientName;
     }
-  };
+  }, [validate, projectForm]);
   const renderAction = () => {
     return (
       <div className="create_project__modal_action">
@@ -307,6 +312,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       </SectionForm>
       <SectionForm title="Team Members">
         <TeamMembers
+          allMember={members}
           selectedManager={selectedManager}
           setSelectedManager={setSelectedManager}
           selectedMembers={selectedMembers}
@@ -337,11 +343,11 @@ const CreateProject = ({ match, fetchMembers, members }) => {
           <button
             className="create_project__button__create_new"
             onClick={editingMode.current ? onEditProject : onCreateProject}
-            disabled={checkHaveAnyChange()}
-            style={{ 
-              cursor: checkHaveAnyChange() ? "initial" : "pointer",
-              color: checkHaveAnyChange() ? "darkgray" : "white",
-             }}
+            disabled={checkHaveAnyChange}
+            style={{
+              cursor: checkHaveAnyChange ? "initial" : "pointer",
+              color: checkHaveAnyChange ? "darkgray" : "white",
+            }}
           >
             {editingMode.current ? "Save" : "Create New"}
           </button>

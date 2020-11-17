@@ -50,16 +50,16 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
   }, [members, searchInput]);
 
   const columns = {
-    action: {
-      key: "action",
-      width: "5%",
-      convertData: (element) => {
-        return <input type="checkbox" className="visible_hover" />;
-      },
-      cssData: {
-        textAlign: "center",
-      },
-    },
+    // action: {
+    //   key: "action",
+    //   width: "5%",
+    //   convertData: (element) => {
+    //     return <input type="checkbox" className="visible_hover" />;
+    //   },
+    //   cssData: {
+    //     textAlign: "center",
+    //   },
+    // },
     name: {
       key: "name",
       label: "name",
@@ -82,7 +82,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
     access: {
       key: "access",
       label: "access",
-      width: "45%",
+      width: "50%",
       cssHeader,
       convertData: (userRole) => {
         return (
