@@ -106,7 +106,8 @@ export const getTimeWriteDiscussion = (createAt) => {
   else return "Just now";
 };
 
-export const getDaysOfWeek = (dayInWeek) => {
+export const getDaysOfWeek = (date) => {
+  const dayInWeek = new Date(date);
   let first;
   if (dayInWeek.getDay() === 0) {
     first = dayInWeek.getDate() - 6;
