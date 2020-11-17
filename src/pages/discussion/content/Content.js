@@ -5,7 +5,6 @@ import PublicIcon from "@material-ui/icons/Public";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "./Content.css";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import timeCloudAPI from "../../../apis/timeCloudAPI";
 import { getTimeWriteDiscussion } from "../../../utils/Utils";
 import Modal from "../../../components/modal/Modal";
 
@@ -14,13 +13,15 @@ const Content = ({
   discussion,
   onDelete,
   amountOfComment,
+  onEdit,
 }) => {
   const [discussionInput, setDiscussionInput] = useState("");
   const [editStatus, setEditStatus] = useState(false);
   const [deleteStatus, setDeleteStatus] = useState(false);
+
   useEffect(() => {
     setDiscussionInput(discussion.content);
-  }, [discussion.content]);
+  }, [discussion]);
 
   const onChange = (e) => {
     var target = e.target;
@@ -60,13 +61,7 @@ const Content = ({
   const onSubmit = (e) => {
     if (e.key === "Enter" && discussionInput) {
       setEditStatus(false);
-      var discussionUpdate = {
-        content: discussionInput,
-        projectId: discussion.project.id,
-        userId: discussion.user.id,
-        type: "",
-      };
-      timeCloudAPI().put(`discussions/${discussion.id}`, discussionUpdate);
+      onEdit(discussionInput);
     }
   };
   return (
