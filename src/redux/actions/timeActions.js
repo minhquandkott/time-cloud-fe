@@ -43,11 +43,7 @@ export const setBeginTime = (beginTime) => {
 };
 
 export const endCountingTime = () => {
-  return (dispatch, getState) => {
-    const { intervalId } = getState().time;
-    clearInterval(intervalId);
-    dispatch({ type: TIME_END });
-  };
+  return { type: TIME_END };
 };
 
 export const increaseTime = (step) => {
@@ -109,8 +105,9 @@ export const saveTime = () => {
     dispatch(startSavingTime());
     const { id } = getState().time.selectedTask;
     const { userId } = getState().auth;
-    const { beginTime, description } = getState().time;
+    const { beginTime, description, intervalId } = getState().time;
     try {
+      clearInterval(intervalId);
       const res = await timeCloudAPI().post(`tasks/${id}/times`, {
         description,
         mileSecondEndTime: new Date().getTime(),
