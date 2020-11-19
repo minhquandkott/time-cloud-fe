@@ -99,7 +99,7 @@ const TasksForm = ({
       const taskTemp = changedList[index];
       if (taskTemp.addMode) {
         const temp = [...changedList];
-        temp.splice(index, 1, { ...task, users: [...task.user, member] });
+        temp.splice(index, 1, { ...task, users: [...task.users, member] });
         setChangedList(temp);
       }
     } else {

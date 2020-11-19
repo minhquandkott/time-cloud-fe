@@ -9,20 +9,24 @@ const styleCom = {
   fontSize: "3rem",
 };
 
-const ActionColumn = ({ project, onEdit, onDelete }) => {
+const ActionColumn = ({ project, onEdit, deleteProject }) => {
   const [showModal, setShowModal] = useState(false);
   const onModalClose = () => {
     setShowModal(false);
   };
 
-  // const deleteProject = () => {
-  //   timeCloudAPI().delete(`projects/${project.id}`)
-  // }
-
   const renderModalAction = () => {
     return (
       <div className="action_column__button">
-        <button onClick={() => {}}>Yes</button>
+        <button
+          onClick={() => {
+            setShowModal(false);
+            timeCloudAPI().delete(`projects/${project.id}`);
+            deleteProject(project);
+          }}
+        >
+          Yes
+        </button>
         <button
           onClick={() => {
             setShowModal(false);
@@ -57,7 +61,7 @@ const ActionColumn = ({ project, onEdit, onDelete }) => {
 
       <Modal
         show={showModal}
-        title="Delete project!"
+        title="Finish project!"
         renderContent={() => `Are you sure to finish ${project.name}?`}
         renderAction={renderModalAction}
         onCloseModal={onModalClose}
