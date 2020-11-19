@@ -8,6 +8,7 @@ import {
   DELETE_ROLE_USER_SUCCESS,
   START_CHANGE_USER_ROLE,
 } from "./actionType";
+import { ROLE_LIST } from "../../utils/Utils";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 
 const startLoading = () => {
@@ -50,44 +51,34 @@ export const fetchMembers = (companyId) => {
 };
 
 export const addUserRole = (roleId) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     const { user, company } = getState().members.selectedMember;
     dispatch({ type: START_CHANGE_USER_ROLE });
 
-    try {
-      const response = await timeCloudAPI().post(
-        `companies/${company.id}/role/${roleId}/users/${user.id}`
-      );
-      const {
-        data: { role },
-      } = response;
-      dispatch(addUserRoleSuccess(user.id, role));
-      dispatch(
-        selectMember(
-          getState().members.members.find((ele) => ele.id === user.id)
-        )
-      );
-    } catch (error) {
-      dispatch(actionFail(error.response.data.errorMessage));
-    }
+    timeCloudAPI().post(
+      `companies/${company.id}/role/${roleId}/users/${user.id}`
+    );
+    dispatch(
+      addUserRoleSuccess(
+        user.id,
+        ROLE_LIST.find((role) => role.id === roleId)
+      )
+    );
+    dispatch(
+      selectMember(getState().members.members.find((ele) => ele.id === user.id))
+    );
   };
 };
 
 export const deleteUserRole = (roleId) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     const { id, company } = getState().members.selectedMember;
     dispatch({ type: START_CHANGE_USER_ROLE });
-    try {
-      await timeCloudAPI().delete(
-        `companies/${company.id}/role/${roleId}/users/${id}`
-      );
-      dispatch(deleteUserRoleSuccess(id, roleId));
-      dispatch(
-        selectMember(getState().members.members.find((ele) => ele.id === id))
-      );
-    } catch (error) {
-      dispatch(actionFail(error.response.errorMessage));
-    }
+    timeCloudAPI().delete(`companies/${company.id}/role/${roleId}/users/${id}`);
+    dispatch(deleteUserRoleSuccess(id, roleId));
+    dispatch(
+      selectMember(getState().members.members.find((ele) => ele.id === id))
+    );
   };
 };
 

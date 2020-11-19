@@ -47,3 +47,8 @@
   font-weight: 700;
   padding: .4rem;
 }
+
+.view_time_dd_time__tt_disable{
+  cursor: inherit !important;
+  color: #939393 !important;
+}

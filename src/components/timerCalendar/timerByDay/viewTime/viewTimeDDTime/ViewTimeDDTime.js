@@ -2,10 +2,9 @@ import "./ViewTimeDDTime.css";
 import React from "react";
 import ChangeTime from "../../../../changeTime/ChangeTime";
 import DropDown2 from "../../../../dropdown2/DropDown2";
-import { connect } from "react-redux";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 import Tooltip2 from "../../../../tooltip2/Tooltip2";
-import { setTimes, setSelectedTime } from "../../../../../redux/actions";
+import { equalDateTime } from "../../../../../utils/Utils";
 
 const ViewTimeDDTime = ({
   time,
@@ -13,9 +12,13 @@ const ViewTimeDDTime = ({
   onCloseHandler,
   preNearestTime,
   nextNearestTime,
-  times,
-  setTimes,
   preTime,
+  onChangeTime,
+  onDiscardChanged,
+  children,
+  onActionExtractClick,
+  conditionDisableActionExtract,
+  actionExtractTitle,
 }) => {
   const renderContent = () => {
     return (
@@ -39,16 +42,18 @@ const ViewTimeDDTime = ({
           </div>
         </div>
         <div className="view_time_dd_time__bottom">
-          <span
-            onClick={setStartOfLastTime}
-            className={
-              checkOnOfLastTimeButtonDisable()
-                ? "view_time_dd_time__tt_disable"
-                : ""
-            }
-          >
-            End of last timer
-          </span>
+          {actionExtractTitle && (
+            <span
+              onClick={onActionExtractClick}
+              className={
+                conditionDisableActionExtract()
+                  ? "view_time_dd_time__tt_disable"
+                  : ""
+              }
+            >
+              {actionExtractTitle}
+            </span>
+          )}
           <Tooltip2
             arrow={false}
             renderContent={() => (
@@ -56,7 +61,7 @@ const ViewTimeDDTime = ({
             )}
           >
             <button
-              onClick={onDiscardChanged}
+              onClick={onDiscardChangedHandler}
               className={
                 checkHaveAnyChange() ? "" : "view_time_dd_time__tt_disable"
               }
@@ -69,109 +74,73 @@ const ViewTimeDDTime = ({
     );
   };
 
-  const setStartOfLastTime = () => {
-    if (!checkOnOfLastTimeButtonDisable()) {
-      setTimes(
-        times.map((ele) => {
-          if (ele.id === time.id) {
-            return { ...time, startTime: preNearestTime.endTime };
-          }
-          return ele;
-        })
-      );
-    }
-  };
+  // const setStartOfLastTime = () => {
+  //   if (!checkOnOfLastTimeButtonDisable()) {
+  //     setTimes(
+  //       times.map((ele) => {
+  //         if (ele.id === time.id) {
+  //           return { ...time, startTime: preNearestTime.endTime };
+  //         }
+  //         return ele;
+  //       })
+  //     );
+  //   }
+  // };
 
-  const checkOnOfLastTimeButtonDisable = () => {
-    if (!preNearestTime || preNearestTime.endTime === time.startTime) {
-      return true;
-    }
-    return false;
-  };
-
-  const onDiscardChanged = () => {
+  const onDiscardChangedHandler = () => {
     if (checkHaveAnyChange()) {
-      setTimes(
-        times.map((ele) => {
-          if (ele.id === preTime.id) {
-            return preTime;
-          }
-          return ele;
-        })
-      );
+      onDiscardChanged();
     }
   };
 
   const checkHaveAnyChange = () => {
-    const temp = times.find((ele) => ele.id === preTime.id);
-    if (
-      temp.endTime !== preTime.endTime ||
-      temp.startTime !== preTime.startTime
-    ) {
-      return true;
+    if (equalDateTime(new Date(preTime), new Date(time))) {
+      return false;
     }
-    return false;
+    return true;
   };
 
   const onAddMinHandler = (min) => {
-    const endTime = new Date(time.endTime);
-    endTime.setMinutes(endTime.getMinutes() + min);
-    const temp = { ...time };
-    temp.endTime = new Date(endTime).toISOString();
-    setTimes(
-      times.map((ele) => {
-        if (ele.id === time.id) {
-          return temp;
-        }
-        return ele;
-      })
-    );
+    const newTime = new Date(time);
+    newTime.setMinutes(newTime.getMinutes() + min);
+    onChangeTime(newTime);
   };
 
   const onMinusTimeHandler = (min) => {
-    const startTime = new Date(time.startTime);
-    startTime.setMinutes(startTime.getMinutes() - min);
-    const temp = { ...time };
-    temp.startTime = new Date(startTime).toISOString();
-    setTimes(
-      times.map((ele) => {
-        if (ele.id === time.id) {
-          return temp;
-        }
-        return ele;
-      })
-    );
+    const newTime = new Date(time);
+    newTime.setMinutes(newTime.getMinutes() - min);
+    onChangeTime(newTime);
   };
 
   const conditionDisablePre = (min) => {
-    const startTime = new Date(time.startTime);
-    startTime.setMinutes(startTime.getMinutes() - min);
+    const temp = new Date(time);
+    temp.setMinutes(temp.getMinutes() - min);
     if (preNearestTime) {
-      if (startTime - new Date(preNearestTime.endTime) >= 0) {
+      if (temp - new Date(preNearestTime) >= 0) {
         return false;
       }
       return true;
     } else {
-      const temp = new Date(preTime.startTime);
-      temp.setHours(0, 0, 0, 0);
-      if (startTime - temp < 0) {
+      const beginToday = new Date(preTime);
+      beginToday.setHours(0, 0, 0, 0);
+      if (temp - beginToday < 0) {
         return true;
       }
     }
     return false;
   };
   const conditionDisableNext = (min) => {
-    const endTime = new Date(time.endTime);
-    endTime.setMinutes(endTime.getMinutes() + min);
+    const temp = new Date(time);
+    temp.setMinutes(temp.getMinutes() + min);
     if (nextNearestTime) {
-      if (new Date(nextNearestTime.startTime) - endTime >= 0) {
+      if (new Date(nextNearestTime) - temp >= 0) {
         return false;
       }
       return true;
     } else {
-      const temp = new Date(preTime.endTime);
+      const endToday = new Date(preTime);
       temp.setHours(23, 59, 59, 999);
-      if (endTime - temp > 0) {
+      if (temp - endToday > 0) {
         return true;
       }
     }
@@ -179,13 +148,13 @@ const ViewTimeDDTime = ({
   };
 
   const getTimePre = (min) => {
-    const temp = new Date(time.startTime);
+    const temp = new Date(time);
     temp.setMinutes(temp.getMinutes() - min);
     return temp;
   };
 
   const getTimeNext = (min) => {
-    const temp = new Date(time.endTime);
+    const temp = new Date(time);
     temp.setMinutes(temp.getMinutes() + min);
     return temp;
   };
@@ -200,15 +169,4 @@ const ViewTimeDDTime = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  const { preNearestTime, nextNearestTime, times } = state.week;
-  return {
-    preNearestTime,
-    nextNearestTime,
-    times,
-  };
-};
-
-export default connect(mapStateToProps, { setTimes, setSelectedTime })(
-  ViewTimeDDTime
-);
+export default ViewTimeDDTime;

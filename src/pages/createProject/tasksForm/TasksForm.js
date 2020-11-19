@@ -4,27 +4,33 @@ import SelectItem from "../../../components/selectItem/SelectItem";
 import MembersTaskSearch from "./membersTaskSearch/MembersTaskSearch";
 import React, { useState } from "react";
 import { v4 } from "uuid";
+import {
+  onItemChangedHandler,
+  onListChangedHandler,
+} from "../../../utils/Utils";
 
-const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
+const TasksForm = ({
+  selectedMembers,
+  selectedTasks,
+  setSelectedTasks,
+  changedList,
+  setChangedList,
+  changedList2,
+  setChangedList2,
+}) => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [addTaskInputValue, setAddTaskInputValue] = useState("");
+  const [error, setError] = useState("");
   const columns = {
     people: {
       key: "action",
       width: "20%",
       convertData: (element) => (
-        <SelectItem
-          onClickHandler={() => {
-            setSelectedTasks([
-              ...selectedTasks.filter((ele) => ele.id !== element.id),
-            ]);
-          }}
-        >
+        <SelectItem onClickHandler={() => onRemoveTaskHandler(element)}>
           <p
             style={{
               fontSize: "1.9rem",
               fontWeight: "550",
-              textTransform: "capitalize",
             }}
           >
             {element.name}
@@ -50,8 +56,8 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
       convertData: (element) => (
         <MembersTaskSearch
           data={element}
-          onMemberSelected={onMemberSelected}
-          onMemberRemove={onMemberRemove}
+          onMemberSelected={onAddMember}
+          onMemberRemove={onRemoveMember}
           selectedTask={selectedTask}
           members={selectedMembers}
           onAddAllMember={onAddAllMember}
@@ -61,22 +67,102 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
     },
   };
 
-  const onMemberSelected = (member) => {
-    const temp = selectedTasks.find((task) => task.id === selectedTask.id);
-    if (temp.users) {
-      if (!temp.users.some((ele) => ele.id === member.id)) {
-        temp.users = [...temp.users, member];
-      }
-    } else {
-      temp.users = [member];
-    }
-    setSelectedTasks([...selectedTasks]);
-    setSelectedTask({ ...temp });
+  const onAddTaskHandler = (value) => {
+    const newTask = {
+      id: v4(),
+      name: value,
+      users: [],
+      addMode: true,
+    };
+    const result = onItemChangedHandler(newTask, changedList, "name", "name");
+
+    setChangedList(result);
+    setSelectedTasks([...selectedTasks, newTask]);
+    setAddTaskInputValue("");
   };
 
-  const onMemberRemove = (memberId, task) => {
-    task.users = [...task.users.filter((ele) => memberId !== ele.id)];
+  const onRemoveTaskHandler = (task) => {
+    const result = onItemChangedHandler(
+      { ...task, addMode: false },
+      changedList,
+      "name",
+      "name"
+    );
 
+    setChangedList(result);
+    setSelectedTasks([...selectedTasks.filter((ele) => ele.id !== task.id)]);
+  };
+
+  const onAddMember = (member, task) => {
+    const index = changedList.findIndex((ele) => ele.id === task.id);
+    if (index !== -1) {
+      const taskTemp = changedList[index];
+      if (taskTemp.addMode) {
+        const temp = [...changedList];
+        temp.splice(index, 1, { ...task, users: [...task.user, member] });
+        setChangedList(temp);
+      }
+    } else {
+      const index = changedList2.findIndex((ele) => ele.id === task.id);
+      const temp = [...changedList2];
+      if (index === -1) {
+        temp.push({ ...task, users: [{ ...member, addMode: true }] });
+        setChangedList2(temp);
+      } else {
+        const t = onItemChangedHandler(
+          member,
+          changedList2[index].users,
+          "id",
+          "id"
+        );
+        if (t.length) {
+          temp[index] = { ...task, users: t };
+        } else {
+          temp.splice(index, 1);
+        }
+        setChangedList2(temp);
+      }
+    }
+    task.users = [...task.users, member];
+    setSelectedTasks([...selectedTasks]);
+    setSelectedTask({ ...task });
+  };
+
+  const onRemoveMember = (memberId, task) => {
+    task.users = [...task.users.filter((ele) => memberId !== ele.id)];
+    const index = changedList.findIndex((ele) => ele.id === task.id);
+    if (index !== -1) {
+      const taskTemp = changedList[index];
+      if (taskTemp.addMode) {
+        const temp = [...changedList];
+        temp.splice(index, 1, {
+          ...task,
+          users: task.users.filter((ele) => ele.id !== memberId),
+        });
+        setChangedList(temp);
+      }
+    } else {
+      const index = changedList2.findIndex((ele) => ele.id === task.id);
+      const temp = [...changedList2];
+      if (index === -1) {
+        temp.push({ ...task, users: [{ id: memberId, addMode: false }] });
+        setChangedList2([...temp]);
+      } else {
+        const result = onItemChangedHandler(
+          { id: memberId, addMode: false },
+          changedList2[index].users,
+          "id",
+          "id"
+        );
+        if (result.length) {
+          temp[index] = { ...task, users: result };
+        } else {
+          temp.splice(index, 1);
+        }
+
+        setChangedList2(temp);
+      }
+    }
     setSelectedTasks([...selectedTasks]);
     setSelectedTask({ ...task });
   };
@@ -93,15 +179,24 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
     setSelectedTask({ ...task });
   };
 
+  const checkExistOneTaskName = (value) => {
+    return selectedTasks.some((task) => task.name === value);
+  };
+
   const onInputEnter = (event) => {
-    if (event.keyCode === 13 && event.target.value) {
-      const newTask = {
-        id: v4(),
-        name: event.target.value,
-      };
-      setSelectedTasks([...selectedTasks, newTask]);
-      setAddTaskInputValue("");
+    const { value } = event.target;
+    if (event.keyCode === 13 && value && !error) {
+      onAddTaskHandler(value);
     }
+  };
+
+  const onInputChange = (value) => {
+    if (checkExistOneTaskName(value)) {
+      setError("Can't create task with same name!");
+    } else {
+      setError("");
+    }
+    setAddTaskInputValue(value);
   };
   return (
     <div className="tasks_form">
@@ -111,14 +206,22 @@ const TasksForm = ({ selectedMembers, selectedTasks, setSelectedTasks }) => {
         skeletonLoading={false}
         onClickHandler={(ele) => setSelectedTask(ele)}
       />
-      <input
-        className="tasks_form__add"
-        placeholder="Add more tasks ..."
-        value={addTaskInputValue}
-        onChange={(event) => setAddTaskInputValue(event.target.value)}
-        onKeyUp={onInputEnter}
-        maxLength="30"
-      />
+      <div className="tasks_form__add">
+        <input
+          placeholder="Add more tasks ..."
+          value={addTaskInputValue}
+          onChange={(event) => onInputChange(event.target.value)}
+          onKeyUp={onInputEnter}
+          maxLength="30"
+          onFocus={(event) => {
+            if (checkExistOneTaskName(event.target.value)) {
+              setError("Can't create task with same name!");
+            }
+          }}
+          onBlur={() => setError("")}
+        />
+        {error && <p>{error}</p>}
+      </div>
     </div>
   );
 };
