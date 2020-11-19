@@ -13,6 +13,7 @@ import { USER_ID } from "../../utils/localStorageContact";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Spinner from "../../components/loading/spinner/Spinner";
+import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 
 const defaultSelect = { id: 0, name: "All" };
 class Discussion extends Component {
@@ -239,15 +240,22 @@ class Discussion extends Component {
               onScroll={this.onScrollContentHandler}
               ref={this.contentRef}
             >
-              {discussions?.map((discussion) => {
+              {discussions.length ? discussions.map((discussion) => {
                 return (
                   <DiscussionItem
                     key={discussion.id}
+                    user={this.props.user}
                     discussion={discussion}
                     onDeleteItem={() => this.onDeleteItem(discussion)}
                   />
                 );
-              })}
+              }) : 
+              <p>
+                {" "}
+                <PriorityHighIcon style={{ fontSize: "4rem", color: "red" }} />
+                There is no any discussion. Click input button bellow to discuss...
+              </p>
+            }
             </div>
           )}
 
