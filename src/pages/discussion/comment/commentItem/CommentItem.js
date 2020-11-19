@@ -44,6 +44,14 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion }) => {
     setShowModalDelete(false);
   };
 
+  const checkUserIsAdmin = (roles) => {
+    let check = false;
+    roles.forEach(role => {
+      if(role.name === "ADMIN") check = true;
+    })
+    return check;
+  }
+
   const renderModalActions = () => {
     return (
       <div className="discussion__model_actions">
@@ -85,7 +93,18 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion }) => {
                   Delete{" "}
                 </p>
               </div>
-            ) : (
+            ) :
+            checkUserIsAdmin(user?.roles) ?
+          <div className="content__button_actions">
+            <p
+              className="content__button__delete"
+              onClick={()=> setShowModalDelete(!showModalDelete)}
+            >
+              {" "}
+              Delete{" "}
+            </p>
+          </div>
+            : (
               ""
             )}
           </div>

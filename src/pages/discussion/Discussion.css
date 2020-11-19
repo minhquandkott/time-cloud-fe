@@ -77,6 +77,15 @@
   border-radius: .5rem;
 }
 
+.discussion__content>p {
+  height: 20vh;
+  font-size: large;
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  justify-content: center;
+}
+
 .discussion__footer {
     position: fixed;
     width: fit-content;

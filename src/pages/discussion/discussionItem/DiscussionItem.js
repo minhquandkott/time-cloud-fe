@@ -6,7 +6,7 @@ import Comment from "../comment/Comment";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
 import { RestoreRounded } from "@material-ui/icons";
 
-const DiscussionItem = ({ discussion, onDeleteItem }) => {
+const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState(null);
   const [data, setData] = useState(discussion);
@@ -81,6 +81,7 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
             discussion={data}
             onDelete={onDeleteItem}
             onEdit={onEditDiscussion}
+            user={user}
           />
         </div>
         <div
@@ -98,6 +99,7 @@ const DiscussionItem = ({ discussion, onDeleteItem }) => {
             onAddComment={onAddComment}
             onCloseHandler={() => setShowComment(false)}
             onDeleteComment={onDeleteComment}
+            user={user}
           />
         </div>
       )}
