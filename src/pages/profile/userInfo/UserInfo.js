@@ -206,7 +206,7 @@ class UserInfo extends React.Component {
               onChange={this.onChange}
               readOnly = {!editStatus}
               style={{
-                outlineColor: error?.txtphone ? "red" : "var(--color-button",
+                outlineColor: (error?.txtphone && editStatus && txtphone) ? "red" : "var(--color-button",
                 borderColor: (error?.txtphone && txtphone) ? "red" : "#ccc"
               }}
             ></input>

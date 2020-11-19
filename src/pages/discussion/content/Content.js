@@ -14,6 +14,7 @@ const Content = ({
   onDelete,
   amountOfComment,
   onEdit,
+  user,
 }) => {
   const [discussionInput, setDiscussionInput] = useState("");
   const [editStatus, setEditStatus] = useState(false);
@@ -64,6 +65,15 @@ const Content = ({
       onEdit(discussionInput);
     }
   };
+
+  const checkUserIsAdmin = (roles) => {
+    let check = false;
+    roles.forEach(role => {
+      if(role.name === "ADMIN") check = true;
+    })
+    return check;
+  }
+
   return (
     <div className="content">
       <div className="content__text">
@@ -92,7 +102,8 @@ const Content = ({
             <ChatBubbleOutlineIcon style={{ color: "red" }} />
             <p onClick={onButtonCommentClick}> {amountOfComment} comments </p>
           </div>
-          {discussion.user.id == localStorage.getItem("userId") ? (
+          {
+            discussion.user.id == localStorage.getItem("userId") ? (
             <div className="content__button_actions">
               <p className="content__button__edit" onClick={onEditDiscussion}>
                 {" "}
@@ -106,7 +117,18 @@ const Content = ({
                 Delete{" "}
               </p>
             </div>
-          ) : (
+          ) :
+          checkUserIsAdmin(user?.roles) ?
+          <div className="content__button_actions">
+            <p
+              className="content__button__delete"
+              onClick={onDeleteItemClick}
+            >
+              {" "}
+              Delete{" "}
+            </p>
+          </div> :
+          (
             ""
           )}
           <Modal
