@@ -29,6 +29,12 @@ const Calendar = ({
   const [years, setYears] = useState([]);
   const [selectedDays, setSelectedDays] = useState(value);
 
+  useEffect(() => {
+    if (!showDDYear) {
+      setYears(get50Years(new Date().getFullYear() - 25));
+    }
+  }, [showDDMonth, showDDYear]);
+
   const getDaysOfMouth = (mouth, year) => {
     var firstDay = new Date(year, mouth - 1, 1);
     var lastDay = new Date(year, mouth, 0);
@@ -123,7 +129,13 @@ const Calendar = ({
 
   if (!daysOfMouth.length) return null;
   return (
-    <div className="calendar">
+    <div
+      className="calendar"
+      onClick={() => {
+        setShowDDMonth(false);
+        setShowDDYear(false);
+      }}
+    >
       <div className="calendar__header">
         <button onClick={() => onPreButtonClick()}>
           <ChevronLeftIcon />
@@ -131,8 +143,10 @@ const Calendar = ({
         </button>
         <div className="calendar__header__middle">
           <div
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setShowDDMonth(true);
+              setShowDDYear(false);
             }}
           >
             {months[firstDay.getMonth()]}
@@ -149,11 +163,18 @@ const Calendar = ({
               css={{
                 transform: "translateX(-20%) translateY(102%)",
                 padding: "0",
+                boxShadow: "1px 1px 6px rgba(0,0,0,.5)",
               }}
             />
           </div>
 
-          <div onClick={() => setShowDDYear(true)}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowDDMonth(false);
+              setShowDDYear(true);
+            }}
+          >
             {firstDay.getFullYear()}
             <DropDown2
               isShow={showDDYear}
@@ -170,6 +191,7 @@ const Calendar = ({
               css={{
                 transform: "translateX(-18%) translateY(102%)",
                 padding: "0",
+                boxShadow: "1px 1px 6px rgba(0,0,0,.5)",
               }}
             />
           </div>

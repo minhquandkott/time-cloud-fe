@@ -7,7 +7,10 @@ const CalendarDDYear = ({ onClickHandler, selectedYear, years }) => {
 
   useEffect(() => {
     if (selectedYearRef.current) {
-      selectedYearRef.current.scrollIntoView();
+      selectedYearRef.current.scrollIntoView({
+        block: "nearest",
+        inline: "start",
+      });
     }
   }, []);
 

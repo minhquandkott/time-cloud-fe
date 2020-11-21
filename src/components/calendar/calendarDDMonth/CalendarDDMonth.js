@@ -4,10 +4,14 @@ import { months } from "../../../utils/Utils";
 
 const CalendarDDMonth = ({ selectedMonth, onClickHandler }) => {
   const selectedMonthRef = useRef(null);
+  const parentRef = useRef(null);
 
   useEffect(() => {
     if (selectedMonthRef.current) {
-      selectedMonthRef.current.scrollIntoView();
+      selectedMonthRef.current.scrollIntoView({
+        block: "nearest",
+        inline: "start",
+      });
     }
   }, []);
 
@@ -15,7 +19,11 @@ const CalendarDDMonth = ({ selectedMonth, onClickHandler }) => {
     onClickHandler(month);
   };
   return (
-    <div className="calendar_dd_month" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="calendar_dd_month"
+      onClick={(e) => e.stopPropagation()}
+      ref={parentRef}
+    >
       {months.map((ele, index) => {
         return (
           <span

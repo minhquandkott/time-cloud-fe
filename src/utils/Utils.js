@@ -130,13 +130,17 @@ export const getDaysOfWeek = (date) => {
 
 export const checkDayInWeekNow = (day) => {
   const daysNow = getDaysOfWeek(new Date());
-  if (daysNow.some((ele) => equalDates(day, ele))) {
+  return checkDayInWeek(day, daysNow);
+};
+
+export const checkDayInWeek = (day, week) => {
+  if (week.some((ele) => equalDates(day, ele))) {
     //* is day in week now
     return 0;
-  } else if (daysNow[0] - day > 0) {
+  } else if (week[0] - day > 0) {
     //* is day in pre week
     return -1;
-  } else if (daysNow[6] - day < 0) {
+  } else if (week[6] - day < 0) {
     // * is day in next week
     return 1;
   }

@@ -255,7 +255,6 @@ class ViewTime extends Component {
 
   render() {
     let { time, preNearestTime, nextNearestTime } = this.props;
-    console.log(this.state.showEndTimeDD, this.state.showStartTimeDD);
     return (
       <div
         className="view_time"

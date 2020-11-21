@@ -86,7 +86,6 @@ export const checkTime = () => {
   return (dispatch) => {
     const { beginTime, description, selectedTaskId } = localStorage;
     if (beginTime && selectedTaskId) {
-      console.log(beginTime);
       const totalSecond = Math.ceil(
         (new Date().getTime() - new Date(beginTime)) / 1000
       );
