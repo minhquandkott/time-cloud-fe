@@ -2,7 +2,6 @@ import "./Comment.css";
 import React, { useEffect, useRef, useState } from "react";
 import CommentItem from "./commentItem/CommentItem";
 import Avatar from "../../../components/avatar/Avatar";
-import timeCloudAPI from "../../../apis/timeCloudAPI";
 import { connect } from "react-redux";
 import { v4 } from "uuid";
 

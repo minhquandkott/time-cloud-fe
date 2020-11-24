@@ -103,7 +103,7 @@ const Content = ({
             <p onClick={onButtonCommentClick}> {amountOfComment} comments </p>
           </div>
           {
-            discussion.user.id == localStorage.getItem("userId") ? (
+            discussion.user.id === user.id ? (
             <div className="content__button_actions">
               <p className="content__button__edit" onClick={onEditDiscussion}>
                 {" "}
