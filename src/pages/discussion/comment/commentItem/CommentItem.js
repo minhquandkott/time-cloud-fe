@@ -16,7 +16,7 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion }) => {
   };
 
   const onSubmit = (e) => {
-    if (e.key == "Enter" && editCommentInput) {
+    if (e.key === "Enter" && editCommentInput) {
       setEditStatus(!editStatus);
       let data = {
         content: editCommentInput,
@@ -79,7 +79,7 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion }) => {
             <span> {comment.user.name} </span>
             <span> {getTimeWriteDiscussion(comment.createAt)} </span>
             <PublicIcon style={{ marginLeft: ".3rem", color: "#AEAEAE" }} />
-            {comment.user.id == user.id ? (
+            {comment.user.id === user.id ? (
               <div className="comment__actions">
                 <p className="comment__actions__edit" onClick={onEdit}>
                   {" "}

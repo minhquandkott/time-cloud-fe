@@ -168,6 +168,7 @@ class Projects extends React.Component {
           <div className="projects__search">
             <input
               type="text"
+              value={txtSearch}
               name="txtSearch"
               onChange={this.onChange}
               placeholder="Searching your project"
@@ -184,7 +185,7 @@ class Projects extends React.Component {
         <Table
           columns={this.columns}
           cssCondition={this.cssCondition}
-          data={this.state.projects}
+          data={projects}
           skeletonLoading={projects.length ? false : true}
           onClickHandler={(element) =>
             history.push({

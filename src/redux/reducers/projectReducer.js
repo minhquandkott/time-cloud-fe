@@ -5,7 +5,6 @@ import {
   DELETE_PROJECTS_FAIL,
   DELETE_PROJECTS_SUCCESS,
   DELETE_PROJECTS_START,
-  SELECT_PROJECT,
 } from "../actions/actionType";
 
 const initialState = {

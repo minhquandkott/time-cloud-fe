@@ -89,7 +89,7 @@ class UserInfo extends React.Component {
       txtgender,
       txtphone
     } = this.state;
-    var user = {
+    var newUser = {
       name: txtname,
       address: txtaddress,
       email: txtemail,
@@ -97,14 +97,13 @@ class UserInfo extends React.Component {
       phoneNumber: txtphone,
       createAt: user.createAt
     }
-    timeCloudAPI().put(`users/${this.props.user.id}`, user)
+    timeCloudAPI().put(`users/${this.props.user.id}`, newUser)
     .then(response => {
       console.log("Success");
     })
     this.setState({
       editStatus: false
     })
-    console.log(user);
   }
 
   onChange = (e) => {
@@ -132,7 +131,6 @@ class UserInfo extends React.Component {
   }
 
   render() {
-    var {user} = this.props;
     var {
       roles,
       editStatus,
@@ -142,7 +140,6 @@ class UserInfo extends React.Component {
       txtgender,
       txtphone,
       error,
-      editStatus
     } = this.state;
     const classNameFill =
       `user_info__field ${editStatus

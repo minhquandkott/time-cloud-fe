@@ -31,9 +31,12 @@ class ShowUsers extends React.Component {
           }
         )
         .then((response) => {
-          this.setState({
-            tasks: response.data,
-          });
+          timeCloudAPI().get(`projects/${this.props.project.id}/users/${this.props.user.id}/tasks-did`)
+          .then(res => {
+            this.setState({
+              tasks: [...response.data, ...res.data]
+            })
+          })
         });
     } else {
       // * fetch all in oldProject(isDoing = false)

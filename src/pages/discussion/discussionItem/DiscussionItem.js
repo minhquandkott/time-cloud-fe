@@ -4,7 +4,6 @@ import Interact from "../../../components/interact/Interact";
 import Content from "../content/Content";
 import Comment from "../comment/Comment";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
-import { RestoreRounded } from "@material-ui/icons";
 
 const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
   const [showComment, setShowComment] = useState(false);
@@ -74,7 +73,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
         }}
       >
         <div>
-          <Interact discussionId={data.id} />
+          <Interact discussionId={data.id} user ={user}/>
           <Content
             amountOfComment={comments?.length}
             onButtonCommentClick={onButtonCommentClick}
