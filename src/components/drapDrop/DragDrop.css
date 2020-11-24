@@ -1,0 +1,45 @@
+.drag_drop{
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  background-color: brown;
+  width: fit-content;
+}
+.drag_drop__container{
+  width: 20rem;
+  height: 20rem;
+  background-color: burlywood;
+
+}
+
+.drag_drop__container:not(:last-of-type){
+  margin-right: 1rem;
+}
+.drag_drop__dragItem{
+  height: 100%;
+  text-align: center;
+  vertical-align: middle;
+  cursor: grab;
+
+}
+
+.drag_drop .container_dragging{
+  opacity: .5;
+  background-color: antiquewhite;
+}
+/* .drag_drop .container_dragging>*{
+  opacity: 0;
+  cursor: grab;
+
+} */
+
+.drag_drop .container_over{
+  background-color: antiquewhite;
+}
+
+#test{
+  background-color: red;
+  width: fit-content;
+  height: fit-content;
+  display: none;
+}

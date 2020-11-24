@@ -30,7 +30,6 @@ class WeekSelect extends Component {
     return false;
   };
   render() {
-    console.log(this.conditionDisableSelectWeekButton());
     const { days, selectedIndex } = this.props;
     let weekName = `${months[days[0].getMonth()]} ${days[0].getDate()} - ${
       months[days[6].getMonth()]

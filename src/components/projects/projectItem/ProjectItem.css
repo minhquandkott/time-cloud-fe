@@ -9,7 +9,7 @@
   margin-right: 2rem;
   padding-bottom: 5rem;
   box-shadow: 6px 7px 13px rgba(0, 0, 0, 0.3);
-  transition: all .5s;
+  transition: transform .5s;
 }
 
 
@@ -19,17 +19,20 @@
 }
 
 
-.project_item__header {}
+.project_header__drag_item {
+  cursor: grabbing;
+}
 
-.project_item__header>h3 {
+.project_header__drag_item>h3 {
   color: var(--color-light-tertiary);
   font-size: 1.3rem;
   margin-bottom: .5rem;
   text-transform: capitalize;
   padding: .5rem 0;
+
 }
 
-.project_item__header>h2 {
+.project_header__drag_item>h2 {
   color: var(--color-light-primary);
   font-size: 2.3rem;
   font-weight: 750;
