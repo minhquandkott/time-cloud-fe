@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Avatar from "../../components/avatar/Avatar";
-import male from "../../assets/images/male.png";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import "./Discussion.css";
 import PageDesign from "../../components/pageDesign/PageDesign";

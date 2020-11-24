@@ -3,10 +3,9 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import "./Interact.css";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 
-const Interact2 = ({ discussionId }) => {
+const Interact2 = ({ discussionId, user }) => {
   const [interactStatus, setInteractStatus] = useState(false);
   const [interact, setInteract] = useState([]);
-  const userId = localStorage.getItem("userId");
 
   const onInteract = () => {
     setInteractStatus(!interactStatus);
@@ -19,20 +18,20 @@ const Interact2 = ({ discussionId }) => {
 
   const onLikeHandler = () => {
     timeCloudAPI().post("interacts", {
-      userId: userId,
+      userId: user.id,
       discussionId: discussionId,
     });
     setInteract([
       ...interact,
-      { user: { id: userId }, discussion: { id: discussionId } },
+      { user: { id: user.id }, discussion: { id: discussionId } },
     ]);
   };
   const onDislikeHandler = () => {
     timeCloudAPI().post("interacts/delete", {
-      userId: userId,
+      userId: user.id,
       discussionId: discussionId,
     });
-    setInteract(interact.filter((element) => element.user.id != userId));
+    setInteract(interact.filter((element) => element.user.id !== user.id));
   };
 
   useEffect(() => {
@@ -41,11 +40,11 @@ const Interact2 = ({ discussionId }) => {
       .then((response) => {
         setInteract(response.data);
         response.data.forEach((element) => {
-          if (element.user.id == userId) setInteractStatus(true);
+          if (element.user.id === user.id) setInteractStatus(true);
         });
       })
       .catch((error) => {});
-  }, [discussionId, userId]);
+  }, [discussionId, user.id]);
 
   return (
     <div className="interact">

@@ -69,9 +69,7 @@ const ReportAdminUserItem = ({ project }) => {
           >
             <h3>DONE</h3>
           </div>
-        ) : (
-          <h3></h3>
-        )}
+        ) : null}
       </div>
       <p>{convertSecondToHour(time) + "h"}</p>
     </div>
