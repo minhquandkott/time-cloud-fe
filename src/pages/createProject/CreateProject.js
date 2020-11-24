@@ -32,6 +32,9 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   const [listUsers, setListUsers] = useState([]);
   const projectInfo = useRef();
   const editingMode = useRef(match.params.id ? true : false);
+  const [changedMembers, setChangedMembers] = useState([]);
+  const [changedTasks, setChangedTasks] = useState([]);
+  const [changedListTaskMember, setChangedListTaskMember] = useState([]);
 
   useEffect(() => {
     fetchMembers(52);
@@ -272,13 +275,22 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       const temp =
         projectForm.clientName === projectInfo.current?.clientName &&
         projectForm.projectName === projectInfo.current?.name &&
-        projectForm.projectColor === projectInfo.current?.color;
+        projectForm.projectColor === projectInfo.current?.color &&
+        !changedMembers.length &&
+        !changedTasks.length &&
+        !changedListTaskMember.length;
 
       return validate?.projectName || validate?.clientName || temp;
     } else {
       return validate?.projectName || validate?.clientName;
     }
-  }, [validate, projectForm]);
+  }, [
+    changedListTaskMember,
+    changedMembers,
+    changedTasks,
+    projectForm,
+    validate,
+  ]);
   const renderAction = () => {
     return (
       <div className="create_project__modal_action">
@@ -312,11 +324,12 @@ const CreateProject = ({ match, fetchMembers, members }) => {
       </SectionForm>
       <SectionForm title="Team Members">
         <TeamMembers
-          allMember={members}
           selectedManager={selectedManager}
           setSelectedManager={setSelectedManager}
           selectedMembers={selectedMembers}
           setSelectedMembers={setSelectedMembers}
+          changedList={changedMembers}
+          setChangedList={setChangedMembers}
         />
       </SectionForm>
       <SectionForm title="Tasks">
@@ -324,6 +337,10 @@ const CreateProject = ({ match, fetchMembers, members }) => {
           selectedMembers={selectedMembers}
           selectedTasks={createdTasks}
           setSelectedTasks={setCreatedTasks}
+          changedList={changedTasks}
+          setChangedList={setChangedTasks}
+          changedList2={changedListTaskMember}
+          setChangedList2={setChangedListTaskMember}
         />
       </SectionForm>
       <div className="create_project__bottom">

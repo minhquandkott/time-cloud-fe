@@ -120,6 +120,7 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
           />
         </div>
       }
+      css={{ paddingBottom: "10rem" }}
     >
       <Table
         columns={columns}

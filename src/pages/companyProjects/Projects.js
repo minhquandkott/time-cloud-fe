@@ -88,13 +88,25 @@ class Projects extends React.Component {
             <ActionColumn
               project={project}
               onEdit={this.onEdit}
-              onDelete={this.onDelete}
+              deleteProject={this.deleteProject}
             />
           );
         },
       },
     };
   }
+
+  deleteProject = (project) => {
+    this.setState({
+      projects: this.state.projects.map((ele) => {
+        if (project.id === ele.id) {
+          return { ...ele, available: false };
+        } else {
+          return ele;
+        }
+      }),
+    });
+  };
 
   fetchAllProject = async () => {
     const res = await timeCloudAPI().get("projects");
@@ -128,12 +140,6 @@ class Projects extends React.Component {
     history.push("/create_project");
   };
 
-  onDelete = (id) => {
-    if (window.confirm("Are you sure ?")) {
-      this.props.deleteProjects(id);
-    }
-  };
-
   onEdit = (project) => {
     history.push({
       pathname: `/edit_project/${project.id}`,
@@ -162,6 +168,7 @@ class Projects extends React.Component {
         return project.name.toLowerCase().indexOf(txtSearch) !== -1;
       });
     }
+    console.log(projects);
     return (
       <PageDesign title="Projects">
         <div className="projects__content">

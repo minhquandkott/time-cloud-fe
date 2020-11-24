@@ -205,7 +205,7 @@ class Discussion extends Component {
               borderRadius: ".5rem",
               transform: "translateY(105%) translateX(0%)",
               border: "1px solid #8586F5",
-              padding: "1px",
+              padding: "2px",
             }}
           />
         </div>
@@ -239,22 +239,27 @@ class Discussion extends Component {
               onScroll={this.onScrollContentHandler}
               ref={this.contentRef}
             >
-              {discussions.length ? discussions.map((discussion) => {
-                return (
-                  <DiscussionItem
-                    key={discussion.id}
-                    user={this.props.user}
-                    discussion={discussion}
-                    onDeleteItem={() => this.onDeleteItem(discussion)}
+              {discussions.length ? (
+                discussions.map((discussion) => {
+                  return (
+                    <DiscussionItem
+                      key={discussion.id}
+                      user={this.props.user}
+                      discussion={discussion}
+                      onDeleteItem={() => this.onDeleteItem(discussion)}
+                    />
+                  );
+                })
+              ) : (
+                <p>
+                  {" "}
+                  <PriorityHighIcon
+                    style={{ fontSize: "4rem", color: "red" }}
                   />
-                );
-              }) : 
-              <p>
-                {" "}
-                <PriorityHighIcon style={{ fontSize: "4rem", color: "red" }} />
-                There is no any discussion. Click input button bellow to discuss...
-              </p>
-            }
+                  There is no any discussion. Click input button bellow to
+                  discuss...
+                </p>
+              )}
             </div>
           )}
 

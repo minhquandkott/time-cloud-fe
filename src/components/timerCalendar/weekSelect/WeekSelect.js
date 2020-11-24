@@ -5,7 +5,7 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { months } from "../../../utils/Utils";
 import { getNextWeek, getPreWeek } from "../../../redux/actions";
-import { checkDayInWeekNow } from "../../../utils/Utils";
+import { checkDayInWeekNow, checkDayInWeek } from "../../../utils/Utils";
 import SelectCalendar from "../../selectCalendar/SelectCalendar";
 
 class WeekSelect extends Component {
@@ -17,28 +17,38 @@ class WeekSelect extends Component {
     this.props.getPreWeek();
   };
 
+  conditionDisableSelectWeekButton = () => {
+    const { days, user } = this.props;
+    if (user && days.length)
+      return checkDayInWeek(new Date(user.createAt), days) === 0;
+    return false;
+  };
+
   conditionDisableCalendar = (date) => {
     if (date - new Date() > 0) return true;
     if (new Date(this.props.user?.createAt) - date > 0) return true;
     return false;
   };
   render() {
-    let { days, selectedIndex } = this.props;
+    console.log(this.conditionDisableSelectWeekButton());
+    const { days, selectedIndex } = this.props;
     let weekName = `${months[days[0].getMonth()]} ${days[0].getDate()} - ${
       months[days[6].getMonth()]
     } ${days[6].getDate()}`;
     return (
       <div className="week_select">
-        <button onClick={this.onPreWeek}>
+        <button
+          disabled={this.conditionDisableSelectWeekButton()}
+          onClick={this.onPreWeek}
+          className={this.conditionDisableSelectWeekButton() ? "disable" : ""}
+        >
           {" "}
           <NavigateBeforeIcon style={{ fontSize: "1.5rem" }} />{" "}
         </button>
         <div className="week_select__name"> {weekName} </div>
         <button
-          disabled={checkDayInWeekNow(days[0]) === 0}
-          style={{
-            backgroundColor: checkDayInWeekNow(days[0]) === 0 ? "#f5f2f2" : "",
-          }}
+          disabled={!checkDayInWeekNow(days[0])}
+          className={!checkDayInWeekNow(days[0]) ? "disable" : ""}
           onClick={this.onNextWeek}
         >
           {" "}

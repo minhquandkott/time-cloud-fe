@@ -4,18 +4,22 @@ import Checkbox from "../../../components/checkbox/Checkbox";
 import SelectItem from "../../../components/selectItem/SelectItem";
 import UserInfo from "../../../components/userInfo/UserInfo";
 import React, { useState, useEffect } from "react";
-
+import {
+  onItemChangedHandler,
+  onListChangedHandler,
+} from "../../../utils/Utils";
 import { connect } from "react-redux";
 import MembersSearch from "./membersSearch/MembersSearch";
 import history from "../../../history/index";
 
 const TeamMembers = ({
-  allMember,
   selectedMembers,
   setSelectedMembers,
   selectedManager,
   setSelectedManager,
   members,
+  changedList,
+  setChangedList,
 }) => {
   const [addAllMode, setAddAllMode] = useState(true);
   const columns = {
@@ -33,13 +37,7 @@ const TeamMembers = ({
         </p>
       ),
       convertData: (element) => (
-        <SelectItem
-          onClickHandler={() => {
-            setSelectedMembers(
-              selectedMembers.filter((ele) => ele.id !== element.id)
-            );
-          }}
-        >
+        <SelectItem onClickHandler={() => onRemoveMember(element)}>
           <UserInfo
             primaryInfo={element.user.name}
             secondaryInfo={element.user.email}
@@ -73,38 +71,64 @@ const TeamMembers = ({
   };
 
   useEffect(() => {
-    if (allMember.length - 1 === selectedMembers.length) {
+    if (members.length === selectedMembers.length) {
       setAddAllMode(false);
     } else {
       setAddAllMode(true);
     }
-  }, [allMember, selectedMembers]);
+  }, [members, selectedMembers]);
 
   const onInvite = () => {
     history.push("/manage");
   };
 
+  const onRemoveMember = (member) => {
+    const key = "id";
+    const temp = onItemChangedHandler(
+      { ...member, addMode: false },
+      changedList,
+      key,
+      key
+    );
+    setChangedList(temp);
+    setSelectedMembers(selectedMembers.filter((ele) => ele.id !== member.id));
+  };
+
   const onAddMember = (member) => {
-    if (!selectedMembers.find((ele) => ele.id === member.id)) {
-      setSelectedMembers([...selectedMembers, member]);
-    }
+    const key = "id";
+    const temp = onItemChangedHandler(
+      { ...member, addMode: true },
+      changedList,
+      key,
+      key
+    );
+    setChangedList(temp);
+    setSelectedMembers([...selectedMembers, member]);
   };
 
   const onAddAllPeople = () => {
-    setSelectedMembers([...members]);
+    const temp = members
+      .filter((member) => !selectedMembers.some((ele) => ele.id === member.id))
+      .map((member) => {
+        return { ...member, addMode: true };
+      });
+
+    const result = onListChangedHandler(temp, changedList, "id", "id");
+    setChangedList(result);
+    setSelectedMembers([...selectedMembers, ...temp]);
   };
 
   const onRemoveAllPeople = () => {
+    const temp = selectedMembers.map((member) => {
+      return { ...member, addMode: false };
+    });
+    const result = onListChangedHandler(temp, changedList, "id", "id");
+    setChangedList(result);
     setSelectedMembers([]);
   };
   return (
     <div className="team_members">
-      <Table
-        skeletonLoading={false}
-        columns={columns}
-        data={selectedMembers}
-        onClickHandler={(element, event) => 0}
-      />
+      <Table skeletonLoading={false} columns={columns} data={selectedMembers} />
       <div className="team_members__bottom">
         <div className="team_members__bottom_left">
           <MembersSearch

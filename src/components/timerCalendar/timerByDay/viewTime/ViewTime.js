@@ -14,11 +14,13 @@ import {
   setSelectedTime,
   getNearestTime,
   updateTimeOfSelectedDay,
+  setTimes,
 } from "../../../../redux/actions";
 import {
   removeSpace,
   convertHours,
   convertSecondToHour,
+  equalDateTime,
 } from "../../../../utils/Utils";
 import { USER_ID } from "../../../../utils/localStorageContact";
 import ViewTimeDDTask from "./viewTimeDDTask/ViewTimeDDTask";
@@ -30,7 +32,8 @@ class ViewTime extends Component {
     isDeleting: false,
     descriptionInput: this.props.time.description,
     showTaskDD: false,
-    showTimeDD: false,
+    showStartTimeDD: false,
+    showEndTimeDD: false,
   };
 
   timeRef = React.createRef();
@@ -46,19 +49,31 @@ class ViewTime extends Component {
     let hourEnd = convertHours(endTime.getHours(), endTime.getMinutes());
     return (
       <div
-        onClick={() => {
-          this.setState({ showTimeDD: true });
-        }}
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
         }}
+        className="view_time__from_to__time"
       >
-        {`${hourStart} `}
+        <span
+          onClick={() => {
+            this.setState({ showStartTimeDD: !this.state.showStartTimeDD });
+          }}
+          className={this.state.showStartTimeDD ? "active" : ""}
+        >
+          {hourStart}{" "}
+        </span>
         <ArrowRightAltIcon />
-        {` ${hourEnd}`}
+        <span
+          onClick={() => {
+            this.setState({ showEndTimeDD: !this.state.showEndTimeDD });
+          }}
+          className={this.state.showEndTimeDD ? "active" : ""}
+        >
+          {hourEnd}
+        </span>
       </div>
     );
   };
@@ -173,7 +188,7 @@ class ViewTime extends Component {
   onDDTimeClose = () => {
     const { time } = this.props;
     const preTime = this.timeRef.current;
-    this.setState({ showTimeDD: false });
+    this.setState({ showStartTimeDD: false, showEndTimeDD: false });
     if (
       time.endTime !== preTime.endTime ||
       time.startTime !== preTime.startTime
@@ -182,9 +197,64 @@ class ViewTime extends Component {
     }
   };
 
-  render() {
-    let { time } = this.props;
+  onChangeStartTimeHandler = (newStartTime) => {
+    const { times, time, setTimes } = this.props;
+    const temp = { ...time };
+    temp.startTime = newStartTime.toISOString();
+    setTimes(
+      times.map((ele) => {
+        if (ele.id === time.id) {
+          return temp;
+        }
+        return ele;
+      })
+    );
+  };
 
+  onChangeEndTimeHandler = (newEndTime) => {
+    const { times, time, setTimes } = this.props;
+    const temp = { ...time };
+    temp.endTime = newEndTime.toISOString();
+    setTimes(
+      times.map((ele) => {
+        if (ele.id === time.id) {
+          return temp;
+        }
+        return ele;
+      })
+    );
+  };
+
+  onDiscardChangedDDTime = () => {
+    const { times, setTimes } = this.props;
+    const preTime = this.timeRef.current;
+    setTimes(
+      times.map((ele) => {
+        if (ele.id === preTime.id) {
+          return preTime;
+        }
+        return ele;
+      })
+    );
+  };
+
+  checkOnOfLastTimeButtonDisable = () => {
+    const { preNearestTime, time } = this.props;
+    if (preNearestTime) {
+      if (
+        equalDateTime(
+          new Date(preNearestTime?.endTime),
+          new Date(time.startTime)
+        )
+      ) {
+        return false;
+      }
+      return true;
+    }
+  };
+
+  render() {
+    let { time, preNearestTime, nextNearestTime } = this.props;
     return (
       <div
         className="view_time"
@@ -224,10 +294,26 @@ class ViewTime extends Component {
         </div>
         <div className="view_time__from_to ">
           <ViewTimeDDTime
-            time={time}
-            isShow={this.state.showTimeDD}
+            time={time.startTime}
+            isShow={this.state.showStartTimeDD}
             onCloseHandler={this.onDDTimeClose}
-            preTime={this.timeRef.current}
+            preTime={this.timeRef.current?.startTime}
+            preNearestTime={preNearestTime?.endTime}
+            nextNearestTime={time.endTime}
+            onChangeTime={this.onChangeStartTimeHandler}
+            onDiscardChanged={this.onDiscardChangedDDTime}
+            actionExtractTitle="End of last timer"
+            conditionDisableActionExtract={this.checkOnOfLastTimeButtonDisable}
+          />
+          <ViewTimeDDTime
+            time={time.endTime}
+            isShow={this.state.showEndTimeDD}
+            onCloseHandler={this.onDDTimeClose}
+            preTime={this.timeRef.current?.endTime}
+            preNearestTime={time.startTime}
+            nextNearestTime={nextNearestTime?.startTime}
+            onChangeTime={this.onChangeEndTimeHandler}
+            onDiscardChanged={this.onDiscardChangedDDTime}
           />
           {this.from_to()}
         </div>
@@ -255,10 +341,19 @@ class ViewTime extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedTime, selectedIndex } = state.week;
+  const {
+    selectedTime,
+    selectedIndex,
+    preNearestTime,
+    nextNearestTime,
+    times,
+  } = state.week;
   return {
     selectedTime,
     selectedIndex,
+    preNearestTime,
+    nextNearestTime,
+    times,
   };
 };
 
@@ -269,4 +364,5 @@ export default connect(mapStateToProps, {
   setSelectedTime,
   getNearestTime,
   updateTimeOfSelectedDay,
+  setTimes,
 })(ViewTime);

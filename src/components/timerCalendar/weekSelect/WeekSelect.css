@@ -24,11 +24,15 @@
 }
 
 .week_select>button:hover {
-    background-color: darkgray;
-    color: white;
+    background-color: #f5f2f2 ;
 }
 .week_select>button:last-of-type{
   margin-right: 2rem;
+}
+
+.week_select>button.disable {
+  background-color: var(--color-light-tertiary);
+  cursor: inherit;
 }
 
 .week_select__name {

@@ -1,8 +1,21 @@
 .tasks_form__add{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   margin-top: 2rem;
+}
+.tasks_form__add>input{
+  
   outline: none;
   background-color: var(--color-light-tertiary);
   padding: 1rem 2rem;
   border-radius: 20px;
   border: 2px solid var(--color-button);
+}
+.tasks_form__add>p{
+  height: 100%;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--color-error);
+  margin-left: 1rem;
 }

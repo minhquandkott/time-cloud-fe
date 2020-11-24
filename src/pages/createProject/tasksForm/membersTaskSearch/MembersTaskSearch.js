@@ -116,7 +116,7 @@ const MembersTaskSearch = ({
                   className="members_search__item"
                   key={ele.id}
                   onClick={() => {
-                    onMemberSelected(ele);
+                    onMemberSelected(ele, data);
                     setShowTooltip(false);
                     setInputValue("");
                   }}

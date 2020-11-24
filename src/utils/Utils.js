@@ -94,6 +94,10 @@ export const equalDates = (date1, date2) => {
   return date1?.toDateString() === date2?.toDateString();
 };
 
+export const equalDateTime = (date1, date2) => {
+  return date1?.toISOString() === date2?.toISOString();
+};
+
 export const getTimeWriteDiscussion = (createAt) => {
   let current = new Date();
   let periodOfTime = current.getTime() - new Date(createAt).getTime();
@@ -126,13 +130,17 @@ export const getDaysOfWeek = (date) => {
 
 export const checkDayInWeekNow = (day) => {
   const daysNow = getDaysOfWeek(new Date());
-  if (daysNow.some((ele) => equalDates(day, ele))) {
+  return checkDayInWeek(day, daysNow);
+};
+
+export const checkDayInWeek = (day, week) => {
+  if (week.some((ele) => equalDates(day, ele))) {
     //* is day in week now
     return 0;
-  } else if (daysNow[0] - day > 0) {
+  } else if (week[0] - day > 0) {
     //* is day in pre week
     return -1;
-  } else if (daysNow[6] - day < 0) {
+  } else if (week[6] - day < 0) {
     // * is day in next week
     return 1;
   }
@@ -164,9 +172,38 @@ export const get50Years = (year) => {
   if (!year) year = new Date().getFullYear();
   const result = [];
   let temp = year;
+
   if (year < 1970) temp = 1970;
   for (let i = 0; i < 50; i++) {
     result.push(temp++);
   }
+  return result;
+};
+
+export const onItemChangedHandler = (
+  itemWillChange,
+  currentChangedList,
+  key1,
+  key2
+) => {
+  const result = [...currentChangedList];
+  const index = result.findIndex((ele) => ele[key2] === itemWillChange[key1]);
+  if (index === -1) {
+    result.push(itemWillChange);
+  } else {
+    result.splice(index, 1);
+  }
+  return result;
+};
+export const onListChangedHandler = (
+  listWillChange,
+  currentChangedList,
+  key1,
+  key2
+) => {
+  let result = [...currentChangedList];
+  listWillChange.forEach((ele) => {
+    result = onItemChangedHandler(ele, result, key1, key2);
+  });
   return result;
 };
