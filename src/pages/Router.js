@@ -16,6 +16,7 @@ import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
 import TimerCalendar from "../components/timerCalendar/TimerCalendar";
 import Discussion from '../pages/discussion/Discussion';
+import TimeOff from '../pages/timeOff/TimeOff';
 
 class Router extends React.Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class Router extends React.Component {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/report/:id" component={Report} />
           <Route path="/profile/:id" component={Profile} />
+          <Route path="/time-off" component={TimeOff} />
           <Route path="/manage" component={Manage} />
           <Route path="/create_project" component={CreateProject} />
           <Route path="/edit_project/:id" component={CreateProject} />
@@ -47,6 +49,7 @@ class Router extends React.Component {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
+          <Route path="/time-off" component={TimeOff} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
           <Route path="/profile/:id" component={Profile} />

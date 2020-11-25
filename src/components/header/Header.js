@@ -39,6 +39,9 @@ const Header = ({ user, logout }) => {
       <NavLink to="/timer" activeClassName="header__feature__active">
         Your timer
       </NavLink>
+      <NavLink to="/time-off" activeClassName="header__feature__active">
+        Time off
+      </NavLink>
       <NavLink
         to={{
           pathname: "/report",
