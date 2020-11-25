@@ -20,32 +20,35 @@
 }
 
 
+
 .discussion__filter {
   display: flex;
-  position: relative;
 }
-.discussion__filter__project{
-  
+.discussion__filter__item{
+  position: relative;
   border: 1px solid #8586F5;
   border-radius: .5rem;
-  box-shadow: 3px 3px 15px rgba(133,134,245, .7);
+  box-shadow: 2px 2px 8px rgba(133,134,245, .7);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 18rem;
   
 }
-.discussion__filter__project:hover{
-  
+.discussion__filter__type{
+  width: 13rem;
+  margin-right: 2rem;
+}
+.discussion__filter__project{
+  width: 18rem;
 }
 
-.discussion__filter__project>span{
+.discussion__filter__item>span{
   font-size: 1.7rem;
   font-weight: 600;
   padding: .5rem 2rem;
 }
-.discussion__filter__project>.MuiSvgIcon-root{
+.discussion__filter__item>.MuiSvgIcon-root{
   font-size: 2rem;
   padding: .5rem;
 }

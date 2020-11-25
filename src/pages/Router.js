@@ -15,7 +15,7 @@ import Profile from "./profile/Profile";
 import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
 import TimerCalendar from "../components/timerCalendar/TimerCalendar";
-import Discussion from '../pages/discussion/Discussion';
+import Discussion from "../pages/discussion/Discussion";
 
 class Router extends React.Component {
   componentDidMount() {
@@ -24,7 +24,7 @@ class Router extends React.Component {
 
   render() {
     let routes;
-    if (this.props.user?.roles?.some((ele) => ele.id === 1 || ele.id === 3)) {
+    if (this.props.user?.roles?.some((ele) => ele.id === 1)) {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
