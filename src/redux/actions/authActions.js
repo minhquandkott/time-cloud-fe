@@ -80,6 +80,7 @@ const fetchUserRole = (userId) => {
         `companies/52/users/${userId}/role`
       );
       const roles = response2.data.map((ele) => ele.role);
+      console.log(roles);
       dispatch(setUserRole(roles));
     } catch (error) {
       console.log("error");

@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Modal from "../../../components/modal/Modal";
-import timeCloudAPI from '../../../apis/timeCloudAPI';
+import timeCloudAPI from "../../../apis/timeCloudAPI";
+
 const styleCom = {
   fontSize: "3rem",
 };

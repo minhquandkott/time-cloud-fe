@@ -11,6 +11,7 @@ class Timer extends React.Component {
         <Time />
         <ProjectList />
         <TimerCalendar />
+        <div id="drag_image"></div>
       </div>
     );
   }

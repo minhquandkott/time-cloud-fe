@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProjectDetail.css";
 import { connect } from "react-redux";
-import { deleteProjects, getUser, getWeek } from "../../redux/actions";
+import { getUser, getWeek } from "../../redux/actions";
 import TrackTime from "../companyProjects/TrackTime/TrackTime";
 import ProjectDetailTask from "../../components/projectDetailItems/projectDetailTask/ProjectDetailTask";
 import ProjectDetailTeam from "../../components/projectDetailItems/projectDetailTeam/ProjectDetailTeam";
@@ -179,7 +179,6 @@ const mapStateToProp = (state) => {
 };
 
 export default connect(mapStateToProp, {
-  deleteProjects,
   getUser,
   getWeek,
 })(withRouter(Projects));

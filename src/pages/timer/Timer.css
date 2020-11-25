@@ -4,3 +4,10 @@
   letter-spacing: -.5px;
   min-height: 100vh;
 }
+#drag_image{
+  background-color:#8d8d8d;
+  position: absolute;
+  border-radius: .5rem;
+  overflow: hidden;
+  padding: .5rem;
+}
