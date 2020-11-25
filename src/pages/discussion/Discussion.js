@@ -15,13 +15,16 @@ import Spinner from "../../components/loading/spinner/Spinner";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 
 const defaultSelect = { id: 0, name: "All" };
+const types = ["All", "Bug", "Feature", "Approve", "Others"];
 class Discussion extends Component {
   state = {
     projects: [defaultSelect],
     projectSelected: null,
+    selectedTypeIndex: 0,
     discussions: [],
     isLoading: false,
     showDDProject: false,
+    showDDType: false,
     discussionInput: "",
     typeSelected: -1,
     currentPage: 0,
@@ -45,10 +48,13 @@ class Discussion extends Component {
   componentDidMount() {
     this.setState({ isLoading: true, projectSelected: defaultSelect });
     timeCloudAPI()
-      .get(`users/${localStorage.getItem(USER_ID)}/projects-available`)
+      .get(`users/${localStorage.getItem(USER_ID)}/project-user-available`)
       .then((res) => {
         this.setState({
-          projects: [...this.state.projects, ...res.data],
+          projects: [
+            ...this.state.projects,
+            ...res.data.map((ele) => ele.project),
+          ],
         });
       });
     this.fetchAllDiscussion(this.state.currentPage, 7, "createAt").then((res) =>
@@ -174,6 +180,26 @@ class Discussion extends Component {
     );
   };
 
+  renderContentDDType = () => {
+    return (
+      <div
+        className="discussion__content_dd_project"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {types.map((type, index) => {
+          return (
+            <p
+              key={index}
+              onClick={() => this.setState({ selectedTypeIndex: index })}
+            >
+              {type}
+            </p>
+          );
+        })}
+      </div>
+    );
+  };
+
   onDeleteItem = (discussion) => {
     timeCloudAPI()
       .delete(`discussions/${discussion.id}`)
@@ -187,13 +213,32 @@ class Discussion extends Component {
   };
 
   renderFilter = () => {
-    const { projectSelected } = this.state;
+    const { projectSelected, selectedTypeIndex } = this.state;
     return (
-      <div
-        className="discussion__filter"
-        onClick={() => this.setState({ showDDProject: true })}
-      >
-        <div className="discussion__filter__project">
+      <div className="discussion__filter">
+        <div
+          onClick={() => this.setState({ showDDType: true })}
+          className="discussion__filter__item discussion__filter__type"
+        >
+          <span>{types[selectedTypeIndex]}</span>
+          <ExpandMoreIcon />
+          <DropDown2
+            isShow={this.state.showDDType}
+            onCloseHandler={() => this.setState({ showDDType: false })}
+            renderContent={() => this.renderContentDDType()}
+            css={{
+              boxShadow: "3px 3px 15px rgba(133,134,245, .7)",
+              borderRadius: ".5rem",
+              transform: "translateY(105%) translateX(0%)",
+              border: "1px solid #8586F5",
+              padding: "2px",
+            }}
+          />
+        </div>
+        <div
+          onClick={() => this.setState({ showDDProject: true })}
+          className="discussion__filter__item discussion__filter__project"
+        >
           <span>{projectSelected?.name}</span>
           <ExpandMoreIcon />
           <DropDown2
@@ -221,7 +266,9 @@ class Discussion extends Component {
       showInputDiscussion,
       projectSelected,
       isSavingDiscussion,
+      projects,
     } = this.state;
+    console.log(projects);
     return (
       <PageDesign title="Discussion" headerRight={this.renderFilter()}>
         <div className="discussion">

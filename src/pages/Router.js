@@ -25,7 +25,7 @@ class Router extends React.Component {
 
   render() {
     let routes;
-    if (this.props.user?.roles?.some((ele) => ele.id === 1 || ele.id === 3)) {
+    if (this.props.user?.roles?.some((ele) => ele.id === 1)) {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />

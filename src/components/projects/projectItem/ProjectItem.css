@@ -14,7 +14,7 @@
 }
 
 .project_item.nonvisible{
-  background-color: #EEEEEE !important;
+  background-color: #e9e9e9 !important;
   box-shadow: 1px 1px .2rem rgba(0, 0, 0, 0.2);
 }
 .project_item.nonvisible .project_header__drag_item>h2{
@@ -31,10 +31,10 @@
 
 .project_item:hover {
   transform: scale(1.02, 1.02);
-  box-shadow: 5px 5px 0.7rem rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px .2rem rgba(0, 0, 0, 0.7);
 }
 .project_item.nonvisible:hover{
-  box-shadow: 1px 1px .1rem rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 1px 1px .3rem rgba(0, 0, 0, 0.5) !important;
 }
 .project_item:hover .project_header__company_name>button>.MuiSvgIcon-root{
   display: initial;
