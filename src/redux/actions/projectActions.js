@@ -23,7 +23,9 @@ export const fetchProjects = (userId, cancelToken) => {
       );
       const projects = res.data
         .sort((ele1, ele2) => ele1.index - ele2.index)
-        .map((ele) => ele.project);
+        .map((ele) => {
+          return { ...ele.project, isShow: ele.isShow };
+        });
       res = await Promise.all(
         projects.map((project) =>
           timeCloudAPI().get(`projects/${project.id}/users/${userId}/tasks`)

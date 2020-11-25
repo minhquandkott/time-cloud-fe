@@ -16,14 +16,15 @@ const ProjectList = ({
 }) => {
   const [data, setData] = useState([]);
   const [draggingIndex, setDraggingIndex] = useState(-1);
-  const [overIndex, setOverIndex] = useState(-1);
+  const [stable, setStable] = useState(true);
   const timeoutIdRef = useRef(null);
   const draggingValue = useRef(null);
-  const [count, setCount] = useState(0);
   const projectIdsRef = useRef(null);
   useEffect(() => {
     fetchProjects(userId);
   }, [fetchProjects, userId]);
+
+  useEffect(() => {}, [stable]);
 
   useEffect(() => {
     setData(projects);
@@ -32,14 +33,42 @@ const ProjectList = ({
     }
   }, [projects]);
 
-  const changeIndexOfProject = async (projectId, newIndex) => {
+  const changeIsShow = async (projectId, isShow) => {
     const res = await timeCloudAPI().put(
-      `projects/${projectId}/users/${userId}/${newIndex}`
+      `projects/${projectId}/users/${userId}`,
+      {
+        isShow,
+      }
+    );
+    fetchProjectsSuccess(
+      data.map((ele) => {
+        if (ele.id === projectId) {
+          return { ...ele, isShow };
+        }
+        return ele;
+      })
     );
     return res.data;
   };
 
-  const dragStartHandler = (event, index) => {
+  const changeIndexOfProjects = async () => {
+    const arrAPI = [];
+    data.forEach((project, index) => {
+      if (project.id !== projectIdsRef.current[index]) {
+        arrAPI.push(
+          timeCloudAPI().put(`projects/${project.id}/users/${userId}`, {
+            index: index,
+          })
+        );
+      }
+    });
+    await Promise.all(arrAPI);
+    fetchProjectsSuccess(data);
+    projectIdsRef.current = data.map((ele) => ele.id);
+  };
+
+  const dragStartHandler = (index) => {
+    setStable(false);
     setTimeout(() => {
       setDraggingIndex(index);
       if (timeoutIdRef.current) {
@@ -49,50 +78,24 @@ const ProjectList = ({
       draggingValue.current = data[index];
     }, 0);
   };
+
   const onDragEndHandler = () => {
     setDraggingIndex(-1);
-    setCount(0);
-  };
-
-  const onDragEnterHandler = (event, index) => {
-    setCount(count + 1);
-    if (draggingIndex !== index) {
-      setOverIndex(index);
-    }
-  };
-  const onDragLeaveHandler = (event) => {
-    setCount(count - 1);
-    if (count - 1 === 0) {
-      setOverIndex(-1);
-    }
   };
 
   const onDragOverHandler = (event, index) => {
     event.preventDefault();
-
-    if (projects[index] !== draggingValue.current) {
-      swap(draggingIndex, overIndex);
-      setDraggingIndex(overIndex);
+    if (data[index] !== draggingValue.current) {
+      swap(draggingIndex, index);
+      setDraggingIndex(index);
     }
   };
 
   const onDropHandler = () => {
-    if (overIndex >= 0) {
-      swap(draggingIndex, overIndex);
-    }
     timeoutIdRef.current = setTimeout(() => {
       timeoutIdRef.current = null;
-      if (
-        !data.every((ele, index) => ele.id === projectIdsRef.current[index])
-      ) {
-        Promise.all(
-          data.map((project, index) => changeIndexOfProject(project.id, index))
-        ).then((res) => {
-          projectIdsRef.current = data.map((ele) => ele.id);
-          fetchProjectsSuccess(data);
-        });
-      }
-    }, 3000);
+      changeIndexOfProjects();
+    }, 2000);
   };
 
   const swap = (fromIndex, toIndex) => {
@@ -104,10 +107,6 @@ const ProjectList = ({
   };
 
   const renderProjectList = () => {
-    console.log(
-      projectIdsRef.current,
-      data.map((ele) => ele.id)
-    );
     if (isFetching) {
       return <Skeleton countItem={4} heightItem="15rem" direction="row" />;
     }
@@ -119,16 +118,15 @@ const ProjectList = ({
         <div
           key={project.id}
           className={className}
-          onDragEnter={(event) => onDragEnterHandler(event, index)}
-          onDragLeave={onDragLeaveHandler}
           onDragOver={(event) => onDragOverHandler(event, index)}
           onDrop={onDropHandler}
         >
           <ProjectItem
             project={project}
-            onDragStartHandler={dragStartHandler}
+            onDragStartHandler={() => dragStartHandler(index)}
             onDragEndHandler={onDragEndHandler}
             index={index}
+            changeIsShow={changeIsShow}
           >
             <TaskList tasks={project.tasks} />
           </ProjectItem>
