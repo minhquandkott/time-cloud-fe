@@ -34,6 +34,7 @@
   border-bottom-right-radius:1rem ;
   position: relative;
   cursor: pointer;
+  user-select: none;
 }
 
 .discussion_item__type__error{

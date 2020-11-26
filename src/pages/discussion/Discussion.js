@@ -91,7 +91,6 @@ class Discussion extends Component {
   }
 
   async fetchAllDiscussion(page, limit, sortBy, type) {
-    console.log(type);
     const res = await timeCloudAPI().get(
       `users/${localStorage.getItem(USER_ID)}/discussions?type=${
         type === 0 ? "" : type - 1
@@ -332,7 +331,6 @@ class Discussion extends Component {
               )}
             </div>
           )}
-
           {projectSelected?.id !== 0 && (
             <div
               className="discussion__footer"

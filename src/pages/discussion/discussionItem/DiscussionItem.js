@@ -14,7 +14,6 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
   const [data, setData] = useState(discussion);
   const [editMode, setEditMode] = useState(false);
   const [showDDType, setShowDDType] = useState(false);
-  console.log(discussion);
 
   const onButtonCommentClick = () => {
     setShowComment(!showComment);
@@ -59,9 +58,10 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
   };
 
   const updateDiscussionType = (type) => {
-    // timeCloudAPI().put(`discussions/${data.id}`, {
-    //   userId :
-    // })
+    setShowDDType(false);
+    const typeIndex = types.findIndex((ele) => ele === type);
+    timeCloudAPI().put(`discussions/${data.id}/type/${typeIndex}`);
+    setData({ ...data, type: typeIndex });
   };
 
   const renderDDType = () => {
@@ -76,7 +76,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
             return (
               <p
                 onClick={(index) => {
-                  updateDiscussionType(index);
+                  updateDiscussionType(type);
                 }}
                 key={index}
               >
@@ -133,7 +133,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
             css={{
               boxShadow: "2px 2px 8px rgba(133,134,245, .7)",
               borderRadius: ".5rem",
-              transform: "translateY(85%) translateX(15%)",
+              transform: "translateY(80%) translateX(15%)",
               border: "1px solid #8586F5",
               padding: "2px",
             }}
