@@ -11,6 +11,7 @@ import {
 import { connect } from "react-redux";
 import MembersSearch from "./membersSearch/MembersSearch";
 import history from "../../../history/index";
+import { colors } from "@material-ui/core";
 
 const TeamMembers = ({
   selectedMembers,
@@ -43,6 +44,12 @@ const TeamMembers = ({
             secondaryInfo={element.user.email}
             avatar={element.user.avatar}
             flag={selectedManager?.id === element.id ? "PM" : null}
+            cssFlag={{
+              backgroundColor: "var(--color-error)",
+              color: "white",
+              padding: "0rem .5rem",
+              borderRadius: ".5rem",
+            }}
           />
         </SelectItem>
       ),
@@ -62,7 +69,11 @@ const TeamMembers = ({
           showUnCheck={true}
           id={user.id + ""}
           onCheckboxChanged={(event) => {
-            setSelectedManager(user);
+            if (event.target.checked) {
+              setSelectedManager(user);
+            } else {
+              setSelectedManager(null);
+            }
           }}
           checked={user.id === selectedManager?.id}
         />
@@ -140,7 +151,6 @@ const TeamMembers = ({
             <button
               className="project_form__button"
               onClick={() => {
-                // setAddAllMode(!addAllMode);
                 if (addAllMode) {
                   onAddAllPeople();
                 } else {

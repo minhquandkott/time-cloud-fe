@@ -9,6 +9,7 @@ const UserInfo = ({
   flag,
   children,
   cssForPrimaryInfo,
+  cssFlag,
 }) => {
   return (
     <Avatar avatarSize="3.5rem" avatar={avatar} alt={primaryInfo}>
@@ -21,6 +22,7 @@ const UserInfo = ({
             className="user_info__flag"
             style={{
               display: "inline-block",
+              ...cssFlag,
             }}
           >
             {flag}

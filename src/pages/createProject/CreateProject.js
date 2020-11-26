@@ -130,6 +130,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
             clientName: data.clientName,
             projectColor: data.color,
           });
+          setSelectedManager(data.projectManager);
         });
     }
   }, [match.params.id]);
@@ -162,6 +163,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
         color: projectColor,
         clientName: clientName,
         name: projectName,
+        projectManagerId: selectedManager.id,
       });
       await Promise.allSettled([
         ...selectedMembers.map((ele) =>
@@ -181,20 +183,15 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     setIsSaving(true);
     const { id } = projectInfo.current;
     const arrRequest = [];
-    if (
-      projectForm.projectName !== projectInfo.current.name ||
-      projectForm.clientName !== projectInfo.current.clientName ||
-      projectForm.projectColor !== projectInfo.current.color
-    ) {
-      // * api save project
-      arrRequest.push(
-        timeCloudAPI().put(`projects/${id}`, {
-          clientName: projectForm.clientName,
-          name: projectForm.projectName,
-          color: projectForm.projectColor,
-        })
-      );
-    }
+    // * api save project
+    arrRequest.push(
+      timeCloudAPI().put(`projects/${id}`, {
+        clientName: projectForm.clientName,
+        name: projectForm.projectName,
+        color: projectForm.projectColor,
+        projectManagerId: selectedManager.id,
+      })
+    );
 
     const deleteTasks = [];
     const otherTasks = [];
@@ -276,6 +273,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
         projectForm.clientName === projectInfo.current?.clientName &&
         projectForm.projectName === projectInfo.current?.name &&
         projectForm.projectColor === projectInfo.current?.color &&
+        selectedManager?.id === projectInfo.current?.projectManager?.id &&
         !changedMembers.length &&
         !changedTasks.length &&
         !changedListTaskMember.length;
@@ -289,6 +287,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     changedMembers,
     changedTasks,
     projectForm,
+    selectedManager,
     validate,
   ]);
   const renderAction = () => {
