@@ -6,7 +6,7 @@ import timeCloudAPI from "../../../../apis/timeCloudAPI";
 import { getTimeWriteDiscussion } from "../../../../utils/Utils";
 import Modal from "../../../../components/modal/Modal";
 
-const CommentItem = ({ comment, user, onDeleteComment, discussion }) => {
+const CommentItem = ({ comment, user, onDeleteComment, discussion, project }) => {
   const [editStatus, setEditStatus] = useState(false);
   const [editCommentInput, setEditCommentInput] = useState(comment.content);
   const [showModalDelete, setShowModalDelete] = useState(false);
@@ -52,6 +52,12 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion }) => {
     return check;
   }
 
+  const checkUserIsPM = () => {
+    if(project?.projectManager?.id === user?.id) return true;
+    return false;
+
+  }
+
   const renderModalActions = () => {
     return (
       <div className="discussion__model_actions">
@@ -94,7 +100,7 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion }) => {
                 </p>
               </div>
             ) :
-            checkUserIsAdmin(user?.roles) ?
+            (checkUserIsAdmin(user?.roles) || checkUserIsPM()) ?
           <div className="content__button_actions">
             <p
               className="content__button__delete"

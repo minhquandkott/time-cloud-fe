@@ -15,6 +15,7 @@ const Content = ({
   amountOfComment,
   onEdit,
   user,
+  project
 }) => {
   const [discussionInput, setDiscussionInput] = useState("");
   const [editStatus, setEditStatus] = useState(false);
@@ -74,6 +75,12 @@ const Content = ({
     return check;
   };
 
+  const checkUserIsPM = () => {
+    if(project?.projectManager?.id === user?.id) return true;
+    return false;
+
+  }
+
   return (
     <div className="content">
       <div className="content__text">
@@ -116,7 +123,7 @@ const Content = ({
                 Delete{" "}
               </p>
             </div>
-          ) : checkUserIsAdmin(user?.roles) ? (
+          ) : (checkUserIsAdmin(user?.roles) || checkUserIsPM()) ? (
             <div className="content__button_actions">
               <p
                 className="content__button__delete"

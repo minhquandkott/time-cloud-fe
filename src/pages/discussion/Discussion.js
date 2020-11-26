@@ -316,6 +316,7 @@ class Discussion extends Component {
                       user={this.props.user}
                       discussion={discussion}
                       onDeleteItem={() => this.onDeleteItem(discussion)}
+                      project = {projectSelected}
                     />
                   );
                 })
