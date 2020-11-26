@@ -4,11 +4,16 @@ import Interact from "../../../components/interact/Interact";
 import Content from "../content/Content";
 import Comment from "../comment/Comment";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
+import DropDown2 from "../../../components/dropdown2/DropDown2";
+
+const types = ["Bug", "Feature", "Approve", "Others"];
 
 const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState(null);
   const [data, setData] = useState(discussion);
+  const [editMode, setEditMode] = useState(false);
+  const [showDDType, setShowDDType] = useState(false);
 
   const onButtonCommentClick = () => {
     setShowComment(!showComment);
@@ -52,12 +57,43 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
       });
   };
 
-  const getClassNameType = () => {
-    if (data.type === 0) {
+  const updateDiscussionType = (type) => {
+    setShowDDType(false);
+    const typeIndex = types.findIndex((ele) => ele === type);
+    timeCloudAPI().put(`discussions/${data.id}/type/${typeIndex}`);
+    setData({ ...data, type: typeIndex });
+  };
+
+  const renderDDType = () => {
+    return (
+      <div
+        className="discussion__content_dd_project"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {types
+          .filter((ele, index) => index !== data.type)
+          .map((type, index) => {
+            return (
+              <p
+                onClick={(index) => {
+                  updateDiscussionType(type);
+                }}
+                key={index}
+              >
+                {type}
+              </p>
+            );
+          })}
+      </div>
+    );
+  };
+
+  const getClassNameType = (type) => {
+    if (type === 0) {
       return { className: "discussion_item__type__error", name: "Bug" };
-    } else if (data.type === 1) {
+    } else if (type === 1) {
       return { className: "discussion_item__type__feature", name: "Feature" };
-    } else if (data.type === 2) {
+    } else if (type === 2) {
       return { className: "discussion_item__type__approve", name: "Approve" };
     }
     return { className: "discussion_item__type__none", name: "Others" };
@@ -73,7 +109,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
         }}
       >
         <div>
-          <Interact discussionId={data.id} user ={user}/>
+          <Interact discussionId={data.id} user={user} />
           <Content
             amountOfComment={comments?.length}
             onButtonCommentClick={onButtonCommentClick}
@@ -84,9 +120,24 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
           />
         </div>
         <div
-          className={`discussion_item__type ${getClassNameType().className}`}
+          onClick={() => setShowDDType(!showDDType)}
+          className={`discussion_item__type ${
+            getClassNameType(data.type).className
+          }`}
         >
-          {getClassNameType().name}
+          {getClassNameType(data.type).name}
+          <DropDown2
+            isShow={showDDType}
+            onCloseHandler={() => setShowDDType(false)}
+            renderContent={() => renderDDType()}
+            css={{
+              boxShadow: "2px 2px 8px rgba(133,134,245, .7)",
+              borderRadius: ".5rem",
+              transform: "translateY(80%) translateX(15%)",
+              border: "1px solid #8586F5",
+              padding: "2px",
+            }}
+          />
         </div>
       </div>
       {showComment && (
