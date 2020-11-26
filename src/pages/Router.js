@@ -17,6 +17,7 @@ import ReportAdmin from "./report/reportadmin/ReportAdmin";
 import TimerCalendar from "../components/timerCalendar/TimerCalendar";
 import Discussion from '../pages/discussion/Discussion';
 import TimeOff from '../pages/timeOff/TimeOff';
+import CreateRequestTimeOff from '../pages/createRequestTimeOff/CreateRequestTimeOff';
 
 class Router extends React.Component {
   componentDidMount() {
@@ -40,6 +41,7 @@ class Router extends React.Component {
           <Route path="/edit_project/:id" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
+          <Route path="/create-request-time-off" component={CreateRequestTimeOff} />
           <Route path="/timer_calendar" component={TimerCalendar} />
           <Route path="/discussion" component={Discussion}></Route>
           <Route component={NotFound} />
@@ -52,6 +54,7 @@ class Router extends React.Component {
           <Route path="/time-off" component={TimeOff} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
+          <Route path="/create-request-time-off" component={CreateRequestTimeOff} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
           {this.props.user?.roles ? <Route component={NotFound} /> : null}
