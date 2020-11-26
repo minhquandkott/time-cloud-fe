@@ -37,6 +37,7 @@
   font-size: 1.9rem;
   font-weight: 500;
   border-bottom: 3px solid transparent;
+  user-select: none;
 }
 
 .header__feature__active{

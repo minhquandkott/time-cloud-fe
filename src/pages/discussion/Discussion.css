@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     max-height: 74vh;
-    min-height: 10rem;
+    min-height: 15rem;
     
 }
 
@@ -23,6 +23,17 @@
 
 .discussion__filter {
   display: flex;
+}
+.discussion__filter >span{
+  background-color: #8586F5;
+  color: white;
+  border-radius: .5rem;
+  padding: .5rem;
+  height: fit-content;
+  font-weight: 700;
+  margin-right: .3rem;
+  box-shadow: 1px 1px 3px rgba(133,134,245, .6);
+  margin-top: 1px;
 }
 .discussion__filter__item{
   position: relative;
@@ -76,7 +87,7 @@
 
 /* Handle */
 .discussion__content::-webkit-scrollbar-thumb {
-  background: #a77d7d;
+  background: #635151;
   border-radius: .5rem;
 }
 

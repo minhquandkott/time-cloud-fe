@@ -26,7 +26,6 @@ class Discussion extends Component {
     showDDProject: false,
     showDDType: false,
     discussionInput: "",
-    typeSelected: -1,
     currentPage: 0,
     showInputDiscussion: false,
     isSavingDiscussion: false,
@@ -57,9 +56,12 @@ class Discussion extends Component {
           ],
         });
       });
-    this.fetchAllDiscussion(this.state.currentPage, 7, "createAt").then((res) =>
-      this.setState({ discussions: res, isLoading: false })
-    );
+    this.fetchAllDiscussion(
+      this.state.currentPage,
+      7,
+      "createAt",
+      this.state.selectedTypeIndex
+    ).then((res) => this.setState({ discussions: res, isLoading: false }));
     window.addEventListener("click", this.onClickOutSizeFooter);
   }
 
@@ -88,11 +90,11 @@ class Discussion extends Component {
     }
   }
 
-  async fetchAllDiscussion(page, limit, sortBy) {
+  async fetchAllDiscussion(page, limit, sortBy, type) {
     const res = await timeCloudAPI().get(
-      `users/${localStorage.getItem(
-        USER_ID
-      )}/discussions?limit=${limit}&page=${page}&sort_by=${sortBy}`
+      `users/${localStorage.getItem(USER_ID)}/discussions?type=${
+        type === 0 ? "" : type - 1
+      }&limit=${limit}&page=${page}&sort_by=${sortBy}`
     );
     return res.data;
   }
@@ -106,15 +108,21 @@ class Discussion extends Component {
   ) {
     const res = await timeCloudAPI().get(
       `projects/${projectId}/discussions?type=${
-        type === -1 ? "" : type
+        type === 0 ? "" : type - 1
       }&limit=${limit}&page=${page}&sort_by=${sortBy}&order=${order}`
     );
     return res.data;
   }
   async fetchDiscussions(page, limit) {
-    const { projectSelected, typeSelected } = this.state;
+    const { projectSelected, selectedTypeIndex } = this.state;
+    console.log(projectSelected, selectedTypeIndex);
     if (projectSelected.id === 0) {
-      return await this.fetchAllDiscussion(page, limit, "createAt");
+      return await this.fetchAllDiscussion(
+        page,
+        limit,
+        "createAt",
+        selectedTypeIndex
+      );
     } else {
       return await this.fetchAllDiscussionByProjectId(
         projectSelected.id,
@@ -122,7 +130,7 @@ class Discussion extends Component {
         limit,
         "createAt",
         "DESC",
-        typeSelected
+        selectedTypeIndex
       );
     }
   }
@@ -190,7 +198,24 @@ class Discussion extends Component {
           return (
             <p
               key={index}
-              onClick={() => this.setState({ selectedTypeIndex: index })}
+              onClick={() =>
+                this.setState(
+                  {
+                    selectedTypeIndex: index,
+                    showDDType: false,
+                    isLoading: true,
+                    currentPage: 0,
+                  },
+                  () => {
+                    this.fetchDiscussions(
+                      this.state.currentPage,
+                      7
+                    ).then((res) =>
+                      this.setState({ discussions: res, isLoading: false })
+                    );
+                  }
+                )
+              }
             >
               {type}
             </p>
@@ -201,21 +226,19 @@ class Discussion extends Component {
   };
 
   onDeleteItem = (discussion) => {
-    timeCloudAPI()
-      .delete(`discussions/${discussion.id}`)
-      .then((res) => {
-        this.setState({
-          discussions: this.state.discussions.filter(
-            (ele) => ele.id !== discussion.id
-          ),
-        });
-      });
+    this.setState({
+      discussions: this.state.discussions.filter(
+        (ele) => ele.id !== discussion.id
+      ),
+    });
+    timeCloudAPI().delete(`discussions/${discussion.id}`);
   };
 
   renderFilter = () => {
     const { projectSelected, selectedTypeIndex } = this.state;
     return (
       <div className="discussion__filter">
+        <span>Type</span>
         <div
           onClick={() => this.setState({ showDDType: true })}
           className="discussion__filter__item discussion__filter__type"
@@ -235,6 +258,7 @@ class Discussion extends Component {
             }}
           />
         </div>
+        <span>Project</span>
         <div
           onClick={() => this.setState({ showDDProject: true })}
           className="discussion__filter__item discussion__filter__project"
@@ -266,9 +290,7 @@ class Discussion extends Component {
       showInputDiscussion,
       projectSelected,
       isSavingDiscussion,
-      projects,
     } = this.state;
-    console.log(projects);
     return (
       <PageDesign title="Discussion" headerRight={this.renderFilter()}>
         <div className="discussion">
@@ -309,7 +331,6 @@ class Discussion extends Component {
               )}
             </div>
           )}
-
           {projectSelected?.id !== 0 && (
             <div
               className="discussion__footer"

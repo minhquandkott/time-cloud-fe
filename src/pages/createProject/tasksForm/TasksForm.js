@@ -4,10 +4,7 @@ import SelectItem from "../../../components/selectItem/SelectItem";
 import MembersTaskSearch from "./membersTaskSearch/MembersTaskSearch";
 import React, { useState } from "react";
 import { v4 } from "uuid";
-import {
-  onItemChangedHandler,
-  onListChangedHandler,
-} from "../../../utils/Utils";
+import { onItemChangedHandler } from "../../../utils/Utils";
 
 const TasksForm = ({
   selectedMembers,
