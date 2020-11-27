@@ -47,7 +47,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
           onEdit(project);
         }}
       />
-      {project.available && (
+      {!project.done && (
         <DeleteIcon
           style={{ ...styleCom }}
           className=" projects__icon projects__icon__delete"

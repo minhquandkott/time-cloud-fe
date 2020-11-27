@@ -8,7 +8,8 @@ import { NavLink } from "react-router-dom";
 import UserInfo from "../../components/userInfo/UserInfo";
 import history from "../../history/index";
 
-const Header = ({ user, logout }) => {
+const Header = ({ user, logout, managedProjects }) => {
+  console.log(managedProjects);
   const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef(null);
   function onClickHandler() {
@@ -34,10 +35,13 @@ const Header = ({ user, logout }) => {
     history.push(`/profile/${localStorage.getItem("userId")}`);
   };
 
-  const features = user?.roles?.some((ele) => ele.id === 1 || ele.id === 3) ? (
+  const features = user?.roles?.some((ele) => ele.id === 1) ? (
     <React.Fragment>
       <NavLink to="/timer" activeClassName="header__feature__active">
         Your timer
+      </NavLink>
+      <NavLink to="/time-off" activeClassName="header__feature__active">
+        Time off
       </NavLink>
       <NavLink
         to={{
@@ -72,6 +76,11 @@ const Header = ({ user, logout }) => {
       >
         Report
       </NavLink>
+      {managedProjects.length > 0 && (
+        <NavLink to="/projects" activeClassName="header__feature__active">
+          Project
+        </NavLink>
+      )}
       <NavLink to="/discussion" activeClassName="header__feature__active">
         Discussion
       </NavLink>
@@ -117,9 +126,10 @@ const Header = ({ user, logout }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { auth } = state;
+  const { user, managedProjects } = state.auth;
   return {
-    user: auth.user,
+    user,
+    managedProjects,
   };
 };
 

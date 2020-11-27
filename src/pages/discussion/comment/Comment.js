@@ -12,6 +12,7 @@ const Comment = ({
   comments,
   onAddComment,
   onDeleteComment,
+  project,
 }) => {
   const commentRef = useRef(null);
   const [commentInput, setCommentInput] = useState("");
@@ -45,6 +46,7 @@ const Comment = ({
             key={v4()}
             onDeleteComment={() => onDeleteComment(comment.id)}
             discussion={discussion}
+            project={project}
           />
         );
       })}

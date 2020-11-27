@@ -8,7 +8,7 @@ import DropDown2 from "../../../components/dropdown2/DropDown2";
 
 const types = ["Bug", "Feature", "Approve", "Others"];
 
-const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
+const DiscussionItem = ({ discussion, onDeleteItem, user, project }) => {
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState(null);
   const [data, setData] = useState(discussion);
@@ -117,6 +117,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
             onDelete={onDeleteItem}
             onEdit={onEditDiscussion}
             user={user}
+            project={project}
           />
         </div>
         <div
@@ -150,6 +151,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user }) => {
             onCloseHandler={() => setShowComment(false)}
             onDeleteComment={onDeleteComment}
             user={user}
+            project={project}
           />
         </div>
       )}

@@ -100,7 +100,7 @@ class Projects extends React.Component {
     this.setState({
       projects: this.state.projects.map((ele) => {
         if (project.id === ele.id) {
-          return { ...ele, available: false };
+          return { ...ele, done: true };
         } else {
           return ele;
         }
@@ -110,21 +110,15 @@ class Projects extends React.Component {
 
   fetchAllProject = async () => {
     const res = await timeCloudAPI().get("projects");
-    const res1 = await Promise.allSettled(
-      res.data.map((project) =>
-        timeCloudAPI().get(`projects/${project.id}/available`)
-      )
-    );
-    const temp = res.data.map((project, index) => {
-      const available =
-        res1[index].status === "fulfilled" ? res1[index].value.data : false;
-      return { ...project, available };
-    });
-    this.setState({ projects: temp });
+    this.setState({ projects: res.data });
   };
 
   componentDidMount = () => {
-    this.fetchAllProject();
+    if (!this.props.adminMode) {
+      this.fetchAllProject();
+    } else {
+      this.setState({ projects: this.props.managedProjects });
+    }
   };
 
   onChange = (e) => {
@@ -148,27 +142,27 @@ class Projects extends React.Component {
 
   onSortProjects = (projects) => {
     return projects.sort((first, second) => {
-      if (first.available > second.available) return -1;
-      else if (first.available < second.available) return 1;
+      if (first.done < second.done) return -1;
+      else if (first.done > second.done) return 1;
       else return 0;
     });
   };
 
   cssCondition(project) {
-    if (!project.available) {
+    if (project.done) {
       return { backgroundColor: "#ece7e7" };
     }
   }
 
   render() {
     var { txtSearch, projects } = this.state;
+    const { adminMode } = this.props;
     projects = this.onSortProjects(projects);
     if (txtSearch) {
       projects = projects.filter((project) => {
         return project.name.toLowerCase().indexOf(txtSearch) !== -1;
       });
     }
-    console.log(projects);
     return (
       <PageDesign title="Projects">
         <div className="projects__content">
@@ -182,12 +176,14 @@ class Projects extends React.Component {
               className="page_design__animate__left"
             ></input>
           </div>
-          <button
-            className="projects__bt page_design__animate__right"
-            onClick={this.onCreateProject}
-          >
-            Create new project
-          </button>
+          {adminMode || (
+            <button
+              className="projects__bt page_design__animate__right"
+              onClick={this.onCreateProject}
+            >
+              Create new project
+            </button>
+          )}
         </div>
         <Table
           columns={this.columns}
@@ -204,5 +200,7 @@ class Projects extends React.Component {
     );
   }
 }
+
+const mapStateToProps = () => {};
 
 export default Projects;

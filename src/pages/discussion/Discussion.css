@@ -71,6 +71,15 @@
   font-weight: 600;
   padding: .5rem 1.5rem;
 }
+.discussion__content_dd_project>p>span{
+  font-size: 1.3rem;
+  background-color: var(--color-error);
+  border: .3rem;
+  border-radius: .5rem;
+  padding: .1rem .3rem;
+  color : white;
+  margin-left: .5rem;
+}
 .discussion__content_dd_project>p:hover{
   background-color: #D7D9DE;
 }

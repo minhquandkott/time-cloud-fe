@@ -15,7 +15,9 @@ import Profile from "./profile/Profile";
 import NotFound from "./notFound/NotFound";
 import ReportAdmin from "./report/reportadmin/ReportAdmin";
 import TimerCalendar from "../components/timerCalendar/TimerCalendar";
-import Discussion from "../pages/discussion/Discussion";
+import Discussion from '../pages/discussion/Discussion';
+import TimeOff from '../pages/timeOff/TimeOff';
+import CreateRequestTimeOff from '../pages/createRequestTimeOff/CreateRequestTimeOff';
 
 class Router extends React.Component {
   componentDidMount() {
@@ -23,8 +25,10 @@ class Router extends React.Component {
   }
 
   render() {
+    const { user, isLogin, managedProjects } = this.props;
+
     let routes;
-    if (this.props.user?.roles?.some((ele) => ele.id === 1)) {
+    if (user?.roles?.some((ele) => ele.id === 1)) {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
@@ -33,11 +37,13 @@ class Router extends React.Component {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/report/:id" component={Report} />
           <Route path="/profile/:id" component={Profile} />
+          <Route path="/time-off" component={TimeOff} />
           <Route path="/manage" component={Manage} />
           <Route path="/create_project" component={CreateProject} />
           <Route path="/edit_project/:id" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
+          <Route path="/create-request-time-off" component={CreateRequestTimeOff} />
           <Route path="/timer_calendar" component={TimerCalendar} />
           <Route path="/discussion" component={Discussion}></Route>
           <Route component={NotFound} />
@@ -47,17 +53,31 @@ class Router extends React.Component {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
+          <Route path="/time-off" component={TimeOff} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
+          <Route path="/create-request-time-off" component={CreateRequestTimeOff} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
-          {this.props.user?.roles ? <Route component={NotFound} /> : null}
+          {managedProjects.length && (
+            <Route
+              path="/projects"
+              exact
+              render={() => (
+                <Projects adminMode={true} managedProjects={managedProjects} />
+              )}
+            />
+          )}
+          {managedProjects.length && (
+            <Route path="/projects/:id" component={ProjectDetail} />
+          )}
+          {user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
       );
     }
     return (
       <React.Fragment>
-        {this.props.isLogin ? (
+        {isLogin ? (
           <React.Fragment>
             <Header />
             {routes}
@@ -75,11 +95,11 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { token, user, loading } = state.auth;
+  const { token, user, managedProjects } = state.auth;
   return {
     isLogin: token ? true : false,
     user,
-    loading,
+    managedProjects,
   };
 };
 export default connect(mapStateToProps, {
