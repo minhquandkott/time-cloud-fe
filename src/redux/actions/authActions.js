@@ -9,6 +9,7 @@ import {
   AUTH_START_SIGN_UP,
   AUTH_SET_USER_INFO,
   AUTH_SET_USER_ROLE,
+  AUTH_SET_MANAGED_PROJECTS,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
@@ -73,6 +74,13 @@ const setUserRole = (userRole) => {
   };
 };
 
+const setManagedProjects = (projects) => {
+  return {
+    type: AUTH_SET_MANAGED_PROJECTS,
+    payload: projects,
+  };
+};
+
 const fetchUserRole = (userId) => {
   return async (dispatch) => {
     try {
@@ -81,6 +89,10 @@ const fetchUserRole = (userId) => {
       );
       const roles = response2.data.map((ele) => ele.role);
       dispatch(setUserRole(roles));
+      if (!roles.some((ele) => ele.name === "ADMIN")) {
+        const res = await timeCloudAPI().get(`users/${userId}/manage_project`);
+        dispatch(setManagedProjects(res.data));
+      }
     } catch (error) {
       console.log("error");
     }

@@ -23,8 +23,10 @@ class Router extends React.Component {
   }
 
   render() {
+    const { user, isLogin, managedProjects } = this.props;
+
     let routes;
-    if (this.props.user?.roles?.some((ele) => ele.id === 1)) {
+    if (user?.roles?.some((ele) => ele.id === 1)) {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
@@ -51,13 +53,25 @@ class Router extends React.Component {
           <Route path="/report" component={Report} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
-          {this.props.user?.roles ? <Route component={NotFound} /> : null}
+          {managedProjects.length && (
+            <Route
+              path="/projects"
+              exact
+              render={() => (
+                <Projects adminMode={true} managedProjects={managedProjects} />
+              )}
+            />
+          )}
+          {managedProjects.length && (
+            <Route path="/projects/:id" component={ProjectDetail} />
+          )}
+          {user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
       );
     }
     return (
       <React.Fragment>
-        {this.props.isLogin ? (
+        {isLogin ? (
           <React.Fragment>
             <Header />
             {routes}
@@ -75,11 +89,11 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { token, user, loading } = state.auth;
+  const { token, user, managedProjects } = state.auth;
   return {
     isLogin: token ? true : false,
     user,
-    loading,
+    managedProjects,
   };
 };
 export default connect(mapStateToProps, {

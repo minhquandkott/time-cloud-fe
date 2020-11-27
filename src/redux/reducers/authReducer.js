@@ -9,6 +9,7 @@ import {
   AUTH_SIGN_UP_SUCCESS,
   AUTH_SET_USER_INFO,
   AUTH_SET_USER_ROLE,
+  AUTH_SET_MANAGED_PROJECTS,
 } from "../actions/actionType";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   error: null,
   authRedirectPath: "/",
   user: null,
+  managedProjects: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -78,6 +80,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         user: { ...state.user, ...payload },
         loading: false,
+      };
+    case AUTH_SET_MANAGED_PROJECTS:
+      return {
+        ...state,
+        managedProjects: payload,
       };
     default:
       return state;
