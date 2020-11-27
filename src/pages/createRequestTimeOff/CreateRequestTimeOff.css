@@ -1,0 +1,16 @@
+.create_request_time_off {
+    background-color: #F2F5F7;
+}
+
+.create_request_time_off__content {
+    display: flex;
+}
+
+.content__form {
+    background-color: white;
+    width: 70%;
+}
+
+.content__info {
+    width: 30%;
+}
