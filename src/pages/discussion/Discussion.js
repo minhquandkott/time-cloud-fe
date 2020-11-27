@@ -181,6 +181,9 @@ class Discussion extends Component {
           return (
             <p key={project.id} onClick={() => this.onSelectProject(project)}>
               {project.name}
+              {this.props.managedProjects.some(
+                (ele) => ele.id === project.id
+              ) && <span>PM</span>}
             </p>
           );
         })}
@@ -316,7 +319,7 @@ class Discussion extends Component {
                       user={this.props.user}
                       discussion={discussion}
                       onDeleteItem={() => this.onDeleteItem(discussion)}
-                      project = {projectSelected}
+                      project={projectSelected}
                     />
                   );
                 })
@@ -386,8 +389,10 @@ class Discussion extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const { user, managedProjects } = state.auth;
   return {
-    user: state.auth.user,
+    user,
+    managedProjects,
   };
 };
 
