@@ -54,13 +54,16 @@ class Router extends React.Component {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
           {managedProjects.length && (
-            <Route
-              path="/projects"
-              exact
-              render={() => (
-                <Projects adminMode={true} managedProjects={managedProjects} />
-              )}
-            />
+            <>
+              <Route
+                path="/projects"
+                exact
+                render={() => (
+                  <Projects adminMode={true} managedProjects={managedProjects} />
+                )}
+              />
+              <Route path="/edit_project/:id" component={CreateProject} />
+            </>            
           )}
           {managedProjects.length && (
             <Route path="/projects/:id" component={ProjectDetail} />
