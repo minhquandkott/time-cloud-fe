@@ -6,10 +6,10 @@ const getAuthState = () => {
   return store.getState().auth;
 };
 //http://localhost:8081/
-//https://apitimecloudtracker.herokuapp.com/
+//https://timeclouddkott.herokuapp.com/
 export default () => {
   return axios.create({
-    baseURL: "https://apitimecloudtracker.herokuapp.com/",
+    baseURL: "https://timeclouddkott.herokuapp.com/",
     headers: {
       [TOKEN]: getAuthState().token ? getAuthState().token : "token",
       [USER_ID]: getAuthState().userId ? getAuthState().userId : "userId",
