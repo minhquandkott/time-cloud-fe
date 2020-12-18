@@ -8,12 +8,12 @@ const ReportItemDes = ({ user, data }) => {
 
   useEffect(() => {
     timeCloudAPI()
-      .get(`/users/${user.id}/description/${data.description}/total-times`)
+      .get(`/users/${user.id}/project/${data.task.project.id}/description/${data.description}/total-times`)
       .then((response) => {
         setTime(response.data);
       })
       .catch((error) => {});
-  }, [data.description, user.id]);
+  }, [data.description, data.task.project.id, user.id]);
 
   return (
     <div>

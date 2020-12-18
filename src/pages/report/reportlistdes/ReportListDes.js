@@ -19,7 +19,7 @@ const ReportListDes = ({ user }) => {
   const newData = [];
 
   data.filter(function (datum) {
-    let i = newData.findIndex((x) => x.description === datum.description);
+    let i = newData.findIndex((x) => (x.description === datum.description && x.task.project.id === datum.task.project.id ));
     if (i <= -1) {
       newData.push(datum);
     }
