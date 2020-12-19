@@ -11,7 +11,7 @@
 }
 
 .table__body>tr {
-  border-bottom: 1px solid var(--color-light-tertiary);
+  border-bottom: 1px solid var(--color-dark-tertiary);
   transition: all .5s;
 }
 

@@ -17,6 +17,7 @@
 .report_admin_user_item>p{
     font-size: 1.5em;
     padding-top: 0.75rem;
+    font-weight: bold;
 }
 
 .report_admin_user_avatarInfo>h2{
