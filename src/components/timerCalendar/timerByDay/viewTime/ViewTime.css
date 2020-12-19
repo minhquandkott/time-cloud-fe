@@ -78,9 +78,9 @@
 .view_time__modal_action>button{
   outline: none;
   border: none;
-  padding: .5rem;
+  padding: 1rem;
   font-size: 1.7rem;
-  font-weight: 650;
+  font-weight: 500;
   margin-left: .5rem;
   font-family: 'Quicksand';
   cursor: pointer;
@@ -89,10 +89,11 @@
   
 }
 .view_time__modal_action>button:nth-of-type(1){
-  background-color: var(--color-error);
+  background-color: var(--color-button);
 }
 .view_time__modal_action>button:nth-of-type(2){
-  background-color: var(--color-button);
+  background-color: #EEE;
+  color: #363636;
 }
 
 .view_time__modal_content>p{

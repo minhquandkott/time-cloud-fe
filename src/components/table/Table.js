@@ -67,11 +67,13 @@ const Table = ({
           countItem={columns ? Object.keys(columns).length : 3}
           heightItem="2rem"
           direction="row"
+          
         />
         <Skeleton
           countItem={5}
           heightItem="4rem"
           direction="column"
+          
           bgSkeleton="var(--color-light-primary)"
         />
       </React.Fragment>

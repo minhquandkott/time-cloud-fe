@@ -163,11 +163,7 @@ const TeamMembers = ({
           ) : null}
         </div>
         <div className="team_members__bottom_right">
-          <p>Need to add some one?</p>
-          <p>
-            Go to <span onClick={() => onInvite()}>Manager &gt; People</span> to
-            see all Members.
-          </p>
+  
         </div>
       </div>
     </div>

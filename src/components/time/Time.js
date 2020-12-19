@@ -130,7 +130,7 @@ const Time = ({
     <div className="time">
       <div className="time__left">
         <input
-          placeholder="Description"
+          placeholder="Description..."
           type="text"
           className="form__input form__input__description"
           value={description}

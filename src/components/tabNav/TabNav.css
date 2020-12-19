@@ -3,7 +3,7 @@
 }
 
 .tab_nav__nav {
-  border-bottom: 3px solid var(--color-light-tertiary);
+  border-bottom: 3px solid white;
 }
 
 .tab_nav__nav>span {

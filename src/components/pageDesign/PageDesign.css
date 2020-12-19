@@ -1,7 +1,11 @@
 .page_design{
+  background-image: linear-gradient( #dae6f2 0%,#dae6f2 75%, #83beea 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 0 10rem;
   font-family: 'Quicksand', sans-serif;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 .page_design__header{
   margin-top: 1.5rem;
@@ -9,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid var(--color-light-tertiary);
+  border-bottom: 3px solid var(--color-dark-tertiary);
   
 }
 .page_design__header__left{

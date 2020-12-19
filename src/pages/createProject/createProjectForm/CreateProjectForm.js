@@ -38,7 +38,7 @@ const CreateProjectForm = ({
         <label htmlFor="project">Projects</label>
         <input
           id="project"
-          placeholder="project name"
+          placeholder="project name..."
           type="text"
           style={{ flex: ".5" }}
           value={projectForm.projectName}
@@ -62,7 +62,7 @@ const CreateProjectForm = ({
         <label htmlFor="client-name">Client Name</label>
         <input
           id="client-name"
-          placeholder="client name"
+          placeholder="client name..."
           type="text"
           style={{ flex: ".3" }}
           value={projectForm.clientName}

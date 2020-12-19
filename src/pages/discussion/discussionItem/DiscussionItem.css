@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   border-radius: 1rem;
+  background: white;
 }
 .discussion_item__top>div:nth-child(1){
   padding: 1rem;

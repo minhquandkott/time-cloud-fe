@@ -1,8 +1,12 @@
 
 .project_detail {
-    margin: 0 10%;
+    background-image: linear-gradient( #dae6f2 0%,#dae6f2 75%, #83beea 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0 10%;
     overflow-x: hidden;
     font-family: 'Quicksand', sans-serif;
+    
 }
 
 .project_detail__header {

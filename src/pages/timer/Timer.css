@@ -3,6 +3,9 @@
   font-family: 'Quicksand', sans-serif;
   letter-spacing: -.5px;
   min-height: 100vh;
+  background-image: url("https://i.pinimg.com/originals/ce/ed/a6/ceeda67962f9557162bc920cf0696444.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 #drag_image{
   background-color:#8d8d8d;

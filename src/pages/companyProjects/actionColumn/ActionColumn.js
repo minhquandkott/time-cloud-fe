@@ -21,7 +21,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
         <button
           onClick={() => {
             setShowModal(false);
-            timeCloudAPI().delete(`projects/${project.id}`);
+            timeCloudAPI().put(`projects/change-status/${project.id}?done=true`);
             deleteProject(project);
           }}
         >

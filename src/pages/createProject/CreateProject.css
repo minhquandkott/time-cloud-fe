@@ -2,6 +2,12 @@
   padding: 2rem 12rem;
   padding-bottom: 10rem;
   overflow-x: hidden;
+  background-image: linear-gradient( #dae6f2 0%,#dae6f2 75%, #83beea 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.create_project input{
+  background-color: transparent;
 }
 .create_project__bottom{
   padding-top: 2rem;
@@ -45,7 +51,6 @@
   border: none;
   margin-right: 2rem;
   background-color: var(--color-light-primary);
-  border: 1px solid var(--color-dark-tertiary);
   color: var(--color-dark-secondary);
 }
 .create_project__button__cancel:hover{

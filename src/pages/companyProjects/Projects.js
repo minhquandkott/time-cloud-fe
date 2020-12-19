@@ -150,7 +150,7 @@ class Projects extends React.Component {
 
   cssCondition(project) {
     if (project.done) {
-      return { backgroundColor: "#ece7e7" };
+      return { backgroundColor: "rgba(246,208,103,.4)" };
     }
   }
 
@@ -172,7 +172,7 @@ class Projects extends React.Component {
               value={txtSearch}
               name="txtSearch"
               onChange={this.onChange}
-              placeholder="Searching your project"
+              placeholder="Searching your project..."
               className="page_design__animate__left"
             ></input>
           </div>
