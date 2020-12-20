@@ -19,7 +19,12 @@ class ViewUsersByTask extends React.Component {
       .then((response) => {
         if (this._isMounted) {
           this.setState({
-            users: [...response.data, ...this.props.oldUsers],
+            users: [...response.data.map(ele => {
+              if(this.props.oldUsers.some(e => e.id === ele.id)){
+                return {...ele, isDoing : false}
+              }
+              return ele
+            })],
           });
         }
       });

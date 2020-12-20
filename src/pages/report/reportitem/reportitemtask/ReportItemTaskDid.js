@@ -26,7 +26,7 @@ const ReportItemTaskDid = ({ user, task }) => {
       <h2>{task.name}</h2>
       <h3 className="report_item__task_name_isDone"
                   style={{
-                          background:"rgb(204, 13, 13)", 
+                          background:"rgb(94, 90, 90)", 
                           borderRadius:"15px 15px 15px 15px",}}>Old Task</h3>
       <div></div>
       <p>{convertSecondToHour(time) + "h"}</p>

@@ -30,8 +30,11 @@ class ProjectDetailTeam extends React.Component {
   }
 
   getUnavailableTasks(userId) {
-    return this.props.unavailableUsers.find((ele) => ele.user.id === userId)
-      ?.tasks;
+    const temp  = this.props.unavailableUsers.find((ele) => ele.user?.id === userId)
+    if(temp && temp.tasks){
+      return temp.tasks
+    }
+      return []
   }
 
   render() {

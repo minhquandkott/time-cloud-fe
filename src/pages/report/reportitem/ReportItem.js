@@ -66,10 +66,15 @@ const ReportItem = ({ project, user, isDoing}) => {
           <h2>{project.name}</h2>
           <h3>({project.clientName})</h3>
             {
-              isDoing===false?
+              project.done?
               <div className="report_item__project_name_isDone"
                   style={{height:"30px",
                           background:"rgb(204, 13, 13)", 
+                          borderRadius:"15px 15px 15px 15px",}}><h3>Done</h3></div>:   
+              isDoing===false?
+              <div className="report_item__project_name_isDone"
+                  style={{height:"30px",
+                          background:"rgb(94, 90, 90)", 
                           borderRadius:"15px 15px 15px 15px",}}><h3>Old Project</h3></div>:null             
             }
         </div>
