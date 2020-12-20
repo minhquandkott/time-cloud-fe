@@ -122,6 +122,7 @@ const MembersTaskSearch = ({
                   }}
                 >
                   <UserInfo
+                    avatar={ele.user.avatar}
                     primaryInfo={ele.user.name}
                     secondaryInfo={ele.user.email}
                   />
