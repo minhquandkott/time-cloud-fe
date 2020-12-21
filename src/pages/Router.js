@@ -63,11 +63,9 @@ class Router extends React.Component {
                 )}
               />
               <Route path="/edit_project/:id" component={CreateProject} />
+              <Route path="/projects/:id" component={ProjectDetail} />
             </>            
-          )}
-          {managedProjects.length && (
-            <Route path="/projects/:id" component={ProjectDetail} />
-          )}
+          )}         
           {user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
       );

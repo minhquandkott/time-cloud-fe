@@ -205,6 +205,7 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     });
 
     // * api tasks
+    console.log(addedTasks)
     arrRequest.push(
       ...addedTasks.map((task) => saveTaskAndTaskMembers(task, id))
     );
@@ -235,13 +236,13 @@ const CreateProject = ({ match, fetchMembers, members }) => {
     arrRequest.push(
       ...deleteTasks.map((ele) => timeCloudAPI().delete(`tasks/${ele.id}`))
     );
-    arrRequest.push(
-      ...addedTasks.map((ele) =>
-        timeCloudAPI().post(`projects/${match.params.id}/tasks`, {
-          name: ele.name,
-        })
-      )
-    );
+    // arrRequest.push(
+    //   ...addedTasks.map((ele) =>
+    //     timeCloudAPI().post(`projects/${match.params.id}/tasks`, {
+    //       name: ele.name,
+    //     })
+    //   )
+    // );
 
     const deletedMembers = listUsers.filter(
       (user) => !selectedMembers.find((member) => member.id === user.id)
